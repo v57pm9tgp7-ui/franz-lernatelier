@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#072f5f">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Franz Lernatelier – aktuelle Wochenmodule, differenzierte Hilfen und Französischtraining.">
+<title>Franz Lernatelier</title>
+
+<style>:root{
+  --ink:#10243e;
+  --ink-soft:#52657a;
+  --blue:#0055a4;
+  --blue-dark:#072f5f;
+  --blue-deeper:#041d3d;
+  --blue-soft:#eaf3fb;
+  --red:#ef4135;
+  --red-dark:#b52d2b;
+  --red-soft:#fff0ee;
+  --paper:#ffffff;
+  --cream:#f5f2eb;
+  --cream-2:#ece7dc;
+  --line:#d7e0e8;
+  --line-strong:#aebdca;
+  --green:#187a67;
+  --green-soft:#e8f5f1;
+  --gold:#b87912;
+  --gold-soft:#fff4db;
+  --shadow:0 24px 64px rgba(10,42,73,.13);
+  --shadow-soft:0 10px 28px rgba(10,42,73,.075);
+  --radius-xl:30px;
+  --radius-lg:22px;
+  --radius-md:15px;
+  --focus:0 0 0 4px rgba(0,85,164,.20);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:"Bahnschrift","Segoe UI",Aptos,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fbfaf7 0,#f5f2eb 650px,#f5f2eb 100%);font-size:18px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.28;background-image:radial-gradient(circle at 1px 1px,rgba(16,36,62,.12) 1px,transparent 1.4px);background-size:28px 28px;mask-image:linear-gradient(to bottom,#000,transparent 700px)}
+button,input{font:inherit}button{color:inherit}button:focus-visible,input:focus-visible,a:focus-visible{outline:none;box-shadow:var(--focus)}
+a{color:inherit}#mainContent:focus{outline:none}.svg-sprite{position:absolute;width:0;height:0;overflow:hidden}.skip-link{position:fixed;left:18px;top:-70px;z-index:500;padding:10px 14px;border-radius:10px;background:var(--ink);color:#fff;font-weight:900;text-decoration:none}.skip-link:focus{top:16px}.tricolore{height:6px;display:grid;grid-template-columns:1fr 1fr 1fr;position:fixed;top:0;left:0;right:0;z-index:300}.tricolore i:nth-child(1){background:var(--blue)}.tricolore i:nth-child(2){background:#fff}.tricolore i:nth-child(3){background:var(--red)}
+.site-header{position:sticky;top:0;z-index:200;margin-top:6px;border-bottom:1px solid rgba(174,189,202,.7);background:rgba(255,255,255,.96);backdrop-filter:blur(16px)}
+.header-inner{max-width:1280px;min-height:82px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:240px}.brand-mark{position:relative;flex:0 0 auto;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,var(--blue-dark),var(--blue));color:#fff;box-shadow:0 8px 20px rgba(0,55,108,.18);overflow:hidden}.brand-mark svg{width:31px;height:31px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.brand-mark i{position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--blue) 0 33.33%,#fff 33.33% 66.66%,var(--red) 66.66%)}.brand-copy{display:flex;flex-direction:column;line-height:1.08}.brand-copy strong{font-size:20px;letter-spacing:-.02em}.brand-copy small{margin-top:5px;color:var(--ink-soft);font-size:12px;font-weight:800}.main-nav{display:flex;align-items:center;gap:6px;margin:auto}.nav-item{min-height:46px;border:0;border-radius:12px;background:transparent;padding:9px 13px;display:inline-flex;align-items:center;gap:8px;font-weight:900;cursor:pointer;color:var(--ink-soft)}.nav-item svg,.round-button svg,.mobile-nav svg,.primary-action svg,.secondary-action svg,.text-link svg,.teacher-note button svg,.next-card a svg,.next-meta svg,.training-card button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.nav-item:hover{background:var(--blue-soft);color:var(--blue-dark)}.nav-item.is-active{background:var(--blue-dark);color:#fff}.header-actions{display:flex;align-items:center;gap:8px}.level-shortcut{min-height:46px;border:1px solid var(--line);border-radius:13px;background:#fff;padding:7px 12px;display:flex;flex-direction:column;align-items:flex-start;cursor:pointer}.level-shortcut strong,.level-shortcut span{font-size:13px;font-weight:950;line-height:1.1}.level-shortcut small{font-size:11px;color:var(--ink-soft);font-weight:800}.level-shortcut:hover{border-color:var(--blue);background:var(--blue-soft)}.round-button{width:46px;height:46px;border:1px solid var(--line);border-radius:13px;background:#fff;display:grid;place-items:center;font-weight:950;cursor:pointer}.round-button:hover{border-color:var(--blue);background:var(--blue-soft)}
+.site-main{max-width:1280px;margin:0 auto;padding:38px 20px 90px}.app-view{display:none;animation:enter .24s ease both}.app-view.is-active{display:block}@keyframes enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}.plain-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}.plain-heading h1{margin:3px 0 0;font-size:clamp(40px,5vw,64px);line-height:1.02;letter-spacing:-.045em}.plain-heading p{margin:9px 0 0;color:var(--ink-soft);font-size:18px}.eyebrow,.small-label,.module-kicker{font-size:12px;font-weight:950;letter-spacing:.09em;text-transform:uppercase;color:var(--red-dark)}.save-note{display:flex;align-items:center;gap:10px;padding:10px 13px;border:1px solid #b8d9ce;border-radius:14px;background:var(--green-soft)}.save-note>span{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(24,122,103,.12)}.save-note p{margin:0!important;display:flex;flex-direction:column;line-height:1.25}.save-note strong{font-size:13px}.save-note small{font-size:11px;color:#356e61}
+.week-hero{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(390px,.82fr);overflow:hidden;border:1px solid var(--line);border-radius:var(--radius-xl);background:var(--paper);box-shadow:var(--shadow)}.week-hero-copy{padding:40px 42px 38px}.hero-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:28px}.week-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:var(--blue-soft);color:var(--blue-dark);font-size:13px;font-weight:900}.state-badge{display:inline-flex;align-items:center;gap:7px;color:var(--ink-soft);font-size:13px;font-weight:850}.state-badge i{width:9px;height:9px;border-radius:50%;background:var(--red)}.state-badge.is-working i{background:var(--gold)}.state-badge.is-done i{background:var(--green)}.week-hero h2{margin:4px 0 0;font-size:clamp(48px,7vw,82px);line-height:.96;letter-spacing:-.055em;color:var(--blue-dark)}.module-subtitle{margin:10px 0 0;color:var(--red-dark);font-size:23px;font-weight:950}.module-description{max-width:680px;margin:20px 0 0;color:var(--ink-soft);font-size:19px;line-height:1.55}.module-facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.fact-chip{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:850}.progress-block{margin-top:29px}.progress-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px;font-size:13px;font-weight:850}.progress-head span{color:var(--ink-soft)}.progress-track{height:10px;border-radius:999px;background:#e6ebef;overflow:hidden}.progress-track span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue),var(--red));transition:width .28s ease}.hero-actions{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-top:25px}.primary-action,.secondary-action{min-height:52px;border-radius:14px;padding:12px 18px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:950;text-decoration:none;cursor:pointer}.primary-action{border:1px solid var(--blue-dark);background:var(--blue-dark);color:#fff;box-shadow:0 9px 22px rgba(7,47,95,.20)}.primary-action:hover{background:var(--blue);border-color:var(--blue)}.secondary-action{border:1px solid var(--line-strong);background:#fff}.secondary-action:hover{border-color:var(--blue);background:var(--blue-soft)}
+.week-hero-visual{position:relative;min-height:540px;overflow:hidden;background:linear-gradient(145deg,var(--blue-deeper),var(--blue-dark) 52%,var(--blue));color:#fff}.week-hero-visual::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 8%,rgba(255,255,255,.12),transparent 23rem),linear-gradient(118deg,transparent 0 52%,rgba(239,65,53,.18) 52% 100%)}.week-hero-visual::after{content:"";position:absolute;right:-90px;bottom:-100px;width:260px;height:260px;border-radius:50%;background:rgba(239,65,53,.42);box-shadow:0 0 0 28px rgba(255,255,255,.045),0 0 0 58px rgba(255,255,255,.025)}.visual-number{position:absolute;left:24px;top:6px;color:rgba(255,255,255,.08);font-size:170px;font-weight:950;letter-spacing:-.09em;line-height:1}.eiffel{position:absolute;right:52px;top:58px;width:155px;height:215px;filter:drop-shadow(0 15px 24px rgba(0,0,0,.22));z-index:1}.eiffel path{stroke:#fff;stroke-width:7;stroke-linecap:round}.eiffel path:nth-child(3){stroke:#f2d7a2;stroke-width:5}.speech-card{position:absolute;z-index:2;padding:11px 15px;border-radius:15px;background:#fff;color:var(--blue-dark);font-size:20px;font-weight:950;box-shadow:0 12px 27px rgba(0,0,0,.22)}.speech-card::after{content:"";position:absolute;bottom:-8px;border:9px solid transparent;border-top-color:#fff}.card-a{left:34px;top:165px;transform:rotate(-4deg)}.card-a::after{left:20px;border-left:0}.card-b{right:25px;top:250px;background:var(--red);color:#fff;transform:rotate(4deg)}.card-b::after{right:20px;border-top-color:var(--red);border-right:0}.route-card{position:absolute;z-index:3;left:28px;right:28px;bottom:28px;padding:18px;border:1px solid rgba(255,255,255,.24);border-radius:19px;background:rgba(4,29,61,.63);backdrop-filter:blur(12px)}.route-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;font-weight:900}.route-card-head span{text-transform:uppercase;letter-spacing:.08em;color:#dbe9f7}.route-line{position:relative;display:grid;grid-template-columns:repeat(8,1fr);align-items:center;gap:7px;margin-top:18px}.route-line::before{content:"";position:absolute;left:3%;right:3%;top:50%;height:3px;transform:translateY(-50%);background:linear-gradient(90deg,var(--blue) 0 34%,#fff 34% 66%,var(--red) 66%);opacity:.45}.route-dot{position:relative;z-index:1;width:34px;height:34px;margin:auto;border:4px solid rgba(4,29,61,.8);border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--blue-dark);font-size:11px;font-weight:950;box-shadow:0 0 0 1px rgba(255,255,255,.3)}.route-dot.is-done{background:var(--green);color:#fff}.route-dot.is-next{background:var(--red);color:#fff;box-shadow:0 0 0 4px rgba(239,65,53,.25)}
+.start-row{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:20px}.next-card,.teacher-note{border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--paper);padding:23px 24px;box-shadow:var(--shadow-soft)}.next-card{border-left:6px solid var(--red)}.next-main{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-top:13px}.next-number{width:55px;height:55px;border-radius:15px;display:grid;place-items:center;background:var(--red-soft);color:var(--red-dark);font-size:22px;font-weight:950}.next-card h2,.teacher-note h2{margin:0;font-size:23px;letter-spacing:-.025em}.next-card p,.teacher-note p{margin:4px 0 0;color:var(--ink-soft);font-size:15px}.next-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;color:var(--ink-soft)}.next-meta span{display:flex;align-items:center;gap:7px;font-size:12px}.next-meta svg{width:17px;height:17px}.next-card>a,.teacher-note button{margin-top:17px;border:0;background:transparent;color:var(--blue-dark);padding:0;display:inline-flex;align-items:center;gap:7px;font-weight:950;text-decoration:none;cursor:pointer}.next-card>a:hover,.teacher-note button:hover{text-decoration:underline}.teacher-note{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--blue-soft),#fff)}.teacher-note::after{content:"FR";position:absolute;right:-4px;bottom:-30px;color:rgba(0,85,164,.08);font-size:100px;font-weight:950;line-height:1}.teacher-note>*{position:relative;z-index:1}.teacher-note .small-label{color:var(--blue)}
+.level-section,.quick-section{margin-top:34px;border:1px solid var(--line);border-radius:var(--radius-xl);background:rgba(255,255,255,.86);padding:30px;box-shadow:var(--shadow-soft)}.section-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:22px}.section-heading h2{margin:3px 0 0;font-size:34px;line-height:1.12;letter-spacing:-.035em}.section-heading p{margin:8px 0 0;color:var(--ink-soft);font-size:16px}.change-note{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink-soft);font-size:11px;font-weight:850;white-space:nowrap}.level-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-top:22px}.level-card{position:relative;min-height:156px;border:1px solid var(--line);border-radius:17px;background:#fff;padding:17px;text-align:left;cursor:pointer;overflow:hidden}.level-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--level-color)}.level-card:hover{transform:translateY(-2px);border-color:var(--level-color);box-shadow:var(--shadow-soft)}.level-card.is-selected{border:2px solid var(--level-color);background:var(--level-soft);box-shadow:0 0 0 3px color-mix(in srgb,var(--level-color) 10%,transparent)}.level-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.level-icon{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--level-soft);color:var(--level-color);font-weight:950}.level-radio{width:23px;height:23px;border:2px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px}.level-card.is-selected .level-radio{border-color:var(--level-color);background:var(--level-color)}.level-card h3{margin:13px 0 2px;font-size:19px}.level-card strong{display:block;color:var(--level-color);font-size:12px}.level-card p{margin:7px 0 0;color:var(--ink-soft);font-size:13px;line-height:1.42}.support-demo{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:16px}.exercise-example,.support-box{border:1px solid var(--line);border-radius:18px;background:#fff;padding:20px}.exercise-top{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start}.exercise-number{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--blue-dark);color:#fff;font-weight:950}.exercise-top small{color:var(--red-dark);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em}.exercise-top h3{margin:3px 0 0;font-size:19px}.exercise-level{padding:5px 8px;border-radius:999px;background:var(--blue-soft);color:var(--blue-dark);font-size:10px;font-weight:950}.sentence-field{display:grid;grid-template-columns:auto minmax(150px,1fr) auto;gap:9px;align-items:center;margin-top:18px;padding:13px;border:1px solid var(--line);border-radius:14px;background:#fbfcfd}.sentence-field span{font-size:15px;font-weight:900}.sentence-field input{min-width:0;width:100%;min-height:45px;border:1px solid var(--line-strong);border-radius:11px;padding:8px 10px}.mini-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}.mini-checks span{position:relative;padding-left:17px;color:var(--ink-soft);font-size:11px}.mini-checks span::before{content:"";position:absolute;left:0;top:4px;width:9px;height:9px;border:1px solid #8ebbae;border-radius:3px;background:var(--green-soft)}.support-box{position:relative;overflow:hidden;border-color:var(--level-color,var(--blue));background:var(--level-soft,var(--blue-soft))}.support-box::after{content:"";position:absolute;right:-55px;bottom:-60px;width:150px;height:150px;border-radius:50%;background:color-mix(in srgb,var(--level-color,var(--blue)) 11%,transparent)}.support-box>*{position:relative;z-index:1}.support-box h3{margin:8px 0 0;font-size:23px}.support-box p{margin:7px 0 0;color:var(--ink-soft);font-size:14px}.support-tools{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}.support-tools span{padding:6px 8px;border:1px solid color-mix(in srgb,var(--level-color,var(--blue)) 28%,#fff);border-radius:9px;background:rgba(255,255,255,.78);font-size:10px;font-weight:850}
+.quick-section{padding:28px}.section-heading.compact{align-items:flex-end}.text-link{border:0;background:transparent;color:var(--blue-dark);padding:7px;display:inline-flex;align-items:center;gap:7px;font-weight:950;cursor:pointer}.text-link:hover{text-decoration:underline}.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:19px}.quick-card{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px;text-align:left;cursor:pointer}.quick-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow-soft)}.quick-icon,.training-card-icon{width:45px;height:45px;border-radius:13px;display:grid;place-items:center;background:var(--card-soft);color:var(--card-color)}.quick-icon svg,.training-card-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}.quick-card strong{display:block;font-size:15px}.quick-card small{display:block;margin-top:2px;color:var(--ink-soft);font-size:11px}.quick-card>span:last-child{color:var(--card-color);font-size:21px;font-weight:950}
+.week-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.week-summary div{border:1px solid var(--line);border-radius:17px;background:#fff;padding:18px;text-align:center}.week-summary strong{display:block;font-size:33px;color:var(--blue-dark)}.week-summary span{font-size:12px;color:var(--ink-soft);font-weight:850}.weeks-list{display:grid;gap:14px}.week-list-card{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(220px,.45fr) auto;gap:20px;align-items:center;border:1px solid var(--line);border-radius:22px;background:#fff;padding:20px;box-shadow:var(--shadow-soft)}.week-list-number{width:75px;height:75px;border-radius:19px;display:grid;place-items:center;background:var(--blue-dark);color:#fff;font-size:28px;font-weight:950}.week-list-copy h2{margin:2px 0 0;font-size:26px}.week-list-copy h3{margin:1px 0 0;color:var(--red-dark);font-size:15px}.week-list-copy p{margin:7px 0 0;color:var(--ink-soft);font-size:14px}.week-list-progress>div:first-child{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;color:var(--ink-soft);font-size:12px}.week-list-actions{display:flex;flex-direction:column;gap:8px}.week-list-actions a,.week-list-actions button{min-height:42px;border-radius:11px;padding:8px 11px;text-align:center;text-decoration:none;font-weight:900;cursor:pointer}.week-list-actions a{background:var(--blue-dark);color:#fff;border:1px solid var(--blue-dark)}.week-list-actions button{background:#fff;border:1px solid var(--line)}.coming-card{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-top:16px;border:1px dashed var(--line-strong);border-radius:20px;background:rgba(255,255,255,.48);padding:21px}.coming-card>span{width:88px;height:55px;border-radius:14px;display:grid;place-items:center;background:var(--cream-2);font-weight:950;color:var(--ink-soft)}.coming-card h2{margin:0;font-size:20px}.coming-card p{margin:5px 0 0;color:var(--ink-soft);font-size:14px}
+.recommended-training{display:flex;align-items:center;justify-content:space-between;gap:24px;border-radius:24px;background:linear-gradient(135deg,var(--blue-deeper),var(--blue-dark) 70%,var(--blue));color:#fff;padding:27px 29px;box-shadow:var(--shadow)}.recommended-training .small-label{color:#f4c3bf}.recommended-training h2{margin:5px 0 0;font-size:29px}.recommended-training p{margin:5px 0 0;color:#dce8f5;font-size:15px}.recommended-training .primary-action{background:#fff;border-color:#fff;color:var(--blue-dark);box-shadow:none}.training-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.training-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:22px;background:#fff;padding:23px;box-shadow:var(--shadow-soft)}.training-card::after{content:"";position:absolute;right:-45px;bottom:-55px;width:140px;height:140px;border-radius:50%;background:var(--card-soft)}.training-card>*{position:relative;z-index:1}.training-card-time{position:absolute;right:18px;top:18px;padding:5px 8px;border-radius:999px;background:var(--cream);font-size:10px;font-weight:900}.training-card-icon{width:54px;height:54px}.training-card small{display:block;margin-top:16px;color:var(--card-color);font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.07em}.training-card h2{margin:3px 0 0;font-size:25px}.training-card p{margin:7px 0 0;max-width:500px;color:var(--ink-soft);font-size:14px}.training-card button{margin-top:18px;border:0;background:transparent;color:var(--card-color);padding:0;display:inline-flex;align-items:center;gap:7px;font-weight:950;cursor:pointer}.training-card button:hover{text-decoration:underline}
+.mobile-nav{display:none}.overlay{position:fixed;inset:0;z-index:350;background:rgba(5,23,43,.44);backdrop-filter:blur(2px)}.drawer{position:fixed;z-index:360;top:0;right:0;width:min(520px,100vw);height:100vh;overflow:auto;background:#fff;padding:26px;box-shadow:-24px 0 65px rgba(5,23,43,.23);transform:translateX(105%);transition:transform .24s ease}.drawer.is-open{transform:none}.drawer>header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding-bottom:17px;border-bottom:1px solid var(--line)}.drawer h2{margin:4px 0 0;font-size:30px;letter-spacing:-.035em}.drawer>header button{width:43px;height:43px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:26px;cursor:pointer}.drawer>p{color:var(--ink-soft);font-size:15px}.drawer-levels{display:grid;gap:10px;margin-top:17px}.drawer-level{border:1px solid var(--line);border-radius:16px;background:#fff;padding:15px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;cursor:pointer}.drawer-level.is-selected{border:2px solid var(--level-color);background:var(--level-soft)}.drawer-level .level-icon{width:42px;height:42px}.drawer-level h3{margin:0;font-size:18px}.drawer-level p{margin:3px 0 0;color:var(--ink-soft);font-size:12px}.help-steps{display:grid;gap:10px;margin-top:20px}.help-steps>div{display:grid;grid-template-columns:auto 1fr;gap:12px;border:1px solid var(--line);border-radius:15px;padding:13px}.help-steps b{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue-dark)}.help-steps p{margin:0;display:flex;flex-direction:column}.help-steps span{margin-top:3px;color:var(--ink-soft);font-size:13px}.help-note{margin-top:15px;border:1px solid #e8c884;border-radius:15px;background:var(--gold-soft);padding:14px}.help-note p{margin:4px 0 0;color:#6d4d11;font-size:13px}.settings-list{display:grid;gap:10px;margin-top:18px}.settings-list button{display:flex;align-items:center;justify-content:space-between;gap:15px;border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px;text-align:left;cursor:pointer}.settings-list strong{display:block}.settings-list small{display:block;margin-top:3px;color:var(--ink-soft)}.settings-list i{width:44px;height:25px;border-radius:999px;background:#cbd5df;padding:3px}.settings-list i::after{content:"";display:block;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.17);transition:.18s}.settings-list button.is-active i{background:var(--blue)}.settings-list button.is-active i::after{transform:translateX(19px)}.toast{position:fixed;z-index:500;left:50%;bottom:25px;transform:translate(-50%,24px);opacity:0;pointer-events:none;max-width:min(560px,calc(100vw - 30px));padding:11px 15px;border-radius:12px;background:var(--ink);color:#fff;font-weight:850;text-align:center;transition:.2s}.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+body.view-large{font-size:20px}body.view-large .site-main{max-width:1340px}body.view-contrast{--ink:#061322;--ink-soft:#223a50;--line:#9cabb9;--line-strong:#526b81;background:#fff}body.view-contrast .week-hero,body.view-contrast .level-section,body.view-contrast .quick-section{border-width:2px}body.view-motion *,body.view-motion *::before,body.view-motion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+@media(max-width:1050px){.header-inner{gap:18px}.brand{min-width:0}.brand-copy small{display:none}.week-hero{grid-template-columns:1fr}.week-hero-visual{min-height:450px}.week-hero-copy{padding:34px}.level-grid{grid-template-columns:repeat(2,1fr)}.week-list-card{grid-template-columns:auto 1fr}.week-list-progress,.week-list-actions{grid-column:2}.week-list-actions{flex-direction:row}.week-list-actions>*{flex:1}.support-demo{grid-template-columns:1fr}.training-grid{grid-template-columns:1fr}}
+@media(max-width:820px){body{padding-bottom:76px}.site-header{position:sticky}.header-inner{min-height:70px;padding:8px 13px}.brand-mark{width:47px;height:47px}.brand-copy strong{font-size:17px}.main-nav{display:none}.level-shortcut{margin-left:auto}.header-actions .round-button:last-child{display:none}.site-main{padding:25px 13px 45px}.plain-heading{align-items:flex-start}.save-note{display:none}.week-hero-copy{padding:27px 23px}.week-hero h2{font-size:56px}.week-hero-visual{min-height:390px}.eiffel{right:28px;top:45px;width:130px}.visual-number{font-size:130px}.card-a{left:24px;top:140px}.card-b{top:205px}.start-row{grid-template-columns:1fr}.section-heading{flex-direction:column}.change-note{align-self:flex-start}.quick-grid{grid-template-columns:1fr}.mobile-nav{position:fixed;z-index:230;left:10px;right:10px;bottom:10px;height:64px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.97);box-shadow:0 13px 38px rgba(5,23,43,.16);backdrop-filter:blur(16px);overflow:hidden}.mobile-nav button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--ink-soft);font-size:10px;font-weight:850;cursor:pointer}.mobile-nav svg{width:21px;height:21px}.mobile-nav button.is-active{color:var(--blue);background:var(--blue-soft)}.drawer{padding:21px}.recommended-training{align-items:flex-start;flex-direction:column}.week-summary{grid-template-columns:1fr 1fr}.week-summary div:last-child{grid-column:1/-1}}
+@media(max-width:560px){body{font-size:17px}.brand-copy small{display:none}.level-shortcut{display:none}.header-actions{gap:5px}.round-button{width:43px;height:43px}.plain-heading h1{font-size:42px}.plain-heading p{font-size:16px}.hero-meta{align-items:flex-start;flex-direction:column;margin-bottom:20px}.week-hero-copy{padding:24px 19px}.week-hero h2{font-size:48px}.module-subtitle{font-size:20px}.module-description{font-size:16px}.hero-actions{align-items:stretch;flex-direction:column}.hero-actions>*{width:100%}.week-hero-visual{min-height:350px}.eiffel{right:20px;top:36px;width:105px;height:175px}.visual-number{font-size:110px}.speech-card{font-size:17px}.card-a{left:20px;top:120px}.card-b{top:178px;right:18px}.route-card{left:17px;right:17px;bottom:17px;padding:14px}.route-dot{width:28px;height:28px;border-width:3px;font-size:9px}.next-card,.teacher-note{padding:20px}.level-section,.quick-section{padding:21px;margin-top:24px}.section-heading h2{font-size:29px}.level-grid{grid-template-columns:1fr}.exercise-top{grid-template-columns:auto 1fr}.exercise-level{grid-column:1/-1;justify-self:start}.sentence-field{grid-template-columns:1fr}.sentence-field>span:last-child{display:none}.week-summary{grid-template-columns:1fr}.week-summary div:last-child{grid-column:auto}.week-list-card{grid-template-columns:1fr}.week-list-number{width:100%;height:52px}.week-list-progress,.week-list-actions{grid-column:auto}.week-list-actions{flex-direction:column}.coming-card{grid-template-columns:1fr}.coming-card>span{width:100%}}
+@media print{.tricolore,.site-header,.mobile-nav,.overlay,.drawer,.toast,.hero-actions,.quick-section{display:none!important}.site-main{max-width:none;padding:0}.week-hero,.level-section{box-shadow:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#mainContent">Direkt zum Inhalt</a>
+<div class="tricolore" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<svg class="svg-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 10.8 12 3.5l8.5 7.3v8.7a1 1 0 0 1-1 1H15v-6H9v6H4.5a1 1 0 0 1-1-1z"/><path d="M8.5 20.5v-6h7v6"/></symbol>
+  <symbol id="i-weeks" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16" rx="2.5"/><path d="M7.5 2.8v4M16.5 2.8v4M3.5 9h17M7.5 13h2M12 13h2M16.5 13h.1M7.5 17h2M12 17h2"/></symbol>
+  <symbol id="i-training" viewBox="0 0 24 24"><path d="M20 7.7V3.5l-2 2A8 8 0 1 0 20 12"/><path d="M8.3 12.2 11 15l5-6"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 0 1 4.6 1c0 1.8-2.3 2-2.3 3.7M12 17.5h.01"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12s3.3-6 9.2-6 9.2 6 9.2 6-3.3 6-9.2 6-9.2-6-9.2-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8.7 5 3.3-5 3.3z"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"/><path d="M8 8h8M8 12h5"/><path d="m3 7 2-1M19 18l2-1"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v6H5a1 1 0 0 1-1-1zM20 14h-3v6h2a1 1 0 0 0 1-1z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13.4 2.8-8 11.2h6l-.8 7.2 8-11.2h-6z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M8.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM15.5 10a3 3 0 1 0 0-6"/><path d="M2.8 20v-2.3a5.7 5.7 0 0 1 11.4 0V20M14.5 13.2a5 5 0 0 1 6.7 4.7V20"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#home" data-view-target="home" aria-label="Startseite Franz Lernatelier">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M10 12.5A7.5 7.5 0 0 1 17.5 5h13A7.5 7.5 0 0 1 38 12.5v10A7.5 7.5 0 0 1 30.5 30H22l-9 8v-9.8a7.5 7.5 0 0 1-3-5.7z"/><path d="M17 15h14M17 21h9"/></svg>
+        <i></i>
+      </span>
+      <span class="brand-copy"><strong>Franz Lernatelier</strong><small>Französisch mit Herrn Marti</small></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <button class="nav-item is-active" type="button" data-view-target="home"><svg><use href="#i-home"></use></svg><span>Aktuelle Woche</span></button>
+      <button class="nav-item" type="button" data-view-target="weeks"><svg><use href="#i-weeks"></use></svg><span>Wochen</span></button>
+      <button class="nav-item" type="button" data-view-target="training"><svg><use href="#i-training"></use></svg><span>Trainieren</span></button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="level-shortcut" type="button" data-open-level><span data-current-level-label>Standard</span><small data-current-level-range>A2</small></button>
+      <button class="round-button" type="button" data-open-settings aria-label="Ansicht anpassen" title="Ansicht anpassen">Aa</button>
+      <button class="round-button" type="button" data-open-help aria-label="Hilfe öffnen" title="Hilfe"><svg><use href="#i-help"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="site-main" id="mainContent" tabindex="-1">
+  <section class="app-view is-active" data-view="home" aria-labelledby="homeTitle">
+    <header class="plain-heading">
+      <div><span class="eyebrow">Französisch · Woche <span id="headingWeek">36</span></span><h1 id="homeTitle">Diese Woche</h1><p id="homeLead">Sie arbeiten an Begrüssungen, Hilfssätzen und einer kurzen Vorstellung.</p></div>
+      <div class="save-note"><span></span><p><strong>Automatisch gespeichert</strong><small>auf diesem Gerät</small></p></div>
+    </header>
+
+    <article class="week-hero" aria-labelledby="moduleTitle">
+      <section class="week-hero-copy">
+        <div class="hero-meta"><span class="week-badge">Woche <b id="currentWeekNumber">36</b></span><span class="state-badge" id="moduleState"><i></i> Noch nicht begonnen</span></div>
+        <p class="module-kicker" id="moduleSchoolYear">Schuljahr 2026/27</p>
+        <h2 id="moduleTitle">Bienvenue</h2>
+        <p class="module-subtitle" id="moduleSubtitle">Passeport de français</p>
+        <p class="module-description" id="currentDescription">Begrüssen, Befinden ausdrücken, Hilfssätze nutzen, sich vorstellen und Gespräche führen.</p>
+        <div class="module-facts" id="currentFacts"></div>
+        <div class="progress-block">
+          <div class="progress-head"><span id="progressLabel">Ihr Lernweg ist bereit.</span><strong id="progressValue">0%</strong></div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="primary-action" href="module/woche-36/index.html" data-open-current><span id="primaryActionLabel">Woche 36 öffnen</span><svg><use href="#i-arrow"></use></svg></a>
+          <button class="secondary-action" type="button" data-view-target="training"><svg><use href="#i-play"></use></svg> 5 Minuten trainieren</button>
+        </div>
+      </section>
+
+      <section class="week-hero-visual" aria-label="Frankreichmotiv und Übersicht über acht Aufgaben">
+        <span class="visual-number" aria-hidden="true">36</span>
+        <span class="speech-card card-a" lang="fr">Bonjour !</span>
+        <span class="speech-card card-b" lang="fr">Ça va ?</span>
+        <svg class="eiffel" viewBox="0 0 180 250" fill="none" aria-hidden="true">
+          <path d="M90 12 76 78 55 139 25 228M90 12l14 66 21 61 30 89"/>
+          <path d="M62 96h56M45 156h90M25 228h130"/>
+          <path d="M73 78h34M55 139q35-23 70 0M63 178q27-27 54 0"/>
+        </svg>
+        <div class="route-card">
+          <div class="route-card-head"><span>8 Aufgaben</span><strong id="routeProgressText">0 erledigt</strong></div>
+          <div class="route-line" id="heroRouteStations"></div>
+        </div>
+      </section>
+    </article>
+
+    <section class="start-row" aria-label="Direkteinstiege">
+      <article class="next-card">
+        <span class="small-label">Als Nächstes</span>
+        <div class="next-main"><span class="next-number" id="nextStepCount">01</span><div><h2 id="nextStepTitle">Se saluer</h2><p id="nextStepDescription">Begrüssen, reagieren und verabschieden.</p></div></div>
+        <div class="next-meta"><span><svg><use href="#i-clock"></use></svg><b id="nextStepTime">15–20 Min.</b></span><span><svg><use href="#i-users"></use></svg><b id="nextStepForm">Einzelarbeit</b></span></div>
+        <a href="module/woche-36/index.html" data-open-next data-mission="1">Aufgabe öffnen <svg><use href="#i-arrow"></use></svg></a>
+      </article>
+
+      <article class="teacher-note">
+        <span class="small-label">Vor dem Start</span>
+        <h2>Wählen Sie zuerst Ihr Niveau.</h2>
+        <p>Danach öffnen Sie die erste Aufgabe. Die Stufe kann in jeder Aufgabe geändert werden.</p>
+        <button type="button" data-open-level>Niveau wählen <svg><use href="#i-arrow"></use></svg></button>
+      </article>
+    </section>
+
+    <section class="level-section" aria-labelledby="levelTitle">
+      <header class="section-heading">
+        <div><span class="eyebrow">Niveau</span><h2 id="levelTitle">Wie viel Unterstützung brauchen Sie?</h2><p>Die Aufgaben bleiben gleich. Hilfen und Zusatzanforderungen passen sich an Ihre Wahl an.</p></div>
+        <span class="change-note">Jederzeit änderbar</span>
+      </header>
+      <div class="level-grid" id="levelGrid"></div>
+
+      <div class="support-demo">
+        <section class="exercise-example">
+          <div class="exercise-top"><span class="exercise-number">05</span><div><small>Beispiel aus «Mon profil express»</small><h3>Ergänzen Sie den Satz über Ihre Freizeit.</h3></div><span class="exercise-level" id="demoLevelLabel">Standard · A2</span></div>
+          <label class="sentence-field"><span lang="fr">Dans mon temps libre,</span><input type="text" id="demoInput" placeholder="écrivez votre réponse …"><span>.</span></label>
+          <div class="mini-checks"><span>eigene Information</span><span>ganzer Satz</span><span>laut gelesen</span></div>
+        </section>
+        <aside class="support-box" id="supportBox">
+          <span class="small-label" id="supportLabel">Hilfe auf Standard</span>
+          <h3 id="supportTitle">Eine kurze Hilfe</h3>
+          <p id="supportText">Ein Satzanfang und eine kurze Checkliste bleiben verfügbar.</p>
+          <div class="support-tools" id="supportLayers"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="quick-section" aria-labelledby="quickTitle">
+      <header class="section-heading compact"><div><span class="eyebrow">Kurztraining</span><h2 id="quickTitle">Direkt üben</h2><p>Eine kurze Runde reicht, wenn Sie nur wenige Minuten Zeit haben.</p></div><button class="text-link" type="button" data-view-target="training">Alle Trainingsformen <svg><use href="#i-arrow"></use></svg></button></header>
+      <div class="quick-grid" id="quickTrainingGrid"></div>
+    </section>
+  </section>
+
+  <section class="app-view" data-view="weeks" aria-labelledby="weeksTitle" hidden>
+    <header class="plain-heading"><div><span class="eyebrow">Übersicht</span><h1 id="weeksTitle">Ihre Wochen</h1><p>Öffnen Sie die aktuelle Einheit oder wiederholen Sie eine frühere Woche.</p></div></header>
+    <div class="week-summary"><div><strong id="summaryModules">1</strong><span>veröffentlichte Woche</span></div><div><strong id="summaryEscales">8</strong><span>Aufgaben</span></div><div><strong>4</strong><span>Niveaus</span></div></div>
+    <div class="weeks-list" id="weeksList"></div>
+    <article class="coming-card"><span>Woche 37</span><div><h2>Woche 37 erscheint hier.</h2><p>Sobald das Modul veröffentlicht ist, können Sie an dieser Stelle weiterarbeiten.</p></div></article>
+  </section>
+
+  <section class="app-view" data-view="training" aria-labelledby="trainingTitle" hidden>
+    <header class="plain-heading"><div><span class="eyebrow">Training · Woche <span id="trainingWeek">36</span></span><h1 id="trainingTitle">Was möchten Sie üben?</h1><p>Wählen Sie eine kurze Übung zur aktuellen Woche.</p></div></header>
+    <section class="recommended-training"><div><span class="small-label">Vorschlag</span><h2 id="trainingRecommendation">Wortschatzkarten</h2><p id="trainingRecommendationText">Wörter ansehen, Bedeutung erinnern und laut nachsprechen.</p></div><button class="primary-action" type="button" data-start-recommended>Training öffnen <svg><use href="#i-arrow"></use></svg></button></section>
+    <div class="training-grid" id="trainingGrid"></div>
+  </section>
+</main>
+
+<nav class="mobile-nav" aria-label="Navigation auf kleinen Bildschirmen">
+  <button class="is-active" type="button" data-view-target="home"><svg><use href="#i-home"></use></svg><span>Woche</span></button>
+  <button type="button" data-view-target="weeks"><svg><use href="#i-weeks"></use></svg><span>Wochen</span></button>
+  <button type="button" data-view-target="training"><svg><use href="#i-training"></use></svg><span>Trainieren</span></button>
+  <button type="button" data-open-help><svg><use href="#i-help"></use></svg><span>Hilfe</span></button>
+</nav>
+
+<div class="overlay" id="overlay" hidden data-close-drawers></div>
+<aside class="drawer" id="levelDrawer" aria-hidden="true" aria-labelledby="levelDrawerTitle">
+  <header><div><span class="eyebrow">Niveau</span><h2 id="levelDrawerTitle">Wie möchten Sie arbeiten?</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <p>Die Wahl ändert die Unterstützung in jeder geeigneten Übung. Sie können jederzeit wechseln.</p>
+  <div class="drawer-levels" id="drawerLevels"></div>
+</aside>
+<aside class="drawer" id="helpDrawer" aria-hidden="true" aria-labelledby="helpDrawerTitle">
+  <header><div><span class="eyebrow">Hilfe</span><h2 id="helpDrawerTitle">So funktioniert das Lernatelier</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <div class="help-steps"><div><b>1</b><p><strong>Aktuelle Woche öffnen</strong><span>Auf der Startseite sehen Sie sofort das heutige Modul.</span></p></div><div><b>2</b><p><strong>Niveau wählen</strong><span>Soutien, Standard, Défi oder Expert verändert Hilfen und Anforderungen.</span></p></div><div><b>3</b><p><strong>Weiterarbeiten</strong><span>Ihr Arbeitsstand bleibt in diesem Browser gespeichert.</span></p></div></div>
+  <div class="help-note"><strong>Wichtig</strong><p>Öffnen Sie die Webseite möglichst immer mit demselben Gerät und Browser.</p></div>
+</aside>
+<aside class="drawer" id="settingsDrawer" aria-hidden="true" aria-labelledby="settingsDrawerTitle">
+  <header><div><span class="eyebrow">Ansicht</span><h2 id="settingsDrawerTitle">Darstellung anpassen</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <div class="settings-list"><button type="button" data-setting="large"><span><strong>Grössere Schrift</strong><small>Mehr Abstand und grössere Bedienelemente</small></span><i></i></button><button type="button" data-setting="contrast"><span><strong>Stärkerer Kontrast</strong><small>Dunklere Schrift und deutlichere Rahmen</small></span><i></i></button><button type="button" data-setting="motion"><span><strong>Bewegung reduzieren</strong><small>Animationen und weiche Übergänge ausschalten</small></span><i></i></button></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.FRANZ_MODULES = [
+  {
+    id: 'woche-36-2026',
+    week: 36,
+    schoolYear: '2026/27',
+    title: 'Bienvenue',
+    subtitle: 'Passeport de français',
+    description: 'Begrüssen, Befinden ausdrücken, Hilfssätze nutzen, sich vorstellen und kurze Gespräche führen.',
+    status: 'current',
+    continuationOf: null,
+    href: 'module/woche-36/index.html',
+    duration: '2–3 Lektionen',
+    missions: 8,
+    storageKey: 'franzoesischLernatelierEinstieg_v1',
+    facts: ['8 Stationen', '2–3 Lektionen', 'A1 bis B2+'],
+    tags: ['Sprechen', 'Lesen', 'Interagieren', 'Strategien'],
+    levels: [
+      {
+        id:'support', label:'Soutien', range:'A1 → A2', symbol:'+', color:'#2f6bff', soft:'#edf3ff',
+        note:'Viele Hilfen, Beispiele und Satzanfänge.',
+        supportTitle:'Viel Unterstützung',
+        supportText:'Wortbank und Satzanfänge sind direkt verfügbar. Ein Beispiel können Sie bei Bedarf öffnen.',
+        layers:['Wortbank','Satzanfänge','Beispiel','kleine Schritte'],
+        placeholder:'Wählen Sie einen Satzanfang …'
+      },
+      {
+        id:'standard', label:'Standard', range:'A2', symbol:'●', color:'#147c73', soft:'#e8f6f3',
+        note:'Gezielte Hilfe, die Sie bei Bedarf öffnen.',
+        supportTitle:'Gezielte Unterstützung',
+        supportText:'Sie schreiben selbst. Ein Satzanfang, Wortideen und ein kurzer Check bleiben verfügbar.',
+        layers:['1 Satzanfang','Wortideen','Kurzcheck','Beispiel bei Bedarf'],
+        placeholder:'écrivez votre réponse …'
+      },
+      {
+        id:'challenge', label:'Défi', range:'A2+ → B1', symbol:'↗', color:'#b87900', soft:'#fff6df',
+        note:'Weniger Gerüst, mehr eigene Sprache.',
+        supportTitle:'Weniger Hilfe, mehr eigene Sprache',
+        supportText:'Sie formulieren frei und ergänzen einen Grund, ein Beispiel oder eine passende Rückfrage.',
+        layers:['frei formulieren','Grund','Beispiel','Rückfrage'],
+        placeholder:'formulez librement et ajoutez une raison …'
+      },
+      {
+        id:'expert', label:'Expert', range:'B1 → B2+', symbol:'◆', color:'#10233f', soft:'#eef2f7',
+        note:'Längere und sprachlich anspruchsvollere Aufgaben.',
+        supportTitle:'Anspruchsvollere Aufgabe',
+        supportText:'Sie arbeiten mit Nuancen, Register und Strategien zum Umschreiben. Satzbausteine treten in den Hintergrund.',
+        layers:['Register','Nuancen','umschreiben','spontan reagieren'],
+        placeholder:'développez une réponse nuancée …'
+      }
+    ],
+    missionList: [
+      {id:1, title:'Se saluer', description:'Begrüssen, reagieren und verabschieden', time:'15–20 Min.', form:'Einzelarbeit', symbol:'B'},
+      {id:2, title:'Comment ça va ?', description:'Befinden ausdrücken und passend reagieren', time:'15–20 Min.', form:'EA + PA', symbol:'Ç'},
+      {id:3, title:'Kit de survie', description:'Hilfssätze für den Unterricht', time:'20–25 Min.', form:'Einzelarbeit', symbol:'K'},
+      {id:4, title:'Qui suis-je ?', description:'Lesen und Informationen finden', time:'15–20 Min.', form:'Einzelarbeit', symbol:'Q'},
+      {id:5, title:'Mon profil express', description:'Eine persönliche Vorstellung aufbauen', time:'20–25 Min.', form:'EA + PA', symbol:'M'},
+      {id:6, title:'Speed-Dating', description:'Fragen, antworten und weiterführen', time:'25–35 Min.', form:'EA + PA', symbol:'S'},
+      {id:7, title:'20 questions', description:'Persönliche Fragen respektvoll nutzen', time:'25–35 Min.', form:'EA + PA', symbol:'20'},
+      {id:8, title:'Défi final', description:'45 Sekunden möglichst frei sprechen', time:'15–20 Min.', form:'Partnerarbeit', symbol:'D'}
+    ],
+    training: [
+      {id:'cards', title:'Cartes', subtitle:'Wortschatz', description:'Wörter und Sätze erinnern, aufdecken und laut nachsprechen.', icon:'cards', color:'coral', time:'5 Min.'},
+      {id:'dictation', title:'Écoute', subtitle:'Diktat', description:'Einen Satz hören, in Wortgruppen erfassen und aufschreiben.', icon:'headphones', color:'sky', time:'5–8 Min.'},
+      {id:'reaction', title:'Réagis', subtitle:'Blitzreaktion', description:'Eine Situation lesen und innerhalb von zehn Sekunden passend antworten.', icon:'bolt', color:'mint', time:'5 Min.'},
+      {id:'expert', title:'Expert', subtitle:'60 Sekunden', description:'Zu einem Sprechimpuls eine Minute lang möglichst frei sprechen.', icon:'mic', color:'violet', time:'8–10 Min.'}
+    ]
+  }
+];
+</script>
+<script>(() => {
+  'use strict';
+
+  const qs = (selector, root=document) => root.querySelector(selector);
+  const qsa = (selector, root=document) => [...root.querySelectorAll(selector)];
+  const modules = Array.isArray(window.FRANZ_MODULES) ? window.FRANZ_MODULES : [];
+  const current = modules.find(module => module.status === 'current') || modules[0];
+  const shellKey = 'franzLernatelierShell_v3';
+  const settingsKey = 'franzLernatelierView_v3';
+  const routeMap = {
+    short:[1,2,4,8],
+    medium:[1,3,5,6,8],
+    full:[1,2,3,4,5,6,7,8],
+    expert:[1,2,3,4,5,6,7,8]
+  };
+  const iconMap = {cards:'i-cards', headphones:'i-headphones', bolt:'i-bolt', mic:'i-mic'};
+  const trainingColors = {
+    coral:{color:'#ef4135',soft:'#fff0ee'},
+    sky:{color:'#0c6ec4',soft:'#eaf3fb'},
+    mint:{color:'#147c73',soft:'#e8f5f1'},
+    violet:{color:'#10243e',soft:'#eef2f7'}
+  };
+
+  let toastTimer = null;
+  let shellState = readJson(shellKey,{view:'home',level:null});
+  let settings = readJson(settingsKey,{large:false,contrast:false,motion:false});
+  let moduleState = readModuleState(current);
+  let selectedLevel = resolveLevel();
+
+  function esc(value=''){
+    return String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  }
+
+  function readJson(key,fallback){
+    try{
+      const raw=localStorage.getItem(key);
+      return raw?{...fallback,...JSON.parse(raw)}:{...fallback};
+    }catch(error){return {...fallback};}
+  }
+
+  function saveJson(key,value){
+    try{localStorage.setItem(key,JSON.stringify(value));}catch(error){}
+  }
+
+  function readModuleState(module){
+    if(!module?.storageKey)return{};
+    try{return JSON.parse(localStorage.getItem(module.storageKey)||'{}');}catch(error){return{};}
+  }
+
+  function writeModuleState(patch={}){
+    if(!current?.storageKey)return;
+    moduleState={...moduleState,...patch};
+    try{localStorage.setItem(current.storageKey,JSON.stringify(moduleState));}catch(error){}
+  }
+
+  function resolveLevel(){
+    const valid=new Set((current?.levels||[]).map(level=>level.id));
+    const candidate=moduleState.globalLevel||shellState.level||'standard';
+    return valid.has(candidate)?candidate:'standard';
+  }
+
+  function currentLevel(){
+    return current?.levels?.find(level=>level.id===selectedLevel)||current?.levels?.[1]||current?.levels?.[0]||{};
+  }
+
+  function progressData(module=current,state=moduleState){
+    const ids=routeMap[state?.route]||routeMap.full;
+    const done=ids.filter(id=>state?.missionDone?.[id]).length;
+    const total=ids.length;
+    const started=done>0||Object.keys(state?.answers||{}).length>0||Object.keys(state?.choices||{}).length>0;
+    const finished=done===total&&total>0;
+    const pct=total?Math.round(done/total*100):0;
+    const activeMission=Number(state?.currentMission||0);
+    const nextId=activeMission&&ids.includes(activeMission)&&!state?.missionDone?.[activeMission]
+      ?activeMission
+      :(ids.find(id=>!state?.missionDone?.[id])||ids[ids.length-1]||1);
+    return{ids,done,total,started,finished,pct,nextId};
+  }
+
+  function renderHeader(){
+    const level=currentLevel();
+    qsa('[data-current-level-label]').forEach(node=>node.textContent=level.label||'Standard');
+    qsa('[data-current-level-range]').forEach(node=>node.textContent=level.range||'A2');
+  }
+
+  function renderHome(){
+    if(!current)return;
+    const progress=progressData();
+    const next=current.missionList.find(mission=>mission.id===progress.nextId)||current.missionList[0];
+    qs('#headingWeek').textContent=current.week;
+    qs('#trainingWeek').textContent=current.week;
+    qs('#currentWeekNumber').textContent=current.week;
+    qs('#moduleSchoolYear').textContent=`Schuljahr ${current.schoolYear}`;
+    qs('#moduleTitle').textContent=current.title;
+    qs('#moduleSubtitle').textContent=current.subtitle;
+    qs('#currentDescription').textContent=current.description;
+    qs('#homeLead').textContent='Sie arbeiten an Begrüssungen, Hilfssätzen, einer persönlichen Vorstellung und kurzen Gesprächen.';
+    qs('#currentFacts').innerHTML=(current.facts||[]).map(fact=>`<span class="fact-chip">${esc(fact)}</span>`).join('');
+    qs('#progressValue').textContent=`${progress.pct}%`;
+    qs('#progressBar').style.width=`${progress.pct}%`;
+
+    let label='Noch nicht begonnen.';
+    let action='Woche öffnen';
+    let state='Noch nicht begonnen';
+    let stateClass='';
+    if(progress.finished){
+      label=`${progress.done} von ${progress.total} Aufgaben abgeschlossen.`;
+      action='Woche nochmals öffnen';
+      state='Abgeschlossen';
+      stateClass='is-done';
+    }else if(progress.started){
+      label=`${progress.done} von ${progress.total} Aufgaben abgeschlossen.`;
+      action='Weiterarbeiten';
+      state='In Arbeit';
+      stateClass='is-working';
+    }
+    qs('#progressLabel').textContent=label;
+    qs('#primaryActionLabel').textContent=action;
+    const badge=qs('#moduleState');
+    badge.className=`state-badge ${stateClass}`.trim();
+    badge.innerHTML=`<i></i> ${state}`;
+    qs('#routeProgressText').textContent=`${progress.done} erledigt`;
+
+    qs('#nextStepCount').textContent=String(next.id).padStart(2,'0');
+    qs('#nextStepTitle').textContent=progress.finished?'Woche abgeschlossen':next.title;
+    qs('#nextStepDescription').textContent=progress.finished?'Sie können eine Aufgabe wiederholen oder kurz trainieren.':next.description;
+    qs('#nextStepTime').textContent=next.time;
+    qs('#nextStepForm').textContent=next.form;
+    qs('[data-open-next]').dataset.mission=String(next.id);
+    renderRoute(progress);
+  }
+
+  function renderRoute(progress){
+    const holder=qs('#heroRouteStations');
+    if(!holder||!current)return;
+    holder.innerHTML=current.missionList.map(mission=>{
+      const done=!!moduleState.missionDone?.[mission.id];
+      const isNext=mission.id===progress.nextId&&!progress.finished;
+      return `<span class="route-dot${done?' is-done':''}${isNext?' is-next':''}" title="${esc(mission.title)}">${done?'✓':mission.id}</span>`;
+    }).join('');
+  }
+
+  function levelCard(level,drawer=false){
+    const selected=selectedLevel===level.id;
+    const style=`--level-color:${level.color};--level-soft:${level.soft}`;
+    if(drawer){
+      return `<button class="drawer-level${selected?' is-selected':''}" type="button" data-select-level="${esc(level.id)}" style="${style}"><span class="level-icon">${esc(level.symbol)}</span><span><h3>${esc(level.label)} · ${esc(level.range)}</h3><p>${esc(level.note)}</p></span><span class="level-radio">✓</span></button>`;
+    }
+    return `<button class="level-card${selected?' is-selected':''}" type="button" data-select-level="${esc(level.id)}" style="${style}"><span class="level-card-top"><span class="level-icon">${esc(level.symbol)}</span><span class="level-radio">✓</span></span><h3>${esc(level.label)}</h3><strong>${esc(level.range)}</strong><p>${esc(level.note)}</p></button>`;
+  }
+
+  function renderLevels(){
+    if(!current)return;
+    qs('#levelGrid').innerHTML=current.levels.map(level=>levelCard(level)).join('');
+    qs('#drawerLevels').innerHTML=current.levels.map(level=>levelCard(level,true)).join('');
+    const level=currentLevel();
+    qs('#demoLevelLabel').textContent=`${level.label} · ${level.range}`;
+    qs('#supportLabel').textContent=`${level.label} · Unterstützung`;
+    qs('#supportTitle').textContent=level.supportTitle;
+    qs('#supportText').textContent=level.supportText;
+    qs('#supportLayers').innerHTML=(level.layers||[]).map(item=>`<span>${esc(item)}</span>`).join('');
+    qs('#supportBox').style.setProperty('--level-color',level.color);
+    qs('#supportBox').style.setProperty('--level-soft',level.soft);
+    qs('#demoInput').placeholder=level.placeholder;
+  }
+
+  function renderQuickTraining(){
+    if(!current)return;
+    const items=current.training.slice(0,3);
+    qs('#quickTrainingGrid').innerHTML=items.map(item=>{
+      const colors=trainingColors[item.color]||trainingColors.sky;
+      return `<button class="quick-card" type="button" data-start-training="${esc(item.id)}" style="--card-color:${colors.color};--card-soft:${colors.soft}"><span class="quick-icon"><svg><use href="#${iconMap[item.icon]||'i-training'}"></use></svg></span><span><strong>${esc(item.title)}</strong><small>${esc(item.time)} · ${esc(item.subtitle)}</small></span><span>→</span></button>`;
+    }).join('');
+  }
+
+  function renderWeeks(){
+    const holder=qs('#weeksList');
+    if(!holder)return;
+    holder.innerHTML=modules.slice().sort((a,b)=>b.week-a.week).map(module=>{
+      const state=readModuleState(module);
+      const progress=progressData(module,state);
+      return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(module.href)}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="cards">Trainieren</button></div></article>`;
+    }).join('');
+    qs('#summaryModules').textContent=String(modules.length);
+    qs('#summaryEscales').textContent=String(modules.reduce((sum,module)=>sum+(module.missions||0),0));
+  }
+
+  function renderTraining(){
+    const holder=qs('#trainingGrid');
+    if(!holder||!current)return;
+    holder.innerHTML=current.training.map(item=>{
+      const colors=trainingColors[item.color]||trainingColors.sky;
+      return `<article class="training-card" style="--card-color:${colors.color};--card-soft:${colors.soft}"><span class="training-card-time">${esc(item.time)}</span><span class="training-card-icon"><svg><use href="#${iconMap[item.icon]||'i-training'}"></use></svg></span><small>${esc(item.subtitle)}</small><h2>${esc(item.title)}</h2><p>${esc(item.description)}</p><button type="button" data-start-training="${esc(item.id)}">Öffnen <svg><use href="#i-arrow"></use></svg></button></article>`;
+    }).join('');
+    const progress=progressData();
+    let id=progress.done>=2?'reaction':'cards';
+    if(selectedLevel==='expert')id='expert';
+    const item=current.training.find(entry=>entry.id===id)||current.training[0];
+    qs('#trainingRecommendation').textContent=`${item.title} · ${item.subtitle}`;
+    qs('#trainingRecommendationText').textContent=item.description;
+    qs('[data-start-recommended]').dataset.startTraining=item.id;
+  }
+
+  function renderAll(){
+    renderHeader();
+    renderHome();
+    renderLevels();
+    renderQuickTraining();
+    renderWeeks();
+    renderTraining();
+    applySettings();
+  }
+
+  function setLevel(id){
+    if(!current?.levels?.some(level=>level.id===id))return;
+    selectedLevel=id;
+    shellState.level=id;
+    saveJson(shellKey,shellState);
+    writeModuleState({globalLevel:id,missionLevels:{}});
+    renderAll();
+    showToast(`${currentLevel().label} (${currentLevel().range}) ausgewählt.`);
+  }
+
+  function setView(view,updateHash=true){
+    if(!['home','weeks','training'].includes(view))view='home';
+    shellState.view=view;
+    saveJson(shellKey,shellState);
+    qsa('[data-view]').forEach(panel=>{
+      const active=panel.dataset.view===view;
+      panel.classList.toggle('is-active',active);
+      panel.hidden=!active;
+    });
+    qsa('[data-view-target]').forEach(button=>button.classList.toggle('is-active',button.dataset.viewTarget===view));
+    if(updateHash&&location.hash!==`#${view}`)history.replaceState(null,'',`#${view}`);
+    window.scrollTo({top:0,behavior:settings.motion?'auto':'smooth'});
+    qs('#mainContent')?.focus({preventScroll:true});
+  }
+
+  function prepareModule({mission=null,training=null}={}){
+    const patch={globalLevel:selectedLevel};
+    if(mission){patch.currentScreen=`mission-${mission}`;patch.currentMission=Number(mission);}
+    if(training){patch.currentScreen='training';patch.trainingMode=training;}
+    writeModuleState(patch);
+  }
+
+  function openModule(event,options={}){
+    event?.preventDefault();
+    if(!current)return;
+    prepareModule(options);
+    location.href=current.href+(options.training?'#training':'');
+  }
+
+  function openDrawer(id){
+    closeDrawers();
+    const drawer=qs(`#${id}`);
+    if(!drawer)return;
+    qs('#overlay').hidden=false;
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>drawer.querySelector('button')?.focus(),0);
+  }
+
+  function closeDrawers(){
+    qs('#overlay').hidden=true;
+    qsa('.drawer').forEach(drawer=>{
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden','true');
+    });
+    document.body.style.overflow='';
+  }
+
+  function applySettings(){
+    document.body.classList.toggle('view-large',!!settings.large);
+    document.body.classList.toggle('view-contrast',!!settings.contrast);
+    document.body.classList.toggle('view-motion',!!settings.motion);
+    qsa('[data-setting]').forEach(button=>button.classList.toggle('is-active',!!settings[button.dataset.setting]));
+  }
+
+  function showToast(message){
+    const toast=qs('#toast');
+    if(!toast)return;
+    toast.textContent=message;
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>toast.classList.remove('is-visible'),2400);
+  }
+
+  function bindEvents(){
+    document.addEventListener('click',event=>{
+      const view=event.target.closest('[data-view-target]');
+      if(view){event.preventDefault();setView(view.dataset.viewTarget);return;}
+
+      const level=event.target.closest('[data-select-level]');
+      if(level){setLevel(level.dataset.selectLevel);return;}
+
+      if(event.target.closest('[data-open-level]')){openDrawer('levelDrawer');return;}
+      if(event.target.closest('[data-open-help]')){openDrawer('helpDrawer');return;}
+      if(event.target.closest('[data-open-settings]')){openDrawer('settingsDrawer');return;}
+      if(event.target.closest('[data-close-drawers]')){closeDrawers();return;}
+
+      const setting=event.target.closest('[data-setting]');
+      if(setting){
+        settings[setting.dataset.setting]=!settings[setting.dataset.setting];
+        saveJson(settingsKey,settings);
+        applySettings();
+        return;
+      }
+
+      const training=event.target.closest('[data-start-training]');
+      if(training){openModule(event,{training:training.dataset.startTraining});return;}
+
+      const recommended=event.target.closest('[data-start-recommended]');
+      if(recommended){openModule(event,{training:recommended.dataset.startTraining});return;}
+
+      const currentLink=event.target.closest('[data-open-current]');
+      if(currentLink){openModule(event);return;}
+
+      const next=event.target.closest('[data-open-next]');
+      if(next){openModule(event,{mission:next.dataset.mission});return;}
+
+      const moduleLink=event.target.closest('[data-open-module]');
+      if(moduleLink&&moduleLink.dataset.openModule===current?.id){openModule(event);}
+    });
+
+    qs('#overlay').addEventListener('click',closeDrawers);
+    document.addEventListener('keydown',event=>{if(event.key==='Escape')closeDrawers();});
+    window.addEventListener('hashchange',()=>setView(location.hash.slice(1),false));
+    window.addEventListener('storage',event=>{
+      if(event.key===current?.storageKey){
+        moduleState=readModuleState(current);
+        selectedLevel=resolveLevel();
+        renderAll();
+      }
+    });
+  }
+
+  function init(){
+    renderAll();
+    bindEvents();
+    setView(location.hash.slice(1)||shellState.view||'home',false);
+  }
+
+  document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();
+</script>
+</body>
+</html>

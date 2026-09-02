@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#072f5f">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Franz Lernatelier – aktuelle Wochenmodule, differenzierte Hilfen und Französischtraining.">
+<title>Franz Lernatelier</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<a class="skip-link" href="#mainContent">Direkt zum Inhalt</a>
+<div class="tricolore" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<svg class="svg-sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 10.8 12 3.5l8.5 7.3v8.7a1 1 0 0 1-1 1H15v-6H9v6H4.5a1 1 0 0 1-1-1z"/><path d="M8.5 20.5v-6h7v6"/></symbol>
+  <symbol id="i-weeks" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="16" rx="2.5"/><path d="M7.5 2.8v4M16.5 2.8v4M3.5 9h17M7.5 13h2M12 13h2M16.5 13h.1M7.5 17h2M12 17h2"/></symbol>
+  <symbol id="i-training" viewBox="0 0 24 24"><path d="M20 7.7V3.5l-2 2A8 8 0 1 0 20 12"/><path d="M8.3 12.2 11 15l5-6"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 0 1 4.6 1c0 1.8-2.3 2-2.3 3.7M12 17.5h.01"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12s3.3-6 9.2-6 9.2 6 9.2 6-3.3 6-9.2 6-9.2-6-9.2-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m10 8.7 5 3.3-5 3.3z"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2.5"/><path d="M8 8h8M8 12h5"/><path d="m3 7 2-1M19 18l2-1"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><path d="M4 14h3v6H5a1 1 0 0 1-1-1zM20 14h-3v6h2a1 1 0 0 0 1-1z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13.4 2.8-8 11.2h6l-.8 7.2 8-11.2h-6z"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M9 21h6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.2 4.2L19 7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M8.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM15.5 10a3 3 0 1 0 0-6"/><path d="M2.8 20v-2.3a5.7 5.7 0 0 1 11.4 0V20M14.5 13.2a5 5 0 0 1 6.7 4.7V20"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#home" data-view-target="home" aria-label="Startseite Franz Lernatelier">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48"><path d="M10 12.5A7.5 7.5 0 0 1 17.5 5h13A7.5 7.5 0 0 1 38 12.5v10A7.5 7.5 0 0 1 30.5 30H22l-9 8v-9.8a7.5 7.5 0 0 1-3-5.7z"/><path d="M17 15h14M17 21h9"/></svg>
+        <i></i>
+      </span>
+      <span class="brand-copy"><strong>Franz Lernatelier</strong><small>Französisch mit Herrn Marti</small></span>
+    </a>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <button class="nav-item is-active" type="button" data-view-target="home"><svg><use href="#i-home"></use></svg><span>Aktuelle Woche</span></button>
+      <button class="nav-item" type="button" data-view-target="weeks"><svg><use href="#i-weeks"></use></svg><span>Wochen</span></button>
+      <button class="nav-item" type="button" data-view-target="training"><svg><use href="#i-training"></use></svg><span>Trainieren</span></button>
+    </nav>
+
+    <div class="header-actions">
+      <button class="level-shortcut" type="button" data-open-level><span data-current-level-label>Standard</span><small data-current-level-range>A2</small></button>
+      <button class="round-button" type="button" data-open-settings aria-label="Ansicht anpassen" title="Ansicht anpassen">Aa</button>
+      <button class="round-button" type="button" data-open-help aria-label="Hilfe öffnen" title="Hilfe"><svg><use href="#i-help"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="site-main" id="mainContent" tabindex="-1">
+  <section class="app-view is-active" data-view="home" aria-labelledby="homeTitle">
+    <header class="plain-heading">
+      <div><span class="eyebrow">Französisch · Woche <span id="headingWeek">36</span></span><h1 id="homeTitle">Diese Woche</h1><p id="homeLead">Sie arbeiten an Begrüssungen, Hilfssätzen und einer kurzen Vorstellung.</p></div>
+      <div class="save-note"><span></span><p><strong>Automatisch gespeichert</strong><small>auf diesem Gerät</small></p></div>
+    </header>
+
+    <article class="week-hero" aria-labelledby="moduleTitle">
+      <section class="week-hero-copy">
+        <div class="hero-meta"><span class="week-badge">Woche <b id="currentWeekNumber">36</b></span><span class="state-badge" id="moduleState"><i></i> Noch nicht begonnen</span></div>
+        <p class="module-kicker" id="moduleSchoolYear">Schuljahr 2026/27</p>
+        <h2 id="moduleTitle">Bienvenue</h2>
+        <p class="module-subtitle" id="moduleSubtitle">Passeport de français</p>
+        <p class="module-description" id="currentDescription">Begrüssen, Befinden ausdrücken, Hilfssätze nutzen, sich vorstellen und Gespräche führen.</p>
+        <div class="module-facts" id="currentFacts"></div>
+        <div class="progress-block">
+          <div class="progress-head"><span id="progressLabel">Ihr Lernweg ist bereit.</span><strong id="progressValue">0%</strong></div>
+          <div class="progress-track"><span id="progressBar"></span></div>
+        </div>
+        <div class="hero-actions">
+          <a class="primary-action" href="module/woche-36/index.html" data-open-current><span id="primaryActionLabel">Woche 36 öffnen</span><svg><use href="#i-arrow"></use></svg></a>
+          <button class="secondary-action" type="button" data-view-target="training"><svg><use href="#i-play"></use></svg> 5 Minuten trainieren</button>
+        </div>
+      </section>
+
+      <section class="week-hero-visual" aria-label="Frankreichmotiv und Übersicht über acht Aufgaben">
+        <span class="visual-number" aria-hidden="true">36</span>
+        <span class="speech-card card-a" lang="fr">Bonjour !</span>
+        <span class="speech-card card-b" lang="fr">Ça va ?</span>
+        <svg class="eiffel" viewBox="0 0 180 250" fill="none" aria-hidden="true">
+          <path d="M90 12 76 78 55 139 25 228M90 12l14 66 21 61 30 89"/>
+          <path d="M62 96h56M45 156h90M25 228h130"/>
+          <path d="M73 78h34M55 139q35-23 70 0M63 178q27-27 54 0"/>
+        </svg>
+        <div class="route-card">
+          <div class="route-card-head"><span>8 Aufgaben</span><strong id="routeProgressText">0 erledigt</strong></div>
+          <div class="route-line" id="heroRouteStations"></div>
+        </div>
+      </section>
+    </article>
+
+    <section class="start-row" aria-label="Direkteinstiege">
+      <article class="next-card">
+        <span class="small-label">Als Nächstes</span>
+        <div class="next-main"><span class="next-number" id="nextStepCount">01</span><div><h2 id="nextStepTitle">Se saluer</h2><p id="nextStepDescription">Begrüssen, reagieren und verabschieden.</p></div></div>
+        <div class="next-meta"><span><svg><use href="#i-clock"></use></svg><b id="nextStepTime">15–20 Min.</b></span><span><svg><use href="#i-users"></use></svg><b id="nextStepForm">Einzelarbeit</b></span></div>
+        <a href="module/woche-36/index.html" data-open-next data-mission="1">Aufgabe öffnen <svg><use href="#i-arrow"></use></svg></a>
+      </article>
+
+      <article class="teacher-note">
+        <span class="small-label">Vor dem Start</span>
+        <h2>Wählen Sie zuerst Ihr Niveau.</h2>
+        <p>Danach öffnen Sie die erste Aufgabe. Die Stufe kann in jeder Aufgabe geändert werden.</p>
+        <button type="button" data-open-level>Niveau wählen <svg><use href="#i-arrow"></use></svg></button>
+      </article>
+    </section>
+
+    <section class="level-section" aria-labelledby="levelTitle">
+      <header class="section-heading">
+        <div><span class="eyebrow">Niveau</span><h2 id="levelTitle">Wie viel Unterstützung brauchen Sie?</h2><p>Die Aufgaben bleiben gleich. Hilfen und Zusatzanforderungen passen sich an Ihre Wahl an.</p></div>
+        <span class="change-note">Jederzeit änderbar</span>
+      </header>
+      <div class="level-grid" id="levelGrid"></div>
+
+      <div class="support-demo">
+        <section class="exercise-example">
+          <div class="exercise-top"><span class="exercise-number">05</span><div><small>Beispiel aus «Mon profil express»</small><h3>Ergänzen Sie den Satz über Ihre Freizeit.</h3></div><span class="exercise-level" id="demoLevelLabel">Standard · A2</span></div>
+          <label class="sentence-field"><span lang="fr">Dans mon temps libre,</span><input type="text" id="demoInput" placeholder="écrivez votre réponse …"><span>.</span></label>
+          <div class="mini-checks"><span>eigene Information</span><span>ganzer Satz</span><span>laut gelesen</span></div>
+        </section>
+        <aside class="support-box" id="supportBox">
+          <span class="small-label" id="supportLabel">Hilfe auf Standard</span>
+          <h3 id="supportTitle">Eine kurze Hilfe</h3>
+          <p id="supportText">Ein Satzanfang und eine kurze Checkliste bleiben verfügbar.</p>
+          <div class="support-tools" id="supportLayers"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="quick-section" aria-labelledby="quickTitle">
+      <header class="section-heading compact"><div><span class="eyebrow">Kurztraining</span><h2 id="quickTitle">Direkt üben</h2><p>Eine kurze Runde reicht, wenn Sie nur wenige Minuten Zeit haben.</p></div><button class="text-link" type="button" data-view-target="training">Alle Trainingsformen <svg><use href="#i-arrow"></use></svg></button></header>
+      <div class="quick-grid" id="quickTrainingGrid"></div>
+    </section>
+  </section>
+
+  <section class="app-view" data-view="weeks" aria-labelledby="weeksTitle" hidden>
+    <header class="plain-heading"><div><span class="eyebrow">Übersicht</span><h1 id="weeksTitle">Ihre Wochen</h1><p>Öffnen Sie die aktuelle Einheit oder wiederholen Sie eine frühere Woche.</p></div></header>
+    <div class="week-summary"><div><strong id="summaryModules">1</strong><span>veröffentlichte Woche</span></div><div><strong id="summaryEscales">8</strong><span>Aufgaben</span></div><div><strong>4</strong><span>Niveaus</span></div></div>
+    <div class="weeks-list" id="weeksList"></div>
+    <article class="coming-card"><span>Woche 37</span><div><h2>Woche 37 erscheint hier.</h2><p>Sobald das Modul veröffentlicht ist, können Sie an dieser Stelle weiterarbeiten.</p></div></article>
+  </section>
+
+  <section class="app-view" data-view="training" aria-labelledby="trainingTitle" hidden>
+    <header class="plain-heading"><div><span class="eyebrow">Training · Woche <span id="trainingWeek">36</span></span><h1 id="trainingTitle">Was möchten Sie üben?</h1><p>Wählen Sie eine kurze Übung zur aktuellen Woche.</p></div></header>
+    <section class="recommended-training"><div><span class="small-label">Vorschlag</span><h2 id="trainingRecommendation">Wortschatzkarten</h2><p id="trainingRecommendationText">Wörter ansehen, Bedeutung erinnern und laut nachsprechen.</p></div><button class="primary-action" type="button" data-start-recommended>Training öffnen <svg><use href="#i-arrow"></use></svg></button></section>
+    <div class="training-grid" id="trainingGrid"></div>
+  </section>
+</main>
+
+<nav class="mobile-nav" aria-label="Navigation auf kleinen Bildschirmen">
+  <button class="is-active" type="button" data-view-target="home"><svg><use href="#i-home"></use></svg><span>Woche</span></button>
+  <button type="button" data-view-target="weeks"><svg><use href="#i-weeks"></use></svg><span>Wochen</span></button>
+  <button type="button" data-view-target="training"><svg><use href="#i-training"></use></svg><span>Trainieren</span></button>
+  <button type="button" data-open-help><svg><use href="#i-help"></use></svg><span>Hilfe</span></button>
+</nav>
+
+<div class="overlay" id="overlay" hidden data-close-drawers></div>
+<aside class="drawer" id="levelDrawer" aria-hidden="true" aria-labelledby="levelDrawerTitle">
+  <header><div><span class="eyebrow">Niveau</span><h2 id="levelDrawerTitle">Wie möchten Sie arbeiten?</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <p>Die Wahl ändert die Unterstützung in jeder geeigneten Übung. Sie können jederzeit wechseln.</p>
+  <div class="drawer-levels" id="drawerLevels"></div>
+</aside>
+<aside class="drawer" id="helpDrawer" aria-hidden="true" aria-labelledby="helpDrawerTitle">
+  <header><div><span class="eyebrow">Hilfe</span><h2 id="helpDrawerTitle">So funktioniert das Lernatelier</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <div class="help-steps"><div><b>1</b><p><strong>Aktuelle Woche öffnen</strong><span>Auf der Startseite sehen Sie sofort das heutige Modul.</span></p></div><div><b>2</b><p><strong>Niveau wählen</strong><span>Soutien, Standard, Défi oder Expert verändert Hilfen und Anforderungen.</span></p></div><div><b>3</b><p><strong>Weiterarbeiten</strong><span>Ihr Arbeitsstand bleibt in diesem Browser gespeichert.</span></p></div></div>
+  <div class="help-note"><strong>Wichtig</strong><p>Öffnen Sie die Webseite möglichst immer mit demselben Gerät und Browser.</p></div>
+</aside>
+<aside class="drawer" id="settingsDrawer" aria-hidden="true" aria-labelledby="settingsDrawerTitle">
+  <header><div><span class="eyebrow">Ansicht</span><h2 id="settingsDrawerTitle">Darstellung anpassen</h2></div><button type="button" data-close-drawers aria-label="Fenster schliessen">×</button></header>
+  <div class="settings-list"><button type="button" data-setting="large"><span><strong>Grössere Schrift</strong><small>Mehr Abstand und grössere Bedienelemente</small></span><i></i></button><button type="button" data-setting="contrast"><span><strong>Stärkerer Kontrast</strong><small>Dunklere Schrift und deutlichere Rahmen</small></span><i></i></button><button type="button" data-setting="motion"><span><strong>Bewegung reduzieren</strong><small>Animationen und weiche Übergänge ausschalten</small></span><i></i></button></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="data/modules.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

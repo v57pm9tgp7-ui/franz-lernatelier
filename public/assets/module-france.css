@@ -1,0 +1,20 @@
+/* Kleine Brücke zwischen der Hauptseite und dem Wochenmodul.
+   Die visuelle Frankreich-Edition der Ausgangsdatei bleibt bewusst erhalten. */
+.topbar{border-top-width:5px!important}
+.topbar-actions>.app-link:first-child{margin-right:2px}
+.app-link{background:var(--navy)!important;border-color:var(--navy)!important;color:#fff!important}
+.app-link:hover{background:var(--navy-deep)!important;border-color:var(--navy-deep)!important}
+.brand-title{color:var(--ink)}
+.brand-subtitle{color:var(--fr-blue)!important}
+.france-hero .selection-copy{min-width:0}
+.france-hero .selection-side>p{max-width:290px}
+@media(max-width:1180px){
+  .topbar{padding-left:14px!important;padding-right:14px!important}
+  .topbar-actions{gap:7px!important}
+  .top-action{padding-left:11px!important;padding-right:11px!important}
+}
+@media(max-width:760px){
+  .topbar-actions>.app-link:first-child{order:-2}
+  .app-link .app-word{display:none}
+  .france-hero .selection-side>p{max-width:none}
+}

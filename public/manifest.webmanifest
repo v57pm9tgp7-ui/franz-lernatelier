@@ -1,0 +1,9 @@
+{
+  "name": "Franz Lernatelier",
+  "short_name": "Lernatelier",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f2eb",
+  "theme_color": "#072f5f",
+  "description": "Französisch lernen – Woche für Woche, differenziert und übersichtlich."
+}
