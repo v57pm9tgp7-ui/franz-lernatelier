@@ -333,6 +333,13 @@
         renderAll();
       }
     });
+    window.addEventListener('franz-cloud-state-applied',event=>{
+      if(!event.detail?.moduleId||event.detail.moduleId===current?.id){
+        moduleState=readModuleState(current);
+        selectedLevel=resolveLevel();
+        renderAll();
+      }
+    });
   }
 
   function init(){

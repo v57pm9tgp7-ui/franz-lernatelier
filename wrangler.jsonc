@@ -1,7 +1,16 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "franz-lernatelier",
+  "main": "./src/index.js",
   "compatibility_date": "2026-09-02",
   "assets": {
-    "directory": "./public"
-  }
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB"
+    }
+  ]
 }

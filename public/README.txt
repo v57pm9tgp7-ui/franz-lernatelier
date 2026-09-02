@@ -1,17 +1,13 @@
-FRANZ LERNATELIER – VERSION 0.3
+FRANZ LERNATELIER · VERSION 0.4
 
-Neuer Gestaltungsansatz:
-- eigenständige, ruhige Frankreich-Identität in Blau, Weiss und Rot
-- horizontale Navigation statt App-Sidebar
-- direkte und natürliche Unterrichtssprache
-- aktuelle Woche sofort sichtbar
-- Soutien, Standard, Défi und Expert frei wählbar
-- niveaudifferenzierte Hilfe direkt an der Aufgabe
-- Woche 36 behält bewusst ihre ursprüngliche Frankreich-Gestaltung
+Die Plattform enthält Woche 36 als erstes Lernmodul.
+Neu wird der Arbeitsstand zusätzlich zu localStorage in Cloudflare D1 gespeichert.
+Die Schul-E-Mail-Adresse dient als eindeutiges Identifikationsmerkmal; ein Passwort wird in dieser Version nicht verwendet.
 
-Start:
-1. index.html öffnen.
-2. Ein Niveau wählen.
-3. Woche 36 öffnen.
-
-Für die Veröffentlichung sollte der gesamte Ordner zusammen hochgeladen werden.
+Wichtige Dateien:
+- /index.html                     Plattform
+- /module/woche-36/index.html     Wochenmodul
+- /assets/cloud-account.js        Anmeldung und Synchronisation der Plattform
+- /assets/cloud-sync.js           Synchronisation im Wochenmodul
+- /src/index.js                   Worker-API für D1
+- /wrangler.jsonc                 Cloudflare-Konfiguration

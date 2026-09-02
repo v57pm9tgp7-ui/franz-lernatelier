@@ -1,18 +1,45 @@
-Franz Lernatelier – Cloudflare Worker Static Assets
+FRANZ LERNATELIER – CLOUDFLARE WORKER VERSION 0.4
+=================================================
 
-Diese Version ist für Cloudflare Workers vorbereitet.
+NEU IN VERSION 0.4
+- Schul-E-Mail-Adresse als einziges Identifikationsmerkmal (kein Passwort).
+- Lernstand bleibt lokal gespeichert UND wird in Cloudflare D1 synchronisiert.
+- Auf einem anderen Gerät wird der gespeicherte Lernstand nach Eingabe derselben E-Mail geladen.
+- Woche 36 synchronisiert den vollständigen Arbeitsstand, inklusive Antworten, Niveau und Fortschritt.
+- Bei Verbindungsproblemen kann lokal weitergearbeitet werden; später wird erneut synchronisiert.
 
-Projektstruktur:
-- wrangler.jsonc
-- public/ (komplette Webseite)
+ZULÄSSIGE E-MAIL-DOMAINS
+- @stud.bffbern.ch (Lernende)
+- @bffbern.ch (Lehrperson/Test)
 
-Empfohlene Veröffentlichung:
-1. Diesen Ordner entpacken und als GitHub-Repository hochladen.
-2. Cloudflare Dashboard > Workers & Pages > Create application.
-3. Bei "Import a repository" auf "Get started" klicken.
-4. GitHub verbinden und das Repository auswählen.
-5. Production branch: main.
-6. Deploy command: npx wrangler deploy (Standardwert).
-7. Save and Deploy.
+WICHTIG ZUR SICHERHEIT
+Die E-Mail-Adresse ist in dieser Version nur ein Identifikationsmerkmal, keine sichere Authentifizierung.
+Wer die E-Mail-Adresse einer anderen Person kennt, könnte theoretisch deren Lernstand laden.
+Daher diese Version nicht für Noten, besonders sensible Daten oder vertrauliche Beurteilungen verwenden.
 
-Der Worker-Name ist "franz-lernatelier". Falls im Cloudflare-Dashboard ein bereits existierender Worker mit anderem Namen verwendet wird, muss der Name in wrangler.jsonc exakt übereinstimmen.
+CLOUDFLARE / D1
+Die wrangler.jsonc enthält eine D1-Bindung mit dem Namen DB ohne feste Datenbank-ID.
+Aktuelle Wrangler-Versionen können die D1-Datenbank beim Deployment automatisch bereitstellen.
+Die Tabellen learners und progress werden beim ersten API-Aufruf automatisch angelegt.
+
+DEPLOYMENT
+1. Diese Projektdateien ins GitHub-Repository franz-lernatelier übernehmen.
+2. Cloudflare Workers Builds veröffentlicht den neuen Commit automatisch.
+3. Unter Worker > Bindings prüfen, ob eine D1-Bindung namens DB vorhanden ist.
+4. Webseite öffnen und mit einer Schul-E-Mail testen.
+5. Auf einem zweiten Browser/Gerät dieselbe E-Mail eingeben und prüfen, ob der Stand geladen wird.
+
+DATEN IN D1
+learners:
+- email
+- created_at
+- last_seen_at
+
+progress:
+- email
+- module_id
+- state_json
+- client_updated_at
+- server_updated_at
+
+Die eigentlichen Audioaufnahmen werden NICHT in D1 gespeichert.
