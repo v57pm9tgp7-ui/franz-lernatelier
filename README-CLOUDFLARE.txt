@@ -43,3 +43,8 @@ progress:
 - server_updated_at
 
 Die eigentlichen Audioaufnahmen werden NICHT in D1 gespeichert.
+
+
+SICHERE VERBINDUNG (Version 0.4.1)
+---------------------------------
+Der Worker laeuft vor allen statischen Dateien, leitet HTTP mit Status 308 auf HTTPS um und setzt HSTS sowie weitere Sicherheits-Header. Fuer eine produktive Schuladresse wird eine Cloudflare Custom Domain empfohlen; Cloudflare stellt das TLS-Zertifikat automatisch aus.

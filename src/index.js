@@ -1,15 +1,32 @@
 const ALLOWED_DOMAINS = new Set(['stud.bffbern.ch', 'bffbern.ch']);
 const MAX_STATE_BYTES = 900_000;
+const SECURITY_HEADERS = {
+  'strict-transport-security': 'max-age=31536000',
+  'x-content-type-options': 'nosniff',
+  'referrer-policy': 'strict-origin-when-cross-origin',
+  'permissions-policy': 'camera=(), geolocation=(), payment=(), microphone=(self)',
+  'cross-origin-resource-policy': 'same-origin'
+};
+
+function withSecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) headers.set(name, value);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}
+
 
 function json(data, status = 200) {
-  return new Response(JSON.stringify(data), {
+  return withSecurityHeaders(new Response(JSON.stringify(data), {
     status,
     headers: {
       'content-type': 'application/json; charset=utf-8',
-      'cache-control': 'no-store, max-age=0',
-      'x-content-type-options': 'nosniff'
+      'cache-control': 'no-store, max-age=0'
     }
-  });
+  }));
 }
 
 function normaliseEmail(value = '') {
@@ -140,6 +157,13 @@ async function handleApi(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Keine unverschluesselte Nutzung: HTTP immer dauerhaft auf HTTPS umleiten.
+    if (url.protocol !== 'https:') {
+      url.protocol = 'https:';
+      return withSecurityHeaders(Response.redirect(url.toString(), 308));
+    }
+
     if (url.pathname.startsWith('/api/')) {
       try {
         return await handleApi(request, env);
@@ -149,6 +173,8 @@ export default {
         return json({ok:false, error:'SERVER_ERROR'}, code);
       }
     }
-    return env.ASSETS.fetch(request);
+
+    const response = await env.ASSETS.fetch(request);
+    return withSecurityHeaders(response);
   }
 };
