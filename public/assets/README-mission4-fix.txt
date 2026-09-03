@@ -1,0 +1,1 @@
+The Mission 04 Vrai/Faux correction is loaded via the service worker. Correct sequence: Vrai, Faux, Vrai, Vrai, Faux, Vrai.
