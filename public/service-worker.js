@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-5';
+const CACHE = 'franz-lernatelier-v0-6';
 const FILES = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const FILES = [
   './assets/cloud-sync.js',
   './assets/module-france.css',
   './assets/module-bridge.js',
-  './assets/mission4-hotfix.js',
+  './assets/mission4-fix-v2.js',
   './data/modules.js',
   './module/woche-36/index.html',
   './manifest.webmanifest'
@@ -39,10 +39,10 @@ async function cachedOrNetwork(request){
   }
 }
 
-async function injectMission4Hotfix(response){
+async function injectMission4Fix(response){
   if(!response) return response;
   const html = await response.text();
-  if(html.includes('mission4-hotfix.js')){
+  if(html.includes('mission4-fix-v2.js')){
     return new Response(html, {
       status: response.status,
       statusText: response.statusText,
@@ -52,7 +52,7 @@ async function injectMission4Hotfix(response){
 
   const injected = html.replace(
     '</body>',
-    '<script src="../../assets/mission4-hotfix.js"></script>\n</body>'
+    '<script src="../../assets/mission4-fix-v2.js?v=2"></script>\n</body>'
   );
   const headers = new Headers(response.headers);
   headers.delete('content-length');
@@ -69,10 +69,10 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if(event.request.method !== 'GET' || url.pathname.startsWith('/api/')) return;
 
-  const isWeek36 = url.pathname.endsWith('/module/woche-36/index.html') || url.pathname.endsWith('/module/woche-36/');
+  const isWeek36 = /\/module\/woche-36(?:\/index\.html|\/)?$/.test(url.pathname);
 
   event.respondWith((async () => {
     const response = await cachedOrNetwork(event.request);
-    return isWeek36 ? injectMission4Hotfix(response) : response;
+    return isWeek36 ? injectMission4Fix(response) : response;
   })());
 });
