@@ -18,7 +18,6 @@ function withSecurityHeaders(response) {
   });
 }
 
-
 function json(data, status = 200) {
   return withSecurityHeaders(new Response(JSON.stringify(data), {
     status,
@@ -154,6 +153,28 @@ async function handleApi(request, env) {
   return json({ok:false, error:'NOT_FOUND'}, 404);
 }
 
+async function fixWeek36Mission4(response) {
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('text/html')) return withSecurityHeaders(response);
+
+  let html = await response.text();
+  html = html.replace(
+    'const right=[true,false,true,false,true,true];',
+    'const right=[true,false,true,true,false,true];'
+  );
+
+  const headers = new Headers(response.headers);
+  headers.delete('content-length');
+  headers.delete('content-encoding');
+  headers.set('cache-control', 'no-cache, max-age=0, must-revalidate');
+
+  return withSecurityHeaders(new Response(html, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  }));
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -175,6 +196,8 @@ export default {
     }
 
     const response = await env.ASSETS.fetch(request);
+    const isWeek36 = /\/module\/woche-36(?:\/index\.html|\/)?$/.test(url.pathname);
+    if (isWeek36) return fixWeek36Mission4(response);
     return withSecurityHeaders(response);
   }
 };
