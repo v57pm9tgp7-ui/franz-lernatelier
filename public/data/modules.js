@@ -50,6 +50,7 @@ window.FRANZ_MODULES = [
     facts: ['8 Missionen', '2–3 Lektionen', 'A1 bis B2+'],
     tags: ['Sprechen', 'Hören', 'Interagieren', 'Beruf'],
     visual: {number:'37',phraseA:'Je me présente.',phraseB:'Et toi ?'},
+    heroLogo: 'assets/logo-se-presenter-christoph.png',
     levels: [
       {id:'support',label:'Soutien',range:'A1 → A2',symbol:'+',color:'#2f6bff',soft:'#edf3ff',note:'Viele Hilfen, Wortbanken und klare Satzanfänge.',supportTitle:'Viel Unterstützung',supportText:'Sie erhalten Satzanfänge, Beispiele und kleine Schritte. Danach sprechen Sie mit sichtbarer Hilfe.',layers:['Wortbank','Satzanfänge','Beispiel','kleine Schritte'],placeholder:'Wählen Sie einen Satzanfang …'},
       {id:'standard',label:'Standard',range:'A2',symbol:'●',color:'#147c73',soft:'#e8f6f3',note:'Gezielte Hilfe und zunehmend eigene Formulierungen.',supportTitle:'Gezielte Unterstützung',supportText:'Sie formulieren selbst und nutzen Hilfen nur, wenn Sie sie brauchen.',layers:['Satzanfang','Wortideen','Kurzcheck','laut sprechen'],placeholder:'écrivez votre réponse …'},
@@ -82,6 +83,17 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
   if (!current) return;
   const lead = document.getElementById('homeLead');
   if (lead && current.homeLead) lead.textContent = current.homeLead;
+  const heroVisual = document.querySelector('.week-hero-visual');
+  if (heroVisual && current.week === 37) {
+    heroVisual.classList.add('has-custom-week-logo');
+    if (!heroVisual.querySelector('.week-hero-logo')) {
+      const logo = document.createElement('img');
+      logo.className = 'week-hero-logo';
+      logo.src = current.heroLogo || 'assets/logo-se-presenter-christoph.png';
+      logo.alt = 'Se présenter';
+      heroVisual.appendChild(logo);
+    }
+  }
   const visualNumber = document.querySelector('.visual-number');
   if (visualNumber) visualNumber.textContent = current.visual?.number || current.week;
   const cardA = document.querySelector('.speech-card.card-a');
@@ -131,20 +143,20 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
   if (!document.querySelector('link[data-franz-workspace-css]')) {
     const css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.href = 'assets/ui-workspace.css?v=20260905-4';
+    css.href = 'assets/ui-workspace.css?v=20260905-5';
     css.dataset.franzWorkspaceCss = '1';
     document.head.appendChild(css);
   }
   if (!document.querySelector('link[data-franz-typography-css]')) {
     const typography = document.createElement('link');
     typography.rel = 'stylesheet';
-    typography.href = 'assets/ui-typography-v3.css?v=20260905-4';
+    typography.href = 'assets/ui-typography-v3.css?v=20260905-5';
     typography.dataset.franzTypographyCss = '1';
     document.head.appendChild(typography);
   }
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = 'assets/ui-workspace.js?v=20260905-4';
+  script.src = 'assets/ui-workspace.js?v=20260905-5';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

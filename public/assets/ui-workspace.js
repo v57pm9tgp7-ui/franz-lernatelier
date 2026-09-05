@@ -5,8 +5,8 @@
 
   const script = document.currentScript;
   const base = script?.src ? new URL('.', script.src) : null;
-  const workspaceCssHref = base ? new URL('ui-workspace.css?v=20260905-4', base).href : null;
-  const typographyCssHref = base ? new URL('ui-typography-v3.css?v=20260905-4', base).href : null;
+  const workspaceCssHref = base ? new URL('ui-workspace.css?v=20260905-5', base).href : null;
+  const typographyCssHref = base ? new URL('ui-typography-v3.css?v=20260905-5', base).href : null;
 
   function ensureCss(selector, href, dataName){
     if (!href) return;

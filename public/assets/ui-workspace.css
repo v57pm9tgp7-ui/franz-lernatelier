@@ -668,3 +668,53 @@ body.is-workspace-fullscreen .training-hero{
 .write-help-step b,.writing-help-step b{font-size:15px!important}
 .listen-card .quiz-options strong{font-size:var(--ui-type-small)!important;line-height:1.4!important}
 .listen-card [id^="listenText-"]{font-size:var(--ui-type-small)!important;line-height:1.6!important}
+
+/* ---------- Woche 37: Nutzerlogo als zentrales Wochenvisual ---------- */
+.week-hero-visual.has-custom-week-logo{
+  position:relative!important;
+  overflow:hidden!important;
+}
+.week-hero-visual.has-custom-week-logo .week-hero-logo{
+  position:absolute!important;
+  left:50%!important;
+  top:41%!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(64%,540px)!important;
+  max-width:540px!important;
+  max-height:64%!important;
+  object-fit:contain!important;
+  z-index:1!important;
+  filter:drop-shadow(0 18px 28px rgba(8,38,74,.18));
+  pointer-events:none!important;
+}
+.week-hero-visual.has-custom-week-logo .speech-card,
+.week-hero-visual.has-custom-week-logo .visual-number,
+.week-hero-visual.has-custom-week-logo svg,
+.week-hero-visual.has-custom-week-logo canvas,
+.week-hero-visual.has-custom-week-logo .eiffel,
+.week-hero-visual.has-custom-week-logo .tower,
+.week-hero-visual.has-custom-week-logo .hero-illustration,
+.week-hero-visual.has-custom-week-logo .week-illustration{
+  display:none!important;
+}
+.week-hero-visual.has-custom-week-logo .route-preview,
+.week-hero-visual.has-custom-week-logo .progress-card,
+.week-hero-visual.has-custom-week-logo .hero-progress,
+.week-hero-visual.has-custom-week-logo .task-preview,
+.week-hero-visual.has-custom-week-logo .week-hero-footer{
+  position:relative!important;
+  z-index:2!important;
+}
+@media (min-width:1550px){
+  .week-hero-visual.has-custom-week-logo .week-hero-logo{
+    width:min(60%,560px)!important;
+    top:40%!important;
+  }
+}
+@media (max-width:960px){
+  .week-hero-visual.has-custom-week-logo .week-hero-logo{
+    width:min(72%,420px)!important;
+    top:43%!important;
+    max-height:58%!important;
+  }
+}
