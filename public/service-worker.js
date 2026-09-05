@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-10';
+const CACHE = 'franz-lernatelier-v0-11';
 const FILES = [
   './',
   './index.html',
@@ -8,6 +8,8 @@ const FILES = [
   './assets/cloud-sync.js',
   './assets/module-france.css',
   './assets/module-bridge.js',
+  './assets/ui-workspace.css',
+  './assets/ui-workspace.js',
   './data/modules.js',
   './module/woche-36/index.html',
   './module/woche-37/index.html',

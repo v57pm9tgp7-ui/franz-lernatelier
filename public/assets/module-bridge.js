@@ -422,3 +422,12 @@
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', start) : start();
 })();
+
+// Gemeinsamer Lesbarkeits-/Vollbildstandard fuer Woche 36.
+(() => {
+  if (document.querySelector('script[data-franz-workspace-ui]')) return;
+  const script = document.createElement('script');
+  script.src = '../../assets/ui-workspace.js?v=20260905-1';
+  script.dataset.franzWorkspaceUi = '1';
+  document.head.appendChild(script);
+})();

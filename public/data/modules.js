@@ -125,3 +125,12 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
     });
   }
 }, 0));
+
+// Gemeinsamer Lesbarkeits-/Vollbildstandard fuer die Hauptseite.
+(() => {
+  if (document.querySelector('script[data-franz-workspace-ui]')) return;
+  const script = document.createElement('script');
+  script.src = 'assets/ui-workspace.js?v=20260905-1';
+  script.dataset.franzWorkspaceUi = '1';
+  document.head.appendChild(script);
+})();

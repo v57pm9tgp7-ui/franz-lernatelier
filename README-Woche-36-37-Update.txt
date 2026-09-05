@@ -71,3 +71,12 @@ UPDATE – SCHREIBHILFEN & HOERVERSTEHEN
 - Audio ist langsamer: Soutien besonders langsam, Standard klar verlangsamt, Défi/Expert etwas natürlicher.
 - Woche 36: Audioausgabe wurde über die vorhandene Modul-Brücke ebenfalls verlangsamt.
 - Für diese Verbesserungen ist KEINE KI nötig. Die Auswertung arbeitet lokal im Browser mit toleranter Ähnlichkeitsprüfung.
+
+ERGÄNZUNG · LESBARKEIT UND VOLLBILD
+-----------------------------------
+- Der Arbeitsbereich nutzt auf grossen Bildschirmen fast die gesamte verfügbare Breite.
+- Kleine Hilfs-, Meta- und Erklärungstexte wurden global vergrössert.
+- Besonders die Schreibhilfen sind deutlich besser lesbar; 10–12-px-Kleinschrift wird vermieden.
+- Auf Hauptseite und Wochenmodulen steht neu ein Vollbild-Schalter zur Verfügung.
+- Im Vollbild wird die Navigation ausgeblendet und der Arbeitsbereich maximiert. Ein gut sichtbarer Button beendet den Vollbildmodus; Esc funktioniert ebenfalls.
+- Service-Worker-Cache: v0-11.

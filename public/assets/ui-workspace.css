@@ -1,0 +1,301 @@
+/* Franz Lernatelier · Lesbarkeit & Arbeitsflaeche
+   Grundregel: Hilfen und Bedienhinweise duerfen nie in Kleinschrift verschwinden. */
+
+:root{
+  --ui-readable-small:14px;
+  --ui-readable-text:16px;
+  --ui-readable-control:16px;
+}
+
+body{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ---------- Hauptseite: deutlich mehr nutzbare Bildschirmbreite ---------- */
+@media (min-width:1180px){
+  .header-inner,
+  .site-main{
+    width:calc(100vw - 24px)!important;
+    max-width:1800px!important;
+  }
+  .site-main{
+    padding-top:24px!important;
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  .week-hero{
+    grid-template-columns:minmax(0,1.06fr) minmax(430px,.94fr)!important;
+  }
+}
+
+@media (min-width:1550px){
+  .week-hero-copy{padding:42px 50px 40px!important}
+  .week-hero-visual{min-height:560px!important}
+}
+
+/* ---------- Wochenmodule: Arbeitsbereich ebenfalls breit ---------- */
+@media (min-width:1180px){
+  .topbar{
+    padding-left:max(18px,calc((100vw - 1760px)/2))!important;
+    padding-right:max(18px,calc((100vw - 1760px)/2))!important;
+  }
+  .app-main{
+    width:calc(100vw - 24px)!important;
+    max-width:1760px!important;
+    padding-top:24px!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+}
+
+/* ---------- Globale Mindestlesbarkeit ---------- */
+.site-header small,
+.site-main small,
+.topbar small,
+.app-main small{
+  font-size:max(14px,.82em)!important;
+  line-height:1.4!important;
+}
+
+.site-header button,
+.site-main button,
+.topbar button,
+.app-main button,
+.site-main input,
+.site-main textarea,
+.site-main select,
+.app-main input,
+.app-main textarea,
+.app-main select{
+  font-size:max(16px,.92em);
+}
+
+/* Shell / Startseite */
+.brand-copy small,
+.level-shortcut small,
+.save-note small,
+.eyebrow,
+.small-label,
+.module-kicker,
+.week-badge,
+.state-badge,
+.fact-chip,
+.progress-head,
+.route-card-head,
+.next-meta span,
+.change-note,
+.account-chip small,
+.account-chip strong{
+  font-size:max(14px,.82em)!important;
+  line-height:1.4!important;
+}
+
+.module-description,
+.next-card p,
+.teacher-note p,
+.section-heading p,
+.week-list-copy p,
+.training-card p,
+.recommended-training p{
+  font-size:max(16px,.92em)!important;
+  line-height:1.55!important;
+}
+
+/* Wochenmodule allgemein */
+.brand-subtitle,
+.level-chip small,
+.passport-step,
+.passport-stamp,
+.bridge-status,
+.section-kicker,
+.status-legend,
+.mission-state,
+.mission-meta span,
+.mission-hero-meta span,
+.activity-badge,
+.phrase,
+.word,
+.question-label,
+.round-check,
+.dictation-hint,
+.w36-flow-role span,
+.w36-flow-note,
+.w36-route-step span,
+.w36-flow-order{
+  font-size:max(14px,.82em)!important;
+  line-height:1.45!important;
+}
+
+.mission-card p,
+.activity-head p,
+.activity-body,
+.activity-body p,
+.activity-body label,
+.activity-body li,
+.activity-body .translation,
+.trainer-card p,
+.trainer-answer,
+.reserve-card p{
+  font-size:max(16px,.92em)!important;
+  line-height:1.55!important;
+}
+
+.mission-card .go{
+  font-size:max(16px,.92em)!important;
+}
+
+/* ---------- Schreibhilfen: bewusst deutlich groesser ---------- */
+.write-help-status{
+  font-size:max(14px,.82em)!important;
+  line-height:1.4!important;
+}
+.write-help-btn{
+  min-height:40px!important;
+  padding:8px 12px!important;
+  font-size:max(14px,.84em)!important;
+}
+.write-help-panel{
+  padding:17px!important;
+}
+.write-help-head h4{
+  font-size:max(18px,1.02em)!important;
+  line-height:1.3!important;
+}
+.write-help-head p{
+  font-size:max(15px,.88em)!important;
+  line-height:1.5!important;
+}
+.write-help-close{
+  width:36px!important;
+  height:36px!important;
+  font-size:18px!important;
+}
+.write-help-level{
+  font-size:max(13px,.78em)!important;
+  padding:6px 10px!important;
+}
+.write-help-steps{
+  gap:10px!important;
+}
+.write-help-step{
+  min-height:96px!important;
+  padding:12px 12px 12px 42px!important;
+  font-size:max(14px,.84em)!important;
+  line-height:1.5!important;
+}
+.write-help-step b{
+  left:10px!important;
+  top:11px!important;
+  width:25px!important;
+  height:25px!important;
+  font-size:12px!important;
+}
+.write-help-step strong{
+  font-size:max(15px,.9em)!important;
+  line-height:1.35!important;
+  margin-bottom:4px!important;
+}
+.write-help-section{
+  margin-top:14px!important;
+  padding-top:13px!important;
+}
+.write-help-label{
+  font-size:max(13px,.78em)!important;
+  line-height:1.35!important;
+  margin-bottom:8px!important;
+}
+.write-help-chips{gap:8px!important}
+.write-help-chip,
+.write-help-word,
+.write-help-example-toggle{
+  min-height:38px!important;
+  padding:8px 11px!important;
+  font-size:max(14px,.82em)!important;
+  line-height:1.35!important;
+}
+.write-help-example{
+  padding:12px 13px!important;
+  font-size:max(15px,.88em)!important;
+  line-height:1.55!important;
+}
+.write-help-check{gap:8px!important}
+.write-help-check li{
+  min-height:38px!important;
+  padding:9px 10px 9px 31px!important;
+  font-size:max(14px,.82em)!important;
+  line-height:1.4!important;
+}
+.write-help-check li::before{
+  left:9px!important;
+  top:9px!important;
+}
+
+/* Woche 36 besitzt eine zweite Schreibhilfe-Generation. */
+.writing-status,
+.writing-help-label,
+.writing-help-step,
+.writing-insert-chip,
+.writing-clue-chip,
+.writing-example-toggle,
+.writing-checklist li,
+.writing-guide-btn{
+  font-size:max(14px,.82em)!important;
+  line-height:1.45!important;
+}
+.writing-help-trigger{font-size:max(14px,.82em)!important;min-height:39px!important;padding:7px 11px!important}
+.writing-help-head h4{font-size:max(18px,1.02em)!important}
+.writing-help-head p{font-size:max(15px,.88em)!important;line-height:1.5!important}
+.writing-help-step{min-height:96px!important;padding:12px 12px 12px 42px!important}
+.writing-insert-chip,.writing-clue-chip,.writing-example-toggle{min-height:38px!important;padding:8px 11px!important}
+.writing-example{font-size:max(15px,.88em)!important;line-height:1.55!important}
+.writing-activity-guide{padding:15px 16px!important}
+.writing-guide-copy strong{font-size:max(16px,.94em)!important}
+.writing-guide-copy span{font-size:max(14px,.84em)!important;line-height:1.5!important}
+
+/* ---------- Vollbild / Fokus ---------- */
+.ui-fullscreen-button span[aria-hidden="true"]{font-size:22px;line-height:1}
+.ui-fullscreen-exit{
+  position:fixed;
+  z-index:10000;
+  right:18px;
+  top:18px;
+  display:none;
+  align-items:center;
+  gap:8px;
+  min-height:46px;
+  padding:10px 14px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:13px;
+  background:#082f5f;
+  color:#fff;
+  box-shadow:0 12px 30px rgba(0,0,0,.24);
+  font:900 15px/1.2 "Bahnschrift","Segoe UI",Arial,sans-serif;
+  cursor:pointer;
+}
+body.is-workspace-fullscreen .ui-fullscreen-exit{display:inline-flex}
+body.is-workspace-fullscreen .site-header,
+body.is-workspace-fullscreen .topbar,
+body.is-workspace-fullscreen>.tricolore{
+  display:none!important;
+}
+body.is-workspace-fullscreen .site-main,
+body.is-workspace-fullscreen .app-main{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:16px 18px 44px!important;
+}
+body.is-workspace-fullscreen .plain-heading{margin-top:0!important}
+body.is-workspace-fullscreen .week-hero,
+body.is-workspace-fullscreen .hero,
+body.is-workspace-fullscreen .mission-shell,
+body.is-workspace-fullscreen .training-hero{
+  max-width:none!important;
+}
+
+@media (max-width:760px){
+  .ui-fullscreen-button .fullscreen-label{display:none}
+  .write-help-step,.writing-help-step{min-height:0!important}
+  .site-main,.app-main{width:100%!important}
+}
