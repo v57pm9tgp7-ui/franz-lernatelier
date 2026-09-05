@@ -4,16 +4,27 @@
   window.__franzWorkspaceUI = true;
 
   const script = document.currentScript;
-  const cssHref = script?.src ? new URL('ui-workspace.css?v=20260905-2', script.src).href : null;
-  if (cssHref && !document.querySelector('link[data-franz-workspace-css]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = cssHref;
-    link.dataset.franzWorkspaceCss = '1';
-    document.head.appendChild(link);
+  const base = script?.src ? new URL('.', script.src) : null;
+  const workspaceCssHref = base ? new URL('ui-workspace.css?v=20260905-3', base).href : null;
+  const typographyCssHref = base ? new URL('ui-typography-v3.css?v=20260905-3', base).href : null;
+
+  function ensureCss(selector, href, dataName){
+    if (!href) return;
+    let link = document.querySelector(selector);
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.dataset[dataName] = '1';
+      document.head.appendChild(link);
+    }
+    if (link.href !== href) link.href = href;
   }
 
+  ensureCss('link[data-franz-workspace-css]', workspaceCssHref, 'franzWorkspaceCss');
+  ensureCss('link[data-franz-typography-css]', typographyCssHref, 'franzTypographyCss');
+
   let fallbackFocus = false;
+  let auditScheduled = false;
 
   function isFull(){ return !!document.fullscreenElement || fallbackFocus; }
 
@@ -90,13 +101,93 @@
     document.body.appendChild(exit);
   }
 
+  /* ----------------------------------------------------------------
+     Automatischer Lesbarkeits-Audit
+     Sichert auch dynamisch gerenderte Inhalte ab, damit künftig keine
+     11–14-px-Lerntexte durch einen vergessenen Selektor zurückkehren.
+     ---------------------------------------------------------------- */
+  const EXCLUDE = [
+    '.visual-number','.passport-stamp','.route-dot','.stop-dot','.task-number',
+    '.mission-number','.next-number','.level-symbol','.brand-mark','.tricolore',
+    'svg','path','use','script','style','noscript','[aria-hidden="true"]'
+  ].join(',');
+
+  function hasReadableText(el){
+    if (!el || el.matches(EXCLUDE)) return false;
+    const text = (el.textContent || '').replace(/\s+/g,' ').trim();
+    if (!text) return false;
+    // Reine Symbol-/Pfeil-Elemente nicht aufblasen.
+    if (!/[A-Za-zÀ-ÿ0-9]/.test(text)) return false;
+    return true;
+  }
+
+  function ownText(el){
+    return [...el.childNodes].some(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+  }
+
+  function floorFor(el){
+    if (el.matches('p,li,label,summary,figcaption,dd,dt')) return {px:17, cls:'ui-font-floor-copy'};
+    if (el.matches('button,input,textarea,select')) return {px:16.5, cls:'ui-font-floor-control'};
+    if (el.matches('small')) return {px:16, cls:'ui-font-floor-meta'};
+    if (el.matches('span,strong,b') && ownText(el)) return {px:16, cls:'ui-font-floor-meta'};
+    return null;
+  }
+
+  function auditTypography(root=document){
+    const scopes = [];
+    if (root.matches?.('.app-main,.site-main')) scopes.push(root);
+    scopes.push(...(root.querySelectorAll?.('.app-main,.site-main') || []));
+    if (!scopes.length && document.body) {
+      const main = document.querySelector('.app-main,.site-main');
+      if (main) scopes.push(main);
+    }
+
+    scopes.forEach(scope => {
+      const nodes = scope.querySelectorAll('p,li,label,summary,figcaption,dd,dt,small,span,strong,b,button,input,textarea,select');
+      nodes.forEach(el => {
+        if (!hasReadableText(el)) return;
+        const floor = floorFor(el);
+        if (!floor) return;
+        const size = parseFloat(getComputedStyle(el).fontSize || '0');
+        if (Number.isFinite(size) && size + .05 < floor.px) {
+          el.classList.add(floor.cls);
+          el.dataset.uiReadableFloor = String(floor.px);
+        }
+      });
+    });
+  }
+
+  function scheduleAudit(root=document){
+    if (auditScheduled) return;
+    auditScheduled = true;
+    requestAnimationFrame(() => {
+      auditScheduled = false;
+      auditTypography(root);
+    });
+  }
+
   function start(){
     createHeaderButton();
     createExit();
     sync();
+    scheduleAudit(document);
+    setTimeout(() => auditTypography(document), 180);
+    setTimeout(() => auditTypography(document), 700);
+
+    const observer = new MutationObserver(records => {
+      let root = document;
+      for (const record of records) {
+        const candidate = record.target?.nodeType === 1 ? record.target : null;
+        if (candidate?.closest?.('.app-main,.site-main')) { root = candidate.closest('.app-main,.site-main'); break; }
+      }
+      scheduleAudit(root);
+    });
+    if (document.body) observer.observe(document.body,{childList:true,subtree:true});
+
     document.addEventListener('fullscreenchange', () => {
       if (!document.fullscreenElement) fallbackFocus = false;
       sync();
+      scheduleAudit(document);
     });
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape' && fallbackFocus) {
@@ -104,6 +195,7 @@
         sync();
       }
     });
+    window.addEventListener('resize', () => scheduleAudit(document));
   }
 
   document.readyState === 'loading'

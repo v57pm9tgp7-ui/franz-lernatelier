@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-12';
+const CACHE = 'franz-lernatelier-v0-13';
 const FILES = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const FILES = [
   './assets/module-bridge.js',
   './assets/ui-workspace.css',
   './assets/ui-workspace.js',
+  './assets/ui-typography-v3.css',
   './data/modules.js',
   './module/woche-36/index.html',
   './module/woche-37/index.html',
@@ -60,10 +61,6 @@ async function networkFirst(request){
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   if(event.request.method !== 'GET' || url.pathname.startsWith('/api/')) return;
-
-  // Wochenmodule werden zuerst frisch vom Netz geladen, damit neue Lernatelier-
-  // Inhalte nach einer Veröffentlichung sofort sichtbar sind. Bei Netzproblemen
-  // greift weiterhin die Offline-Kopie.
   const isWeekModule = /\/module\/woche-\d+(?:\/index\.html|\/)?$/.test(url.pathname);
   event.respondWith(isWeekModule ? networkFirst(event.request) : cacheFirst(event.request));
 });

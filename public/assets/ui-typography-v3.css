@@ -1,0 +1,446 @@
+/* Franz Lernatelier · Typografie 3.0
+   Verbindlicher Lesbarkeitsstandard ab Woche 36/37.
+   Lern- und Erklaertexte duerfen nicht mehr als Kleinschrift behandelt werden. */
+
+:root{
+  --fr-type-meta:16px;
+  --fr-type-copy:17.5px;
+  --fr-type-body:18px;
+  --fr-type-control:17px;
+  --fr-line-tight:1.38;
+  --fr-line-copy:1.55;
+  --fr-line-comfort:1.62;
+}
+
+@media (min-width:1600px){
+  :root{
+    --fr-type-meta:16.5px;
+    --fr-type-copy:18px;
+    --fr-type-body:19px;
+    --fr-type-control:17.5px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   1. Allgemeine Lesbarkeit in allen Arbeitsbereichen
+   ------------------------------------------------------------------ */
+.site-main,
+.app-main{
+  font-size:var(--fr-type-body);
+}
+
+.site-main :is(p,li,label,summary,figcaption),
+.app-main :is(p,li,label,summary,figcaption){
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+.site-main small,
+.app-main small{
+  font-size:var(--fr-type-meta)!important;
+  line-height:var(--fr-line-tight)!important;
+}
+
+.site-main :is(button,input,textarea,select),
+.app-main :is(button,input,textarea,select),
+.site-header :is(button,input,select),
+.topbar :is(button,input,select){
+  font-size:var(--fr-type-control)!important;
+  line-height:1.35!important;
+}
+
+.site-main :is(input,select),
+.app-main :is(input,select){min-height:48px}
+.site-main textarea,.app-main textarea{line-height:1.52!important}
+
+/* Laufzeit-Audit kann diese Klassen automatisch setzen. */
+.ui-font-floor-meta{font-size:var(--fr-type-meta)!important;line-height:var(--fr-line-tight)!important}
+.ui-font-floor-copy{font-size:var(--fr-type-copy)!important;line-height:var(--fr-line-copy)!important}
+.ui-font-floor-control{font-size:var(--fr-type-control)!important;line-height:1.35!important}
+
+/* ------------------------------------------------------------------
+   2. Hauptseite / Shell
+   ------------------------------------------------------------------ */
+.brand-copy small,
+.level-shortcut small,
+.save-note small,
+.account-chip small,
+.account-chip strong,
+.eyebrow,
+.small-label,
+.module-kicker,
+.week-badge,
+.state-badge,
+.fact-chip,
+.progress-head,
+.route-card-head,
+.next-meta span,
+.change-note,
+.training-card-time,
+.week-list-progress,
+.week-summary span,
+.training-card small,
+.quick-card small{
+  font-size:var(--fr-type-meta)!important;
+  line-height:var(--fr-line-tight)!important;
+}
+
+.module-description,
+.next-card p,
+.teacher-note p,
+.section-heading p,
+.week-list-copy p,
+.training-card p,
+.recommended-training p,
+.help-steps span,
+.help-note p,
+.drawer>p{
+  font-size:var(--fr-type-body)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+/* ------------------------------------------------------------------
+   3. Niveaukarten – explizit korrigiert
+   Der bisherige Fehler lag u.a. hier: .level-select-card p = 13px.
+   Beschreibungen sind Lerntext und deshalb deutlich groesser.
+   ------------------------------------------------------------------ */
+.level-select-card,
+.level-card{
+  padding:19px 18px 18px!important;
+  height:auto!important;
+  min-height:0!important;
+}
+
+.level-select-card strong,
+.level-card h3{
+  font-size:clamp(20px,1.1vw,22px)!important;
+  line-height:1.25!important;
+}
+
+.level-select-card p,
+.level-card p{
+  margin-top:9px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.5!important;
+}
+
+.level-select-card small,
+.level-card small,
+.level-card>strong{
+  margin-top:12px!important;
+  font-size:var(--fr-type-meta)!important;
+  line-height:1.35!important;
+  font-weight:900!important;
+}
+
+.level-select-card .select-dot,
+.level-check{
+  width:30px!important;
+  height:30px!important;
+}
+
+/* ------------------------------------------------------------------
+   4. Woche 36 – Abschlussweg, Missionen und Hilfen
+   ------------------------------------------------------------------ */
+.w36-route-step{
+  padding:16px 17px!important;
+  gap:14px!important;
+}
+.w36-route-step strong{
+  font-size:clamp(18px,1vw,20px)!important;
+  line-height:1.3!important;
+}
+.w36-route-step span{
+  margin-top:5px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.5!important;
+}
+.w36-flow-head small{font-size:var(--fr-type-meta)!important;line-height:1.35!important}
+.w36-flow-head h3{font-size:clamp(23px,1.3vw,27px)!important}
+.w36-flow-body>p{font-size:var(--fr-type-copy)!important;line-height:1.55!important}
+.w36-flow-role{padding:15px!important}
+.w36-flow-role strong{font-size:clamp(17.5px,1vw,19px)!important;line-height:1.3!important}
+.w36-flow-role span{font-size:var(--fr-type-copy)!important;line-height:1.48!important}
+.w36-flow-note{font-size:var(--fr-type-copy)!important;line-height:1.5!important;padding:13px 15px!important}
+.w36-flow-order{font-size:var(--fr-type-meta)!important;line-height:1.3!important;padding:7px 10px!important}
+
+.task-position,
+.task-kicker,
+.task-state-badge,
+.city-label,
+.mission-city-badge,
+.level-explanation,
+.side-label,
+.activity-tag,
+.flash-tag,
+.question-category,
+.personal-badge,
+.stage-label,
+.trainer-label,
+.recording-status,
+.expert-kicker,
+.expert-count,
+.connector-chip,
+.training-prompt-card small,
+.minute-connectors span,
+.passport-cover small,
+.passport-number span,
+.route-stop strong,
+.route-stop span,
+.score-number span{
+  font-size:var(--fr-type-meta)!important;
+  line-height:1.4!important;
+}
+
+.side-card p,
+.activity-head p,
+.expression-chip,
+.translation,
+.solution-note,
+.feedback,
+.scale-card b,
+.scale-card span,
+.flash-de,
+.prep-card-head span,
+.prep-fields label,
+.timer-copy p,
+.check-chip,
+.help-panel p,
+.help-step,
+.dashboard-stat,
+.badge,
+.minute-challenge p,
+.expert-head p,
+.expert-card p,
+.expert-prompt,
+.expert-check,
+.recording-head p,
+.expert-fast-note,
+.foundation-details summary,
+.training-prompt-card p,
+.diagnostic-item span,
+.view-option span{
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+.activity-head h2{font-size:clamp(24px,1.35vw,29px)!important;line-height:1.2!important}
+.activity-tag{padding:8px 11px!important}
+.side-card{padding:19px!important;height:auto!important}
+.side-card h3{font-size:clamp(20px,1.1vw,23px)!important;line-height:1.25!important}
+
+/* ------------------------------------------------------------------
+   5. Woche 37 – Missionen, Metadaten, Reserve und Training
+   ------------------------------------------------------------------ */
+.brand-subtitle,
+.save-chip,
+.level-chip small,
+.hero-tags li,
+.passport-head span,
+.passport-step,
+.passport-step b,
+.passport-stamp,
+.bridge-status,
+.section-kicker,
+.status-legend,
+.level-check,
+.mission-state,
+.mission-meta span,
+.mission-card .go,
+.reserve-card b,
+.mission-hero-meta span,
+.activity-head small,
+.activity-badge,
+.step b,
+.question-label,
+.preview-line b,
+.cue-section b,
+.quality span,
+.round-check,
+.write-help-level{
+  font-size:var(--fr-type-meta)!important;
+  line-height:var(--fr-line-tight)!important;
+}
+
+.bridge p,
+.section-head p,
+.mission-card p,
+.reserve-head p,
+.reserve-card p,
+.activity-body,
+.activity-body p,
+.activity-body li,
+.activity-body .translation,
+.step p,
+.level-box p,
+.field label,
+.field small,
+.phrase,
+.word,
+.question-choice strong,
+.quality strong,
+.role p,
+.round p,
+.drawer-section p,
+.dictation-hint,
+.trainer-card p,
+.trainer-answer{
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+.mission-meta span{padding:7px 10px!important}
+.mission-card .go{min-height:38px!important;display:inline-flex!important;align-items:center!important}
+.reserve-card{padding:17px!important;height:auto!important}
+
+/* Passport darf mit groesserer Schrift mitwachsen. */
+.passport{width:min(100%,350px)!important;height:auto!important;aspect-ratio:auto!important;min-height:390px!important}
+.passport-step{grid-template-columns:34px 1fr!important;gap:11px!important}
+.passport-step b{width:34px!important;height:34px!important}
+
+/* ------------------------------------------------------------------
+   6. Schreibhilfen – keine Kleinschrift mehr
+   ------------------------------------------------------------------ */
+.write-help-status,
+.writing-status{
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.45!important;
+}
+
+.write-help-btn,
+.writing-help-trigger{
+  min-height:46px!important;
+  padding:10px 14px!important;
+  font-size:var(--fr-type-copy)!important;
+}
+
+.write-help-panel,
+.writing-help-panel{padding:20px!important;border-radius:17px!important}
+
+.write-help-head h4,
+.writing-help-head h4{
+  font-size:clamp(20px,1.15vw,23px)!important;
+  line-height:1.25!important;
+}
+.write-help-head p,
+.writing-help-head p{
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+.write-help-level,
+.write-help-label,
+.writing-help-label{
+  font-size:var(--fr-type-meta)!important;
+  line-height:1.4!important;
+}
+
+.write-help-steps,
+.writing-help-steps{
+  grid-template-columns:repeat(3,minmax(240px,1fr))!important;
+  gap:13px!important;
+}
+.write-help-step,
+.writing-help-step{
+  min-height:122px!important;
+  padding:16px 15px 15px 49px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.52!important;
+}
+.write-help-step strong,
+.writing-help-step strong{
+  font-size:clamp(18px,1vw,20px)!important;
+  line-height:1.3!important;
+}
+.write-help-step b,
+.writing-help-step b{
+  width:30px!important;height:30px!important;font-size:16px!important;
+}
+
+.write-help-chip,
+.write-help-word,
+.write-help-example-toggle,
+.writing-insert-chip,
+.writing-clue-chip,
+.writing-example-toggle,
+.writing-guide-btn{
+  min-height:43px!important;
+  padding:9px 12px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.35!important;
+}
+
+.write-help-example,
+.writing-example{
+  padding:14px 15px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-copy)!important;
+}
+
+.write-help-check li,
+.writing-checklist li{
+  min-height:44px!important;
+  font-size:var(--fr-type-copy)!important;
+  line-height:1.45!important;
+}
+
+.writing-activity-guide{padding:18px 19px!important;gap:15px!important}
+.writing-guide-copy strong{font-size:clamp(18px,1vw,20px)!important}
+.writing-guide-copy span{font-size:var(--fr-type-copy)!important;line-height:var(--fr-line-copy)!important}
+
+/* ------------------------------------------------------------------
+   7. Hoeren und Training
+   ------------------------------------------------------------------ */
+.listen-card .quiz-options strong,
+.listen-card [id^="listenText-"],
+.dictation-stage p,
+.reaction-stage p,
+.training-prompt-card p,
+.trainer-card p{
+  font-size:var(--fr-type-copy)!important;
+  line-height:var(--fr-line-comfort)!important;
+}
+
+/* ------------------------------------------------------------------
+   8. Kompakte Metaelemente: mindestens 16 px, aber visuell weiterhin sekundär
+   ------------------------------------------------------------------ */
+.meta-chip,
+.status-pill,
+.question-category,
+.personal-badge,
+.activity-tag,
+.flash-tag,
+.stage-label,
+.trainer-label,
+.route-stop span,
+.route-stop strong,
+.passport-cover small,
+.score-number span{
+  font-size:var(--fr-type-meta)!important;
+  line-height:1.35!important;
+}
+
+/* Dekorative Elemente duerfen kompakt bleiben. */
+.visual-number,.passport-stamp,.route-dot,.stop-dot,.task-number,.mission-number,.next-number,.level-symbol,.brand-mark{
+  line-height:1!important;
+}
+
+/* Groessere Schrift darf das Layout wachsen lassen. */
+.mission-card,.reserve-card,.activity-card,.side-card,.week-list-card,.level-select-card,.level-card{
+  height:auto!important;
+}
+
+@media (max-width:1050px){
+  .write-help-steps,.writing-help-steps{grid-template-columns:1fr!important}
+  .write-help-step,.writing-help-step{min-height:0!important}
+}
+
+@media (max-width:760px){
+  :root{
+    --fr-type-meta:15.5px;
+    --fr-type-copy:16.5px;
+    --fr-type-body:17px;
+    --fr-type-control:16.5px;
+  }
+  .level-select-card,.level-card{padding:17px!important}
+}
