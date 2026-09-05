@@ -58,3 +58,16 @@ Die vorhandene Woche-36-Datei lädt diese Bridge bereits.
 
 Nach der Veröffentlichung im Browser einmal neu laden. Der Service-Worker-Cache
 wurde auf v0-9 erhöht, damit die neue Version zuverlässig übernommen wird.
+
+
+UPDATE – SCHREIBHILFEN & HOERVERSTEHEN
+--------------------------------------
+- Woche 37: Unter allen Text- und Schreibfeldern erscheint jetzt eine Schreibhilfe.
+- Die Hilfe passt sich an Soutien / Standard / Défi / Expert an.
+- Soutien zeigt viele Bausteine und Beispiele; Standard gezielte Hilfen; Défi und Expert deutlich weniger Gerüst und mehr Ausbauimpulse.
+- Diktat im Trainingsmodus bewertet nicht mehr nach exakter Zeichenfolge. Kleine Schreibfehler, Akzente, Gross-/Kleinschreibung und sehr ähnliche Wörter führen nicht mehr sofort zu «falsch».
+- Rueckmeldungen sind gestuft und motivierend: «sehr gut», «fast vollständig – das zählt», «gute Grundlage», «guter erster Versuch».
+- Nach mehreren Versuchen stehen ein kleiner Hörhinweis und danach ein freiwilliger Lösungsvergleich bereit.
+- Audio ist langsamer: Soutien besonders langsam, Standard klar verlangsamt, Défi/Expert etwas natürlicher.
+- Woche 36: Audioausgabe wurde über die vorhandene Modul-Brücke ebenfalls verlangsamt.
+- Für diese Verbesserungen ist KEINE KI nötig. Die Auswertung arbeitet lokal im Browser mit toleranter Ähnlichkeitsprüfung.

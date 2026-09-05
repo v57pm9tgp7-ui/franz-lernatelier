@@ -20,6 +20,41 @@
   }
 
   function setText(el, text){ if (el && el.textContent !== text) el.textContent = text; }
+
+  function audioRate(){
+    const state = readState();
+    const lid = state?.currentMission ? (state?.missionLevels?.[state.currentMission] || state?.globalLevel || 'standard') : (state?.globalLevel || 'standard');
+    return {support:.62, standard:.70, challenge:.78, expert:.86}[lid] || .70;
+  }
+
+  function speakFriendly(text, slower=false){
+    if (!('speechSynthesis' in window) || !text) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    u.rate = slower ? Math.max(.50, audioRate()-.12) : audioRate();
+    u.pitch = 1;
+    u.volume = 1;
+    speechSynthesis.speak(u);
+  }
+
+
+  function installAudioClamp(){
+    if (!('speechSynthesis' in window) || window.__franzAudioClamp) return;
+    try {
+      const nativeSpeak = speechSynthesis.speak.bind(speechSynthesis);
+      speechSynthesis.speak = utterance => {
+        try {
+          if (utterance && String(utterance.lang || '').toLowerCase().startsWith('fr')) {
+            utterance.rate = Math.min(Number(utterance.rate || 1), audioRate());
+          }
+        } catch (_) {}
+        return nativeSpeak(utterance);
+      };
+      window.__franzAudioClamp = true;
+    } catch (_) {}
+  }
+
   function removeDataset(el, key){ if (el && key in el.dataset) delete el.dataset[key]; }
 
   function injectStyle(){
@@ -363,6 +398,14 @@
   }
 
   document.addEventListener('click', event => {
+    const speak = event.target.closest('[data-speak]');
+    if (!speak) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    speakFriendly(speak.dataset.speak, false);
+  }, true);
+
+  document.addEventListener('click', event => {
     const target = event.target.closest('[data-w36-to-week37]');
     if (!target) return;
     event.preventDefault();
@@ -372,6 +415,7 @@
 
   const observer = new MutationObserver(scheduleApply);
   function start(){
+    installAudioClamp();
     apply();
     if (document.body) observer.observe(document.body, {childList:true, subtree:true});
     window.addEventListener('storage', scheduleApply);

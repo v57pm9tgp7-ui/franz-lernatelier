@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-9';
+const CACHE = 'franz-lernatelier-v0-10';
 const FILES = [
   './',
   './index.html',
