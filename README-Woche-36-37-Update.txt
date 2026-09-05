@@ -80,3 +80,17 @@ ERGÄNZUNG · LESBARKEIT UND VOLLBILD
 - Auf Hauptseite und Wochenmodulen steht neu ein Vollbild-Schalter zur Verfügung.
 - Im Vollbild wird die Navigation ausgeblendet und der Arbeitsbereich maximiert. Ein gut sichtbarer Button beendet den Vollbildmodus; Esc funktioniert ebenfalls.
 - Service-Worker-Cache: v0-11.
+
+UPDATE – TYPOGRAFIE 2.0 / GRUENDLICHER LESBARKEITS-AUDIT
+---------------------------------------------------------
+- Der gesamte sichtbare Text in Woche 37 wurde systematisch nach zu kleinen Schriftgroessen geprueft.
+- Alle 8 Missionen sowie alle 4 Trainingsmodi wurden im Desktop-Layout kontrolliert.
+- Lern- und Hilfetexte liegen nun in der Regel bei mindestens 16–18 px.
+- Reine Metadaten/Badges liegen bei mindestens ca. 15–16 px; es gibt im Desktop-Lernbereich keine sichtbaren Texte unter 15 px.
+- Schreibhilfen wurden nochmals deutlich vergroessert: Schritttexte, Satzbausteine, Wortideen, Beispiele, Checklisten und Statusmeldungen.
+- Auch bisher unauffaellige Kleinstellen wurden korrigiert: Hoerverstehens-Fragen, ausgeblendete Hoertexte, Mission-Metadaten, Reservekarten, Rollen-/Gruppenhinweise, Labels und Drawer-Texte.
+- Die Karten duerfen bei groesserer Schrift in der Hoehe wachsen; Text wird nicht zusammengedrueckt oder abgeschnitten.
+- Das kleine Passeport im Hero wurde fuer die groessere Typografie nachjustiert, damit Titel und Beschriftungen sauber getrennt bleiben.
+- Derselbe globale Typografie-Standard wird ueber ui-workspace.css auch auf die Hauptseite und Woche 36 angewendet.
+- Woche 37 bindet das Lesbarkeits-Stylesheet jetzt bereits im <head> ein, damit es keinen kurzen Wechsel von kleiner zu grosser Schrift beim Laden gibt.
+- Service-Worker-Cache: v0-12.

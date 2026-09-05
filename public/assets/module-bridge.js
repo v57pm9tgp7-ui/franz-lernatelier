@@ -425,9 +425,16 @@
 
 // Gemeinsamer Lesbarkeits-/Vollbildstandard fuer Woche 36.
 (() => {
+  if (!document.querySelector('link[data-franz-workspace-css]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '../../assets/ui-workspace.css?v=20260905-2';
+    css.dataset.franzWorkspaceCss = '1';
+    document.head.appendChild(css);
+  }
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = '../../assets/ui-workspace.js?v=20260905-1';
+  script.src = '../../assets/ui-workspace.js?v=20260905-2';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

@@ -4,7 +4,7 @@
   window.__franzWorkspaceUI = true;
 
   const script = document.currentScript;
-  const cssHref = script?.src ? new URL('ui-workspace.css?v=20260905-1', script.src).href : null;
+  const cssHref = script?.src ? new URL('ui-workspace.css?v=20260905-2', script.src).href : null;
   if (cssHref && !document.querySelector('link[data-franz-workspace-css]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';

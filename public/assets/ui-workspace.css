@@ -299,3 +299,372 @@ body.is-workspace-fullscreen .training-hero{
   .write-help-step,.writing-help-step{min-height:0!important}
   .site-main,.app-main{width:100%!important}
 }
+
+
+/* =====================================================================
+   TYPOGRAFIE 2.0 · 2026-09-05
+   Verbindlicher Lesbarkeitsstandard fuer Unterricht und Lernhilfe.
+   - Inhaltstext: mindestens 17 px
+   - kleine Erklaer-/Hilfstexte: mindestens 16 px
+   - reine Meta-/Badge-Texte: mindestens 15 px
+   Auf grossen Displays skaliert die Schrift leicht mit, ohne das Layout
+   aufzublaehen. Die Hierarchie bleibt ueber Gewicht, Farbe und Abstand klar.
+   ===================================================================== */
+:root{
+  --ui-type-meta:clamp(15px,.82vw,16px);
+  --ui-type-small:clamp(16px,.88vw,17px);
+  --ui-type-body:clamp(17px,.94vw,18px);
+  --ui-type-control:clamp(16.5px,.90vw,17.5px);
+  --ui-type-help:clamp(16px,.90vw,17px);
+  --ui-type-help-title:clamp(18px,1vw,20px);
+  --ui-line-tight:1.35;
+  --ui-line-normal:1.52;
+  --ui-line-comfort:1.62;
+}
+
+/* Normale Texte und Bedienelemente */
+.site-header button,
+.site-main button,
+.topbar button,
+.app-main button,
+.site-main input,
+.site-main textarea,
+.site-main select,
+.app-main input,
+.app-main textarea,
+.app-main select{
+  font-size:var(--ui-type-control)!important;
+  line-height:1.35!important;
+}
+.site-main input,.site-main textarea,.site-main select,
+.app-main input,.app-main textarea,.app-main select{
+  min-height:48px;
+}
+.site-main textarea,.app-main textarea{line-height:1.5!important}
+
+/* Shell / Startseite: kleine Texte bleiben wirklich lesbar */
+.brand-copy small,
+.level-shortcut small,
+.save-note small,
+.account-chip small,
+.account-chip strong,
+.eyebrow,
+.small-label,
+.module-kicker,
+.week-badge,
+.state-badge,
+.fact-chip,
+.progress-head,
+.route-card-head,
+.next-meta span,
+.change-note,
+.training-card-time,
+.week-list-progress,
+.week-summary span,
+.training-card small,
+.quick-card small{
+  font-size:var(--ui-type-meta)!important;
+  line-height:var(--ui-line-tight)!important;
+}
+.module-description,
+.next-card p,
+.teacher-note p,
+.section-heading p,
+.week-list-copy p,
+.training-card p,
+.recommended-training p,
+.help-steps span,
+.help-note p,
+.drawer>p{
+  font-size:var(--ui-type-body)!important;
+  line-height:var(--ui-line-normal)!important;
+}
+.next-card h2,.teacher-note h2{font-size:clamp(24px,1.35vw,28px)!important}
+.next-meta span{gap:8px!important}
+
+/* Woche 37 / Wochenmodule: alle bisherigen 10–15-px-Stellen angehoben */
+.brand-subtitle,
+.save-chip,
+.level-chip small,
+.hero-tags li,
+.passport-head span,
+.passport-step,
+.passport-step b,
+.passport-stamp,
+.bridge-status,
+.section-kicker,
+.status-legend,
+.level-check,
+.level-card strong,
+.level-card p,
+.mission-state,
+.mission-meta span,
+.mission-card .go,
+.reserve-card b,
+.mission-hero-meta span,
+.activity-head small,
+.activity-badge,
+.step b,
+.question-label,
+.preview-line b,
+.cue-section b,
+.quality span,
+.round-check,
+.write-help-level{
+  font-size:var(--ui-type-meta)!important;
+  line-height:var(--ui-line-tight)!important;
+}
+.bridge p,
+.section-head p,
+.mission-card p,
+.reserve-card p,
+.activity-head p,
+.activity-body,
+.activity-body p,
+.activity-body li,
+.activity-body .translation,
+.step p,
+.level-box p,
+.field label,
+.field small,
+.phrase,
+.word,
+.question-choice strong,
+.quality strong,
+.role p,
+.round p,
+.drawer-section p,
+.dictation-hint,
+.trainer-card p,
+.trainer-answer,
+.reserve-card p{
+  font-size:var(--ui-type-small)!important;
+  line-height:var(--ui-line-normal)!important;
+}
+.field label,.quality strong,.question-choice strong{
+  font-weight:900!important;
+}
+.mini-levels button{font-size:var(--ui-type-meta)!important;min-height:40px!important;padding:8px 10px!important}
+.mission-card .go{min-height:34px;display:inline-flex;align-items:center}
+
+/* Schreibhilfen Woche 37 – dies ist Lerntext, keine Kleinschrift */
+.write-help-status{
+  font-size:var(--ui-type-small)!important;
+  line-height:1.4!important;
+  font-weight:800!important;
+}
+.write-help-btn{
+  min-height:44px!important;
+  padding:9px 13px!important;
+  font-size:var(--ui-type-small)!important;
+}
+.write-help-panel{
+  padding:20px!important;
+  border-radius:17px!important;
+}
+.write-help-head{gap:14px!important}
+.write-help-head h4{
+  font-size:var(--ui-type-help-title)!important;
+  line-height:1.25!important;
+}
+.write-help-head p{
+  font-size:var(--ui-type-help)!important;
+  line-height:var(--ui-line-normal)!important;
+  max-width:78ch;
+}
+.write-help-close{
+  width:40px!important;
+  height:40px!important;
+  font-size:20px!important;
+}
+.write-help-level{
+  font-size:var(--ui-type-meta)!important;
+  padding:7px 11px!important;
+}
+.write-help-steps{
+  grid-template-columns:repeat(3,minmax(220px,1fr))!important;
+  gap:12px!important;
+  margin-top:15px!important;
+}
+.write-help-step{
+  min-height:112px!important;
+  padding:15px 14px 14px 46px!important;
+  font-size:var(--ui-type-help)!important;
+  line-height:1.52!important;
+}
+.write-help-step b{
+  left:12px!important;
+  top:13px!important;
+  width:28px!important;
+  height:28px!important;
+  font-size:14px!important;
+}
+.write-help-step strong{
+  font-size:clamp(16.5px,.92vw,18px)!important;
+  line-height:1.3!important;
+  margin-bottom:5px!important;
+}
+.write-help-section{
+  margin-top:16px!important;
+  padding-top:15px!important;
+}
+.write-help-label{
+  font-size:var(--ui-type-meta)!important;
+  line-height:1.35!important;
+  margin-bottom:10px!important;
+}
+.write-help-chips{gap:9px!important}
+.write-help-chip,
+.write-help-word,
+.write-help-example-toggle{
+  min-height:41px!important;
+  padding:9px 12px!important;
+  font-size:var(--ui-type-small)!important;
+  line-height:1.35!important;
+}
+.write-help-example{
+  padding:14px 15px!important;
+  font-size:var(--ui-type-small)!important;
+  line-height:var(--ui-line-normal)!important;
+}
+.write-help-check{gap:9px!important}
+.write-help-check li{
+  min-height:42px!important;
+  padding:10px 12px 10px 34px!important;
+  font-size:var(--ui-type-small)!important;
+  line-height:1.4!important;
+}
+.write-help-check li::before{left:10px!important;top:10px!important}
+
+/* Woche 36 besitzt eine zweite Schreibhilfe-Generation. Gleiches Niveau. */
+.writing-status,
+.writing-help-label,
+.writing-insert-chip,
+.writing-clue-chip,
+.writing-example-toggle,
+.writing-checklist li,
+.writing-guide-btn{
+  font-size:var(--ui-type-small)!important;
+  line-height:1.45!important;
+}
+.writing-help-trigger{
+  font-size:var(--ui-type-small)!important;
+  min-height:44px!important;
+  padding:9px 13px!important;
+}
+.writing-help-head h4{font-size:var(--ui-type-help-title)!important;line-height:1.25!important}
+.writing-help-head p{font-size:var(--ui-type-help)!important;line-height:var(--ui-line-normal)!important}
+.writing-help-steps{grid-template-columns:repeat(3,minmax(220px,1fr))!important;gap:12px!important}
+.writing-help-step{
+  min-height:112px!important;
+  padding:15px 14px 14px 46px!important;
+  font-size:var(--ui-type-help)!important;
+  line-height:1.52!important;
+}
+.writing-help-step b{width:28px!important;height:28px!important;font-size:14px!important}
+.writing-help-step strong{font-size:clamp(16.5px,.92vw,18px)!important}
+.writing-insert-chip,.writing-clue-chip,.writing-example-toggle{min-height:41px!important;padding:9px 12px!important}
+.writing-example{font-size:var(--ui-type-small)!important;line-height:var(--ui-line-normal)!important}
+.writing-activity-guide{padding:17px 18px!important;gap:14px!important}
+.writing-guide-copy strong{font-size:clamp(17px,.94vw,18px)!important}
+.writing-guide-copy span{font-size:var(--ui-type-small)!important;line-height:var(--ui-line-normal)!important}
+
+/* Woche 36: weitere Meta-/Lerntexte, die vorher teilweise 11–14 px waren */
+.task-position,
+.task-kicker,
+.task-state-badge,
+.city-label,
+.mission-city-badge,
+.level-explanation,
+.side-label,
+.activity-tag,
+.flash-tag,
+.question-category,
+.personal-badge,
+.stage-label,
+.trainer-label,
+.recording-status,
+.expert-kicker,
+.expert-count,
+.connector-chip,
+.training-prompt-card small,
+.minute-connectors span,
+.passport-cover small,
+.passport-number span,
+.route-stop strong,
+.route-stop span,
+.score-number span{
+  font-size:var(--ui-type-meta)!important;
+  line-height:1.4!important;
+}
+.side-card p,
+.activity-head p,
+.expression-chip,
+.translation,
+.solution-note,
+.feedback,
+.scale-card b,
+.scale-card span,
+.flash-de,
+.prep-card-head span,
+.prep-fields label,
+.timer-copy p,
+.check-chip,
+.help-panel p,
+.help-step,
+.dashboard-stat,
+.badge,
+.minute-challenge p,
+.expert-head p,
+.expert-card p,
+.expert-prompt,
+.expert-check,
+.recording-head p,
+.expert-fast-note,
+.foundation-details summary,
+.training-prompt-card p,
+.diagnostic-item span,
+.view-option span{
+  font-size:var(--ui-type-small)!important;
+  line-height:var(--ui-line-normal)!important;
+}
+
+/* Lange Karten mit groesserer Schrift duerfen wachsen statt Text zu quetschen. */
+.mission-card,.reserve-card,.level-card,.activity-card,.side-card,.week-list-card{height:auto!important}
+.reserve-grid,.mission-grid,.level-strip{align-items:stretch}
+
+/* Desktop: Hilfekarten lieber groesser als dicht. */
+@media (min-width:1500px){
+  :root{
+    --ui-type-meta:16px;
+    --ui-type-small:17px;
+    --ui-type-body:18px;
+    --ui-type-control:17px;
+    --ui-type-help:17px;
+  }
+}
+
+/* Tablet / kleinere Fenster: Lesbarkeit bleibt, Layout stapelt frueher. */
+@media (max-width:1050px){
+  .write-help-steps,.writing-help-steps{grid-template-columns:1fr!important}
+  .write-help-step,.writing-help-step{min-height:0!important}
+}
+@media (max-width:760px){
+  :root{
+    --ui-type-meta:14.5px;
+    --ui-type-small:15.5px;
+    --ui-type-body:16.5px;
+    --ui-type-control:16px;
+    --ui-type-help:15.5px;
+  }
+}
+
+/* Letzte Audit-Korrekturen: keine versteckte 14-px-Schrift in Lerninhalten. */
+.app-main small{font-size:var(--ui-type-small)!important;line-height:1.45!important}
+.site-main small{font-size:var(--ui-type-meta)!important;line-height:1.4!important}
+.passport-head>div{display:flex!important;flex-direction:column!important;gap:4px!important;min-width:0}
+.passport-head>div>span,.passport-head>div>strong{display:block!important}
+.passport{width:min(100%,330px)!important}
+.write-help-step b,.writing-help-step b{font-size:15px!important}
+.listen-card .quiz-options strong{font-size:var(--ui-type-small)!important;line-height:1.4!important}
+.listen-card [id^="listenText-"]{font-size:var(--ui-type-small)!important;line-height:1.6!important}
