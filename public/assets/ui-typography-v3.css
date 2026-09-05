@@ -444,3 +444,200 @@
   }
   .level-select-card,.level-card{padding:17px!important}
 }
+
+/* =====================================================================
+   ANSICHT 4.0 · GROSSE SCHRIFT + VOLLE ARBEITSBREITE
+   2026-09-05
+   ---------------------------------------------------------------------
+   1. «Grössere Schrift» ist ein echter, globaler Darstellungsmodus.
+   2. Arbeitsseiten nutzen die verfügbare Fensterbreite konsequent.
+   3. Lange Lesetexte bleiben trotzdem auf angenehme Zeilenlängen begrenzt.
+   ===================================================================== */
+
+/* ---------- Volle Arbeitsbreite: Hauptseite und alle Wochen ---------- */
+.header-inner,
+.site-main,
+.app-main,
+.task-shell{
+  width:100%!important;
+  max-width:none!important;
+}
+
+.header-inner{
+  padding-left:clamp(16px,1.5vw,30px)!important;
+  padding-right:clamp(16px,1.5vw,30px)!important;
+}
+
+.site-main,
+.app-main{
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:clamp(14px,1.45vw,28px)!important;
+  padding-right:clamp(14px,1.45vw,28px)!important;
+}
+
+.topbar{
+  padding-left:clamp(14px,1.45vw,28px)!important;
+  padding-right:clamp(14px,1.45vw,28px)!important;
+}
+
+.week-hero,
+.start-row,
+.level-section,
+.quick-section,
+.weeks-list,
+.training-grid,
+.hero,
+.bridge,
+.level-strip,
+.mission-grid,
+.reserve-band,
+.mission-shell,
+.training-hero,
+.trainer-layout,
+.selection-hero,
+.path-hero,
+.tour-board,
+.route-map-card,
+.passport-card,
+.training-layout,
+.task-card{
+  width:100%!important;
+  max-width:none!important;
+}
+
+/* Wo der Bildschirm breiter wird, soll Inhalt sinnvoll mitwachsen. */
+@media (min-width:1450px){
+  .week-hero{grid-template-columns:minmax(0,1.12fr) minmax(500px,.88fr)!important}
+  .week-hero-copy{padding-left:clamp(44px,3vw,64px)!important;padding-right:clamp(44px,3vw,64px)!important}
+  .hero{grid-template-columns:minmax(0,1.45fr) minmax(390px,.55fr)!important}
+  .hero-copy{padding-left:clamp(44px,3vw,64px)!important;padding-right:clamp(44px,3vw,64px)!important}
+  .task-content{grid-template-columns:minmax(0,1.72fr) minmax(360px,.58fr)!important}
+  .trainer-layout{grid-template-columns:minmax(0,1.55fr) minmax(360px,.45fr)!important}
+}
+
+/* Volle Breite ja, aber keine endlosen Textzeilen. */
+.module-description,
+.hero .lead,
+.bridge p,
+.mission-hero p,
+.training-hero p,
+.activity-head p,
+.goal-box p,
+.side-card p,
+.teacher-note p,
+.next-card p,
+.section-heading p,
+.drawer>p,
+.drawer-section p{
+  max-width:82ch;
+}
+
+/* ---------- «Grössere Schrift» – sichtbarer Unterschied auf ALLEN Seiten ---------- */
+body.view-large{
+  --fr-type-meta:18.5px;
+  --fr-type-copy:21px;
+  --fr-type-body:22px;
+  --fr-type-control:20px;
+  --ui-type-meta:18.5px;
+  --ui-type-small:21px;
+  --ui-type-body:22px;
+  --ui-type-control:20px;
+  --ui-type-help:21px;
+  --ui-type-help-title:24px;
+  font-size:22px!important;
+}
+
+/* Hauptnavigation / Kopfzeilen wachsen mit, ohne klobig zu werden. */
+body.view-large .brand-copy strong{font-size:23px!important}
+body.view-large .brand-title{font-size:21px!important}
+body.view-large .nav-item{font-size:19px!important;min-height:52px!important;padding:11px 15px!important}
+body.view-large .round-button{width:50px!important;height:50px!important}
+body.view-large .level-shortcut{min-height:50px!important;padding:8px 14px!important}
+body.view-large .account-chip{min-height:50px!important}
+body.view-large .top-action,
+body.view-large .level-chip{min-height:50px!important;padding:10px 15px!important;font-size:19px!important}
+
+/* Hauptseite */
+body.view-large .plain-heading h1{font-size:clamp(48px,5.5vw,74px)!important}
+body.view-large .plain-heading p{font-size:21px!important;line-height:1.5!important}
+body.view-large .week-hero h2{font-size:clamp(58px,7.5vw,92px)!important}
+body.view-large .module-subtitle{font-size:27px!important}
+body.view-large .next-card h2,
+body.view-large .teacher-note h2{font-size:28px!important}
+body.view-large .section-heading h2{font-size:clamp(37px,2.4vw,44px)!important}
+body.view-large .training-card h2,
+body.view-large .recommended-training h2{font-size:28px!important}
+
+/* Woche 37 */
+body.view-large .hero h1{font-size:clamp(48px,5.8vw,76px)!important}
+body.view-large .hero .lead{font-size:24px!important}
+body.view-large .bridge h2{font-size:28px!important}
+body.view-large .section-head h2{font-size:clamp(36px,2.3vw,42px)!important}
+body.view-large .level-card h3{font-size:24px!important}
+body.view-large .mission-card h3{font-size:28px!important}
+body.view-large .mission-hero h1{font-size:clamp(39px,4.5vw,56px)!important}
+body.view-large .activity-head h2{font-size:clamp(28px,1.7vw,33px)!important}
+body.view-large .trainer-card h2{font-size:30px!important}
+body.view-large .trainer-prompt{font-size:25px!important}
+body.view-large .drawer-head h2{font-size:27px!important}
+body.view-large .drawer-section h3{font-size:22px!important}
+
+/* Woche 36 */
+body.view-large .selection-hero h1,
+body.view-large .path-hero h1{font-size:clamp(48px,5.8vw,76px)!important}
+body.view-large .selection-hero .lead,
+body.view-large .path-copy p{font-size:23px!important;line-height:1.5!important}
+body.view-large .task-banner h1{font-size:clamp(38px,4.5vw,54px)!important}
+body.view-large .task-main h2{font-size:32px!important}
+body.view-large .side-card h3{font-size:24px!important}
+body.view-large .training-copy h1{font-size:clamp(46px,5vw,68px)!important}
+body.view-large .training-copy p{font-size:22px!important}
+body.view-large .trainer-card h2{font-size:30px!important}
+
+/* Hilfen müssen im Grossschriftmodus wirklich gross werden. */
+body.view-large .write-help-step,
+body.view-large .writing-help-step,
+body.view-large .write-help-head p,
+body.view-large .writing-help-head p,
+body.view-large .write-help-chip,
+body.view-large .writing-insert-chip,
+body.view-large .write-help-word,
+body.view-large .writing-clue-chip,
+body.view-large .write-help-example,
+body.view-large .writing-example,
+body.view-large .write-help-check li,
+body.view-large .writing-checklist li{
+  font-size:21px!important;
+  line-height:1.55!important;
+}
+body.view-large .write-help-head h4,
+body.view-large .writing-help-head h4{font-size:24px!important}
+
+/* Grosse Schrift darf Karten hoeher machen, nie wieder Text verkleinern. */
+body.view-large :is(.level-card,.level-select-card,.mission-card,.reserve-card,.activity-card,.side-card,.week-list-card,.trainer-card){
+  height:auto!important;
+  min-height:0!important;
+}
+
+/* Auf sehr breiten Displays praktisch bis an den Rand, mit ruhigem Randabstand. */
+@media (min-width:1900px){
+  .site-main,.app-main{padding-left:30px!important;padding-right:30px!important}
+  .header-inner,.topbar{padding-left:30px!important;padding-right:30px!important}
+}
+
+/* Mobil bleibt die Lesbarkeit hoch, ohne horizontales Scrollen. */
+@media (max-width:760px){
+  .site-main,.app-main{padding-left:12px!important;padding-right:12px!important}
+  body.view-large{
+    --fr-type-meta:17px;
+    --fr-type-copy:18px;
+    --fr-type-body:19px;
+    --fr-type-control:18px;
+    --ui-type-meta:17px;
+    --ui-type-small:18px;
+    --ui-type-body:19px;
+    --ui-type-control:18px;
+    --ui-type-help:18px;
+  }
+}
