@@ -77,6 +77,32 @@ test('Week 36 return, independent exercises and next week navigation are preserv
     p.w.dispatchEvent(new p.w.Event("pagehide"));assert.deepEqual(p.state().missionDone,{});assert.deepEqual(p.errors.map(e=>e.message),[]);
   }finally{p.close();}
 });
+test('Week 36 speaking tasks explain the revised classroom flow without seeded profile answers',async()=>{
+  const seed={profile:{name:'Christoph Marti',className:''},answers:{},checks:{},ratings:{}};
+  const p=await page(36,'#mission-5',{[keys[36]]:seed});try{
+    const fields=[...p.d.querySelectorAll('#mission-5 [data-bind^="m5.line."]')];
+    assert.equal(fields.length,8);assert.ok(fields.every(field=>field.value===''));
+    assert.equal(p.d.querySelector('#m5ProfileList li').textContent,'Je m’appelle …');
+    assert.equal(p.d.querySelectorAll('#mission-5 .activity-card').length,3);
+    assert.match(p.d.querySelector('#mission-5').textContent,/Je pense que la phrase … est fausse/);
+    assert.match(p.d.querySelector('#mission-5').textContent,/Oui, c’est ça/);
+
+    p.choose('[data-nav-exercise]','mission-7');await tick(60);
+    assert.match(p.d.querySelector('#mission-7').textContent,/heruntergeladene Präsentation «20 Questions»/);
+    assert.match(p.d.querySelector('#mission-7').textContent,/nicht direkt in Teams/);
+    assert.match(p.d.querySelector('#mission-7').textContent,/Ein Computer pro Dreiergruppe genügt/);
+
+    p.choose('[data-nav-exercise]','mission-8');await tick(60);
+    assert.equal(p.d.querySelector('[data-timer-start="m8Prep"]').dataset.seconds,'120');
+    assert.equal(p.d.querySelector('[data-timer-start="m8Talk"]').dataset.seconds,'60');
+    assert.ok(p.d.querySelector('[data-check="m8.round1.done"]'));
+    assert.ok(p.d.querySelector('[data-check="m8.round2.done"]'));
+    assert.ok(p.d.querySelector('[data-bind="m8.feedback1"]'));
+    assert.ok(p.d.querySelector('[data-bind="m8.feedback2"]'));
+    assert.doesNotMatch(p.d.querySelector('#mission-8').textContent,/Exit-Ticket/);
+    assert.deepEqual(p.errors.map(e=>e.message),[]);
+  }finally{p.close();}
+});
 test('All four training deep links select the requested mode in both weeks',async()=>{
   for(const week of [36,37])for(const mode of ['cards','dictation','reaction','expert']){
     const p=await page(week,`#training/${mode}`);try{

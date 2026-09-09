@@ -1,6 +1,6 @@
 # Franz Lernatelier – UX-Überarbeitung
 
-Stand: 9. September 2026 · Version 0.17.0
+Stand: 9. September 2026 · Version 0.18.0
 
 Dieses Paket enthält das vollständige Projekt für das bestehende Repository `v57pm9tgp7-ui/franz-lernatelier`. Grundlage ist Commit `f3119bc8206a4048d267fd5ae50d54977cc29b8a`.
 
@@ -20,6 +20,9 @@ Die Cloudflare-Konfiguration, der Worker und die Datenbankanbindung sind unverä
 - Die zuletzt besuchte Übung lässt sich über «Letzte Übung» wieder öffnen. Eine abgeschlossene Übung bleibt erneut zugänglich.
 - Übungen und Wochen lassen sich ohne vorherigen Abschluss öffnen.
 - Wortschatztraining in Woche 37 mit Aufdecken, Vorlesen, Merkliste, «Noch üben», «Gewusst», vorheriger Karte und neuer Runde. Die vorhandenen acht Karten bleiben inhaltlich unverändert.
+- «20 Questions» erklärt jetzt ausdrücklich: Präsentation zuerst aus Teams herunterladen, lokal öffnen und mit einem Computer pro Dreiergruppe arbeiten.
+- «Mon profil express» startet mit leeren Feldern, erklärt den Zweck des automatisch erzeugten Sprechtexts und führt Schritt für Schritt durch «Deux vérités, un mensonge».
+- Der «Défi final» bietet einen vollständigen Sprechplan, zwei Minuten Vorbereitung, zwei 60-Sekunden-Gespräche mit Partnerwechsel und zwei unterschiedliche Feedbackformen. Das Exit-Ticket ist entfallen.
 - Die Trainingstaste einer Woche öffnet zuverlässig das Training dieser Woche.
 - Sichtbarer Tastaturfokus, beschriftete Eingabefelder und bedienbare Hilfefenster.
 
@@ -37,6 +40,6 @@ npm run dev
 
 Die lokale Vorschau zeigt die Oberfläche. Für Prüfungen ohne Cloudflare-API lässt sich die vorhandene Option zum lokalen Weiterarbeiten verwenden. Die produktive Website verwendet weiterhin `src/index.js` und die Dateien in `public`.
 
-Die zehn automatisierten Prüfungen sind erfolgreich. Zusätzlich wurden die Oberfläche, Navigation, Tastaturbedienung und ausgewählte Trainingsabläufe im Browser bei Desktop-, Tablet- und Smartphonebreiten geprüft. Die genauen Prüfumfänge und Grenzen sind im Änderungsbericht dokumentiert.
+Die elf automatisierten Prüfungen sind erfolgreich. Zusätzlich wurden die Oberfläche, Navigation, Tastaturbedienung und ausgewählte Trainingsabläufe im Browser bei Desktop-, Tablet- und Smartphonebreiten geprüft. Die genauen Prüfumfänge und Grenzen sind im Änderungsbericht dokumentiert.
 
 Ältere `README-*.txt` bleiben als Projektgeschichte enthalten. Für dieses vollständige Update gilt diese Anleitung.

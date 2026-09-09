@@ -137,7 +137,7 @@
     const routeTitle = qs('#routeTitle');
     setText(routeTitle, 'Ihr Abschlussweg für Woche 36');
     const routeIntro = routeTitle?.parentElement?.querySelector('p');
-    setText(routeIntro, 'Sie können jede Übung jederzeit öffnen. Die eigentliche 20-Questions-Sprechphase findet mit der Präsentation in Dreiergruppen statt.');
+    setText(routeIntro, 'Sie können jede Übung jederzeit öffnen. Für die 20-Questions-Sprechphase nutzen Sie die zuvor aus Teams heruntergeladene Präsentation. Öffnen Sie die Datei lokal; ein Computer pro Dreiergruppe genügt.');
 
     const grid = qs('.route-grid', start);
     if (grid && !grid.dataset.w36Fixed) {
@@ -145,7 +145,7 @@
       grid.className = 'w36-route-mini';
       grid.innerHTML = `
         <div class="w36-route-step"><b>1</b><div><strong>Bordeaux · 20 Questions vorbereiten</strong><span>Vier Fragen auswählen und eigene Antworten vorbereiten.</span></div></div>
-        <div class="w36-route-step"><b>2</b><div><strong>20 Questions · Dreiergruppen</strong><span>Die Präsentation steuert Fragen, Rollenwechsel und neue Gruppen. Diese Phase findet ausserhalb des Lernateliers statt.</span></div></div>
+        <div class="w36-route-step"><b>2</b><div><strong>20 Questions · Dreiergruppen</strong><span>Die heruntergeladene Präsentation auf einem Computer öffnen – nicht direkt in Teams. Sie zeigt Fragen und Rollenwechsel.</span></div></div>
         <div class="w36-route-step"><b>3</b><div><strong>Marseille · Mon profil express</strong><span>Aus einzelnen Antworten entsteht eine persönliche Vorstellung.</span></div></div>
         <div class="w36-route-step"><b>4</b><div><strong>Nice · Défi final</strong><span>Zum Abschluss möglichst frei und verständlich sprechen.</span></div></div>`;
     }
@@ -269,17 +269,17 @@
       transition.className = 'activity-card w36-class-transition';
       transition.dataset.w36ClassTransition = '1';
       transition.innerHTML = `
-        <header class="activity-head"><div><h2>C. Danach: 20 Questions in Dreiergruppen</h2><p>Diese Sprechphase findet bewusst nicht nochmals im Lernatelier statt.</p></div><span class="activity-tag">Präsentation</span></header>
+        <header class="activity-head"><div><h2>C. Danach: 20 Questions in Dreiergruppen</h2><p>Arbeiten Sie jetzt mit der Präsentation, die Sie zuvor aus Teams heruntergeladen haben.</p></div><span class="activity-tag">Präsentation</span></header>
         <div class="activity-body">
           <div class="w36-flow-card" style="margin:0">
-            <div class="w36-flow-head"><small>Nächster Unterrichtsschritt</small><h3>Notebook bleibt als Hilfe bereit – gesprochen wird in der Gruppe</h3></div>
-            <div class="w36-flow-body"><p>Herr Marti zeigt mit der 20-Questions-Präsentation die Fragen und die Rollen. Arbeiten Sie in einer Dreiergruppe und wechseln Sie die Rollen.</p>
+            <div class="w36-flow-head"><small>Nächster Unterrichtsschritt</small><h3>Ein Computer pro Dreiergruppe genügt</h3></div>
+            <div class="w36-flow-body"><p>Öffnen Sie in Ihrer Dreiergruppe die bereits heruntergeladene Präsentation «20 Questions» auf einem Computer. Öffnen Sie die Datei lokal – nicht direkt in Teams. Die Präsentation zeigt Ihnen die Fragen und den jeweiligen Rollenwechsel.</p>
               <div class="w36-flow-roles">
                 <div class="w36-flow-role"><b>A</b><strong>fragt</strong><span>wählt eine Frage und hört aufmerksam zu.</span></div>
                 <div class="w36-flow-role"><b>B</b><strong>antwortet</strong><span>antwortet in einem ganzen Satz und ergänzt wenn möglich ein Detail.</span></div>
                 <div class="w36-flow-role"><b>C</b><strong>hört zu</strong><span>achtet auf Verständlichkeit und eine passende Rückfrage.</span></div>
               </div>
-              <div class="w36-flow-note"><strong>Wichtig:</strong> Starten Sie diese Phase erst, wenn die Präsentation das Signal gibt. Danach geht es im Lernatelier mit Marseille weiter.</div>
+              <div class="w36-flow-note"><strong>So läuft es:</strong> Eine Person bedient die Präsentation. Nach jeder Runde wechseln alle drei Rollen wie auf der Folie angegeben. Danach geht es im Lernatelier mit Marseille weiter.</div>
             </div>
           </div>
         </div>`;
@@ -363,11 +363,11 @@
     if (!panel || panel.dataset.w36FlowPatched) return;
     panel.dataset.w36FlowPatched = '1';
     const p = qs('p', panel);
-    setText(p, 'Der Abschluss von Woche 36 verbindet gezielte Online-Vorbereitung mit einer realen Sprechphase in Dreiergruppen. Speed-Dating ist aus dem Lernweg entfernt.');
+    setText(p, 'Der Abschluss von Woche 36 verbindet die Online-Vorbereitung mit einer Sprechphase in Dreiergruppen. Für jede Dreiergruppe genügt ein Computer mit der zuvor aus Teams heruntergeladenen Präsentation.');
     const steps = qs('.help-steps', panel);
     if (steps) steps.innerHTML = `
       <div class="help-step"><div><strong>1 · Bordeaux:</strong><br>Vier 20-Questions-Fragen auswählen und Antworten vorbereiten.</div></div>
-      <div class="help-step"><div><strong>2 · Präsentation:</strong><br>20 Questions in wechselnden Dreiergruppen sprechen; das Lernatelier dient nur als Hilfe.</div></div>
+      <div class="help-step"><div><strong>2 · Präsentation:</strong><br>Heruntergeladene Datei lokal auf einem Computer pro Dreiergruppe öffnen; nicht direkt in Teams. Fragen anzeigen, Rollen wechseln und sprechen.</div></div>
       <div class="help-step"><div><strong>3 · Marseille:</strong><br>Persönliche Informationen zu einer kurzen Vorstellung ordnen und laut erproben.</div></div>
       <div class="help-step"><div><strong>4 · Nice:</strong><br>Défi final abschliessen; danach beginnt Woche 37.</div></div>`;
   }
@@ -429,7 +429,7 @@
 (() => {
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = '../../assets/ui-workspace.js?v=20260909-ux6';
+  script.src = '../../assets/ui-workspace.js?v=20260909-ux7';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

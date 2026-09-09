@@ -12,6 +12,9 @@ Ziel: Eine klare, ruhige und selbsterklärende Oberfläche für Lernende von 15 
 | Sehr hoch | Übungen und Wochen waren schwer direkt anwählbar; Abschlussanzeigen konnten wie Zugangsvoraussetzungen wirken. | Eine ständig erreichbare Wochen- und Übungswahl sowie freie Vor-/Zurücknavigation machen den Zugang unabhängig vom Abschluss. Der vorgeschlagene Lernweg aus Woche 36 bleibt bestehen. |
 | Sehr hoch | Eine Trainingstaste in der Wochenliste öffnete unabhängig von ihrer Woche das aktuelle Modul. | Jede Taste ist an die richtige Woche gebunden. Alle vier Trainingsarten unterstützen direkte Einstiege. |
 | Sehr hoch | Das Wortschatztraining aus Woche 37 bot keinen mit Woche 36 vergleichbaren Kartenablauf. | Vollständige Kartenrunde mit Erinnern, Aufdecken, Audio, Merkliste, Wiederholung schwieriger Karten und verständlichem Rundenabschluss. Die vorherige Karte ermöglicht die Korrektur einer versehentlichen Bewertung. |
+| Sehr hoch | Bei «20 Questions» war unklar, welche Präsentation verwendet wird und wie die Dreiergruppen technisch arbeiten. | Der Auftrag nennt nun die zuvor aus Teams heruntergeladene, lokal geöffnete Präsentation und einen Computer pro Dreiergruppe. Rollen und Rollenwechsel sind direkt beschrieben. |
+| Sehr hoch | «Mon profil express» wirkte teilweise vorausgefüllt; Zweck von Sprechtext und Partnerspiel waren zu wenig erklärt. | Alle acht Felder starten leer und ohne Übernahme des Profilnamens. Der automatisch zusammengesetzte Sprechtext erhält einen klaren Verwendungsauftrag; «Deux vérités, un mensonge» führt durch Vorbereitung, Raten, Auflösen und Rollenwechsel. Der unklare frühere Teil D entfällt. |
+| Sehr hoch | Beim «Défi final» waren drei Stichwörter und 20 Sekunden Vorbereitung zu knapp; ein Durchgang und ein allgemeines Feedback ermöglichten kaum gezielte Verbesserung. | Ein Fünf-Schritt-Sprechplan mit Satzhilfen, sechs bis acht Stichwörtern und zwei Minuten Vorbereitung entlastet die Aufgabe. Zwei 60-Sekunden-Runden mit Partnerwechsel verbinden Checklistenfeedback, Verbesserungsfokus und eine zweite Wirkungsbewertung. Das Exit-Ticket entfällt. |
 | Hoch | Die zuletzt bearbeitete Übung war nach einem Wechsel schwer wiederzufinden. | «Letzte Übung», eindeutige Seitentitel und nachvollziehbare Browser-Zurücknavigation. Auf der Startseite sind die acht Übungen der aktuellen Woche direkt anklickbar. |
 | Hoch | Mehrere ältere Gestaltungsregeln überlagerten sich; grosse Dekoration und Fortschrittsanzeigen verdrängten die eigentlichen Aufgaben. | Gemeinsame Gestaltung in `atelier.css`; Übungen stehen vor ergänzenden Angaben. Niveauwahl, Lernpass und Zusatzaufgaben sind sinnvoll gruppiert und aufklappbar. |
 | Hoch | Kleine Texte, wechselnde Abstände, viele Hervorhebungen und unklare Fokuszustände erschwerten die Nutzung. | Einheitliche Schriftgrössen, reduzierte Farbpalette, deutliche Fokusrahmen, überwiegend mindestens 44 Pixel hohe Bedienelemente und zugeordnete Formularbeschriftungen. |
@@ -41,18 +44,19 @@ Die Gestaltung orientiert sich unter anderem an den W3C-Erläuterungen zu [Bedie
 
 ### Automatisiert
 
-`npm test`: **10 Prüfungen erfolgreich, keine fehlgeschlagen.**
+`npm test`: **11 Prüfungen erfolgreich, keine fehlgeschlagen.**
 
 1. Syntax aller ausgelieferten Skripte und vorhandene lokale HTML-Ressourcen.
 2. Freies Öffnen aller acht Übungen aus Woche 37 bei nicht abgeschlossenen Wochen.
 3. Rückkehr aus Woche-37-Training mit Scrollposition, Antwort, Texteingabefokus und Auswahlposition; einschliesslich Fokuswechsel durch einen Zeigerklick.
 4. Rückkehr in Woche 36, freie Übungswahl und vorhandener Einstieg in Woche 37.
-5. Alle vier Trainingseinstiege in beiden Wochen.
-6. Woche-37-Karten: Aufdecken, Sprachaufruf, Merkliste, Wiederholung, vorherige Karte und Rundenabschluss.
-7. Leere Merkliste mit sinnvoller Fortsetzung sowie vorhandene Diktatprüfung.
-8. Browser-Zurück zur ursprünglichen Übung und erneutes Öffnen der letzten Übung.
-9. Erhalt vorhandener Antworten, Auswahlwerte, Häkchen, Bewertungen, Niveaus und abgeschlossener Übungen beim Navigieren und Verlassen der Seite.
-10. Acht direkte Übungseinstiege auf der Startseite und eindeutige Zuordnung beider Wochentrainings.
+5. Neue Sprechaufträge in Woche 36: lokal geöffnete 20-Questions-Präsentation, leere Profilfelder, zwei Gesprächsrunden und kein Exit-Ticket.
+6. Alle vier Trainingseinstiege in beiden Wochen.
+7. Woche-37-Karten: Aufdecken, Sprachaufruf, Merkliste, Wiederholung, vorherige Karte und Rundenabschluss.
+8. Leere Merkliste mit sinnvoller Fortsetzung sowie vorhandene Diktatprüfung.
+9. Browser-Zurück zur ursprünglichen Übung und erneutes Öffnen der letzten Übung.
+10. Erhalt vorhandener Antworten, Auswahlwerte, Häkchen, Bewertungen, Niveaus und abgeschlossener Übungen beim Navigieren und Verlassen der Seite.
+11. Acht direkte Übungseinstiege auf der Startseite und eindeutige Zuordnung beider Wochentrainings.
 
 ### Im Browser
 
@@ -64,6 +68,7 @@ Die Gestaltung orientiert sich unter anderem an den W3C-Erläuterungen zu [Bedie
 - Wortschatzkarte in Woche 36 mit der Leertaste aufgedeckt; Karten, Diktat, Blitzreaktion und Expert-Ansicht bei Smartphonebreite geöffnet.
 - Diktat in Woche 37 auf Tabletbreite mit korrekter Antwort geprüft; passende Rückmeldung erhalten.
 - Einstellungsfenster per Tastatur geprüft: Fokus beim Öffnen, rückwärts laufende Tabulatornavigation, Schliessen mit Escape und Fokus zurück auf «Ansicht anpassen».
+- Die neuen Inhalte von Bordeaux, Marseille und Nice im Browser geprüft: leere Profilfelder, automatisch aktualisierter Sprechtext, 2-Minuten-Timer, getrennte Markierung beider Gesprächsrunden sowie lesbare Feedbackkarten auf Desktop, Tablet und Smartphone.
 
 ### Grenzen der Prüfung
 

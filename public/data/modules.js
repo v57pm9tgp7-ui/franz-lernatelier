@@ -24,7 +24,7 @@ window.FRANZ_MODULES = [
     missionList: [
       {id:7,title:'Bordeaux · 20 questions',description:'Vier Fragen auswählen und eigene Antworten vorbereiten',time:'20–25 Min.',form:'Einzelarbeit',symbol:'B'},
       {id:5,title:'Marseille · Mon profil express',description:'Aus persönlichen Antworten eine kurze Vorstellung aufbauen',time:'20–25 Min.',form:'EA + PA',symbol:'M'},
-      {id:8,title:'Nice · Défi final',description:'45 Sekunden möglichst frei und verständlich sprechen',time:'15–20 Min.',form:'Partner-/Gruppenarbeit',symbol:'N'}
+      {id:8,title:'Nice · Défi final',description:'Zweimal 60 Sekunden sprechen, Partner wechseln und Feedback nutzen',time:'20–25 Min.',form:'Partnerarbeit',symbol:'N'}
     ],
     training: [
       {id:'cards',title:'Cartes',subtitle:'Wortschatz',description:'Wörter und Sätze erinnern, aufdecken und laut nachsprechen.',icon:'cards',color:'coral',time:'5 Min.'},
@@ -142,7 +142,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
 (() => {
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = 'assets/ui-workspace.js?v=20260909-ux6';
+  script.src = 'assets/ui-workspace.js?v=20260909-ux7';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();
