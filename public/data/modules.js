@@ -140,23 +140,9 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
 
 // Gemeinsamer Lesbarkeits-/Vollbildstandard fuer die Hauptseite.
 (() => {
-  if (!document.querySelector('link[data-franz-workspace-css]')) {
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'assets/ui-workspace.css?v=20260905-5';
-    css.dataset.franzWorkspaceCss = '1';
-    document.head.appendChild(css);
-  }
-  if (!document.querySelector('link[data-franz-typography-css]')) {
-    const typography = document.createElement('link');
-    typography.rel = 'stylesheet';
-    typography.href = 'assets/ui-typography-v3.css?v=20260905-5';
-    typography.dataset.franzTypographyCss = '1';
-    document.head.appendChild(typography);
-  }
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = 'assets/ui-workspace.js?v=20260905-5';
+  script.src = 'assets/ui-workspace.js?v=20260909-ux6';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

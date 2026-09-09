@@ -9,6 +9,8 @@
 <title>Franz Lernatelier</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/atelier.css?v=20260909-ux6">
+<script src="assets/atelier-navigation.js?v=20260909-ux6"></script>
 </head>
 <body>
 <a class="skip-link" href="#mainContent">Direkt zum Inhalt</a>
@@ -69,37 +71,27 @@
         <p class="module-kicker" id="moduleSchoolYear">Schuljahr 2026/27</p>
         <h2 id="moduleTitle">Bienvenue</h2>
         <p class="module-subtitle" id="moduleSubtitle">Passeport de français</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="module/woche-36/index.html" data-open-current><span id="primaryActionLabel">Woche 36 öffnen</span><svg><use href="#i-arrow"></use></svg></a>
+          <button class="secondary-action" type="button" data-view-target="training"><svg><use href="#i-play"></use></svg> 5 Minuten trainieren</button>
+        </div>
         <p class="module-description" id="currentDescription">Begrüssen, Befinden ausdrücken, Hilfssätze nutzen, sich vorstellen und Gespräche führen.</p>
         <div class="module-facts" id="currentFacts"></div>
         <div class="progress-block">
           <div class="progress-head"><span id="progressLabel">Ihr Lernweg ist bereit.</span><strong id="progressValue">0%</strong></div>
           <div class="progress-track"><span id="progressBar"></span></div>
         </div>
-        <div class="hero-actions">
-          <a class="primary-action" href="module/woche-36/index.html" data-open-current><span id="primaryActionLabel">Woche 36 öffnen</span><svg><use href="#i-arrow"></use></svg></a>
-          <button class="secondary-action" type="button" data-view-target="training"><svg><use href="#i-play"></use></svg> 5 Minuten trainieren</button>
-        </div>
       </section>
 
-      <section class="week-hero-visual" aria-label="Frankreichmotiv und Übersicht über acht Aufgaben">
-        <span class="visual-number" aria-hidden="true">36</span>
-        <span class="speech-card card-a" lang="fr">Bonjour !</span>
-        <span class="speech-card card-b" lang="fr">Ça va ?</span>
-        <svg class="eiffel" viewBox="0 0 180 250" fill="none" aria-hidden="true">
-          <path d="M90 12 76 78 55 139 25 228M90 12l14 66 21 61 30 89"/>
-          <path d="M62 96h56M45 156h90M25 228h130"/>
-          <path d="M73 78h34M55 139q35-23 70 0M63 178q27-27 54 0"/>
-        </svg>
-        <div class="route-card">
-          <div class="route-card-head"><span>8 Aufgaben</span><strong id="routeProgressText">0 erledigt</strong></div>
-          <div class="route-line" id="heroRouteStations"></div>
-        </div>
+      <section class="week-hero-visual" aria-label="Übungen dieser Woche">
+        <div class="week-index-heading"><div><h3>Ihre Übungen</h3><p>Jede Übung ist direkt wählbar.</p></div><img class="week-hero-logo" src="assets/logo-se-presenter-christoph.png" alt="Se présenter" width="80" height="80"></div>
+        <div class="route-line" id="heroRouteStations"></div><span id="routeProgressText" class="sr-only"></span>
       </section>
     </article>
 
     <section class="start-row" aria-label="Direkteinstiege">
       <article class="next-card">
-        <span class="small-label">Als Nächstes</span>
+        <span class="small-label">Hier weiterarbeiten</span>
         <div class="next-main"><span class="next-number" id="nextStepCount">01</span><div><h2 id="nextStepTitle">Se saluer</h2><p id="nextStepDescription">Begrüssen, reagieren und verabschieden.</p></div></div>
         <div class="next-meta"><span><svg><use href="#i-clock"></use></svg><b id="nextStepTime">15–20 Min.</b></span><span><svg><use href="#i-users"></use></svg><b id="nextStepForm">Einzelarbeit</b></span></div>
         <a href="module/woche-36/index.html" data-open-next data-mission="1">Aufgabe öffnen <svg><use href="#i-arrow"></use></svg></a>
@@ -107,12 +99,13 @@
 
       <article class="teacher-note">
         <span class="small-label">Vor dem Start</span>
-        <h2>Wählen Sie zuerst Ihr Niveau.</h2>
-        <p>Danach öffnen Sie die erste Aufgabe. Die Stufe kann in jeder Aufgabe geändert werden.</p>
+        <h2>Wie viel Hilfe passt zu Ihnen?</h2>
+        <p>Öffnen Sie eine beliebige Übung. Ihr Niveau können Sie hier und innerhalb jeder Übung ändern.</p>
         <button type="button" data-open-level>Niveau wählen <svg><use href="#i-arrow"></use></svg></button>
       </article>
     </section>
 
+    <details class="atelier-disclosure"><summary>Niveau und Unterstützung <span>· mit Beispiel</span></summary>
     <section class="level-section" aria-labelledby="levelTitle">
       <header class="section-heading">
         <div><span class="eyebrow">Niveau</span><h2 id="levelTitle">Wie viel Unterstützung brauchen Sie?</h2><p>Die Aufgaben bleiben gleich. Hilfen und Zusatzanforderungen passen sich an Ihre Wahl an.</p></div>
@@ -134,6 +127,7 @@
         </aside>
       </div>
     </section>
+    </details>
 
     <section class="quick-section" aria-labelledby="quickTitle">
       <header class="section-heading compact"><div><span class="eyebrow">Kurztraining</span><h2 id="quickTitle">Direkt üben</h2><p>Eine kurze Runde reicht, wenn Sie nur wenige Minuten Zeit haben.</p></div><button class="text-link" type="button" data-view-target="training">Alle Trainingsformen <svg><use href="#i-arrow"></use></svg></button></header>
@@ -143,7 +137,7 @@
 
   <section class="app-view" data-view="weeks" aria-labelledby="weeksTitle" hidden>
     <header class="plain-heading"><div><span class="eyebrow">Übersicht</span><h1 id="weeksTitle">Ihre Wochen</h1><p>Öffnen Sie die aktuelle Einheit oder wiederholen Sie eine frühere Woche.</p></div></header>
-    <div class="week-summary"><div><strong id="summaryModules">1</strong><span>veröffentlichte Woche</span></div><div><strong id="summaryEscales">8</strong><span>Aufgaben</span></div><div><strong>4</strong><span>Niveaus</span></div></div>
+    <div class="week-summary"><div><strong id="summaryModules">1</strong><span>Wochen</span></div><div><strong id="summaryEscales">8</strong><span>Aufgaben</span></div><div><strong>4</strong><span>Niveaus</span></div></div>
     <div class="weeks-list" id="weeksList"></div>
     <article class="coming-card"><span>Woche 37</span><div><h2>Woche 37 erscheint hier.</h2><p>Sobald das Modul veröffentlicht ist, können Sie an dieser Stelle weiterarbeiten.</p></div></article>
   </section>
@@ -201,8 +195,9 @@
 </aside>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="data/modules.js"></script>
+<script src="data/modules.js?v=20260909-ux6"></script>
 <script src="assets/cloud-account.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=20260909-ux6"></script>
+<script src="assets/atelier-accessibility.js?v=20260909-ux6"></script>
 </body>
 </html>

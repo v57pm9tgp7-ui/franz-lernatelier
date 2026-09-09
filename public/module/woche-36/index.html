@@ -872,6 +872,8 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
 
 </style>
 <link rel="stylesheet" href="../../assets/module-france.css">
+<link rel="stylesheet" href="../../assets/atelier.css?v=20260909-ux6">
+<script src="../../assets/atelier-navigation.js?v=20260909-ux6"></script>
 </head>
 <body>
 <header class="topbar">
@@ -1003,6 +1005,13 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
       </div>
     </div>
 
+    <div class="section-intro">
+      <div><span class="section-kicker" id="routeDuration">Grand Tour</span><h2>Ihre acht Escales</h2><p>Missionen Ihres Lernwegs sind hervorgehoben. Zusatzmissionen bleiben jederzeit zugänglich.</p></div>
+      <div class="legend" aria-label="Legende"><span><i></i> Offen</span><span class="working"><i></i> In Arbeit</span><span class="done"><i></i> Gestempelt</span></div>
+    </div>
+    <div class="task-grid mission-grid" id="missionGrid"></div>
+
+    <details class="atelier-disclosure"><summary>Lernweg und Lernpass ansehen</summary>
     <div class="tour-board">
       <section class="route-map-card" aria-labelledby="routeMapTitle">
         <header class="route-map-head"><h2 id="routeMapTitle">Votre itinéraire</h2><p>Jede Escale trainiert eine neue Gesprächsfähigkeit. Abgeschlossene Missionen erhalten einen Stempel.</p></header>
@@ -1018,12 +1027,9 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
       </aside>
     </div>
 
-    <div class="section-intro">
-      <div><span class="section-kicker" id="routeDuration">Grand Tour</span><h2>Ihre acht Escales</h2><p>Missionen Ihres Lernwegs sind hervorgehoben. Zusatzmissionen bleiben jederzeit zugänglich.</p></div>
-      <div class="legend" aria-label="Legende"><span><i></i> Offen</span><span class="working"><i></i> In Arbeit</span><span class="done"><i></i> Gestempelt</span></div>
-    </div>
-    <div class="task-grid mission-grid" id="missionGrid"></div>
+    </details>
 
+    <details class="atelier-disclosure"><summary>Niveau und Unterstützung ändern</summary>
     <div class="section-intro"><div><span class="section-kicker">Niveau jederzeit anpassen</span><h2>Welche Herausforderung passt heute?</h2><p>Die Wahl gilt für neue Missionen. Innerhalb jeder Escale können Sie individuell wechseln.</p></div></div>
     <div class="level-select-grid" id="dashboardLevelGrid">
       <button class="level-select-card support" type="button" data-set-all-level="support"><span class="level-top"><strong>Soutien</strong><span class="select-dot">✓</span></span><p>Viele Hilfen und sichtbare Satzbausteine.</p><small>A1 → A2</small></button>
@@ -1031,6 +1037,7 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
       <button class="level-select-card challenge" type="button" data-set-all-level="challenge"><span class="level-top"><strong>Défi</strong><span class="select-dot">✓</span></span><p>Gründe, Details und Rückfragen.</p><small>A2+ → B1</small></button>
       <button class="level-select-card expert" type="button" data-set-all-level="expert"><span class="level-top"><strong>Mode Expert</strong><span class="select-dot">✓</span></span><p>Fast Track mit Nuancen, Register und Spontaneität.</p><small>B1 → B2+</small></button>
     </div>
+    </details>
   </section>
 
   <div id="missionScreens"></div>
@@ -1042,9 +1049,9 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
     </div>
     <div class="overview-toolbar">
       <div class="autosave-note"><span class="autosave-icon" aria-hidden="true">★</span><span><strong>Ihr persönliches Training</strong><br>Schwierige Karten, Antworten und Auswahl bleiben im Browser gespeichert.</span></div>
-      <div class="toolbar-actions"><button class="secondary-btn" type="button" data-go="dashboard">← Zur Übersicht</button><button class="primary-btn" type="button" id="restartTrainer">Neue Kartenrunde</button></div>
+      <div class="toolbar-actions"><button class="secondary-btn" type="button" data-training-return>← Zurück zur Ausgangsseite</button><button class="primary-btn" type="button" id="restartTrainer">Neue Kartenrunde</button></div>
     </div>
-    <div class="training-tabs" role="tablist" aria-label="Trainingsformen">
+    <div class="training-tabs" role="group" aria-label="Trainingsformen">
       <button class="training-tab is-active" type="button" data-training-tab="cards">Cartes · Wortschatz</button>
       <button class="training-tab" type="button" data-training-tab="dictation">Écoute · Diktat</button>
       <button class="training-tab" type="button" data-training-tab="reaction">Réagis · Blitzreaktion</button>
@@ -1254,6 +1261,8 @@ const DEFAULT_STATE = {
   trainer:{mode:'all',known:0,again:0,index:0,revealed:false,queue:[]}
 };
 let state = loadState();
+let navigation=null;
+function flushState(){clearTimeout(saveTimer);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(_){}}
 let timers = {};
 let saveTimer = null;
 let currentQuestionFilter = 'all';
@@ -1606,8 +1615,9 @@ function syncStart(){
 }
 function clearTimers(){Object.values(timers).forEach(x=>clearInterval(x));timers={};}
 function showScreen(id,scroll=true){
+  navigation?.capture();
   if(!document.getElementById(id))id='start';clearTimers();document.querySelectorAll('[data-screen]').forEach(s=>s.classList.remove('is-active'));document.getElementById(id).classList.add('is-active');state.currentScreen=id;state.currentMission=id.startsWith('mission-')?Number(id.split('-')[1]):null;scheduleSave();
-  if(id==='dashboard')renderDashboard();if(id==='training')initTrainer(false);updateHelpContext();if(scroll){const root=document.documentElement;const previous=root.style.scrollBehavior;root.style.scrollBehavior='auto';window.scrollTo(0,0);document.body.scrollTop=0;requestAnimationFrame(()=>{window.scrollTo(0,0);root.style.scrollBehavior=previous;});}
+  if(id==='dashboard')renderDashboard();if(id==='training')initTrainer(false);updateHelpContext();navigation?.changed(id,scroll);
 }
 function updateMissionUI(id){
   const p=missionProgress(Number(id));const text=document.getElementById(`missionProgressText${id}`),bar=document.getElementById(`missionProgressBar${id}`),badge=document.querySelector(`[data-mission-badge="${id}"]`);if(text)text.textContent=`${p}%`;if(bar)bar.style.width=`${state.missionDone[id]?100:p}%`;if(badge){badge.textContent=state.missionDone[id]?'Erledigt':p>0?'In Arbeit':'Offen';badge.classList.toggle('is-done',!!state.missionDone[id]);}
@@ -1981,10 +1991,12 @@ init=function(){_baseInit();applyViewSettings();renderTrainingMode();document.ge
 function init(){
   renderAllMissions();syncStart();renderDashboard();
   document.addEventListener('input',handleInput);document.addEventListener('change',handleChange);document.addEventListener('click',handleClick);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHelp();closeCompletion();}const flash=e.target.closest?.('[data-flash]');if(flash&&(e.key==='Enter'||e.key===' ')){e.preventDefault();flash.click();}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeHelp();closeCompletion();}if(e.target.id==='singleFlash'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();e.target.click();}const flash=e.target.closest?.('[data-flash]');if(flash&&(e.key==='Enter'||e.key===' ')){e.preventDefault();flash.click();}});
   document.getElementById('helpOverlay').addEventListener('click',closeHelp);
   document.getElementById('importProgress').addEventListener('change',e=>{const f=e.target.files?.[0];if(f)importProgress(f);e.target.value='';});
-  const initial=document.getElementById(state.currentScreen)?state.currentScreen:'start';showScreen(initial,false);initTrainer(true);
+  navigation=window.FranzNavigation.create({week:36,overview:'dashboard',savedRoute:state.currentScreen,missions:[7,5,8,1,2,3,4].map(id=>({id,title:MISSION_META[id].city+' · '+MISSION_META[id].title})),flush:flushState,show:route=>showScreen(route)});
+  if(['cards','dictation','reaction','expert'].includes(navigation.initialMode))state.trainingMode=navigation.initialMode;
+  showScreen(navigation.initial,true);initTrainer(true);
 }
 
 document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
@@ -2394,7 +2406,8 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',ini
 })();
 </script>
 
-<script src="../../assets/module-bridge.js"></script>
+<script src="../../assets/module-bridge.js?v=20260909-ux6"></script>
 <script src="../../assets/cloud-sync.js" data-module-id="woche-36-2026" data-storage-key="franzoesischLernatelierEinstieg_v1"></script>
+<script src="../../assets/atelier-accessibility.js?v=20260909-ux6"></script>
 </body>
 </html>

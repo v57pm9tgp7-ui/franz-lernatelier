@@ -93,7 +93,7 @@
   }
 
   function ensureBackLink(){
-    document.title = 'Franz Lernatelier – Woche 36';
+    if (!document.querySelector('.atelier-nav')) document.title = 'Franz Lernatelier – Woche 36';
     const actions = qs('.topbar-actions');
     if (!actions || actions.querySelector('[data-back-to-atelier]')) return;
     const link = document.createElement('a');
@@ -130,14 +130,14 @@
     const start = qs('#start');
     if (!start) return;
     setText(qs('.selection-copy h1', start), 'Woche 36 abschliessen');
-    setText(qs('.selection-copy .lead', start), 'Bevor Woche 37 beginnt, schliessen Sie drei wichtige Stationen ab: 20 Questions vorbereiten, daraus eine persönliche Vorstellung aufbauen und zum Schluss möglichst frei sprechen.');
+    setText(qs('.selection-copy .lead', start), 'Der vorgeschlagene Abschlussweg enthält drei wichtige Stationen: 20 Questions vorbereiten, daraus eine persönliche Vorstellung aufbauen und zum Schluss möglichst frei sprechen.');
     const sideP = qsa('.selection-side p', start).pop();
     setText(sideP, 'Bordeaux → 20 Questions in Dreiergruppen → Marseille → Nice.');
 
     const routeTitle = qs('#routeTitle');
     setText(routeTitle, 'Ihr Abschlussweg für Woche 36');
     const routeIntro = routeTitle?.parentElement?.querySelector('p');
-    setText(routeIntro, 'Die Reihenfolge steht fest. Die eigentliche 20-Questions-Sprechphase findet mit der Präsentation in Dreiergruppen statt.');
+    setText(routeIntro, 'Sie können jede Übung jederzeit öffnen. Die eigentliche 20-Questions-Sprechphase findet mit der Präsentation in Dreiergruppen statt.');
 
     const grid = qs('.route-grid', start);
     if (grid && !grid.dataset.w36Fixed) {
@@ -375,6 +375,7 @@
   function apply(){
     if (applying) return;
     applying = true;
+    observer.disconnect();
     try {
       injectStyle();
       ensureBackLink();
@@ -388,6 +389,7 @@
       patchTeacherHelp();
     } finally {
       applying = false;
+      if (document.body) observer.observe(document.body, {childList:true, subtree:true});
     }
   }
 
@@ -425,23 +427,9 @@
 
 // Gemeinsamer Lesbarkeits-/Vollbildstandard fuer Woche 36.
 (() => {
-  if (!document.querySelector('link[data-franz-workspace-css]')) {
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = '../../assets/ui-workspace.css?v=20260905-4';
-    css.dataset.franzWorkspaceCss = '1';
-    document.head.appendChild(css);
-  }
-  if (!document.querySelector('link[data-franz-typography-css]')) {
-    const typography = document.createElement('link');
-    typography.rel = 'stylesheet';
-    typography.href = '../../assets/ui-typography-v3.css?v=20260905-4';
-    typography.dataset.franzTypographyCss = '1';
-    document.head.appendChild(typography);
-  }
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = '../../assets/ui-workspace.js?v=20260905-4';
+  script.src = '../../assets/ui-workspace.js?v=20260909-ux6';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

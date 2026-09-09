@@ -64,14 +64,14 @@
   }
 
   function progressData(module=current,state=moduleState){
-    const ids=routeMap[state?.route]||routeMap.full;
+    const ids=module?.remainingFlow || module?.missionList?.map(item=>item.id) || routeMap[state?.route]||routeMap.full;
     const done=ids.filter(id=>state?.missionDone?.[id]).length;
     const total=ids.length;
     const started=done>0||Object.keys(state?.answers||{}).length>0||Object.keys(state?.choices||{}).length>0;
     const finished=done===total&&total>0;
     const pct=total?Math.round(done/total*100):0;
     const activeMission=Number(state?.currentMission||0);
-    const nextId=activeMission&&ids.includes(activeMission)&&!state?.missionDone?.[activeMission]
+    const nextId=activeMission&&ids.includes(activeMission)
       ?activeMission
       :(ids.find(id=>!state?.missionDone?.[id])||ids[ids.length-1]||1);
     return{ids,done,total,started,finished,pct,nextId};
@@ -92,9 +92,11 @@
     qs('#currentWeekNumber').textContent=current.week;
     qs('#moduleSchoolYear').textContent=`Schuljahr ${current.schoolYear}`;
     qs('#moduleTitle').textContent=current.title;
+    qs('[data-open-current]').href=current.href;
+    const nextLink=qs('.next-card [data-open-next]');if(nextLink)nextLink.href=current.href+'#mission-'+next.id;
     qs('#moduleSubtitle').textContent=current.subtitle;
     qs('#currentDescription').textContent=current.description;
-    qs('#homeLead').textContent='Sie arbeiten an Begrüssungen, Hilfssätzen, einer persönlichen Vorstellung und kurzen Gesprächen.';
+    qs('#homeLead').textContent=current.homeLead || current.description;
     qs('#currentFacts').innerHTML=(current.facts||[]).map(fact=>`<span class="fact-chip">${esc(fact)}</span>`).join('');
     qs('#progressValue').textContent=`${progress.pct}%`;
     qs('#progressBar').style.width=`${progress.pct}%`;
@@ -122,7 +124,7 @@
     qs('#routeProgressText').textContent=`${progress.done} erledigt`;
 
     qs('#nextStepCount').textContent=String(next.id).padStart(2,'0');
-    qs('#nextStepTitle').textContent=progress.finished?'Woche abgeschlossen':next.title;
+    qs('#nextStepTitle').textContent=next.title;
     qs('#nextStepDescription').textContent=progress.finished?'Sie können eine Aufgabe wiederholen oder kurz trainieren.':next.description;
     qs('#nextStepTime').textContent=next.time;
     qs('#nextStepForm').textContent=next.form;
@@ -135,8 +137,8 @@
     if(!holder||!current)return;
     holder.innerHTML=current.missionList.map(mission=>{
       const done=!!moduleState.missionDone?.[mission.id];
-      const isNext=mission.id===progress.nextId&&!progress.finished;
-      return `<span class="route-dot${done?' is-done':''}${isNext?' is-next':''}" title="${esc(mission.title)}">${done?'✓':mission.id}</span>`;
+      const isNext=mission.id===progress.nextId;
+      return `<button type="button" class="home-exercise${done?' is-done':''}${isNext?' is-next':''}" data-open-next data-mission="${mission.id}" aria-label="Übung ${mission.id}: ${esc(mission.title)}${done?', abgeschlossen':''}"><span class="exercise-index" aria-hidden="true">${done?'✓':String(mission.id).padStart(2,'0')}</span><span class="exercise-name">${esc(mission.title)}</span><span aria-hidden="true">→</span></button>`;
     }).join('');
   }
 
@@ -144,9 +146,9 @@
     const selected=selectedLevel===level.id;
     const style=`--level-color:${level.color};--level-soft:${level.soft}`;
     if(drawer){
-      return `<button class="drawer-level${selected?' is-selected':''}" type="button" data-select-level="${esc(level.id)}" style="${style}"><span class="level-icon">${esc(level.symbol)}</span><span><h3>${esc(level.label)} · ${esc(level.range)}</h3><p>${esc(level.note)}</p></span><span class="level-radio">✓</span></button>`;
+      return `<button class="drawer-level${selected?' is-selected':''}" type="button" aria-pressed="${selected}" data-select-level="${esc(level.id)}" style="${style}"><span class="level-icon">${esc(level.symbol)}</span><span><h3>${esc(level.label)} · ${esc(level.range)}</h3><p>${esc(level.note)}</p></span><span class="level-radio">✓</span></button>`;
     }
-    return `<button class="level-card${selected?' is-selected':''}" type="button" data-select-level="${esc(level.id)}" style="${style}"><span class="level-card-top"><span class="level-icon">${esc(level.symbol)}</span><span class="level-radio">✓</span></span><h3>${esc(level.label)}</h3><strong>${esc(level.range)}</strong><p>${esc(level.note)}</p></button>`;
+    return `<button class="level-card${selected?' is-selected':''}" type="button" aria-pressed="${selected}" data-select-level="${esc(level.id)}" style="${style}"><span class="level-card-top"><span class="level-icon">${esc(level.symbol)}</span><span class="level-radio">✓</span></span><h3>${esc(level.label)}</h3><strong>${esc(level.range)}</strong><p>${esc(level.note)}</p></button>`;
   }
 
   function renderLevels(){
@@ -179,7 +181,7 @@
     holder.innerHTML=modules.slice().sort((a,b)=>b.week-a.week).map(module=>{
       const state=readModuleState(module);
       const progress=progressData(module,state);
-      return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(module.href)}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="cards">Trainieren</button></div></article>`;
+      return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(module.href)}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="cards" data-training-module="${esc(module.id)}">Trainieren</button></div></article>`;
     }).join('');
     qs('#summaryModules').textContent=String(modules.length);
     qs('#summaryEscales').textContent=String(modules.reduce((sum,module)=>sum+(module.missions||0),0));
@@ -230,8 +232,8 @@
       panel.classList.toggle('is-active',active);
       panel.hidden=!active;
     });
-    qsa('[data-view-target]').forEach(button=>button.classList.toggle('is-active',button.dataset.viewTarget===view));
-    if(updateHash&&location.hash!==`#${view}`)history.replaceState(null,'',`#${view}`);
+    qsa('[data-view-target]').forEach(button=>{const on=button.dataset.viewTarget===view;button.classList.toggle('is-active',on);if(on)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
+    if(updateHash&&location.hash!==`#${view}`)history.pushState(null,'',`#${view}`);
     window.scrollTo({top:0,behavior:settings.motion?'auto':'smooth'});
     qs('#mainContent')?.focus({preventScroll:true});
   }
@@ -239,15 +241,26 @@
   function prepareModule({mission=null,training=null}={}){
     const patch={globalLevel:selectedLevel};
     if(mission){patch.currentScreen=`mission-${mission}`;patch.currentMission=Number(mission);}
-    if(training){patch.currentScreen='training';patch.trainingMode=training;}
+    if(training){patch.trainingMode=training;patch.training={...(moduleState.training||{}),mode:training};}
     writeModuleState(patch);
   }
 
   function openModule(event,options={}){
     event?.preventDefault();
-    if(!current)return;
-    prepareModule(options);
-    location.href=current.href+(options.training?'#training':'');
+    const module=modules.find(m=>m.id===options.moduleId)||current;
+    if(!module)return;
+    if(module.id===current.id)prepareModule(options);
+    let fragment='';
+    if(options.training){
+      window.FranzNavigation.rememberTraining(new URL(module.href,location.href).pathname,shellState.view==='weeks'?'Wochenübersicht':shellState.view==='training'?'Trainingsübersicht':'Startseite');
+      fragment='#training/'+options.training;
+    }else if(options.mission)fragment='#mission-'+options.mission;
+    else{
+      const stored=readModuleState(module);
+      const mission=Number(stored.currentMission)||Number(String(stored.currentScreen).split('-')[1]);
+      fragment=mission && (module.missionList.some(m=>m.id===mission)||module.week===36&&[1,2,3,4].includes(mission)) ? '#mission-'+mission : module.week===36?'#dashboard':'#start';
+    }
+    location.href=module.href+fragment;
   }
 
   function openDrawer(id){
@@ -308,7 +321,7 @@
       }
 
       const training=event.target.closest('[data-start-training]');
-      if(training){openModule(event,{training:training.dataset.startTraining});return;}
+      if(training){openModule(event,{training:training.dataset.startTraining,moduleId:training.dataset.trainingModule});return;}
 
       const recommended=event.target.closest('[data-start-recommended]');
       if(recommended){openModule(event,{training:recommended.dataset.startTraining});return;}
@@ -320,12 +333,13 @@
       if(next){openModule(event,{mission:next.dataset.mission});return;}
 
       const moduleLink=event.target.closest('[data-open-module]');
-      if(moduleLink&&moduleLink.dataset.openModule===current?.id){openModule(event);}
+      if(moduleLink){openModule(event,{moduleId:moduleLink.dataset.openModule});}
     });
 
     qs('#overlay').addEventListener('click',closeDrawers);
     document.addEventListener('keydown',event=>{if(event.key==='Escape')closeDrawers();});
     window.addEventListener('hashchange',()=>setView(location.hash.slice(1),false));
+    window.addEventListener('pageshow',()=>{moduleState=readModuleState(current);selectedLevel=resolveLevel();renderAll();window.FranzNavigation.restoreIncoming();});
     window.addEventListener('storage',event=>{
       if(event.key===current?.storageKey){
         moduleState=readModuleState(current);
@@ -346,6 +360,7 @@
     renderAll();
     bindEvents();
     setView(location.hash.slice(1)||shellState.view||'home',false);
+    window.FranzNavigation.restoreIncoming();
   }
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
