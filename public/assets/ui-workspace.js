@@ -87,7 +87,7 @@
     if (!button) return null;
     if (button.matches('[data-setting="large"],[data-view-option="large"]')) return button;
     const text = (button.textContent || button.getAttribute('aria-label') || '').toLowerCase();
-    return text.includes('grössere schrift') || text.includes('größere schrift') ? button : null;
+    return text.includes('extra grosse schrift') || text.includes('grössere schrift') || text.includes('größere schrift') ? button : null;
   }
 
   function isFull(){ return !!document.fullscreenElement || fallbackFocus; }

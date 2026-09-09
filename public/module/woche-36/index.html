@@ -872,8 +872,10 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
 
 </style>
 <link rel="stylesheet" href="../../assets/module-france.css">
-<link rel="stylesheet" href="../../assets/atelier.css?v=20260909-ux7">
-<script src="../../assets/atelier-navigation.js?v=20260909-ux7"></script>
+<link rel="stylesheet" href="../../assets/atelier.css?v=20260909-ux14">
+<script src="../../assets/atelier-navigation.js?v=20260909-ux14"></script>
+<link rel="stylesheet" href="../../assets/learning-upgrade.css?v=20260909-ux14">
+<link rel="stylesheet" href="../../assets/practice-studio.css?v=20260909-ux14">
 </head>
 <body>
 <header class="topbar">
@@ -1044,7 +1046,7 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
 
   <section class="screen" id="training" data-screen aria-labelledby="trainingTitle">
     <div class="training-hero">
-      <div class="training-copy"><div class="eyebrow france-kicker"><span class="tricolore-mini" aria-hidden="true"><i></i><i></i><i></i></span> Atelier d’entraînement</div><h1 id="trainingTitle">Entraînez votre français</h1><p>Vier Trainingsformen: aktiv erinnern, genau hinhören, schnell reagieren und im Expert-Modus frei sprechen.</p></div>
+      <div class="training-copy"><div class="eyebrow france-kicker"><span class="tricolore-mini" aria-hidden="true"><i></i><i></i><i></i></span> Atelier d’entraînement</div><h1 id="trainingTitle">Entraînez votre français</h1><p>Fünf Trainingsarten: Wortschatz, Diktat, Sätze ordnen, reagieren und frei sprechen. Sehen Sie Ihren Fortschritt und wiederholen Sie gezielt.</p></div>
       <div class="training-side"><strong>5–10 Minuten genügen</strong><p>Kurze, konzentrierte Abrufphasen bringen mehr als langes passives Lesen.</p></div>
     </div>
     <div class="overview-toolbar">
@@ -1153,7 +1155,7 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
 <aside class="view-drawer" id="viewDrawer" hidden aria-labelledby="viewTitle">
   <header class="view-head"><h2 id="viewTitle">Ansicht anpassen</h2><button class="help-close" type="button" id="viewClose" aria-label="Ansicht schliessen">×</button></header>
   <div class="view-body">
-    <button class="view-option" type="button" data-view-option="large"><span><strong>Grössere Schrift</strong><span>Mehr Abstand und grössere Bedienelemente.</span></span><i class="toggle-pill" aria-hidden="true"></i></button>
+    <button class="view-option" type="button" data-view-option="large"><span><strong>Extra grosse Schrift</strong><span>Schrift nochmals um rund 40 % vergrössern.</span></span><i class="toggle-pill" aria-hidden="true"></i></button>
     <button class="view-option" type="button" data-view-option="contrast"><span><strong>Stärkerer Kontrast</strong><span>Dunklere Schrift und deutlichere Rahmen.</span></span><i class="toggle-pill" aria-hidden="true"></i></button>
     <button class="view-option" type="button" data-view-option="focus"><span><strong>Fokusmodus</strong><span>Dekoration reduzieren und nur Wesentliches zeigen.</span></span><i class="toggle-pill" aria-hidden="true"></i></button>
   </div>
@@ -1163,6 +1165,7 @@ button:disabled{opacity:.48;cursor:not-allowed;box-shadow:none!important}
   <div class="modal-card"><div class="modal-head"><h2 id="completionTitle">Bravo – Lernweg geschafft!</h2><p>Sie haben alle Missionen Ihres gewählten Lernwegs abgeschlossen.</p></div><div class="modal-body"><p>Öffnen Sie eine zusätzliche Mission, trainieren Sie schwierige Wörter oder exportieren Sie Ihre Antworten.</p><div class="modal-actions"><button class="secondary-btn" type="button" data-close-modal>Zur Übersicht</button><button class="primary-btn" type="button" data-go="training" data-close-modal>Wortschatz trainieren</button></div></div></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../../assets/practice-studio.js?v=20260909-ux14"></script>
 <script>
 (() => {
 'use strict';
@@ -1865,7 +1868,7 @@ missionShell=function(id,mainHtml){
   const m=MISSION_META[id],level=missionLevel(id),progress=missionProgress(id),prev=id>1?id-1:null,next=id<8?id+1:null,e=EXPERT_TASKS[id];
   const goal=level==='expert'?e.goal:m.goal;const finish=level==='expert'?e.finish:m.finish;const time=level==='expert'?m.expertTime:m.time;
   const content=level==='expert'?`${expertBlock(id)}<details class="foundation-details"><summary>Fondations A2 wiederholen oder gezielt nachschlagen</summary><div class="foundation-inner">${mainHtml}</div></details>`:`<div class="foundation-track">${mainHtml}</div>`;
-  return `<section class="screen task-screen" id="mission-${id}" data-screen data-mission="${id}" aria-labelledby="missionTitle${id}"><div class="task-shell"><div class="task-topline"><button class="back-btn" type="button" data-go="dashboard">← Carnet de route</button><span class="task-position">Escale ${id} von 8 · ${m.city} · ${time}</span></div><article class="task-card" style="--theme:${m.accent};--theme-dark:${m.dark};--theme-2:${m.accent};--accent:${m.accent};--soft:${m.soft}"><header class="task-banner mission-banner"><div class="task-number">${String(id).padStart(2,'0')}</div><div><div class="mission-city-badge"><b>${m.city}</b> ${m.stage}</div><h1 id="missionTitle${id}">${m.title}</h1><p>${level==='expert'?e.title:m.subtitle}</p></div><span class="task-state-badge${state.missionDone[id]?' is-done':''}" data-mission-badge="${id}">${state.missionDone[id]?'Gestempelt':progress>0?'In Arbeit':'Offen'}</span></header><div class="task-content"><section class="task-main"><div class="goal-box"><div class="box-label"><span aria-hidden="true">🎯</span> ${level==='expert'?'Objectif Expert':'Ziel'}</div><p>${goal}</p></div>${content}</section><aside class="task-side"><div class="side-card"><h3>Ihr Niveau</h3><p>Wählen Sie die passende Herausforderung für diese Escale.</p><div class="level-choice"><button type="button" data-level="support" data-level-mission="${id}" class="${level==='support'?'is-selected':''}">Soutien · mit viel Hilfe</button><button type="button" data-level="standard" data-level-mission="${id}" class="${level==='standard'?'is-selected':''}">Standard · A2</button><button type="button" data-level="challenge" data-level-mission="${id}" class="${level==='challenge'?'is-selected':''}">Défi · A2+/B1</button><button type="button" data-level="expert" data-level-mission="${id}" class="${level==='expert'?'is-selected':''}">◆ Expert · B1/B2+</button></div><p class="level-explanation">Expert blendet die Basisteile nicht aus: Sie bleiben als freiwilliges Nachschlagewerk verfügbar.</p></div><div class="side-card finish-card"><span class="side-label">Stempel, wenn …</span><p>${finish}</p><div class="side-progress"><div class="side-progress-label"><span>Arbeitsstand</span><strong id="missionProgressText${id}">${progress}%</strong></div><div class="mini-progress"><span id="missionProgressBar${id}" style="width:${progress}%"></span></div></div></div><div class="side-card help-card"><h3>Besoin d’aide ?</h3><p>Öffnen Sie die Hilfe zu genau dieser Escale.</p><button class="secondary-btn full" type="button" data-open-help>Hilfe zu dieser Mission</button></div></aside></div><footer class="task-footer"><button class="nav-btn prev" type="button" ${prev?`data-open-mission="${prev}"`:'data-go="dashboard"'}>${prev?'← Vorherige Escale':'← Übersicht'}</button><button class="finish-btn${state.missionDone[id]?' is-done':''}" type="button" data-finish-mission="${id}">${state.missionDone[id]?'Passeport gestempelt ✓':'Escale abschliessen & stempeln'}</button><button class="nav-btn next" type="button" ${next?`data-open-mission="${next}"`:'data-go="dashboard"'}>${next?'Nächste Escale →':'Zum Passeport →'}</button></footer></article></div></section>`;
+  return `<section class="screen task-screen" id="mission-${id}" data-screen data-mission="${id}" aria-labelledby="missionTitle${id}"><div class="task-shell"><div class="task-topline"><button class="back-btn" type="button" data-go="dashboard">← Carnet de route</button><span class="task-position">Escale ${id} von 8 · ${m.city} · ${time}</span></div><article class="task-card" style="--theme:${m.accent};--theme-dark:${m.dark};--theme-2:${m.accent};--accent:${m.accent};--soft:${m.soft}"><header class="task-banner mission-banner"><div class="task-number">${String(id).padStart(2,'0')}</div><div><div class="mission-city-badge"><b>${m.city}</b> ${m.stage}</div><h1 id="missionTitle${id}">${m.title}</h1><p>${level==='expert'?e.title:m.subtitle}</p></div><span class="task-state-badge${state.missionDone[id]?' is-done':''}" data-mission-badge="${id}">${state.missionDone[id]?'Gestempelt':progress>0?'In Arbeit':'Offen'}</span></header><div class="task-content"><section class="task-main"><div class="goal-box"><div class="box-label"><span aria-hidden="true">🎯</span> ${level==='expert'?'Objectif Expert':'Ziel'}</div><p>${goal}</p></div>${content}</section><aside class="task-side"><div class="side-card"><h3>Ihr Niveau</h3><p>Wählen Sie die passende Herausforderung für diese Escale.</p><div class="level-choice"><button type="button" data-level="support" data-level-mission="${id}" class="${level==='support'?'is-selected':''}">Soutien · mit viel Hilfe</button><button type="button" data-level="standard" data-level-mission="${id}" class="${level==='standard'?'is-selected':''}">Standard · A2</button><button type="button" data-level="challenge" data-level-mission="${id}" class="${level==='challenge'?'is-selected':''}">Défi · A2+/B1</button><button type="button" data-level="expert" data-level-mission="${id}" class="${level==='expert'?'is-selected':''}">◆ Expert · B1/B2+</button></div><p class="level-explanation">Die Satzmuster und Beispiele stehen Ihnen auch im Expert-Modus zum Nachschlagen zur Verfügung.</p></div><div class="side-card finish-card"><span class="side-label">Stempel, wenn …</span><p>${finish}</p><div class="side-progress"><div class="side-progress-label"><span>Arbeitsstand</span><strong id="missionProgressText${id}">${progress}%</strong></div><div class="mini-progress"><span id="missionProgressBar${id}" style="width:${progress}%"></span></div></div></div><div class="side-card help-card"><h3>Besoin d’aide ?</h3><p>Öffnen Sie die Hilfe zu genau dieser Escale.</p><button class="secondary-btn full" type="button" data-open-help>Hilfe zu dieser Mission</button></div></aside></div><footer class="task-footer"><button class="nav-btn prev" type="button" ${prev?`data-open-mission="${prev}"`:'data-go="dashboard"'}>${prev?'← Vorherige Escale':'← Übersicht'}</button><button class="finish-btn${state.missionDone[id]?' is-done':''}" type="button" data-finish-mission="${id}">${state.missionDone[id]?'Passeport gestempelt ✓':'Escale abschliessen & stempeln'}</button><button class="nav-btn next" type="button" ${next?`data-open-mission="${next}"`:'data-go="dashboard"'}>${next?'Nächste Escale →':'Zum Passeport →'}</button></footer></article></div></section>`;
 };
 
 levelHint=function(id,support,standard,challenge){
@@ -1931,7 +1934,8 @@ function openDiagnostic(){document.getElementById('diagnosticModal').hidden=fals
 function closeDiagnostic(){document.getElementById('diagnosticModal').hidden=true;}
 function evaluateDiagnostic(){const score=[...document.querySelectorAll('[data-diagnostic-item]')].filter(x=>x.checked).length;diagnosticRecommendation=score<=1?'support':score===2?'standard':score<=4?'challenge':'expert';const result=document.getElementById('diagnosticResult');result.innerHTML=`<strong>Empfehlung: ${LEVEL_LABELS[diagnosticRecommendation]}</strong><p>${score} von 5 Aussagen treffen zu. Die Empfehlung ist ein Startpunkt – Sie dürfen jederzeit wechseln.</p>`;document.getElementById('diagnosticApply').disabled=false;}
 
-function renderTrainingMode(){const mode=state.trainingMode||'cards';document.querySelectorAll('[data-training-tab]').forEach(b=>b.classList.toggle('is-active',b.dataset.trainingTab===mode));document.querySelectorAll('[data-training-panel]').forEach(p=>p.classList.toggle('is-active',p.dataset.trainingPanel===mode));if(mode==='dictation')renderDictation();if(mode==='reaction')renderReaction();if(mode==='expert')renderExpertMinute();}
+let practice36=null;
+function renderTrainingMode(){if(!practice36){document.body.classList.add('training-upgraded');const mount=document.createElement('div');mount.id='practice36';document.querySelector('#training>.training-tabs').after(mount);practice36=window.FranzPractice.create({week:36,mount:'practice36',state:()=>state,save:scheduleSave,speak,setMode:mode=>{state.trainingMode=mode;if(mode!=='expert')stopRecording('practiceExpert');},afterRender:()=>{const entry=mediaRecorders.practiceExpert,audio=document.getElementById('practiceExpertAudio');if(entry?.url&&audio){audio.src=entry.url;audio.hidden=false;}setRecorderButtons('practiceExpert',entry?.recorder?.state==='recording',!!entry?.url);},recorder:()=>recordingWidget('practiceExpert',60),data:{cards:PHRASES.map(p=>[p.fr,p.de,p.cat]),dictation:PHRASES.map(p=>p.fr),reaction:REACTION_ITEMS.map(r=>[r.scenario,r.model]),expert:EXPERT_MINUTE_TOPICS}});}practice36.render(state.trainingMode||'cards');}
 function dictationIndex(){return Math.abs(Number(state.trainingExtra?.dictationIndex||0))%PHRASES.length;}
 function renderDictation(){const input=document.getElementById('dictationInput');if(input)input.value=answer('training.dictation.answer');}
 function newDictation(){state.trainingExtra.dictationIndex=Math.floor(Math.random()*PHRASES.length);setAnswer('training.dictation.answer','');const input=document.getElementById('dictationInput');if(input)input.value='';const fb=document.getElementById('dictationFeedback');if(fb)fb.hidden=true;scheduleSave();}
@@ -1945,7 +1949,7 @@ function renderExpertMinute(){const i=expertMinuteIndex(),prompt=document.getEle
 function newExpertMinute(){state.trainingExtra.expertIndex=Math.floor(Math.random()*EXPERT_MINUTE_TOPICS.length);renderExpertMinute();scheduleSave();}
 
 const _baseShowScreen=showScreen;
-showScreen=function(id,scroll=true){_baseShowScreen(id,scroll);if(id==='training')renderTrainingMode();applyViewSettings();};
+showScreen=function(id,scroll=true){practice36?.stop();if(id!=='training')stopRecording('practiceExpert');_baseShowScreen(id,scroll);if(id==='training')renderTrainingMode();applyViewSettings();};
 
 const _baseHandleInput=handleInput;
 handleInput=function(e){_baseHandleInput(e);const key=e.target.dataset.bind;if(key&&/^m[1-8]\.expert\.production$/.test(key)){const id=Number(key[1]);updateExpertCount(id);}};
@@ -1991,7 +1995,7 @@ function init(){
   document.getElementById('helpOverlay').addEventListener('click',closeHelp);
   document.getElementById('importProgress').addEventListener('change',e=>{const f=e.target.files?.[0];if(f)importProgress(f);e.target.value='';});
   navigation=window.FranzNavigation.create({week:36,overview:'dashboard',savedRoute:state.currentScreen,missions:[7,5,8,1,2,3,4].map(id=>({id,title:MISSION_META[id].city+' · '+MISSION_META[id].title})),flush:flushState,show:route=>showScreen(route)});
-  if(['cards','dictation','reaction','expert'].includes(navigation.initialMode))state.trainingMode=navigation.initialMode;
+  if(['cards','dictation','build','reaction','expert'].includes(navigation.initialMode))state.trainingMode=navigation.initialMode;
   showScreen(navigation.initial,true);initTrainer(true);
 }
 
@@ -2395,8 +2399,8 @@ document.readyState==='loading'?document.addEventListener('DOMContentLoaded',ini
 })();
 </script>
 
-<script src="../../assets/module-bridge.js?v=20260909-ux7"></script>
+<script src="../../assets/module-bridge.js?v=20260909-ux14"></script>
 <script src="../../assets/cloud-sync.js" data-module-id="woche-36-2026" data-storage-key="franzoesischLernatelierEinstieg_v1"></script>
-<script src="../../assets/atelier-accessibility.js?v=20260909-ux7"></script>
+<script src="../../assets/atelier-accessibility.js?v=20260909-ux14"></script>
 </body>
 </html>

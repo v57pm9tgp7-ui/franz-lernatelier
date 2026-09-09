@@ -18,6 +18,7 @@ async function page(week,hash='',seed={}){
     const NativeObserver=w.MutationObserver;w.MutationObserver=class extends NativeObserver{constructor(cb){super(cb);observers.push(this);}};
     w.CSS={escape:s=>String(s).replace(/[^a-zA-Z0-9_-]/g,c=>'\\'+c)};
     w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
+    w.HTMLElement.prototype.scrollIntoView=function(){};
     w.scrollTo=(a,b)=>{w.scrollY=typeof a==='object'?a.top:b||0;};
     w.SpeechSynthesisUtterance=function(text){this.text=text;};w.speechSynthesis={cancel(){},speak(u){voices.push(u.text)}};
     w.fetch=async()=>({ok:false,status:503,json:async()=>({ok:false})});
@@ -55,15 +56,15 @@ test('Week 37 opens all eight exercises with both weeks unfinished',async()=>{
 });
 test('Week 37 returns from training to the same field, scroll position and input',async()=>{
   const p=await page(37,'#mission-2');try{
-    const field=p.input('[data-answer="m2.hobby"]','faire du sport');field.focus();field.setSelectionRange(4,9);p.w.scrollY=1370;
+    const field=p.input('[data-learn-field="profile.school"]','Je suis à la BFF.');field.focus();field.setSelectionRange(4,9);p.w.scrollY=1370;
     const trigger=p.d.querySelector('.atelier-nav [data-nav-route="training"]');
     trigger.dispatchEvent(new p.w.MouseEvent('pointerdown',{bubbles:true}));trigger.focus();
     p.click('.atelier-nav [data-nav-route="training"]');await tick();
     assert.equal(p.w.location.hash,'#training');
     p.click('[data-nav-return]');await tick();
     assert.equal(p.w.location.hash,'#mission-2');assert.equal(p.w.scrollY,1370);
-    assert.equal(p.d.querySelector('[data-answer="m2.hobby"]').value,'faire du sport');
-    assert.equal(p.d.activeElement.dataset.answer,'m2.hobby');
+    assert.equal(p.d.querySelector('[data-learn-field="profile.school"]').value,'Je suis à la BFF.');
+    assert.equal(p.d.activeElement.dataset.learnField,'profile.school');
     assert.equal(p.d.activeElement.selectionStart,4);
     assert.deepEqual(p.errors.map(e=>e.message),[]);
   }finally{p.close();}
@@ -106,36 +107,37 @@ test('Week 36 speaking tasks explain the revised classroom flow without seeded p
 test('All four training deep links select the requested mode in both weeks',async()=>{
   for(const week of [36,37])for(const mode of ['cards','dictation','reaction','expert']){
     const p=await page(week,`#training/${mode}`);try{
-      const selector=week===36?`[data-training-tab="${mode}"].is-active`:`[data-training="${mode}"].is-selected`;
+      const selector=`[data-p-mode="${mode}"][aria-pressed="true"]`;
       assert.ok(p.d.querySelector(selector),`${week} ${mode}`);assert.deepEqual(p.errors.map(e=>e.message),[]);
     }finally{p.close();}
   }
 });
-test('Week 37 cards reveal, speak, retain favorites, repeat difficult cards, undo and finish',async()=>{
+test('Practice tracks recall, favorites, repetition, previous tasks and listening',async()=>{
   const p=await page(37,'#training/cards');try{
-    const first=p.d.querySelector('.vocab-flash strong').textContent;
-    p.click('[data-reveal]');assert.equal(p.d.querySelector('#vocabAnswer').hidden,false);
-    p.click('[data-vocab-favorite]');assert.match(p.d.querySelector('[data-vocab-filter="favorites"]').textContent,/1/);
-    p.click('#trainerMain [data-speak]');assert.equal(p.voices.at(-1),first);
-    p.click('[data-vocab-rate="again"]');assert.notEqual(p.d.querySelector('.vocab-flash strong').textContent,first);
-    p.click('#trainingPrevious');assert.equal(p.d.querySelector('.vocab-flash strong').textContent,first);
-    p.click('[data-vocab-rate="again"]');
-    for(let i=0;i<7;i++)p.click('[data-vocab-rate="known"]');
-    assert.equal(p.d.querySelector('.vocab-flash strong').textContent,first);
-    p.click('[data-vocab-rate="known"]');assert.match(p.d.querySelector('#trainerMain h2').textContent,/geschafft/);
-    await tick(220);assert.equal(p.state().vocabulary.known,8);assert.equal(p.state().vocabulary.again,1);
-    p.click('[data-vocab-filter="favorites"]');assert.equal(p.d.querySelector('.vocab-flash strong').textContent,first);
-    p.click('[data-training="dictation"]');assert.equal(p.d.querySelector('#trainingNext').disabled,false);
-    p.click('[data-training="cards"]');assert.match(p.d.querySelector('[data-vocab-filter="favorites"]').textContent,/1/);
+    const first=p.d.querySelector('.practice-prompt').textContent;
+    p.click('[data-p-reveal]');assert.ok(p.d.querySelector('.practice-answer'));
+    p.click('[data-p-favorite]');p.click('[data-p-listen]');assert.equal(p.voices.at(-1),first);
+    p.click('[data-p-rate="again"]');p.click('[data-p-next]');assert.notEqual(p.d.querySelector('.practice-prompt').textContent,first);
+    p.click('[data-p-previous]');assert.equal(p.d.querySelector('.practice-prompt').textContent,first);
+    p.click('[data-p-next]');
+    for(let i=0;i<3;i++){p.click('[data-p-reveal]');p.click('[data-p-rate="known"]');p.click('[data-p-next]');}
+    assert.equal(p.d.querySelector('.practice-prompt').textContent,first);
+    p.click('[data-p-next]');assert.notEqual(p.d.querySelector('.practice-prompt').textContent,first);
+    await tick();assert.equal(p.state().practiceV2.items['cards.0'].assisted,1);
+    p.choose('[data-p-filter]','favorites');assert.equal(p.d.querySelector('.practice-prompt').textContent,first);
+    p.click('[data-p-mode="dictation"]');assert.match(p.d.querySelector('#practice-task-title').textContent,/keine/);
+    p.click('[data-p-all]');assert.ok(p.d.querySelector('#practice-draft'));
     assert.deepEqual(p.errors.map(e=>e.message),[]);
   }finally{p.close();}
 });
-test('No favorites shows an actionable empty state; dictation feedback still works',async()=>{
-  const p=await page(37,'#training/cards');try{
-    p.click('[data-vocab-filter="favorites"]');assert.match(p.d.querySelector('#trainerMain h2').textContent,/keine gemerkten/);
-    assert.equal(p.d.querySelector('#trainingNext').disabled,true);p.click('[data-vocab-filter="all"]');assert.ok(p.d.querySelector('.vocab-flash'));
-    p.click('[data-training="dictation"]');p.input('#dictationInput','Je m’appelle Lina et j’habite à Berne.');p.click('[data-check-dictation]');assert.match(p.d.querySelector('#dictationFeedback').textContent,/vollständig/);
-    p.click('[data-speak-slow]');assert.ok(p.voices.at(-1).includes('Lina'));
+test('Diktat assesses word order, provides help, and saves draft and counts',async()=>{
+  const p=await page(37,'#training/dictation');try{
+    p.click('[data-p-listen]');const target=p.voices.at(-1);
+    p.input('#practice-draft',target);p.click('[data-p-check]');assert.match(p.d.querySelector('#practice-feedback').textContent,/Wortlaut und Reihenfolge stimmen/);
+    await tick();assert.equal(p.state().practiceV2.items['dictation.0'].independent,1);
+    p.click('[data-p-next]');p.click('[data-p-slow]');assert.ok(p.voices.at(-1));
+    p.click('[data-p-hint]');p.input('#practice-draft',p.voices.at(-1));p.click('[data-p-check]');
+    await tick();assert.equal(p.state().practiceV2.items['dictation.1'].assisted,1);
     assert.deepEqual(p.errors.map(e=>e.message),[]);
   }finally{p.close();}
 });
@@ -152,7 +154,7 @@ test('Existing answers, checks, ratings and completed exercises survive navigati
     const saved={currentScreen:'mission-5',currentMission:5,answers:{'m5.job':'laborant','m5.why':'parce que cela me plaît'},choices:{'kept':'yes'},checks:{'m5.done':true},ratings:{flow:3},missionDone:{1:true,3:true},globalLevel:'expert',missionLevels:{5:'challenge'}};
     const p=await page(week,'#mission-5',{[keys[week]]:saved});try{
       p.click('.atelier-nav [data-nav-route="training"]');await tick();p.click('[data-nav-return]');p.w.dispatchEvent(new p.w.Event('pagehide'));
-      const actual=p.state();for(const k of ['answers','choices','ratings','missionDone','missionLevels'])assert.deepEqual(actual[k],saved[k],`${week} ${k}`);
+      const actual=p.state();for(const k of ['answers','choices','ratings','missionDone','missionLevels'])for(const entry of Object.keys(saved[k]))assert.deepEqual(actual[k][entry],saved[k][entry],`${week} ${k}.${entry}`);
       assert.equal(actual.checks['m5.done'],true);assert.equal(actual.globalLevel,'expert');assert.deepEqual(p.errors.map(e=>e.message),[]);
     }finally{p.close();}
   }
@@ -165,4 +167,96 @@ test('Home page exposes all eight exercise links and binds each week to its own 
     assert.deepEqual([...p.d.querySelectorAll('[data-training-module]')].map(b=>b.dataset.trainingModule),['woche-37-2026','woche-36-2026']);
     assert.deepEqual(p.errors.map(e=>e.message),[]);
   }finally{p.close();}
+});
+
+test('W37 reuses real Marseille clauses and preserves corrections and intentional blanks',async()=>{
+  const prev={answers:{'m5.line.0':'Samira','m5.line.1':'17','m5.line.2':'Bienne','m5.line.4':'je fais du sport','m5.line.7':'visiter le Canada'}};
+  const saved={answers:{'profile.city':'Bern','profile.age':''}};
+  const p=await page(37,'#mission-1',{[keys[36]]:prev,[keys[37]]:saved});try{
+    assert.equal(p.d.querySelector('[data-learn-field="profile.name"]').value,'Samira');
+    assert.equal(p.d.querySelector('[data-learn-field="profile.age"]').value,'');
+    assert.equal(p.d.querySelector('[data-learn-field="profile.city"]').value,'Bern');
+    assert.match(p.d.querySelector('[data-profile-line="4"]').textContent,/Dans mon temps libre, je fais du sport/);
+    p.choose('[data-nav-exercise]','mission-2');assert.equal(p.d.querySelector('[data-learn-field="profile.job"]').value,'');
+    p.input('[data-job-search]','MPA');assert.equal(p.d.querySelectorAll('[data-job-select] option').length,2);
+    const select=p.d.querySelector('[data-job-select]');p.choose('[data-job-select]',select.options[1].value);p.click('[data-translate-job]');
+    p.click('[data-job-form="frFemale"]');assert.equal(p.d.querySelector('[data-learn-field="profile.job"]').value,'assistante médicale');
+    p.choose('[data-nav-exercise]','mission-5');assert.equal(p.d.querySelector('[data-learn-field="profile.job"]').value,'assistante médicale');
+    p.choose('[data-learn-field="career.stageStatus"]','none');assert.match(p.d.querySelector('#missionMount').textContent,/Je n’ai pas encore fait de stage/);
+    assert.ok(p.d.querySelector('[data-learn-field="career.liked"]'));
+    assert.deepEqual(p.errors.map(e=>e.message),[]);
+  }finally{p.close();}
+});
+test('Sentence blocks retain personal text and undo; edited cue words persist',async()=>{
+  const p=await page(37,'#mission-3',{[keys[36]]:{answers:{'m5.line.4':'je joue au football'}}});try{
+    p.input('[data-learn-field="m3.hobby"]','Mon texte personnel');
+    p.click('[data-insert="avec mes amis"]');assert.match(p.d.querySelector('[data-learn-field="m3.hobby"]').value,/Mon texte personnel/);
+    p.click('[data-undo="m3.hobby"]');assert.equal(p.d.querySelector('[data-learn-field="m3.hobby"]').value,'Mon texte personnel');
+    p.choose('[data-nav-exercise]','mission-6');p.input('[data-learn-field="cue.1"]','football · samedi');
+    p.click('[data-card-view="hidden"]');assert.doesNotMatch(p.d.querySelector('#learning-cue').textContent,/football/);
+    p.click('[data-card-view="words"]');assert.match(p.d.querySelector('#learning-cue').textContent,/football · samedi/);
+    assert.deepEqual(p.errors.map(e=>e.message),[]);
+  }finally{p.close();}
+});
+test('Four listening profiles have six questions, real audio, and checked results',async()=>{
+ const p=await page(37,'#mission-4');try{
+  for(const name of ['nora','yanis','leila','luca']){
+   p.click(`[data-listen-profile="${name}"]`);assert.equal(p.d.querySelectorAll('.listening-question').length,6);
+   const audio=p.d.querySelector('#profile-audio');assert.ok(fs.statSync(path.join(root,new URL(audio.src).pathname)).size>100000);
+   for(let i=0;i<6;i++)p.input(`[data-learning-listen="${name}"][data-question-index="${i}"]`,'0');
+   p.click('[data-learning-check-listen]');assert.match(p.d.querySelector('#listening-total').textContent,/6 richtig/);
+  }
+  assert.deepEqual(p.errors.filter(e=>!/HTMLMediaElement/.test(e.message)).map(e=>e.message),[]);
+ }finally{p.close();}
+});
+test('Video assessment states full-body, independent speech and real Teams hand-in on every level',async()=>{
+ const p=await page(37,'#mission-8');try{
+   const text=p.d.querySelector('#missionMount').textContent;
+   for(const phrase of ['60 Sekunden','Kopf bis Fuss','ohne sprachliche Hilfe','Abgabebestätigung in Teams'])assert.ok(text.includes(phrase),phrase);
+   assert.ok(p.d.querySelector('[data-video="camera"]'));assert.ok(p.d.querySelector('[data-check="m8.submitted"]'));
+   assert.equal(p.d.querySelector('#learning-cue'),null);
+   assert.deepEqual(p.errors.map(e=>e.message),[]);
+ }finally{p.close();}
+});
+test('Spaced practice advances only on distinct days and caps points without erasing effort',()=>{
+ const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'assets/practice-studio.js'),'utf8'),context);
+ const core=context.window.FranzPractice,p=core.initial(),now=new Date('2026-09-09T12:00:00').getTime();
+ core.record(p,'cards.1','known','self',now);core.record(p,'cards.1','known','self',now+1000);core.record(p,'cards.1','known','self',now+2000);
+ assert.equal(p.xp,15);assert.equal(p.items['cards.1'].attempts,3);assert.equal(p.items['cards.1'].level,1);
+ core.record(p,'cards.1','known','self',now+86400000);assert.equal(p.items['cards.1'].level,2);
+ core.record(p,'cards.1','again','self',now+2*86400000);assert.equal(p.items['cards.1'].level,0);assert.equal(p.items['cards.1'].assisted,1);
+});
+
+test('Older internship answers and changed career intentions stay consistent in the spoken profile',async()=>{
+ const saved={answers:{'m5.job':'assistant médical','m5.stageLike':'J’ai aimé le contact avec les clients.','m3.job':'Je voudrais devenir assistant médical parce que j’aime aider les gens.'}};
+ const p=await page(37,'#mission-5',{[keys[37]]:saved});try{
+  assert.equal(p.d.querySelector('[data-learn-field="career.liked"]').value,saved.answers['m5.stageLike']);
+  p.input('[data-learn-field="profile.job"]','cuisinière');
+  p.choose('[data-learn-field="profile.jobStatus"]','undecided');
+  const text=p.d.querySelector('[data-live-career]').textContent;
+  assert.match(text,/Je n’ai pas encore choisi/);assert.match(text,/cuisinière/);assert.doesNotMatch(text,/assistant médical/);
+  assert.doesNotMatch(text,/Je voudrais devenir/);
+  p.choose('[data-learn-field="career.stageStatus"]','none');
+  assert.equal(p.d.querySelector('[data-learn-field="career.liked"]').placeholder,'Je voudrais découvrir … parce que …');
+  assert.deepEqual(p.errors.map(e=>e.message),[]);
+ }finally{p.close();}
+});
+test('Occupation catalogue is complete, unique and linked to official bilingual profiles',()=>{
+ const context={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'assets/berufe-de-fr.js'),'utf8'),context);
+ const jobs=context.window.FranzOccupations;assert.equal(jobs.length,246);assert.equal(new Set(jobs.map(j=>j.id)).size,246);
+ for(const j of jobs){assert.ok(j.frMale&&j.frFemale);assert.match(j.sourceDe,/^https:\/\/www.berufsberatung.ch\/de\/berufe\//);assert.match(j.sourceFr,/^https:\/\/www.orientation.ch\/fr\/professions\//);assert.equal(j.qualificationFr,j.qualification==='EFZ'?'CFC':'AFP');}
+});
+test('Video camera is permitted by production headers; recorder stops tracks and offers a local file',async()=>{
+ const worker=fs.readFileSync(path.resolve(root,'../src/index.js'),'utf8');assert.match(worker,/camera=\(self\)/);
+ const p=await page(37,'#mission-8');try{
+  let stopped=0,recorder;
+  Object.defineProperty(p.w.navigator,'mediaDevices',{value:{getUserMedia:async()=>({getTracks:()=>[{stop:()=>stopped++}]})},configurable:true});
+  p.w.HTMLMediaElement.prototype.play=async()=>{};
+  p.w.URL.createObjectURL=()=> 'blob:local-recording';p.w.URL.revokeObjectURL=()=>{};
+  p.w.MediaRecorder=class{static isTypeSupported(type){return type==='video/webm';}constructor(){this.state='inactive';this.mimeType='video/webm';recorder=this;}start(){this.state='recording';}stop(){this.state='inactive';this.ondataavailable({data:new p.w.Blob(['test recording'],{type:'video/webm'})});this.onstop();}};
+  p.click('[data-video="camera"]');await tick(20);p.click('[data-video="start"]');assert.equal(recorder.state,'recording');
+  p.click('[data-video="stop"]');assert.ok(stopped>0);assert.equal(p.d.querySelector('#video-download').hidden,false);assert.match(p.d.querySelector('#video-download').download,/webm$/);
+  p.choose('[data-nav-exercise]','mission-7');p.choose('[data-nav-exercise]','mission-8');assert.equal(p.d.querySelector('#video-download').hidden,false);
+  assert.deepEqual(p.errors.map(e=>e.message),[]);
+ }finally{p.close();}
 });

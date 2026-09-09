@@ -4,7 +4,7 @@ const SECURITY_HEADERS = {
   'strict-transport-security': 'max-age=31536000',
   'x-content-type-options': 'nosniff',
   'referrer-policy': 'strict-origin-when-cross-origin',
-  'permissions-policy': 'camera=(), geolocation=(), payment=(), microphone=(self)',
+  'permissions-policy': 'camera=(self), geolocation=(), payment=(), microphone=(self)',
   'cross-origin-resource-policy': 'same-origin'
 };
 

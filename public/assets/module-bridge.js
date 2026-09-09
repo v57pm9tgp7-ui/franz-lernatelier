@@ -166,7 +166,7 @@
     const pct = Math.round(done / FLOW.length * 100);
 
     setText(qs('#dashboardTitle'), 'Woche 36 · der Abschlussweg');
-    setText(qs('#dashboardLead'), 'Noch drei Lernatelier-Stationen. Dazwischen liegt die gemeinsame 20-Questions-Phase in Dreiergruppen. Speed-Dating gehört nicht mehr zu diesem Lernweg.');
+    setText(qs('#dashboardLead'), 'Noch drei Lernatelier-Stationen. Dazwischen liegt die gemeinsame 20-Questions-Phase in Dreiergruppen.');
     setText(qs('#routeDuration'), 'Abschluss Woche 36');
     setText(qs('#progressNumber'), `${done}/3`);
     const ring = qs('#progressRing');
@@ -429,7 +429,7 @@
 (() => {
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = '../../assets/ui-workspace.js?v=20260909-ux7';
+  script.src = '../../assets/ui-workspace.js?v=20260909-ux14';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

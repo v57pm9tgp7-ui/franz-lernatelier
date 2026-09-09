@@ -39,8 +39,8 @@ window.FRANZ_MODULES = [
     schoolYear: '2026/27',
     title: 'Qui suis-je ?',
     subtitle: 'Je me présente',
-    description: 'Fragen gezielt nutzen, persönliche Antworten ausbauen und eine kurze Selbstvorstellung für Schule und Beruf vorbereiten.',
-    homeLead: 'Sie bauen aus einzelnen Antworten eine zusammenhängende Selbstvorstellung – mit viel Vorbereitung und Sprechzeit in kleinen Gruppen.',
+    description: 'Das Profil aus Marseille erweitern, Schule und Beruf vorstellen und eine Minute frei im Video sprechen.',
+    homeLead: 'Nutzen Sie Ihre Angaben aus Woche 36, ergänzen Sie Schule und Beruf und üben Sie Ihre Vorstellung. Am Schluss geben Sie ein 60-Sekunden-Video in Teams ab.',
     status: 'current',
     continuationOf: 'woche-36-2026',
     href: 'module/woche-37/index.html',
@@ -52,21 +52,12 @@ window.FRANZ_MODULES = [
     visual: {number:'37',phraseA:'Je me présente.',phraseB:'Et toi ?'},
     heroLogo: 'assets/logo-se-presenter-christoph.png',
     levels: [
-      {id:'support',label:'Soutien',range:'A1 → A2',symbol:'+',color:'#2f6bff',soft:'#edf3ff',note:'Viele Hilfen, Wortbanken und klare Satzanfänge.',supportTitle:'Viel Unterstützung',supportText:'Sie erhalten Satzanfänge, Beispiele und kleine Schritte. Danach sprechen Sie mit sichtbarer Hilfe.',layers:['Wortbank','Satzanfänge','Beispiel','kleine Schritte'],placeholder:'Wählen Sie einen Satzanfang …'},
+      {id:'support',label:'Soutien',range:'A1 → A2',symbol:'+',color:'#2f6bff',soft:'#edf3ff',note:'Viele Hilfen, Wortbanken und klare Satzanfänge.',supportTitle:'Viel Unterstützung',supportText:'Sie erhalten Satzanfänge, Beispiele und kleine Schritte. Beim Üben können Sie die Hilfe schrittweise ausblenden.',layers:['Wortbank','Satzanfänge','Beispiel','kleine Schritte'],placeholder:'Wählen Sie einen Satzanfang …'},
       {id:'standard',label:'Standard',range:'A2',symbol:'●',color:'#147c73',soft:'#e8f6f3',note:'Gezielte Hilfe und zunehmend eigene Formulierungen.',supportTitle:'Gezielte Unterstützung',supportText:'Sie formulieren selbst und nutzen Hilfen nur, wenn Sie sie brauchen.',layers:['Satzanfang','Wortideen','Kurzcheck','laut sprechen'],placeholder:'écrivez votre réponse …'},
       {id:'challenge',label:'Défi',range:'A2+ → B1',symbol:'↗',color:'#b87900',soft:'#fff6df',note:'Mehr Details, Gründe und eigene Rückfragen.',supportTitle:'Mehr eigene Sprache',supportText:'Sie ergänzen Gründe, Details und Rückfragen und sprechen mit weniger Gerüst.',layers:['Grund','Detail','Rückfrage','weniger ablesen'],placeholder:'développez et ajoutez une raison …'},
       {id:'expert',label:'Expert',range:'B1 → B2+',symbol:'◆',color:'#10233f',soft:'#eef2f7',note:'Spontaner, differenzierter und mit weniger Gerüst.',supportTitle:'Anspruchsvollere Produktion',supportText:'Sie variieren Formulierungen, reagieren spontan und umschreiben Wortlücken auf Französisch.',layers:['Register','Nuancen','umschreiben','spontan reagieren'],placeholder:'formulez librement et avec nuance …'}
     ],
-    missionList: [
-      {id:1,title:'Du question à la présentation',description:'Drei Antworten ausbauen und zu einer ersten Selbstvorstellung verbinden',time:'15–20 Min.',form:'EA → kurze Partnerprobe',symbol:'→'},
-      {id:2,title:'Mon profil essentiel',description:'Die wichtigsten Informationen über mich',time:'20–25 Min.',form:'Einzelarbeit',symbol:'M'},
-      {id:3,title:'Réponses plus fortes',description:'Antworten mit Detail und Grund ausbauen',time:'15–20 Min.',form:'EA → Kleingruppe',symbol:'+'},
-      {id:4,title:'Écouter un profil',description:'Zwei Selbstvorstellungen verstehen',time:'15–20 Min.',form:'Einzelarbeit',symbol:'♫'},
-      {id:5,title:'École, métier, qualités',description:'Schule, Berufswunsch und Stärken',time:'20–25 Min.',form:'EA → Gruppe',symbol:'B'},
-      {id:6,title:'Ma carte de parole',description:'Stichwörter statt ausformuliertem Text',time:'15–20 Min.',form:'Einzelarbeit',symbol:'K'},
-      {id:7,title:'Répéter en groupe',description:'Drei Sprech-Runden in wechselnden Dreiergruppen',time:'20–30 Min.',form:'3er-Gruppen',symbol:'3'},
-      {id:8,title:'Défi final',description:'60 Sekunden möglichst frei über mich sprechen',time:'15–20 Min.',form:'3er-Gruppe',symbol:'D'}
-    ],
+    missionList: [{"id": 1, "title": "Je reprends mon profil", "description": "Ihre Angaben aus Marseille prüfen und frei erzählen.", "time": "15–20 Min.", "form": "Einzelarbeit", "symbol": "1"}, {"id": 2, "title": "Mon école et mon projet", "description": "Schule, Sprachen und Berufswunsch ergänzen.", "time": "20–25 Min.", "form": "Einzelarbeit", "symbol": "2"}, {"id": 3, "title": "Je donne des détails", "description": "Drei eigene Sätze mit passenden Details ergänzen.", "time": "15–20 Min.", "form": "Einzelarbeit", "symbol": "3"}, {"id": 4, "title": "Écouter quatre profils", "description": "Vier Personen hören und auch Einzelheiten verstehen.", "time": "20–25 Min.", "form": "Einzelarbeit", "symbol": "4"}, {"id": 5, "title": "Mon expérience et mon projet", "description": "Beruf, Stärke und Schnupperlehre persönlich beschreiben.", "time": "20–25 Min.", "form": "Einzelarbeit", "symbol": "5"}, {"id": 6, "title": "Ma carte de parole", "description": "Eigene Stichwörter ordnen und damit 60 Sekunden üben.", "time": "15–20 Min.", "form": "Einzelarbeit", "symbol": "6"}, {"id": 7, "title": "Répéter en groupe", "description": "Drei Proben mit Rückmeldung und immer weniger Hilfe.", "time": "20–30 Min.", "form": "Dreiergruppe", "symbol": "7"}, {"id": 8, "title": "Ma vidéo · Défi final", "description": "Lernkontrolle: 60 Sekunden frei vorstellen und Video in Teams abgeben.", "time": "20–30 Min.", "form": "Einzelarbeit", "symbol": "8"}],
     training: [
       {id:'cards',title:'Cartes',subtitle:'Fragen & Antworten',description:'Wichtige Frage-Antwort-Muster aktiv erinnern und laut sprechen.',icon:'cards',color:'coral',time:'5 Min.'},
       {id:'dictation',title:'Écoute',subtitle:'Diktat',description:'Kurze Selbstvorstellungs-Sätze hören und möglichst genau aufschreiben.',icon:'headphones',color:'sky',time:'5–8 Min.'},
@@ -142,7 +133,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
 (() => {
   if (document.querySelector('script[data-franz-workspace-ui]')) return;
   const script = document.createElement('script');
-  script.src = 'assets/ui-workspace.js?v=20260909-ux7';
+  script.src = 'assets/ui-workspace.js?v=20260909-ux14';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
 })();

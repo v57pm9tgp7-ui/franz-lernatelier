@@ -1,86 +1,96 @@
-# UX-Überarbeitung und Prüfung
+# Überarbeitung des Franz Lernateliers
 
-Franz Lernatelier · 9. September 2026
+Stand: 9. September 2026 · Version 0.19.0
 
-Ziel: Eine klare, ruhige und selbsterklärende Oberfläche für Lernende von 15 bis 18 Jahren. Die bestehenden Lerninhalte und fachlichen Arbeitsabläufe bleiben erhalten.
+## Bedienung und Lesbarkeit
 
-## Priorisierte Probleme und Lösungen
+Die Startseite zeigt die aktuelle Woche und direkte Einstiege in die Übungen. Eine gemeinsame Navigation verbindet Wochenwahl, Übungswahl, vorherige/nächste Übung und Training. Jede Übung und Woche ist ohne vorherigen Abschluss zugänglich. Das Abschliessen dient der eigenen Fortschrittsmarkierung.
 
-| Priorität | Festgestelltes Problem | Umgesetzte Verbesserung |
-| --- | --- | --- |
-| Sehr hoch | Training führte zur Übersicht statt zur ursprünglichen Arbeitsstelle zurück. | Die Navigation merkt sich die Ausgangsseite, Übung, Scrollposition, Eingabestelle und geöffnete Bereiche. Ein deutlich beschrifteter Rückweg steht im Training bereit. |
-| Sehr hoch | Übungen und Wochen waren schwer direkt anwählbar; Abschlussanzeigen konnten wie Zugangsvoraussetzungen wirken. | Eine ständig erreichbare Wochen- und Übungswahl sowie freie Vor-/Zurücknavigation machen den Zugang unabhängig vom Abschluss. Der vorgeschlagene Lernweg aus Woche 36 bleibt bestehen. |
-| Sehr hoch | Eine Trainingstaste in der Wochenliste öffnete unabhängig von ihrer Woche das aktuelle Modul. | Jede Taste ist an die richtige Woche gebunden. Alle vier Trainingsarten unterstützen direkte Einstiege. |
-| Sehr hoch | Das Wortschatztraining aus Woche 37 bot keinen mit Woche 36 vergleichbaren Kartenablauf. | Vollständige Kartenrunde mit Erinnern, Aufdecken, Audio, Merkliste, Wiederholung schwieriger Karten und verständlichem Rundenabschluss. Die vorherige Karte ermöglicht die Korrektur einer versehentlichen Bewertung. |
-| Sehr hoch | Bei «20 Questions» war unklar, welche Präsentation verwendet wird und wie die Dreiergruppen technisch arbeiten. | Der Auftrag nennt nun die zuvor aus Teams heruntergeladene, lokal geöffnete Präsentation und einen Computer pro Dreiergruppe. Rollen und Rollenwechsel sind direkt beschrieben. |
-| Sehr hoch | «Mon profil express» wirkte teilweise vorausgefüllt; Zweck von Sprechtext und Partnerspiel waren zu wenig erklärt. | Alle acht Felder starten leer und ohne Übernahme des Profilnamens. Der automatisch zusammengesetzte Sprechtext erhält einen klaren Verwendungsauftrag; «Deux vérités, un mensonge» führt durch Vorbereitung, Raten, Auflösen und Rollenwechsel. Der unklare frühere Teil D entfällt. |
-| Sehr hoch | Beim «Défi final» waren drei Stichwörter und 20 Sekunden Vorbereitung zu knapp; ein Durchgang und ein allgemeines Feedback ermöglichten kaum gezielte Verbesserung. | Ein Fünf-Schritt-Sprechplan mit Satzhilfen, sechs bis acht Stichwörtern und zwei Minuten Vorbereitung entlastet die Aufgabe. Zwei 60-Sekunden-Runden mit Partnerwechsel verbinden Checklistenfeedback, Verbesserungsfokus und eine zweite Wirkungsbewertung. Das Exit-Ticket entfällt. |
-| Hoch | Die zuletzt bearbeitete Übung war nach einem Wechsel schwer wiederzufinden. | «Letzte Übung», eindeutige Seitentitel und nachvollziehbare Browser-Zurücknavigation. Auf der Startseite sind die acht Übungen der aktuellen Woche direkt anklickbar. |
-| Hoch | Mehrere ältere Gestaltungsregeln überlagerten sich; grosse Dekoration und Fortschrittsanzeigen verdrängten die eigentlichen Aufgaben. | Gemeinsame Gestaltung in `atelier.css`; Übungen stehen vor ergänzenden Angaben. Niveauwahl, Lernpass und Zusatzaufgaben sind sinnvoll gruppiert und aufklappbar. |
-| Hoch | Kleine Texte, wechselnde Abstände, viele Hervorhebungen und unklare Fokuszustände erschwerten die Nutzung. | Einheitliche Schriftgrössen, reduzierte Farbpalette, deutliche Fokusrahmen, überwiegend mindestens 44 Pixel hohe Bedienelemente und zugeordnete Formularbeschriftungen. |
-| Hoch | Bei schmalen Ansichten brauchten Navigation und Karten zu viel Platz oder liefen über den Rand. | Eigene Anordnung für Tablet und Smartphone; einspaltige Formularbereiche, passende Trainingsschaltflächen und eine kompakte Navigation. |
-| Mittel | Wiederholte DOM- und Schriftprüfungen verursachten unnötige Arbeit bei Änderungen der Oberfläche. | Die bestehende Anpassung für Woche 36 beobachtet ihre eigenen Änderungen nicht mehr. Schriftgrössen werden direkt über CSS geregelt; die globale Grossschriftoption bleibt erhalten. |
+Der Rückweg aus dem Training stellt Ausgangsseite, Scrollposition, geöffnete Hilfen, aktives Eingabefeld und Cursorposition wieder her. Auch Browser-Zurück und die letzte besuchte Übung werden unterstützt. Eingaben bleiben in den bisherigen Speichern erhalten.
 
-## Gestaltung und Orientierung
+Die Grundschrift wurde auf 18 Pixel erhöht. Unterrichtstexte liegen gewöhnlich bei 19,8 Pixeln, die zuvor kleinen Satzbeispiele bei 18,9 Pixeln. «Extra grosse Schrift» erhöht die Grundschrift auf 25 Pixel; Satzbeispiele erreichen damit 26,25 Pixel. Einspaltige Umbrüche und geringere Innenabstände erhalten die nutzbare Textbreite auf Smartphones. Tastaturfokus, ausreichend grosse Bedienelemente und beschriftete Felder bleiben erhalten.
 
-Die wichtigsten Aktionen erhalten einen dunklen Blauton. Die Rückkehr aus dem Training ist gezielt rot hervorgehoben. Helle, neutrale Flächen, klare Rahmen und wenige Akzentfarben ersetzen überlagerte Verläufe und grosse Dekorationen.
+## Unterricht Woche 36
 
-Woche und Übung bleiben in der Navigationsleiste erkennbar. Die nächste und die vorherige Übung sind während des Scrollens erreichbar. In der Übersicht führt ein direkter Einstieg zur zuletzt besuchten Übung. Die ursprünglichen französischen Lernbegriffe und Aufgabenstellungen bleiben erhalten; zusätzliche Bedienbezeichnungen sind kurz und deutsch.
+- **20 Questions:** Präsentation aus Teams herunterladen und lokal öffnen. Ein Computer pro Dreiergruppe genügt. Fragen und Rollenwechsel folgen der Präsentation.
+- **Mon profil express:** verständliche Satzmuster, leere persönliche Felder, konkreter Auftrag für den erzeugten Sprechtext und vollständiger Ablauf für «Deux vérités, un mensonge» mit französischen Gesprächshilfen. Der unklare zusätzliche Sprechblock entfällt.
+- **Défi final:** vollständiger Sprechplan, zwei Minuten Vorbereitung, zwei Gesprächsrunden von je 60 Sekunden mit verschiedenen Partnerpersonen und zwei unterschiedliche Feedbackmöglichkeiten. Das Exit-Ticket entfällt.
 
-Geschlossene Hilfefenster sind ausgeblendet und für die Tastatur inaktiv. Ein geöffnetes Fenster erhält den Fokus, hält die Tabulatornavigation im Fenster und gibt den Fokus beim Schliessen an den Auslöser zurück. Rückmeldungen werden für unterstützende Technik als Status ausgezeichnet. Grössere Schrift, stärkerer Kontrast, reduzierte Bewegung und Vollbild bleiben verfügbar.
+## Unterricht Woche 37
 
-Die Gestaltung orientiert sich unter anderem an den W3C-Erläuterungen zu [Bedienzielgrössen](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html) und [Reflow](https://www.w3.org/WAI/WCAG22/Understanding/reflow.html). Eine formale WCAG-Konformitätsprüfung war nicht Bestandteil dieser Überarbeitung.
+| Übung | Neuer Ablauf |
+| --- | --- |
+| 1 · Je reprends mon profil | Acht Angaben aus Marseille übernehmen, prüfen und aktualisieren; vier Sätze auswählen und ohne Ablesen ausprobieren. Fehlende Angaben können ergänzt werden. |
+| 2 · Mon école et mon projet | Vorhandenes Profil weiterverwenden und Schule, Sprachen sowie Beruf ergänzen. Suchbare deutsche Berufsliste mit amtlicher französischer Bezeichnung und auswählbarer Sprechform. |
+| 3 · Je donne des détails | Übersetzte Verbindungswörter; drei eigene Sätze mit Beispiel, anklickbaren Bausteinen und Rückgängig-Funktion erweitern. Der unklare Gruppenblock entfällt. |
+| 4 · Écouter quatre profils | Nora, Yanis, Leila und Luca als längere Hörprofile mit je sechs Fragen, wiederholtem/langsamerem Hören, Lösungskontrolle und Hörtext. Danach Informationen mündlich weitergeben. |
+| 5 · Mon expérience et mon projet | Gemeinsame Berufsauswahl, persönliche Gründe und Stärken mit Beispielen, Schnupperlehre und Eindruck. Ohne Schnupperlehre: ehrlichen Stand und geplanten Einblick beschreiben. |
+| 6 · Ma carte de parole | Eigene Stichwörter in fünf Abschnitten ordnen. Vorhandene Sätze liefern Vorschläge. Zwischen Satzhilfe, Stichwörtern und ausgeblendeter Karte wechseln; Timer und Druckansicht. |
+| 7 · Répéter en groupe | Drei Proben mit Rollenwechsel: mit Karte, mit weniger Hilfe und im Stehen ohne Hilfe. Nach jedem Versuch konkrete Rückmeldung festhalten. |
+| 8 · Ma vidéo · Défi final | Selbstvorstellung auf Französisch: 60 Sekunden, durchgehend von Kopf bis Fuss sichtbar, ohne Notizen oder sprachliche Hilfe. Bild und Ton prüfen, Datei speichern und in Teams abgeben. |
 
-## Erhaltene Grundlagen
+Die Niveauwahl beeinflusst Vorbereitungshinweise, Zusatzaufträge und Vorlesetempo. Die Videoanforderungen gelten auf allen Niveaus gleich.
 
-- Die bestehenden Speicherkennungen und gespeicherten Antworten, Auswahlwerte, Bewertungen, Niveaus und Abschlüsse werden weiterverwendet.
-- Die Lerninhalte für Woche 37 in `LEVELS`, `MISSIONS`, `QUESTIONS`, `LISTENING` und `TRAINING` wurden mit dem Ausgangsstand verglichen: identisch.
-- `src/index.js`, `cloud-account.js`, `cloud-sync.js` und `wrangler.jsonc` wurden mit dem Ausgangsstand verglichen: identisch.
-- Die vorhandenen Hörübungen, Schreibhilfen, Sprechaufträge, Timer, Aufnahmen, Exporte, Importe und Druckfunktionen bleiben im Projekt enthalten.
-- Der bereits bestehende Abschlussweg aus Woche 36 bleibt bei Bordeaux → Marseille → Nice. Die weiteren zuvor zugänglichen Übungen 1 bis 4 sind zusätzlich über die Übungswahl erreichbar. Die im Ausgangsstand bereits ausgeblendete Speed-Dating-Station wurde nicht wieder eingeführt.
-- Der Abschluss einer Aufgabe wird weiterhin ehrlich über die vorhandenen Kriterien markiert. Er ist keine Voraussetzung, um eine andere Übung oder Woche zu öffnen.
+### Angaben weiterverwenden
 
-## Durchgeführte Prüfungen
+Die Übernahme ergänzt fehlende Felder. Vorhandene Antworten und absichtlich geleerte Felder werden nicht überschrieben. Freizeitangaben wie «je fais du sport» bleiben als Verbteile korrekt erhalten. Ein allgemeiner Wunsch aus Woche 36 wird nicht als Beruf interpretiert.
 
-### Automatisiert
+Ältere Woche-37-Eingaben, darunter der Eindruck aus der Schnupperlehre, werden berücksichtigt. Berufsauswahl und frei bearbeitete Bezeichnung wirken in beiden Berufsteilen. «Noch nicht entschieden» erzeugt eine offene Formulierung. Fehlen Marseille-Angaben lokal, kann ein angemeldeter Lernender über «Angaben aus Woche 36 laden» den bisherigen Online-Stand abrufen. Im lokalen Modus erfolgt kein solcher Abruf.
 
-`npm test`: **11 Prüfungen erfolgreich, keine fehlgeschlagen.**
+### Berufsbezeichnungen und Hörmaterial
 
-1. Syntax aller ausgelieferten Skripte und vorhandene lokale HTML-Ressourcen.
-2. Freies Öffnen aller acht Übungen aus Woche 37 bei nicht abgeschlossenen Wochen.
-3. Rückkehr aus Woche-37-Training mit Scrollposition, Antwort, Texteingabefokus und Auswahlposition; einschliesslich Fokuswechsel durch einen Zeigerklick.
-4. Rückkehr in Woche 36, freie Übungswahl und vorhandener Einstieg in Woche 37.
-5. Neue Sprechaufträge in Woche 36: lokal geöffnete 20-Questions-Präsentation, leere Profilfelder, zwei Gesprächsrunden und kein Exit-Ticket.
-6. Alle vier Trainingseinstiege in beiden Wochen.
-7. Woche-37-Karten: Aufdecken, Sprachaufruf, Merkliste, Wiederholung, vorherige Karte und Rundenabschluss.
-8. Leere Merkliste mit sinnvoller Fortsetzung sowie vorhandene Diktatprüfung.
-9. Browser-Zurück zur ursprünglichen Übung und erneutes Öffnen der letzten Übung.
-10. Erhalt vorhandener Antworten, Auswahlwerte, Häkchen, Bewertungen, Niveaus und abgeschlossener Übungen beim Navigieren und Verlassen der Seite.
-11. Acht direkte Übungseinstiege auf der Startseite und eindeutige Zuordnung beider Wochentrainings.
+246 EFZ-/EBA-Berufe wurden anhand der amtlichen deutsch-französischen Sprachverweise von berufsberatung.ch und orientation.ch zugeordnet: 186 EFZ und 60 EBA. Die Sprechformen stammen aus den Berufsprofilen. Die Suche unterstützt Abkürzungen wie MPA, FaGe, FaBe und KV. Die Zuordnung wird lokal ausgeliefert; ein Übersetzungsdienst wird beim Auswählen nicht benötigt.
 
-### Im Browser
+Fachrichtungen sind teilweise unter einem Grundberuf zusammengefasst. Die Liste umfasst berufliche Grundbildungen, nicht sämtliche Hochschul- oder Weiterbildungsberufe. Jedes Ergebnis verlinkt das konkrete deutsche und französische Profil. Methode und Umfang: `Berufsbezeichnungen-Quellen.md`.
 
-- Desktopansicht bei 1363 Pixeln; Tabletansicht bei 768 Pixeln; Smartphoneansichten bei 390 und 320 Pixeln. Die schmalen Ansichten wurden in Rahmen mit eigener Seitenbreite gerendert, sodass die tatsächlichen responsiven Layoutregeln greifen.
-- Alle acht Übungen aus Woche 37 und alle sieben in Woche 36 zugänglichen Übungen bei 320 Pixeln geprüft: kein horizontaler Seitenüberlauf. Bei eingeblendeter Scrollleiste standen dabei 305 Pixel für den Inhalt zur Verfügung.
-- Trainingswechsel aus einem ausgefüllten Feld: Rückkehr auf dieselbe Scrollposition von 732 Pixeln, dasselbe Feld und dieselbe Cursorposition. Geöffnete Schreibhilfen wurden in einem separaten Durchlauf ebenfalls erhalten.
-- Training aus der Wochenliste gezielt für Woche 36 geöffnet und zur ursprünglichen Wochenübersicht zurückgekehrt.
-- Wortschatzkarten in Woche 37 aufgedeckt, gemerkt, mit «Noch üben» wiederholt und eine Merklistenrunde abgeschlossen.
-- Wortschatzkarte in Woche 36 mit der Leertaste aufgedeckt; Karten, Diktat, Blitzreaktion und Expert-Ansicht bei Smartphonebreite geöffnet.
-- Diktat in Woche 37 auf Tabletbreite mit korrekter Antwort geprüft; passende Rückmeldung erhalten.
-- Einstellungsfenster per Tastatur geprüft: Fokus beim Öffnen, rückwärts laufende Tabulatornavigation, Schliessen mit Escape und Fokus zurück auf «Ansicht anpassen».
-- Die neuen Inhalte von Bordeaux, Marseille und Nice im Browser geprüft: leere Profilfelder, automatisch aktualisierter Sprechtext, 2-Minuten-Timer, getrennte Markierung beider Gesprächsrunden sowie lesbare Feedbackkarten auf Desktop, Tablet und Smartphone.
+Die vier Hörprofile sind fiktive Unterrichtsbeispiele. Nora und Leila haben weibliche Stimmen; Yanis und Luca männliche. Alle vier Audiodateien sind enthalten. Quellen und Lizenzhinweise: `Audio-Sources.md`.
 
-### Grenzen der Prüfung
+### Videoaufnahme
 
-Die Browserprüfungen erfolgten mit lokalen Testeingaben und ohne produktive Lernkonten. Die produktive Cloud-Synchronisation, eine tatsächliche Mikrofonaufnahme und ein physischer Ausdruck wurden nicht gegen das Live-System geprüft. Die zugehörigen bestehenden Funktionen bleiben enthalten; die Server- und Synchronisationsdateien sind unverändert. Die responsive Prüfung ersetzt keinen Test auf jedem physischen Gerät oder in jeder Browserversion.
+Die optionale Aufnahme verwendet Kamera und Mikrofon des Geräts. Videos werden nicht an die Website übertragen und nicht mit dem Lernstand synchronisiert. Die fertige Datei muss heruntergeladen und in Teams abgegeben werden. Bei fehlender Browserunterstützung erklären die Aufgaben den Weg über die Kamera-App. Die Checkliste bestätigt nur die eigene Markierung und prüft keine Teams-Abgabe.
 
-## Technischer Überblick
+## Training mit persönlichem Fortschritt
 
-- `public/assets/atelier-navigation.js`: gemeinsamer Rückweg, Verlauf, Wochen- und Übungswahl.
-- `public/assets/atelier.css`: gemeinsame Darstellung und responsive Regeln.
-- `public/assets/atelier-accessibility.js`: Beschriftungen, Fokusführung und Statusmeldungen.
-- `public/assets/app.js`: aktuelle Woche, direkte Übungseinstiege und passende Trainingseinstiege.
-- Wochenmodule: Anbindung der Navigation; ergänzter Kartenablauf in Woche 37.
-- `public/service-worker.js`: neue Oberflächenressourcen und bevorzugte Aktualisierung von HTML, CSS und JavaScript.
+Beide Wochen verwenden dieselbe Bedienung für fünf Trainingsarten:
+
+1. Wortschatz in beiden Lernrichtungen: erinnern, vergleichen, selbst einschätzen.
+2. Hören und schreiben: Wiederholung, langsames Tempo, kleiner Hinweis und Vorlagenvergleich.
+3. Sätze ordnen: Wörter einsetzen, entfernen und die Reihenfolge prüfen.
+4. Reagieren: laut antworten, freiwillig schriftlich festhalten und mit einer möglichen Antwort vergleichen.
+5. Frei sprechen: Sprechimpuls mit Timer und Selbstcheck. Die bestehende freiwillige Tonaufnahme in Woche 36 bleibt erhalten.
+
+Je Aufgabe werden Durchgänge, selbständige und unterstützte Versuche sowie Wiederholungszeitpunkte gespeichert. Unsichere Aufgaben erscheinen später in der Runde erneut. Nach sicherem Erinnern an unterschiedlichen Tagen wachsen die Abstände auf 1, 3, 7, 14 und 30 Tage. Mehrmaliges Klicken am gleichen Tag erhöht diese Stufe nicht. Merkliste und fällige Aufgaben sind filterbar.
+
+Das Tagesziel ist wählbar. Lernpunkte, Levels, Trainingstage und vier Abzeichen zeigen den persönlichen Fortschritt. Es gibt keine Rangliste oder Punktverluste bei Pausen. Pro Aufgabe und Tag sind höchstens 15 Lernpunkte möglich. Weiterblättern zählt nicht als Übung. Die Fortschrittsliste zeigt einzelne Aufgaben und ermöglicht den direkten Wiedereinstieg.
+
+Offene Sprechleistungen sind als Selbsteinschätzung gekennzeichnet. Diktat und Satzbau vergleichen mit einer Vorlage. Akzente, Grossschreibung und Satzzeichen werden bei Diktaten grosszügig behandelt. Eine automatische Prüfung der gesamten Sprachkompetenz wird nicht behauptet.
+
+## Prüfung
+
+### Automatisiert: 19 erfolgreiche Prüfungen
+
+Geprüft wurden Skriptsyntax und lokale Ressourcen, freie Navigation, genaue Trainingsrückkehr, Trainingseinstiege, Erhalt vorhandener Daten, Woche-36-Aufträge, Profilübernahme, Berufssuche und Formenwahl, Satzbausteine samt Rückgängig-Funktion, Sprechkarten, vier Hörprofile sowie Wiederholungsabstände und Punktebegrenzung. Weitere Prüfungen decken ältere Schnupperangaben, geänderte Berufswünsche, die 246 Datensätze und die Videoaufnahme mit simulierten Geräten ab.
+
+### Browser und Darstellung
+
+- Desktop bei 1280 Pixeln und breiter: Startseite, Übungseinstiege, Berufssuche und Unterrichtsseiten.
+- Tablet bei 768 Pixeln: alle fünf Trainingsarten, auch mit extra grosser Schrift, ohne horizontalen Seitenüberlauf.
+- Smartphone bei 390 Pixeln: Woche-36-Satzbeispiele und Profil mit normaler und extra grosser Schrift.
+- Smartphone bei 320 Pixeln: alle acht Woche-37-Übungen und Training mit extra grosser Schrift. Die zuletzt gemessene Seitenbreite entspricht der verfügbaren Inhaltsbreite von 305 Pixeln bei sichtbarer Scrollleiste.
+- Schmale Ansichten wurden in Rahmen mit eigener Seitenbreite gerendert; die tatsächlichen responsiven Layoutregeln greifen. Die Prüfseite gehört nicht zum Download.
+
+Die Tests verwenden lokale Beispieldaten. Produktive Lernkonten und eine echte Teams-Abgabe wurden nicht verwendet. Der Aufnahmeablauf wurde mit simulierten Geräten geprüft; eine reale Kamera-/Mikrofonaufnahme und ein physischer Ausdruck sind nicht Teil der Prüfung. Browserfreigaben und Videoformate hängen vom Gerät ab.
+
+## Dateien und Bereitstellung
+
+- `public/assets/learning-upgrade.css`: grössere Schrift und responsive Unterrichtselemente.
+- `public/assets/week37-learning.js`: Lernweg, Datenübernahme, Berufshilfe, Sprechkarte und Videoaufnahme.
+- `public/assets/berufe-de-fr.js`: amtlich zugeordnete Berufsbezeichnungen.
+- `public/assets/listening-profiles.js` und `public/assets/audio/`: Hörtexte, Fragen und Audios.
+- `public/assets/practice-studio.js` und `.css`: gemeinsames Training mit Fortschritt.
+- `public/assets/atelier-navigation.js`: Navigation und Wiederherstellung der Ausgangsstelle.
+- `public/service-worker.js`: neue Dateien und Audios im Offline-Cache; neue Cacheversion.
+- `src/index.js`: Kameranutzung für die eigene Website erlaubt. Synchronisation und Datenbankschema bleiben erhalten.
 - `tests/navigation.test.cjs`: reproduzierbare Funktionsprüfungen.
-- `vite.config.mjs`: lokale Vorschau; die produktive Bereitstellung bleibt bei Cloudflare Worker und `public`.
+
+Das ZIP enthält das vollständige Projekt ohne Abhängigkeiten, Git-Verzeichnis, Testdaten oder lokale Vorschauseiten. Es wurde nichts auf GitHub hochgeladen oder produktiv veröffentlicht.

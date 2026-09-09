@@ -6,7 +6,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function selector(el) {
     if (!el || el === document.body) return null;
-    for (const attr of ['data-answer','data-bind','data-check']) if (el.hasAttribute(attr)) return `[${attr}="${CSS.escape(el.getAttribute(attr))}"]`;
+    for (const attr of ['data-answer','data-bind','data-learn-field','data-check']) if (el.hasAttribute(attr)) return `[${attr}="${CSS.escape(el.getAttribute(attr))}"]`;
     return el.id ? `#${CSS.escape(el.id)}` : null;
   }
   function snapshot(route) {
