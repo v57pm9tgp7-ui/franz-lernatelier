@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-19-1-connectors';
+const CACHE = 'franz-lernatelier-v0-19-2-lesbarkeit';
 const FILES = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ const FILES = [
   './assets/module-bridge.js?v=20260909-ux14',
   './assets/ui-workspace.css',
   './assets/ui-workspace.js?v=20260909-ux14',
-  './assets/ui-typography-v3.css',
+  './assets/ui-typography-v3.css?v=20260910-type31',
   './assets/logo-se-presenter-christoph.png',
   './data/modules.js',
   './module/woche-36/index.html',

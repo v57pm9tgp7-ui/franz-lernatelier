@@ -7,10 +7,10 @@ Wichtigste Aenderungen:
 - Niveaukarten: Beschreibungen wie unter «Soutien» sind nun 17.5–18 px statt 13–14 px.
 - Auch Routenkarten, Missionserklaerungen, Hilfen, Feedback, Training und Metadaten wurden angehoben.
 - Auf grossen Displays werden Lerntexte nochmals leicht groesser.
-- Ein automatischer Laufzeit-Audit erkennt dynamisch erzeugte Textstellen unterhalb der Lesbarkeitsgrenze und hebt sie an.
+- Ein zuletzt geladenes, verbindliches Stylesheet übersteuert auch dynamisch erzeugte Kleinschrift zuverlässig.
 - Rein dekorative Elemente (grosse Nummern, Routenpunkte, Stempel) bleiben ausgenommen.
 - Schreibhilfen bleiben grosszuegig und wachsen in der Hoehe statt Text zu verkleinern.
-- Cache-Version auf v0-13 erhoeht.
+- Cache-Version auf v0-19-2 erhoeht.
 
 GITHUB:
 1. ZIP entpacken.

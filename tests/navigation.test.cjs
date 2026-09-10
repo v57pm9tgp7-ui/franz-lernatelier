@@ -47,6 +47,19 @@ test('Every shipped script parses and local HTML assets exist',()=>{
     }
   }
 });
+test('Every public page loads the final readability layer last',()=>{
+  const entries=['index.html','module/woche-36/index.html','module/woche-37/index.html','Designvorschau.html'];
+  for(const entry of entries){
+    const html=fs.readFileSync(path.join(root,entry),'utf8');
+    const typography=html.lastIndexOf('ui-typography-v3.css?v=20260910-type31');
+    assert.ok(typography>=0,`${entry}: verbindlicher Typografiestandard fehlt`);
+    assert.ok(typography>html.lastIndexOf('practice-studio.css'),`${entry}: Typografiestandard muss zuletzt geladen werden`);
+  }
+  const css=fs.readFileSync(path.join(root,'assets/ui-typography-v3.css'),'utf8');
+  assert.match(css,/--fr-type-copy:18px/);
+  assert.match(css,/\.write-help-step,\s*\.writing-help-step\s*\{[^}]*font-size:var\(--fr-type-copy\)!important/s);
+  assert.match(css,/@media \(max-width:760px\)\s*\{[\s\S]*--fr-type-copy:17\.5px/);
+});
 test('Week 37 opens all eight exercises with both weeks unfinished',async()=>{
   const p=await page(37);try{
     for(const id of [8,2,6,1,7,3,5,4]){p.choose('[data-nav-exercise]',`mission-${id}`);await tick(25);assert.equal(p.w.location.hash,`#mission-${id}`);assert.match(p.d.querySelector('#missionMount h1').textContent,/\S/);}

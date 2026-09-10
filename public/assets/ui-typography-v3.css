@@ -1,12 +1,12 @@
-/* Franz Lernatelier · Typografie 3.0
+/* Franz Lernatelier · Typografie 3.1
    Verbindlicher Lesbarkeitsstandard ab Woche 36/37.
    Lern- und Erklaertexte duerfen nicht mehr als Kleinschrift behandelt werden. */
 
 :root{
-  --fr-type-meta:16px;
-  --fr-type-copy:17.5px;
-  --fr-type-body:18px;
-  --fr-type-control:17px;
+  --fr-type-meta:16.5px;
+  --fr-type-copy:18px;
+  --fr-type-body:19px;
+  --fr-type-control:18px;
   --fr-line-tight:1.38;
   --fr-line-copy:1.55;
   --fr-line-comfort:1.62;
@@ -14,10 +14,10 @@
 
 @media (min-width:1600px){
   :root{
-    --fr-type-meta:16.5px;
-    --fr-type-copy:18px;
-    --fr-type-body:19px;
-    --fr-type-control:17.5px;
+    --fr-type-meta:17px;
+    --fr-type-copy:19px;
+    --fr-type-body:20px;
+    --fr-type-control:18.5px;
   }
 }
 
@@ -53,10 +53,10 @@
 .app-main :is(input,select){min-height:48px}
 .site-main textarea,.app-main textarea{line-height:1.52!important}
 
-/* Laufzeit-Audit kann diese Klassen automatisch setzen. */
-.ui-font-floor-meta{font-size:var(--fr-type-meta)!important;line-height:var(--fr-line-tight)!important}
-.ui-font-floor-copy{font-size:var(--fr-type-copy)!important;line-height:var(--fr-line-copy)!important}
-.ui-font-floor-control{font-size:var(--fr-type-control)!important;line-height:1.35!important}
+/* Sicherheitsklassen fuer spaeter dynamisch ergaenzte Inhalte. */
+.ui-font-floor-meta.ui-font-floor-meta{font-size:var(--fr-type-meta)!important;line-height:var(--fr-line-tight)!important}
+.ui-font-floor-copy.ui-font-floor-copy{font-size:var(--fr-type-copy)!important;line-height:var(--fr-line-copy)!important}
+.ui-font-floor-control.ui-font-floor-control{font-size:var(--fr-type-control)!important;line-height:1.35!important}
 
 /* ------------------------------------------------------------------
    2. Hauptseite / Shell
@@ -437,10 +437,10 @@
 
 @media (max-width:760px){
   :root{
-    --fr-type-meta:15.5px;
-    --fr-type-copy:16.5px;
-    --fr-type-body:17px;
-    --fr-type-control:16.5px;
+    --fr-type-meta:16px;
+    --fr-type-copy:17.5px;
+    --fr-type-body:18px;
+    --fr-type-control:17.5px;
   }
   .level-select-card,.level-card{padding:17px!important}
 }
