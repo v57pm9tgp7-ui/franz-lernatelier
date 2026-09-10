@@ -112,6 +112,26 @@ test('All four training deep links select the requested mode in both weeks',asyn
     }finally{p.close();}
   }
 });
+test('Both weeks train all eight connector words with translations and sentence practice',async()=>{
+  const connectors=[['et','und'],['aussi','auch'],['mais','aber'],['parce que','weil'],['surtout','vor allem'],['avec','mit'],['souvent','oft'],['par exemple','zum Beispiel']];
+  const sentence='Je fais souvent du sport, par exemple le week-end.';
+  for(const week of [36,37]){
+    const p=await page(week,'#training/cards');try{
+      assert.match(p.d.querySelector('.practice-task-top').textContent,/Verbindungswörter/);
+      p.click('[data-p-history]');
+      for(const [fr,de] of connectors){
+        const open=[...p.d.querySelectorAll('[data-p-open]')].find(button=>button.textContent.trim()===fr);
+        assert.ok(open,`${fr} fehlt in Woche ${week}`);open.click();
+        assert.equal(p.d.querySelector('.practice-prompt').textContent.trim(),fr);
+        assert.match(p.d.querySelector('.practice-task-top').textContent,/Verbindungswörter/);
+        p.click('[data-p-reveal]');
+        assert.equal(p.d.querySelector('.practice-answer').textContent.trim(),de);
+      }
+      assert.match(p.d.querySelector('.practice-table-wrap').textContent,new RegExp(sentence.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')));
+      assert.deepEqual(p.errors.map(e=>e.message),[]);
+    }finally{p.close();}
+  }
+});
 test('Practice tracks recall, favorites, repetition, previous tasks and listening',async()=>{
   const p=await page(37,'#training/cards');try{
     const first=p.d.querySelector('.practice-prompt').textContent;
@@ -123,7 +143,7 @@ test('Practice tracks recall, favorites, repetition, previous tasks and listenin
     for(let i=0;i<3;i++){p.click('[data-p-reveal]');p.click('[data-p-rate="known"]');p.click('[data-p-next]');}
     assert.equal(p.d.querySelector('.practice-prompt').textContent,first);
     p.click('[data-p-next]');assert.notEqual(p.d.querySelector('.practice-prompt').textContent,first);
-    await tick();assert.equal(p.state().practiceV2.items['cards.0'].assisted,1);
+    await tick();assert.ok(Object.values(p.state().practiceV2.items).some(item=>item.assisted===1));
     p.choose('[data-p-filter]','favorites');assert.equal(p.d.querySelector('.practice-prompt').textContent,first);
     p.click('[data-p-mode="dictation"]');assert.match(p.d.querySelector('#practice-task-title').textContent,/keine/);
     p.click('[data-p-all]');assert.ok(p.d.querySelector('#practice-draft'));

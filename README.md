@@ -1,6 +1,6 @@
 # Franz Lernatelier
 
-Version 0.19.0 · 9. September 2026
+Version 0.19.1 · 10. September 2026
 
 Vollständiges Update für das bestehende Repository `v57pm9tgp7-ui/franz-lernatelier`. Enthält die überarbeitete Oberfläche, die neuen Unterrichtsaufträge und das ausgebaute Training für Woche 36 und 37.
 
@@ -14,6 +14,7 @@ Die Datenbankanbindung und die Schnittstellen zur Synchronisation bleiben erhalt
 
 ## Das ist neu
 
+- Woche 36 und 37: Die acht Verbindungswörter «et», «aussi», «mais», «parce que», «surtout», «avec», «souvent» und «par exemple» sind im Wortschatztraining enthalten. Sie erscheinen früh in den Empfehlungen und werden zusätzlich in Diktat- und Satzbauaufgaben verwendet.
 - Grössere Schrift auf der gesamten Website; über «Extra grosse Schrift» nochmals rund 40 % vergrösserbar. Angepasste Abstände und Umbrüche für kleine Bildschirme.
 - Genaue Rückkehr aus dem Training, einfache Wochen- und Übungswahl und freie Navigation ohne Abschlusszwang.
 - Woche 36: klare Anleitung zur heruntergeladenen 20-Questions-Präsentation, leere persönliche Profilfelder, verständlicher Partnerauftrag und zwei unterschiedliche Feedbackrunden im Défi final.
@@ -37,6 +38,6 @@ npm run dev
 
 Die Vorschau zeigt die Oberfläche. Ohne Cloudflare-API lässt sich die vorhandene Möglichkeit zum lokalen Weiterarbeiten verwenden. Die produktive Bereitstellung verwendet weiterhin `src/index.js` und `public`.
 
-19 automatisierte Prüfungen sind erfolgreich. Die Oberfläche wurde zusätzlich auf Desktop-, Tablet- und Smartphonebreiten geprüft, einschliesslich 320 Pixeln mit extra grosser Schrift. Echte Lernkonten, eine reale Teams-Abgabe und physische Kamera-/Mikrofongeräte waren nicht Teil der Prüfung.
+20 automatisierte Prüfungen sind erfolgreich. Die Oberfläche wurde zusätzlich auf Desktop-, Tablet- und Smartphonebreiten geprüft, einschliesslich 320 Pixeln mit extra grosser Schrift. Echte Lernkonten, eine reale Teams-Abgabe und physische Kamera-/Mikrofongeräte waren nicht Teil der Prüfung.
 
 Ältere `README-*.txt` bleiben als Projektgeschichte enthalten. Für dieses vollständige Update gilt diese Anleitung.

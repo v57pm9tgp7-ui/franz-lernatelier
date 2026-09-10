@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-19-learning';
+const CACHE = 'franz-lernatelier-v0-19-1-connectors';
 const FILES = [
   './',
   './index.html',
@@ -22,7 +22,7 @@ const FILES = [
   './module/woche-37/index.html',
   './assets/learning-upgrade.css?v=20260909-ux14',
   './assets/practice-studio.css?v=20260909-ux14',
-  './assets/practice-studio.js?v=20260909-ux14',
+  './assets/practice-studio.js?v=20260910-connectors',
   './assets/week37-learning.js?v=20260909-ux14',
   './assets/listening-profiles.js?v=20260909-ux14',
   './assets/berufe-de-fr.js?v=20260909-ux14',
