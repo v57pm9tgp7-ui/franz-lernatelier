@@ -59,3 +59,10 @@ UPDATE 0.21.0 · LEHRPERSONENBEREICH
 - Cloudflare-Einrichtung siehe CLOUDFLARE-LEHRPERSON-EINRICHTUNG.txt.
 
 Version: 0.21.0
+
+
+UPDATE 0.21.1 · DIREKTLINK LEHRPERSON
+- Auf franzatelier.com erscheint in der Kopfzeile ein Button «Lehrpersonenbereich».
+- Sichtbar ist er nur, wenn christoph.marti@bffbern.ch als Lernatelier-Konto angemeldet ist.
+- Für Lernende bleibt der Button vollständig verborgen.
+- Der Zielbereich /lehrperson/ bleibt unabhängig davon durch Cloudflare Access geschützt.

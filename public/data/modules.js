@@ -1,5 +1,5 @@
 // Franz Lernatelier · Wochenkonfiguration
-// Version 0.21.0 · Lehrpersonenbereich + klassenabhängiger Lern- und Testwortschatz.
+// Version 0.21.1 · Lehrpersonenbereich + sichtbarer Direkteinstieg für die Lehrperson.
 const FRANZ_LEVELS_37 = [{"id":"support","label":"Soutien","range":"A1 → A2","symbol":"+","color":"#2f6bff","soft":"#edf3ff","note":"Viele Hilfen, Wortbanken und klare Satzanfänge.","supportTitle":"Viel Unterstützung","supportText":"Sie erhalten Satzanfänge, Beispiele und kleine Schritte. Beim Üben können Sie die Hilfe schrittweise ausblenden.","layers":["Wortbank","Satzanfänge","Beispiel","kleine Schritte"],"placeholder":"Wählen Sie einen Satzanfang …"},{"id":"standard","label":"Standard","range":"A2","symbol":"●","color":"#147c73","soft":"#e8f6f3","note":"Gezielte Hilfe und zunehmend eigene Formulierungen.","supportTitle":"Gezielte Unterstützung","supportText":"Sie formulieren selbst und nutzen Hilfen nur, wenn Sie sie brauchen.","layers":["Satzanfang","Wortideen","Kurzcheck","laut sprechen"],"placeholder":"écrivez votre réponse …"},{"id":"challenge","label":"Défi","range":"A2+ → B1","symbol":"↗","color":"#b87900","soft":"#fff6df","note":"Mehr Details, Gründe und eigene Rückfragen.","supportTitle":"Mehr eigene Sprache","supportText":"Sie ergänzen Gründe, Details und Rückfragen und sprechen mit weniger Gerüst.","layers":["Grund","Detail","Rückfrage","weniger ablesen"],"placeholder":"développez et ajoutez une raison …"},{"id":"expert","label":"Expert","range":"B1 → B2+","symbol":"◆","color":"#10233f","soft":"#eef2f7","note":"Spontaner, differenzierter und mit weniger Gerüst.","supportTitle":"Anspruchsvollere Produktion","supportText":"Sie variieren Formulierungen, reagieren spontan und umschreiben Wortlücken auf Französisch.","layers":["Register","Nuancen","umschreiben","spontan reagieren"],"placeholder":"formulez librement et avec nuance …"}];
 const FRANZ_MISSIONS_37 = [{"id":1,"title":"Je reprends mon profil","description":"Ihre Angaben aus Marseille prüfen und frei erzählen.","time":"15–20 Min.","form":"Einzelarbeit","symbol":"1"},{"id":2,"title":"Mon école et mon projet","description":"Schule, Sprachen und Berufswunsch ergänzen.","time":"20–25 Min.","form":"Einzelarbeit","symbol":"2"},{"id":3,"title":"Je donne des détails","description":"Drei eigene Sätze mit passenden Details ergänzen.","time":"15–20 Min.","form":"Einzelarbeit","symbol":"3"},{"id":4,"title":"Écouter quatre profils","description":"Vier Personen hören und auch Einzelheiten verstehen.","time":"20–25 Min.","form":"Einzelarbeit","symbol":"4"},{"id":5,"title":"Mon expérience et mon projet","description":"Beruf, Stärke und Schnupperlehre persönlich beschreiben.","time":"20–25 Min.","form":"Einzelarbeit","symbol":"5"},{"id":6,"title":"Ma carte de parole","description":"Eigene Stichwörter ordnen und damit 60 Sekunden üben.","time":"15–20 Min.","form":"Einzelarbeit","symbol":"6"},{"id":7,"title":"Répéter en groupe","description":"Drei Proben mit Rückmeldung und immer weniger Hilfe.","time":"20–30 Min.","form":"Dreiergruppe","symbol":"7"},{"id":8,"title":"Ma vidéo · Défi final","description":"Lernkontrolle: 60 Sekunden frei vorstellen und Video in Teams abgeben.","time":"20–30 Min.","form":"Einzelarbeit","symbol":"8"}];
 const FRANZ_TRAINING_37 = [{"id":"cards","title":"Cartes","subtitle":"Wortschatz & Verbindungen","description":"Fragen, Antworten und Verbindungswörter aktiv erinnern und laut sprechen.","icon":"cards","color":"coral","time":"5 Min."},{"id":"dictation","title":"Écoute","subtitle":"Diktat","description":"Kurze Selbstvorstellungs-Sätze hören und möglichst genau aufschreiben.","icon":"headphones","color":"sky","time":"5–8 Min."},{"id":"reaction","title":"Réagis","subtitle":"10 Sekunden","description":"Auf eine persönliche Frage schnell, passend und in einem ganzen Satz reagieren.","icon":"bolt","color":"mint","time":"5 Min."},{"id":"expert","title":"Expert","subtitle":"60 Sekunden","description":"Zu einem Sprechimpuls möglichst frei sprechen, verbinden und spontan reagieren.","icon":"mic","color":"violet","time":"8–10 Min."}];
@@ -129,4 +129,76 @@ if (document.readyState === 'loading') {
   script.src = 'assets/ui-workspace.js?v=20260909-ux14';
   script.dataset.franzWorkspaceUi = '1';
   document.head.appendChild(script);
+})();
+
+
+// Direkteinstieg für die Lehrperson auf franzatelier.com.
+// Der Link ist nur sichtbar, wenn genau die Lehrpersonen-E-Mail im Lernatelier angemeldet ist.
+// Die eigentliche Zugriffskontrolle bleibt Cloudflare Access auf /lehrperson/.
+(() => {
+  const ACCOUNT_KEY = 'franzLernatelierLearner_v1';
+  const TEACHER_EMAIL = 'christoph.marti@bffbern.ch';
+
+  function getEmail() {
+    try {
+      return String(JSON.parse(localStorage.getItem(ACCOUNT_KEY) || '{}')?.email || '').trim().toLowerCase();
+    } catch (_) {
+      return '';
+    }
+  }
+
+  function installStyle() {
+    if (document.getElementById('teacher-entry-style')) return;
+    const style = document.createElement('style');
+    style.id = 'teacher-entry-style';
+    style.textContent = `
+      .teacher-entry-link{
+        min-height:42px;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;
+        border:1px solid #a8c9c3;border-radius:12px;background:#f3fbf9;color:#0b315f;
+        text-decoration:none;font-weight:900;white-space:nowrap
+      }
+      .teacher-entry-link[hidden]{display:none!important}
+      .teacher-entry-link:hover{border-color:#177c73;background:#e7f4f1}
+      .teacher-entry-link>span{
+        width:28px;height:28px;display:grid;place-items:center;border-radius:9px;
+        background:#0b315f;color:#fff;font-size:11px;letter-spacing:.03em
+      }
+      .teacher-entry-link>strong{font-size:13px}
+      @media(max-width:920px){.teacher-entry-link>strong{display:none}.teacher-entry-link{padding:6px}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function updateTeacherLink() {
+    const actions = document.querySelector('.header-actions');
+    if (!actions) return;
+    installStyle();
+
+    let link = actions.querySelector('[data-teacher-entry]');
+    if (!link) {
+      link = document.createElement('a');
+      link.href = 'lehrperson/';
+      link.dataset.teacherEntry = '1';
+      link.className = 'teacher-entry-link';
+      link.setAttribute('aria-label', 'Lehrpersonenbereich öffnen');
+      link.innerHTML = '<span aria-hidden="true">LP</span><strong>Lehrpersonenbereich</strong>';
+      actions.insertBefore(link, actions.firstChild);
+    }
+    link.hidden = getEmail() !== TEACHER_EMAIL;
+  }
+
+  function startTeacherLink() {
+    updateTeacherLink();
+    const emailNode = document.querySelector('[data-learner-email]');
+    if (emailNode) new MutationObserver(updateTeacherLink).observe(emailNode, {childList:true,subtree:true,characterData:true});
+    window.addEventListener('pageshow', updateTeacherLink);
+    window.addEventListener('focus', updateTeacherLink);
+    window.addEventListener('storage', event => { if (event.key === ACCOUNT_KEY) updateTeacherLink(); });
+    let n = 0;
+    const timer = setInterval(() => { updateTeacherLink(); if (++n >= 12) clearInterval(timer); }, 500);
+  }
+
+  document.readyState === 'loading'
+    ? document.addEventListener('DOMContentLoaded', startTeacherLink, {once:true})
+    : startTeacherLink();
 })();
