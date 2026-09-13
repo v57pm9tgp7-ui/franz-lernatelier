@@ -1,29 +1,29 @@
-Franz Lernatelier – Woche 37 – Sprechkarte / Kartendruck
-Update vom 13.09.2026
+Franz Lernatelier – Update 0.19.4
+Woche 38: dynamische Weiterarbeit an den Übungen aus Woche 37
 
-Dieses Paket ist ein gezieltes Update für das bestehende Repository franz-lernatelier.
-Es ersetzt keine Lernstände und verändert kein Datenbankschema.
+Was neu ist
+- Woche 38 ist die aktuelle Woche.
+- Es kommen vorläufig keine neuen Aufgaben dazu.
+- Die acht Übungen aus Woche 37 werden als Übungen der Woche 38 angezeigt.
+- Der bisherige Arbeitsstand wird übernommen: erledigte/offene Übungen bleiben sichtbar.
+- Auf der Startseite stehen sofort drei Informationen: bereits bearbeitet, noch offen, zuletzt bearbeitet.
+- Ein direkter Button führt zur zuletzt bearbeiteten Übung.
+- Woche 38 verwendet bewusst denselben gespeicherten und online synchronisierten Lernstand wie Woche 37.
+- Dadurch funktioniert die Fortsetzung auch beim Gerätewechsel nach Login mit derselben Schul-E-Mail.
+- Die ausführliche Woche-38-Seite ist eine dynamische Weiterführung der bestehenden Woche 37. Änderungen an den Übungen bleiben dadurch konsistent.
+- Die verbesserte Sprechkarte aus Version 0.19.3 ist enthalten und funktioniert nun auch in Woche 38.
 
-Geändert:
-1. Übung 6 zeigt neu vollständige Stichwortvorschläge aus allen vorhandenen Woche-37-Angaben:
-   persönliche Angaben, Freizeit, Schule, Sprachen, Beruf, Grund, Stärke,
-   Schnupperlehre / Tätigkeit / Eindruck und Schluss.
-2. Vorhandene eigene Stichwörter bleiben erhalten. Ein Button kann die Vorschläge
-   jederzeit aus den aktuellen Angaben neu erzeugen.
-3. «Karte drucken» erzeugt exakt zwei A6-Seiten:
-   - Vorderseite: Überschrift, kurze Arbeitsanweisung und nur Stichwörter.
-   - Rückseite: der vollständige mit der App erarbeitete französische Text.
-4. Beim Drucken wird die restliche Website vollständig ausgeblendet.
-   Navigation, Niveauwahl, Hilfe, Buttons und andere Bildschirminhalte werden nicht gedruckt.
-5. Der Service-Worker wurde versioniert und nimmt das neue Upgrade auch in den Offline-Cache auf.
+Installation
+1. ZIP entpacken.
+2. Den Inhalt in das Hauptverzeichnis des bestehenden GitHub-Repositories übernehmen.
+3. Gleichnamige Dateien ersetzen.
+4. In GitHub speichern und wie bisher über Cloudflare deployen.
+5. Nach dem Deploy die Seite einmal mit Strg+F5 neu laden.
 
-In GitHub übernehmen:
-- ZIP entpacken.
-- Den Inhalt in das Hauptverzeichnis des bestehenden Repositorys ziehen.
-- Gleichnamige Dateien ersetzen.
-- Die neue Datei public/assets/week37-card-print-upgrade.js muss mit hochgeladen werden.
-- Danach wie gewohnt committen; Christoph veröffentlicht selbst über den bestehenden GitHub/Cloudflare-Weg.
+Wichtig
+- Die Datei public/module/woche-37/index.html wird nicht ersetzt.
+- Woche 38 lädt diese bestehende Übungslogik dynamisch und zeigt sie mit einer Woche-38-Oberfläche.
+- Der gemeinsame Lernstand verwendet weiterhin franzosischLernatelierW37_v1 bzw. serverseitig woche-37-2026. Das ist beabsichtigt, damit niemand seinen Stand verliert.
 
-Druckhinweis:
-Für echte Vorder-/Rückseite im Druckdialog «beidseitig» bzw. Duplex aktivieren.
-Das Dokument selbst liefert Seite 1 als Vorderseite und Seite 2 als Rückseite im Format A6 Hochformat.
+Version: 0.19.4
+Datum: 13.09.2026

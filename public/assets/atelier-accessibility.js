@@ -53,10 +53,10 @@
   function start(){enhance();observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden','aria-hidden']});window.addEventListener('pageshow',()=>window.FranzNavigation.restoreIncoming());}
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
 
-  /* Woche 37: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
-  if(/\/module\/woche-37(?:\/|\/index\.html|$)/.test(location.pathname)){
+  /* Woche 37/38: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
+  if(/\/module\/woche-(?:37|38)(?:\/|\/index\.html|$)/.test(location.pathname)){
     const script=document.createElement('script');
-    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card1',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card1';
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card2',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card2';
     script.defer=true;
     document.head.appendChild(script);
   }

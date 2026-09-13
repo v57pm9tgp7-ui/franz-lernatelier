@@ -3,6 +3,7 @@
   'use strict';
 
   const STORAGE_KEY = 'franzoesischLernatelierW37_v1';
+  const DISPLAY_WEEK = (typeof location !== 'undefined' && /woche-38/.test(location.pathname)) ? 38 : 37;
   const TITLES = ['Anfang', 'Über mich', 'Schule und Beruf', 'Grund, Stärke und Erfahrung', 'Schluss'];
   const TIMES = ['0–10 s', '10–20 s', '20–30 s', '30–50 s', '50–60 s'];
   const trim = value => String(value ?? '').trim();
@@ -268,7 +269,7 @@
     const root = document.createElement('section');
     root.id = 'franz-w37-print-root';
     root.setAttribute('aria-hidden', 'true');
-    root.innerHTML = `<section class="w37-print-side w37-print-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche 37</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></section><section class="w37-print-side w37-print-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche 37</p><h1>Mein vollständiger Text</h1></header><div class="w37-print-text">${back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>'}</div></section>`;
+    root.innerHTML = `<section class="w37-print-side w37-print-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></section><section class="w37-print-side w37-print-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Mein vollständiger Text</h1></header><div class="w37-print-text">${back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>'}</div></section>`;
     return root;
   }
 
