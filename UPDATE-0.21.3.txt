@@ -1,0 +1,31 @@
+Franz Lernatelier · Version 0.21.3
+Fix: Cloudflare-Runtime-Variablen bleiben bei GitHub/Wrangler-Deploys erhalten
+
+Ursache
+Wrangler entfernt standardmässig im Cloudflare-Dashboard gesetzte Plaintext-Runtime-Variablen,
+wenn beim nächsten Deploy keine entsprechenden vars in der Wrangler-Konfiguration stehen.
+Dadurch funktionierte der Lehrpersonenbereich nach dem manuellen Setzen der Werte, verlor den
+Zugriff aber beim nächsten GitHub-Deploy.
+
+Änderung
+wrangler.jsonc enthält neu:
+"keep_vars": true
+
+Damit bleiben Dashboard-Runtime-Variablen bei zukünftigen Deploys erhalten.
+
+Empfohlen
+Die drei Werte zusätzlich als Secret speichern:
+TEACHER_EMAIL
+ACCESS_AUD
+ACCESS_TEAM_DOMAIN
+
+Secrets werden von Wrangler-Deploys nicht gelöscht.
+
+Reihenfolge
+1. Cloudflare > Worker > Settings > Variables and Secrets.
+2. Die drei Werte wieder eintragen, am besten als Secret.
+3. Dieses Update 0.21.3 über GitHub deployen.
+4. /lehrperson/ neu laden.
+5. /lehrperson/api/teacher/me testen.
+
+Keine Lernendendaten oder D1-Daten werden verändert.
