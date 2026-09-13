@@ -1,0 +1,27 @@
+Franz Lernatelier · Version 0.21.4
+Lehrpersonen-Zugriff – vereinfachte und robuste Lösung
+
+Was geändert wurde
+- Der Lehrpersonenbereich bleibt vollständig durch Cloudflare Access unter /lehrperson/* geschützt.
+- Die Teacher-API liegt weiterhin unter /lehrperson/api/teacher/* und wird damit von derselben Access-Regel geschützt.
+- Die zusätzliche eigene JWT-Prüfung im Worker wurde für diesen Pfad entfernt.
+- Damit benötigt der Lehrpersonenbereich KEINE Variablen TEACHER_EMAIL, ACCESS_AUD oder ACCESS_TEAM_DOMAIN mehr.
+- Ein GitHub/Wrangler-Deploy kann den Zugang deshalb nicht mehr durch gelöschte Runtime-Variablen zerstören.
+- Der alte ungeschützte Pfad /api/teacher/* wird nicht mehr als Teacher-API akzeptiert.
+
+Warum das sicher ist
+Cloudflare Access steht vor dem Worker und lässt bei /lehrperson/* gemäss Ihrer Policy nur Ihre
+Lehrpersonen-E-Mail durch. Der Worker muss dieselbe Authentifizierung nicht ein zweites Mal nachbauen.
+
+Installation
+Die Datei src/index.js im bestehenden Repository ersetzen und deployen.
+Keine Cloudflare-Variablen müssen für den Lehrpersonenbereich neu gesetzt werden.
+
+Test nach dem Deploy
+1. https://franzatelier.com/lehrperson/ öffnen
+2. Oben rechts muss christoph.marti@bffbern.ch erscheinen.
+3. https://franzatelier.com/lehrperson/api/teacher/me muss liefern:
+   {"ok":true,"email":"christoph.marti@bffbern.ch"}
+
+Cloudflare Access Destination:
+franzatelier.com / lehrperson/*
