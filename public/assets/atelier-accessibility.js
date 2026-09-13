@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const ownScript=document.currentScript?.src||'';
   let counter=0,scheduled=false,activeDialog=null,returnFocus=null;
   const backgrounds=new Map();
   const visible=el=>!!el&&!el.hidden&&el.getAttribute('aria-hidden')!=='true'&&!!el.getClientRects().length;
@@ -51,4 +52,12 @@
   const observer=new MutationObserver(schedule);
   function start(){enhance();observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden','aria-hidden']});window.addEventListener('pageshow',()=>window.FranzNavigation.restoreIncoming());}
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
+
+  /* Woche 37: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
+  if(/\/module\/woche-37(?:\/|\/index\.html|$)/.test(location.pathname)){
+    const script=document.createElement('script');
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card1',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card1';
+    script.defer=true;
+    document.head.appendChild(script);
+  }
 })();

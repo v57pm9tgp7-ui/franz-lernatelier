@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-19-2-lesbarkeit';
+const CACHE = 'franz-lernatelier-v0-19-3-w37-card';
 const FILES = [
   './',
   './index.html',
@@ -6,6 +6,7 @@ const FILES = [
   './assets/atelier.css?v=20260909-ux14',
   './assets/atelier-navigation.js?v=20260909-ux14',
   './assets/atelier-accessibility.js?v=20260909-ux14',
+  './assets/week37-card-print-upgrade.js?v=20260913-card1',
   './assets/app.js?v=20260909-ux14',
   './data/modules.js?v=20260909-ux14',
   './assets/app.js',
