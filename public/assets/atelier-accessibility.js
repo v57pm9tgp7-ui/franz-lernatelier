@@ -56,7 +56,7 @@
   /* Woche 37/38: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
   if(/\/module\/woche-(?:37|38)(?:\/|\/index\.html|$)/.test(location.pathname)){
     const script=document.createElement('script');
-    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card2',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card2';
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card3',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card3';
     script.defer=true;
     document.head.appendChild(script);
   }

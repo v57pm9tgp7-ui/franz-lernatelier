@@ -50,3 +50,11 @@ test('Offline-Cache enthält Woche 38',()=>{
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);
 });
+
+
+test('Die Rückseite der Druckkarte steht rechts und trägt den Titel Je me présente',()=>{
+  const card=read('public/assets/week37-card-print-upgrade.js');
+  assert.match(card,/w37-print-back\{display:flex;flex-direction:column;align-items:flex-end\}/);
+  assert.match(card,/max-width:82mm/);
+  assert.match(card,/>Je me présente<\/h1>/);
+});

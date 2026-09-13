@@ -25,5 +25,9 @@ Wichtig
 - Woche 38 lädt diese bestehende Übungslogik dynamisch und zeigt sie mit einer Woche-38-Oberfläche.
 - Der gemeinsame Lernstand verwendet weiterhin franzosischLernatelierW37_v1 bzw. serverseitig woche-37-2026. Das ist beabsichtigt, damit niemand seinen Stand verliert.
 
-Version: 0.19.4
+Version: 0.19.5
 Datum: 13.09.2026
+
+Zusatzfix 0.19.5
+- Rückseite der Druckkarte steht nun rechts, damit Vorder- und Rückseite beim doppelseitigen Druck besser zusammenpassen.
+- Titel auf der Rückseite heisst neu «Je me présente».

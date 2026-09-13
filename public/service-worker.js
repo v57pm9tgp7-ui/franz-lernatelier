@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-19-4-w38-continuation';
+const CACHE = 'franz-lernatelier-v0-19-5-card-backside-fix';
 const FILES = [
   './',
   './index.html',
@@ -6,7 +6,7 @@ const FILES = [
   './assets/atelier.css?v=20260909-ux14',
   './assets/atelier-navigation.js?v=20260909-ux14',
   './assets/atelier-accessibility.js?v=20260909-ux14',
-  './assets/week37-card-print-upgrade.js?v=20260913-card2',
+  './assets/week37-card-print-upgrade.js?v=20260913-card3',
   './assets/week38-home.js?v=20260913-w38-1',
   './assets/week38-module.js?v=20260913-w38-1',
   './assets/app.js?v=20260909-ux14',
