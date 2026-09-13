@@ -90,16 +90,16 @@ function renderVocabulary(){
   renderConfigSummary();
 }
 async function loadRoster(){
-  roster=await api('/api/teacher/roster');
+  roster=await api('/lehrperson/api/teacher/roster');
   renderGroupHeader();
 }
 async function loadProgress(){
   $('#studentRows').innerHTML='<tr><td colspan="5">Arbeitsstand wird geladen …</td></tr>';
-  dashboard=await api(`/api/teacher/dashboard?group=${encodeURIComponent(groupId)}&topicId=${encodeURIComponent(TOPIC_ID)}`,{headers:{}});
+  dashboard=await api(`/lehrperson/api/teacher/dashboard?group=${encodeURIComponent(groupId)}&topicId=${encodeURIComponent(TOPIC_ID)}`,{headers:{}});
   renderMetrics();renderStudents();
 }
 async function loadConfig(){
-  config=await api(`/api/teacher/vocabulary?group=${encodeURIComponent(groupId)}&topicId=${encodeURIComponent(TOPIC_ID)}`,{headers:{}});
+  config=await api(`/lehrperson/api/teacher/vocabulary?group=${encodeURIComponent(groupId)}&topicId=${encodeURIComponent(TOPIC_ID)}`,{headers:{}});
   learnSet=new Set(config.learnIds||[]);
   testSet=new Set(config.testIds||[]);
   renderVocabulary();
@@ -110,7 +110,7 @@ async function switchGroup(id){
 }
 async function saveFor(group){
   const body={groupId:group,topicId:TOPIC_ID,learnIds:[...learnSet],testIds:[...testSet]};
-  return api('/api/teacher/vocabulary',{method:'PUT',body:JSON.stringify(body)});
+  return api('/lehrperson/api/teacher/vocabulary',{method:'PUT',body:JSON.stringify(body)});
 }
 async function saveCurrent(){
   $('#saveVocabulary').disabled=true;
@@ -153,7 +153,7 @@ function bind(){
 async function init(){
   bind();
   try{
-    const me=await api('/api/teacher/me',{headers:{}});
+    const me=await api('/lehrperson/api/teacher/me',{headers:{}});
     $('#teacherEmail').textContent=me.email;
     await loadRoster();
     await Promise.all([loadProgress(),loadConfig()]);

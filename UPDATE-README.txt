@@ -66,3 +66,10 @@ UPDATE 0.21.1 · DIREKTLINK LEHRPERSON
 - Sichtbar ist er nur, wenn christoph.marti@bffbern.ch als Lernatelier-Konto angemeldet ist.
 - Für Lernende bleibt der Button vollständig verborgen.
 - Der Zielbereich /lehrperson/ bleibt unabhängig davon durch Cloudflare Access geschützt.
+
+
+UPDATE 0.21.2 · ACCESS-PFAD-KORREKTUR
+- Lehrpersonen-API wird nun unter /lehrperson/api/teacher/* aufgerufen.
+- Seite und API liegen damit im selben Cloudflare-Access-Pfad /lehrperson/*.
+- Dadurch reicht eine einzige Access-Destination und dieselbe Access-Sitzung gilt zuverlässig für Oberfläche und API.
+- Die alten /api/teacher/* Endpunkte bleiben serverseitig aus Kompatibilitätsgründen unterstützt.

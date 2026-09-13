@@ -484,10 +484,11 @@ async function handleTeacherApi(request, env) {
   const guard = await requireTeacher(request, env);
   if (!guard.ok) return guard.response;
   const url = new URL(request.url);
-  if (url.pathname === '/api/teacher/me' && request.method === 'GET') return apiTeacherMe(request, env, guard.user);
-  if (url.pathname === '/api/teacher/roster' && request.method === 'GET') return apiTeacherRoster(request, env);
-  if (url.pathname === '/api/teacher/vocabulary') return apiTeacherVocabulary(request, env, guard.user);
-  if (url.pathname === '/api/teacher/dashboard' && request.method === 'GET') return apiTeacherDashboard(request, env);
+  const path = url.pathname.replace(/^\/lehrperson/, '');
+  if (path === '/api/teacher/me' && request.method === 'GET') return apiTeacherMe(request, env, guard.user);
+  if (path === '/api/teacher/roster' && request.method === 'GET') return apiTeacherRoster(request, env);
+  if (path === '/api/teacher/vocabulary') return apiTeacherVocabulary(request, env, guard.user);
+  if (path === '/api/teacher/dashboard' && request.method === 'GET') return apiTeacherDashboard(request, env);
   return json({ok:false, error:'NOT_FOUND'}, 404);
 }
 
@@ -495,7 +496,7 @@ async function handleApi(request, env) {
   if (!env.DB) return json({ok:false, error:'DB_NOT_CONFIGURED', message:'Die Online-Speicherung ist noch nicht eingerichtet.'}, 503);
   await ensureSchema(env.DB);
   const url = new URL(request.url);
-  if (url.pathname.startsWith('/api/teacher/')) return handleTeacherApi(request, env);
+  if (url.pathname.startsWith('/api/teacher/') || url.pathname.startsWith('/lehrperson/api/teacher/')) return handleTeacherApi(request, env);
   if (url.pathname === '/api/status' && request.method === 'GET') return json({ok:true, database:true});
   if (url.pathname === '/api/session' && request.method === 'POST') return apiSession(request, env);
   if (url.pathname === '/api/progress/load' && request.method === 'POST') return apiGetProgress(request, env);
@@ -535,7 +536,7 @@ export default {
       return withSecurityHeaders(Response.redirect(url.toString(), 308));
     }
 
-    if (url.pathname.startsWith('/api/')) {
+    if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/lehrperson/api/teacher/')) {
       try {
         return await handleApi(request, env);
       } catch (error) {

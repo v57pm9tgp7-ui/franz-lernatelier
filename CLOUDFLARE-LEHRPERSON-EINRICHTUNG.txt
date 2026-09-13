@@ -78,3 +78,13 @@ Die vom Auftraggeber gewünschte Gruppenbezeichnung lautet "GS1AF".
 Die dazu hochgeladene zweite Kursliste ist im Dokument selbst jedoch mit "GS1B + GS1F"
 beschriftet. Im Lehrpersonenbereich wird daher die Gruppe "GS1AF" verwendet; bei den
 einzelnen Lernenden bleiben die Klassenangaben GS1B bzw. GS1F aus der Kursliste erhalten.
+
+
+WICHTIGE VEREINFACHUNG AB VERSION 0.21.2
+Es genügt als Access-Ziel:
+franzatelier.com/lehrperson/*
+
+Die Lehrpersonen-API läuft nun innerhalb dieses Pfads:
+franzatelier.com/lehrperson/api/teacher/*
+
+Die separate Destination franzatelier.com/api/teacher/* ist für die neue Version nicht mehr nötig.
