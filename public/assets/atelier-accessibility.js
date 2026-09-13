@@ -55,9 +55,14 @@
 
   /* Woche 37/38: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
   if(/\/module\/woche-(?:37|38)(?:\/|\/index\.html|$)/.test(location.pathname)){
+    window.FRANZ_TOPICS ||= [{id:'se-presenter-2026',title:'Se présenter',subtitle:'Qui suis-je ?',weeks:[36,37,38],active:true}];
     const script=document.createElement('script');
-    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card3',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card3';
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260913-card4',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260913-card4';
     script.defer=true;
     document.head.appendChild(script);
+    const topicScript=document.createElement('script');
+    topicScript.src=ownScript?new URL('topic-training-module.js?v=20260913-topic1',ownScript).href:'../../assets/topic-training-module.js?v=20260913-topic1';
+    topicScript.defer=true;
+    document.head.appendChild(topicScript);
   }
 })();

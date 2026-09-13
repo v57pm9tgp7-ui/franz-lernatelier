@@ -25,9 +25,21 @@ Wichtig
 - Woche 38 lädt diese bestehende Übungslogik dynamisch und zeigt sie mit einer Woche-38-Oberfläche.
 - Der gemeinsame Lernstand verwendet weiterhin franzosischLernatelierW37_v1 bzw. serverseitig woche-37-2026. Das ist beabsichtigt, damit niemand seinen Stand verliert.
 
-Version: 0.19.5
+Version: 0.20.0
 Datum: 13.09.2026
 
 Zusatzfix 0.19.5
 - Rückseite der Druckkarte steht nun rechts, damit Vorder- und Rückseite beim doppelseitigen Druck besser zusammenpassen.
 - Titel auf der Rückseite heisst neu «Je me présente».
+
+
+Grosses Update 0.20.0 – Themenbasiertes Training
+- Trainingsmodus bezieht sich neu auf das aktuelle Thema «Se présenter» (Woche 36–38), nicht nur auf eine einzelne Woche.
+- Startansicht neu hierarchisiert: aktuelles Thema, Testvorbereitung und kompakte Schnelltrainings.
+- Neue Testvorbereitung «Vocabulaire» mit vollständiger Französisch-Deutsch-Liste, Suche und Lernstandfiltern.
+- Druckbare Wortschatzliste.
+- Drei Lernstände aus demselben Cartes-Datensatz: zuverlässig, unsicher, noch lernen / noch nicht geprüft.
+- Neuer Probe-Check ohne Hilfen; detaillierte Auswertung erst am Schluss.
+- Richtige/falsche Check-Antworten fliessen zurück in den Cartes-Wiederholungsplan.
+- Datenmodell unterstützt bereits weitere spätere Testbereiche wie Grammaire oder Communication, ohne diese jetzt in der Oberfläche anzuzeigen.
+- Trainingsansicht innerhalb der Übungen zeigt ebenfalls das ganze Thema und verlinkt zur Testvorbereitung.
