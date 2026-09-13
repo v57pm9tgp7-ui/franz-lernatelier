@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b315f">
+<title>Franz Lernatelier · Lehrpersonenbereich</title>
+<link rel="stylesheet" href="../assets/teacher.css?v=20260913-teacher1">
+</head>
+<body>
+<div class="tricolore" aria-hidden="true"><i></i><i></i><i></i></div>
+<header class="teacher-topbar">
+  <a class="teacher-brand" href="../index.html">
+    <span class="teacher-mark">FR</span>
+    <span><strong>Franz Lernatelier</strong><small>Lehrpersonenbereich</small></span>
+  </a>
+  <div class="teacher-user">
+    <span>Angemeldet mit Cloudflare Access</span>
+    <strong id="teacherEmail">wird geprüft …</strong>
+  </div>
+</header>
+
+<main class="teacher-main">
+  <section class="teacher-hero">
+    <div>
+      <span class="eyebrow">Lehrperson · aktuelles Thema</span>
+      <h1>Se présenter · Qui suis-je ?</h1>
+      <p>Arbeitsstand sehen, Lernwortschatz festlegen und bestimmen, welche Wörter in der Lernkontrolle vorkommen dürfen.</p>
+    </div>
+    <a class="back-link" href="../index.html">← Lernatelier</a>
+  </section>
+
+  <section class="group-switch" aria-label="Kursgruppe wählen">
+    <button type="button" data-group="GS1CD" class="is-active"><strong>GS1CD</strong><span>18 Lernende</span></button>
+    <button type="button" data-group="GS1AF"><strong>GS1AF</strong><span>19 Lernende</span></button>
+  </section>
+  <p class="source-note" id="sourceNote"></p>
+
+  <nav class="teacher-tabs" aria-label="Bereich wählen">
+    <button type="button" data-tab="progress" class="is-active">Arbeitsstand</button>
+    <button type="button" data-tab="vocabulary">Vocabulaire & Lernkontrolle</button>
+  </nav>
+
+  <section id="progressPanel" class="teacher-panel">
+    <div class="panel-head">
+      <div><span class="eyebrow">Übersicht</span><h2>Arbeitsstand der Lernenden</h2><p>Die Angaben stammen aus dem online gespeicherten Arbeitsstand des aktuellen Themas.</p></div>
+      <button class="secondary-button" id="refreshProgress" type="button">Aktualisieren</button>
+    </div>
+    <div class="metric-grid" id="metrics"></div>
+    <div class="table-tools">
+      <label>Klasse
+        <select id="classFilter"><option value="all">Alle</option></select>
+      </label>
+      <label>Suche
+        <input id="studentSearch" type="search" placeholder="Name oder E-Mail">
+      </label>
+    </div>
+    <div class="table-wrap">
+      <table class="student-table">
+        <thead><tr><th>Lernende</th><th>Übungen</th><th>Vocabulaire</th><th>Letzter Check</th><th>Letzte Aktivität</th></tr></thead>
+        <tbody id="studentRows"><tr><td colspan="5">Daten werden geladen …</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="vocabularyPanel" class="teacher-panel" hidden>
+    <div class="panel-head">
+      <div><span class="eyebrow">Thema · Woche 36–38</span><h2>Wortschatz festlegen</h2><p>«Lernen» steuert Cartes und die Lernliste. «Lernkontrolle» ist eine Teilmenge davon und steuert den Probe-Check.</p></div>
+      <div class="save-actions">
+        <button class="secondary-button" id="saveBoth" type="button">Für beide Gruppen speichern</button>
+        <button class="primary-button" id="saveVocabulary" type="button">Für diese Gruppe speichern</button>
+      </div>
+    </div>
+
+    <div class="config-summary">
+      <div><small>Zu lernen</small><strong id="learnCount">0</strong></div>
+      <div><small>Kann in Lernkontrolle vorkommen</small><strong id="testCount">0</strong></div>
+      <div><small>Status</small><strong id="configStatus">Noch nicht geladen</strong></div>
+    </div>
+
+    <div class="vocab-tools">
+      <label>Wortschatz durchsuchen
+        <input id="vocabSearch" type="search" placeholder="Französisch, Deutsch oder Kategorie">
+      </label>
+      <div class="bulk-actions">
+        <button type="button" data-bulk="learn-all">Alle lernen</button>
+        <button type="button" data-bulk="learn-none">Lernauswahl leeren</button>
+        <button type="button" data-bulk="test-all">Alle Lernwörter testen</button>
+        <button type="button" data-bulk="test-none">Testauswahl leeren</button>
+      </div>
+    </div>
+
+    <div class="teacher-callout">
+      <strong>Logik</strong>
+      <p>Ein Wort, das in der Lernkontrolle vorkommen kann, wird automatisch auch als Lernwort aktiviert. Lernende sehen nur den für ihre Gruppe freigegebenen Wortschatz.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="vocab-table">
+        <thead><tr><th>Französisch</th><th>Deutsch</th><th>Kategorie</th><th>Lernen</th><th>Lernkontrolle</th></tr></thead>
+        <tbody id="vocabRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="teacher-toast" id="teacherToast" role="status" aria-live="polite"></div>
+</main>
+
+<script src="../data/topic-vocabulary.js?v=20260913-teacher1"></script>
+<script src="../assets/teacher.js?v=20260913-teacher1"></script>
+</body>
+</html>

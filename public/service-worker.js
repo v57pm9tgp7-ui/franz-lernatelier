@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-20-0-topic-training';
+const CACHE = 'franz-lernatelier-v0-21-0-teacher';
 const FILES = [
   './',
   './index.html',
@@ -9,8 +9,9 @@ const FILES = [
   './assets/week37-card-print-upgrade.js?v=20260913-card4',
   './assets/week38-home.js?v=20260913-w38-1',
   './assets/week38-module.js?v=20260913-w38-1',
-  './assets/topic-training.js?v=20260913-topic1',
+  './assets/topic-training.js?v=20260913-topic2',
   './assets/topic-training-module.js?v=20260913-topic1',
+  './assets/practice-vocab-config.js?v=20260913-teacher1',
   './assets/app.js?v=20260909-ux14',
   './data/modules.js?v=20260909-ux14',
   './assets/app.js',

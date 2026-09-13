@@ -43,3 +43,19 @@ Grosses Update 0.20.0 – Themenbasiertes Training
 - Richtige/falsche Check-Antworten fliessen zurück in den Cartes-Wiederholungsplan.
 - Datenmodell unterstützt bereits weitere spätere Testbereiche wie Grammaire oder Communication, ohne diese jetzt in der Oberfläche anzuzeigen.
 - Trainingsansicht innerhalb der Übungen zeigt ebenfalls das ganze Thema und verlinkt zur Testvorbereitung.
+
+
+UPDATE 0.21.0 · LEHRPERSONENBEREICH
+- Neuer geschützter Bereich unter /lehrperson/.
+- Arbeitsstand je Lernende: Übungen 1–8, aktueller Stand, Vocabulaire-Status, letzter Probe-Check, letzte Aktivität.
+- Zwei Kursgruppen: GS1CD und GS1AF.
+- GS1AF bleibt die gewünschte Gruppenbezeichnung; die gelieferte zweite Kursliste selbst enthält GS1B + GS1F.
+- Benutzer-E-Mails wurden gemäss Regel vorname.nachname@stud.bffbern.ch erzeugt; Umlaute werden ae/oe/ue, Doppelnamen ohne Leerzeichen.
+- Lernwortschatz und Testwortschatz sind pro Kursgruppe separat einstellbar.
+- Testwortschatz ist immer Teil des Lernwortschatzes.
+- Cartes und Testvorbereitung laden die Konfiguration der angemeldeten Lernenden automatisch.
+- Probe-Check-Ergebnisse werden im Themen-Arbeitsstand gespeichert und sind für die Lehrperson sichtbar.
+- Teacher-API validiert den Cloudflare-Access-JWT zusätzlich im Worker.
+- Cloudflare-Einrichtung siehe CLOUDFLARE-LEHRPERSON-EINRICHTUNG.txt.
+
+Version: 0.21.0

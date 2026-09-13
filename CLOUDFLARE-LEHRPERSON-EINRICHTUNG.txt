@@ -1,0 +1,80 @@
+CLOUDFLARE ACCESS – LEHRPERSONENBEREICH
+Franz Lernatelier · Version 0.21.0
+
+Ziel
+Nur die Lehrperson darf /lehrperson/ und /api/teacher/* öffnen.
+Die Lernenden-Seite und /api/topic-config bleiben davon unberührt.
+
+1. One-time PIN aktivieren
+Cloudflare Dashboard > Zero Trust > Integrations > Identity providers
+> Add new identity provider > One-time PIN
+
+2. Access-Anwendung erstellen
+Zero Trust > Access controls > Applications
+> Create new application > Self-hosted and private
+
+Name:
+Franz Lernatelier – Lehrperson
+
+Öffentliche Ziele / Public hostnames:
+- franzatelier.com/lehrperson/*
+- franzatelier.com/api/teacher/*
+
+Wenn Ihre Cloudflare-Oberfläche mehrere Public Hostnames in derselben Anwendung zulässt,
+legen Sie beide Ziele in derselben Anwendung an. Dann gibt es nur einen AUD-Wert.
+
+Falls Sie zwei getrennte Access-Anwendungen verwenden müssen, ist das ebenfalls möglich.
+Tragen Sie danach beide AUD-Werte kommasepariert als ACCESS_AUDS ein.
+
+3. Policy
+Action: Allow
+Include > Emails > IHRE_LEHRPERSONEN_EMAIL
+
+Wichtig:
+Nicht "Everyone", nicht "Emails ending in @bffbern.ch" und nicht "Login Methods = One-time PIN"
+als alleinige Include-Regel verwenden. Sonst könnten weitere Personen zugelassen werden.
+
+Login method:
+One-time PIN
+Wenn One-time PIN die einzige Login-Methode für diesen Bereich ist, können Sie
+"Apply instant authentication" aktivieren.
+
+4. Worker-Variablen setzen
+Cloudflare > Workers & Pages > franz-lernatelier > Settings > Variables and Secrets
+
+TEACHER_EMAIL
+= IHRE_LEHRPERSONEN_EMAIL
+
+ACCESS_TEAM_DOMAIN
+= https://IHR-TEAMNAME.cloudflareaccess.com
+
+ACCESS_AUD
+= AUD-Wert der Access-Anwendung
+
+oder, falls Sie zwei Access-Anwendungen erstellt haben:
+
+ACCESS_AUDS
+= AUD_FUER_LEHRPERSONENBEREICH,AUD_FUER_TEACHER_API
+
+Den AUD-Wert finden Sie in:
+Zero Trust > Access controls > Applications > Ihre Anwendung > Configure
+> Additional settings > Application Audience (AUD) Tag
+
+5. Deployen und testen
+- GitHub-Update deployen.
+- https://franzatelier.com/lehrperson/ in einem privaten Browserfenster öffnen.
+- Ihre Lehrpersonen-E-Mail eingeben.
+- Cloudflare sendet einen einmaligen Code per E-Mail.
+- Nach der Anmeldung müssen die beiden Kursgruppen und die Arbeitsstände erscheinen.
+
+6. Sicherheitstest
+- Eine andere E-Mail-Adresse darf KEINEN Code erhalten bzw. keinen Zugriff erhalten.
+- Direktaufruf von https://franzatelier.com/api/teacher/me darf ohne gültige Access-Anmeldung
+  keinen Zugriff geben.
+- Die normale Lernenden-Seite muss weiterhin funktionieren.
+
+Hinweis zu den Kurslisten
+Die vom Auftraggeber gewünschte Gruppenbezeichnung lautet "GS1AF".
+Die dazu hochgeladene zweite Kursliste ist im Dokument selbst jedoch mit "GS1B + GS1F"
+beschriftet. Im Lehrpersonenbereich wird daher die Gruppe "GS1AF" verwendet; bei den
+einzelnen Lernenden bleiben die Klassenangaben GS1B bzw. GS1F aus der Kursliste erhalten.

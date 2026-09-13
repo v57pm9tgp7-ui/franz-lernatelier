@@ -15,17 +15,38 @@
   const topic = topics.find(t=>t.id===currentModule?.topicId) || topics.find(t=>t.active) || topics[0];
   if (!topic) return;
   const vocabSection = (topic.assessmentSections||[]).find(s=>s.type==='vocabulary'&&s.enabled);
-  const vocabulary = vocabSection?.vocabulary || [];
+  const vocabularyAll = vocabSection?.vocabulary || [];
+  let vocabulary = [...vocabularyAll];
+  let testVocabulary = [...vocabularyAll];
+  let classConfig = null;
+  const ACCOUNT_KEY = 'franzLernatelierLearner_v1';
   const STORAGE_KEY = topic.progressStorageKey || currentModule?.storageKey;
 
   let subview = 'dashboard';
   let statusFilter = 'all';
   let searchTerm = '';
-  let checkLength = 12;
+  let checkLength = 'all';
   let checkSession = null;
   let lastResult = null;
 
   function readState(){ try { return JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{}; } catch(_){ return {}; } }
+  async function loadClassConfig(){
+    let account={}; try{account=JSON.parse(localStorage.getItem(ACCOUNT_KEY)||'{}')||{};}catch(_){}
+    const email=String(account.email||'').trim().toLowerCase();
+    if(!email)return false;
+    try{
+      const response=await fetch('/api/topic-config',{method:'POST',headers:{'content-type':'application/json'},cache:'no-store',body:JSON.stringify({email,topicId:topic.id})});
+      const data=await response.json();
+      if(!response.ok||!data.ok)return false;
+      const learn=new Set(Array.isArray(data.learnIds)?data.learnIds:[]);
+      const test=new Set(Array.isArray(data.testIds)?data.testIds:[]);
+      vocabulary=vocabularyAll.filter(item=>learn.has(item.id));
+      testVocabulary=vocabularyAll.filter(item=>test.has(item.id)&&learn.has(item.id));
+      classConfig=data;
+      if(qs('#topicTrainingShell'))render();
+      return true;
+    }catch(_){return false;}
+  }
   function saveState(state){ try { localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); } catch(_){} window.dispatchEvent(new Event('storage')); }
   function practice(state){
     state.practiceV2 ||= {version:2,items:{},days:{},xp:0,goal:8,mode:'cards',filter:'recommended',direction:'fr-de',positions:{},drafts:{},favorites:[],events:[]};
@@ -114,7 +135,7 @@
         <section class="topic-card topic-main">
           <span class="topic-kicker">Aktuelles Thema</span><h2>${esc(topic.title)} · ${esc(topic.subtitle||'')}</h2>
           <p>Trainieren Sie den Stoff des ganzen Themas – nicht nur die aktuelle Woche. Ihr Fortschritt bleibt über mehrere Wochen erhalten.</p>
-          <span class="topic-week-chip">${esc(weekRange())} · ${vocabulary.length} Vocabulaire-Einträge</span>
+          <span class="topic-week-chip">${esc(weekRange())} · ${vocabulary.length} Lernwörter${classConfig?.groupLabel?` · ${esc(classConfig.groupLabel)}`:''}</span>
           <div class="topic-actions"><button class="topic-primary" type="button" data-start-training="cards">Weitertrainieren mit Cartes →</button><button class="topic-secondary" type="button" data-topic-prep>Testvorbereitung öffnen</button></div>
         </section>
         <section class="topic-card topic-test-card">
@@ -131,8 +152,8 @@
     const state=readState(),c=counts(state),ready=readiness(c);
     return `<div class="topic-training-shell">
       <div><button class="topic-back" type="button" data-topic-back>← Trainingsübersicht</button></div>
-      <section class="topic-prep-hero"><div><span class="topic-kicker">Testvorbereitung · ${esc(topic.title)}</span><h2>Vocabulaire</h2><p>${esc(vocabSection?.description||'')} Der Lernstand basiert auf Ihren Cartes-Durchgängen und den Probe-Checks.</p><div class="topic-readiness"><span>Lernstand</span><div class="topic-readiness-track"><span style="width:${ready}%"></span></div><strong>${ready}%</strong></div></div>
-      <div class="topic-prep-actions"><button class="primary" type="button" data-topic-check-start>Check starten</button><button class="secondary" type="button" data-start-training="cards">Mit Cartes üben</button><button class="secondary" type="button" data-topic-print>Liste drucken</button></div></section>
+      <section class="topic-prep-hero"><div><span class="topic-kicker">Testvorbereitung · ${esc(topic.title)}</span><h2>Vocabulaire</h2><p>${esc(vocabSection?.description||'')} Der Lernstand basiert auf Ihren Cartes-Durchgängen und den Probe-Checks.${classConfig?.groupLabel?` Für ${esc(classConfig.groupLabel)} sind aktuell ${vocabulary.length} Lernwörter freigegeben; ${testVocabulary.length} davon können im Probe-Check vorkommen.`:''}</p><div class="topic-readiness"><span>Lernstand</span><div class="topic-readiness-track"><span style="width:${ready}%"></span></div><strong>${ready}%</strong></div></div>
+      <div class="topic-prep-actions"><button class="primary" type="button" data-topic-check-start ${testVocabulary.length?'':'disabled'}>Check starten${testVocabulary.length?` · ${testVocabulary.length} Testwörter`:' · noch keine Testwörter'}</button><button class="secondary" type="button" data-start-training="cards">Mit Cartes üben</button><button class="secondary" type="button" data-topic-print>Liste drucken</button></div></section>
       <div class="topic-mastery-grid"><article class="secure"><span>Zuverlässig</span><strong>${c.secure}</strong><p>An mindestens drei verschiedenen Tagen selbständig erinnert.</p></article><article class="uncertain"><span>Noch unsicher</span><strong>${c.uncertain}</strong><p>Schon selbständig geschafft, aber noch nicht stabil genug.</p></article><article class="learn"><span>Noch lernen</span><strong>${c.learn}</strong><p>Noch nie selbständig geschafft oder noch gar nicht geprüft.</p></article></div>
       <div class="topic-next-step"><strong>Nächster sinnvoller Schritt</strong><p>${esc(masteryText(c))}</p></div>
       ${renderVocabularyList(state)}
@@ -149,23 +170,24 @@
     });
     return `<section class="topic-vocab-section"><div class="topic-section-head"><div><span class="topic-kicker">Gesamtliste</span><h2>Französisch ↔ Deutsch</h2><p>${rows.length} von ${vocabulary.length} Einträgen angezeigt.</p></div></div>
       <div class="topic-vocab-toolbar"><label>Wort suchen<input type="search" data-topic-search value="${esc(searchTerm)}" placeholder="Französisch oder Deutsch"></label><div class="topic-filter" role="group" aria-label="Lernstand filtern">${[['all','Alle'],['secure','Sicher'],['uncertain','Unsicher'],['learn','Noch lernen']].map(([id,label])=>`<button type="button" class="${statusFilter===id?'is-active':''}" data-topic-filter="${id}">${label}</button>`).join('')}</div></div>
-      <table class="topic-vocab-table"><thead><tr><th>Französisch</th><th>Deutsch</th><th>Lernstand</th></tr></thead><tbody>${rows.map(item=>{const st=mastery(item,state),stat=statsFor(item,state);return `<tr><td lang="fr">${esc(item.fr)}<div class="topic-category">${esc(item.category)}</div></td><td>${esc(item.de)}</td><td><span class="topic-status ${st}">${st==='secure'?'✓ ':st==='uncertain'?'~ ':'○ '}${esc(statusLabel(st,stat))}</span></td></tr>`}).join('')}</tbody></table>
+      <table class="topic-vocab-table"><thead><tr><th>Französisch</th><th>Deutsch</th><th>Lernstand</th><th>Lernkontrolle</th></tr></thead><tbody>${rows.map(item=>{const st=mastery(item,state),stat=statsFor(item,state),inTest=testVocabulary.some(v=>v.id===item.id);return `<tr><td lang="fr">${esc(item.fr)}<div class="topic-category">${esc(item.category)}</div></td><td>${esc(item.de)}</td><td><span class="topic-status ${st}">${st==='secure'?'✓ ':st==='uncertain'?'~ ':'○ '}${esc(statusLabel(st,stat))}</span></td><td>${inTest?'<span class="topic-status secure">✓ möglich</span>':'<span class="topic-status learn">—</span>'}</td></tr>`}).join('')}</tbody></table>
     </section>`;
   }
 
   function shuffle(items){ const a=[...items]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
   function balancedSample(length){
-    const groups=new Map(); vocabulary.forEach(v=>{const k=v.category||'Weitere'; if(!groups.has(k))groups.set(k,[]); groups.get(k).push(v);});
+    const pool=testVocabulary; const groups=new Map(); pool.forEach(v=>{const k=v.category||'Weitere'; if(!groups.has(k))groups.set(k,[]); groups.get(k).push(v);});
     const chosen=[],used=new Set();
     shuffle([...groups.values()]).forEach(group=>{if(chosen.length>=length)return;const item=shuffle(group)[0]; if(item&&!used.has(item.id)){chosen.push(item);used.add(item.id);}});
     const state=readState();
-    const rest=shuffle(vocabulary.filter(v=>!used.has(v.id))).sort((a,b)=>{const rank={learn:0,uncertain:1,secure:2};return rank[mastery(a,state)]-rank[mastery(b,state)]||Math.random()-.5;});
+    const rest=shuffle(pool.filter(v=>!used.has(v.id))).sort((a,b)=>{const rank={learn:0,uncertain:1,secure:2};return rank[mastery(a,state)]-rank[mastery(b,state)]||Math.random()-.5;});
     for(const item of rest){if(chosen.length>=length)break;chosen.push(item);}
     return shuffle(chosen).slice(0,length);
   }
   function startCheck(){
-    const length=checkLength==='all'?vocabulary.length:Number(checkLength)||12;
-    checkSession={items:balancedSample(Math.min(length,vocabulary.length)),index:0,answers:{},startedAt:Date.now()}; lastResult=null; subview='check'; render(); setTimeout(()=>qs('[data-topic-answer]')?.focus(),0);
+    if(!testVocabulary.length){subview='prep';render();return;}
+    const length=checkLength==='all'?testVocabulary.length:Number(checkLength)||12;
+    checkSession={items:balancedSample(Math.min(length,testVocabulary.length)),index:0,answers:{},startedAt:Date.now()}; lastResult=null; subview='check'; render(); setTimeout(()=>qs('[data-topic-answer]')?.focus(),0);
   }
   function acceptableVariants(fr){
     let raw=String(fr).trim();
@@ -198,9 +220,16 @@
     if(!checkSession)return;
     const state=readState();
     const results=checkSession.items.map(item=>{const given=checkSession.answers[item.id]||'';const ev=evaluate(item,given);recordResult(state,item,ev.status==='correct'?'known':'again');return {item,given,...ev};});
-    saveState(state);
     const correct=results.filter(r=>r.status==='correct').length,near=results.filter(r=>r.status==='near').length,wrong=results.filter(r=>r.status==='wrong').length;
-    lastResult={results,correct,near,wrong,total:results.length,percent:Math.round(correct/results.length*100)}; checkSession=null; subview='result'; render();
+    const summary={at:Date.now(),correct,near,wrong,total:results.length,percent:Math.round(correct/results.length*100)};
+    state.topicAssessments ||= {};
+    state.topicAssessments[topic.id] ||= {};
+    state.topicAssessments[topic.id].vocabulaire ||= {checks:[]};
+    const checkHistory=state.topicAssessments[topic.id].vocabulaire.checks ||= [];
+    checkHistory.push(summary);
+    state.topicAssessments[topic.id].vocabulaire.checks=checkHistory.slice(-10);
+    saveState(state);
+    lastResult={results,...summary}; checkSession=null; subview='result'; render();
   }
   function renderCheck(){
     const s=checkSession; if(!s)return renderPrep(); const item=s.items[s.index],answer=s.answers[item.id]||'',last=s.index===s.items.length-1,pct=Math.round(s.index/s.items.length*100);
@@ -229,7 +258,7 @@
   function printVocabulary(){
     document.getElementById('topic-vocab-print')?.remove();
     const state=readState(),root=document.createElement('section');root.id='topic-vocab-print';
-    root.innerHTML=`<h1>Vocabulaire · ${esc(topic.title)}</h1><p class="print-sub">${esc(weekRange())} · Französisch – Deutsch · ${vocabulary.length} Einträge</p><div class="print-grid">${vocabulary.map(item=>{const st=mastery(item,state),stat=statsFor(item,state);return `<div class="print-item"><strong lang="fr">${esc(item.fr)}</strong><span>${esc(item.de)}</span><small>${esc(item.category)} · ${esc(statusLabel(st,stat))}</small></div>`}).join('')}</div>`;
+    root.innerHTML=`<h1>Vocabulaire · ${esc(topic.title)}</h1><p class="print-sub">${esc(weekRange())} · Französisch – Deutsch · ${vocabulary.length} Lernwörter${classConfig?.groupLabel?` · ${esc(classConfig.groupLabel)}`:''}</p><div class="print-grid">${vocabulary.map(item=>{const st=mastery(item,state),stat=statsFor(item,state),inTest=testVocabulary.some(v=>v.id===item.id);return `<div class="print-item"><strong lang="fr">${esc(item.fr)}</strong><span>${esc(item.de)}</span><small>${esc(item.category)} · ${esc(statusLabel(st,stat))}${inTest?' · Lernkontrolle':''}</small></div>`}).join('')}</div>`;
     document.body.appendChild(root);document.body.classList.add('topic-vocab-printing');
     const cleanup=()=>{document.body.classList.remove('topic-vocab-printing');root.remove();};window.addEventListener('afterprint',cleanup,{once:true});window.print();setTimeout(()=>{if(root.isConnected&&!window.matchMedia?.('print').matches)cleanup();},60000);
   }
@@ -254,10 +283,14 @@
   function refresh(){scheduled=false;const shell=ensureShell();if(shell)render();}
   function schedule(){if(scheduled)return;scheduled=true;setTimeout(refresh,0);}
   function init(){
-    ensureShell();render();
+    ensureShell();render();loadClassConfig();
     document.addEventListener('click',handleClick,true);document.addEventListener('input',handleInput);document.addEventListener('keydown',handleKey);
     const grid=qs('#trainingGrid');if(grid)new MutationObserver(schedule).observe(grid,{childList:true});
-    window.addEventListener('storage',event=>{if(!event.key||event.key===STORAGE_KEY)schedule();});window.addEventListener('franz-cloud-state-applied',schedule);window.addEventListener('pageshow',schedule);
+    window.addEventListener('storage',event=>{if(!event.key||event.key===STORAGE_KEY)schedule();});
+    window.addEventListener('franz-cloud-state-applied',()=>{schedule();loadClassConfig();});
+    window.addEventListener('pageshow',()=>{schedule();loadClassConfig();});
+    document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')loadClassConfig();});
+    setInterval(loadClassConfig,120000);
   }
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',()=>setTimeout(init,0),{once:true}):setTimeout(init,0);
 })();

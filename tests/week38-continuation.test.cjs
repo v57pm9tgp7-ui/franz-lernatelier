@@ -45,7 +45,7 @@ test('Die Sprechkarte funktioniert auch in Woche 38',()=>{
 
 test('Offline-Cache enthält Woche 38',()=>{
   const src=read('public/service-worker.js');
-  assert.match(src,/v0-20-0-topic-training/);
+  assert.match(src,/v0-21-0-teacher/);
   assert.match(src,/module\/woche-38\/index\.html/);
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);
