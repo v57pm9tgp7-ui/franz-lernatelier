@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-21-2-teacher-access-path';
+const CACHE = 'franz-lernatelier-v0-21-5-duplex-card';
 const FILES = [
   './',
   './index.html',
@@ -6,7 +6,7 @@ const FILES = [
   './assets/atelier.css?v=20260909-ux14',
   './assets/atelier-navigation.js?v=20260909-ux14',
   './assets/atelier-accessibility.js?v=20260909-ux14',
-  './assets/week37-card-print-upgrade.js?v=20260913-card4',
+  './assets/week37-card-print-upgrade.js?v=20260916-card5',
   './assets/week38-home.js?v=20260913-w38-1',
   './assets/week38-module.js?v=20260913-w38-1',
   './assets/topic-training.js?v=20260913-topic2',

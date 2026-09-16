@@ -217,6 +217,18 @@
       intro.innerHTML = '<strong>Alle Inhalte auf einer Karte</strong><p>Die Stichwörter greifen alle vorhandenen Teile aus Woche 37 auf: persönliche Angaben, Freizeit, Schule, Sprachen, Beruf, Grund, Stärke, Schnupperlehre und Schluss. Nicht passende freiwillige Details dürfen Sie löschen.</p><button type="button" data-w37-cue-use-all>Stichwörter aus meinen Angaben aktualisieren</button>';
       stack.insertAdjacentElement('beforebegin', intro);
     }
+
+    const printButton = document.querySelector('[data-print]');
+    if (printButton) {
+      printButton.textContent = 'Karte doppelseitig drucken';
+      const toolbar = printButton.closest('.learning-toolbar');
+      if (toolbar && !toolbar.nextElementSibling?.classList.contains('w37-print-hint')) {
+        const hint = document.createElement('div');
+        hint.className = 'w37-print-hint';
+        hint.innerHTML = '<strong>Druckhinweis</strong><p>Drucken Sie auf <b>A4 doppelseitig</b>, mit Wendung an der <b>langen Kante</b> und möglichst bei <b>100 % / tatsächlicher Grösse</b>. Schneiden Sie die Karte anschliessend von Hand entlang der hellen Schnittlinie aus.</p>';
+        toolbar.insertAdjacentElement('afterend', hint);
+      }
+    }
   }
 
   function applyGenerated(index = null) {
@@ -235,20 +247,29 @@
     const style = document.createElement('style');
     style.id = 'w37-card-upgrade-style';
     style.textContent = `
-.w37-cue-intro{margin:0 0 16px;padding:16px 18px;border:1px solid #bcd6d2;border-radius:16px;background:#f8fffd}.w37-cue-intro strong{font-size:1.05em}.w37-cue-intro p{margin:5px 0 12px;color:#526477}.w37-cue-intro button,.w37-cue-generated button{min-height:40px;border:1px solid #177c73;border-radius:11px;background:#fff;color:#0f615b;padding:7px 11px;font-weight:850;cursor:pointer}.w37-cue-generated{display:grid;gap:6px;margin-top:9px;padding:11px 12px;border-left:4px solid #177c73;border-radius:0 11px 11px 0;background:#f4fbf9}.w37-cue-generated strong{font-size:.83em;color:#0f615b}.w37-cue-generated span{font-weight:750;line-height:1.45}.w37-cue-generated button{justify-self:start;min-height:36px;font-size:.88em}
+.w37-cue-intro{margin:0 0 16px;padding:16px 18px;border:1px solid #bcd6d2;border-radius:16px;background:#f8fffd}.w37-cue-intro strong{font-size:1.05em}.w37-cue-intro p{margin:5px 0 12px;color:#526477}.w37-cue-intro button,.w37-cue-generated button{min-height:40px;border:1px solid #177c73;border-radius:11px;background:#fff;color:#0f615b;padding:7px 11px;font-weight:850;cursor:pointer}.w37-cue-generated{display:grid;gap:6px;margin-top:9px;padding:11px 12px;border-left:4px solid #177c73;border-radius:0 11px 11px 0;background:#f4fbf9}.w37-cue-generated strong{font-size:.83em;color:#0f615b}.w37-cue-generated span{font-weight:750;line-height:1.45}.w37-cue-generated button{justify-self:start;min-height:36px;font-size:.88em}.w37-print-hint{margin:10px 0 16px;padding:12px 14px;border:1px solid #d8bd7b;border-radius:12px;background:#fff9e9}.w37-print-hint strong{display:block;color:#604710}.w37-print-hint p{margin:4px 0 0;color:#526477;line-height:1.45}
 #franz-w37-print-root{display:none}
 @media print{
-  @page{size:A6 portrait;margin:0}
-  html,body{width:105mm!important;height:auto!important;margin:0!important;padding:0!important;background:#fff!important}
+  @page{size:A4 portrait;margin:0}
+  html,body{width:210mm!important;height:auto!important;margin:0!important;padding:0!important;background:#fff!important}
   body > *:not(#franz-w37-print-root){display:none!important}
-  #franz-w37-print-root{display:block!important;position:static!important;width:105mm!important;margin:0!important;padding:0!important;background:#fff!important;color:#10233f!important;font-family:"Segoe UI",Aptos,Arial,sans-serif!important}
+  #franz-w37-print-root{display:block!important;position:static!important;width:210mm!important;margin:0!important;padding:0!important;background:#fff!important;color:#10233f!important;font-family:"Segoe UI",Aptos,Arial,sans-serif!important}
   #franz-w37-print-root *{box-sizing:border-box!important}
-  .w37-print-side{position:relative;width:105mm;height:148mm;margin:0!important;padding:9mm 9mm 8mm;overflow:hidden;background:#fff!important;break-after:page;page-break-after:always;border:0!important}
-  .w37-print-side:last-child{break-after:auto;page-break-after:auto}
-  .w37-print-side::before{content:"";position:absolute;inset:0 0 auto;height:3.2mm;background:linear-gradient(90deg,#0055a4 0 33.333%,#fff 33.333% 66.666%,#ef4135 66.666%);border-bottom:.25mm solid #d7dfdc}
+
+  /* Jede PDF-Seite ist ein A4-Blatt. Die eigentliche Karte ist A6 (105 x 148 mm). */
+  .w37-print-sheet{position:relative;width:210mm;height:297mm;margin:0!important;padding:0!important;overflow:hidden;background:#fff!important;break-after:page;page-break-after:always}
+  .w37-print-sheet:last-child{break-after:auto;page-break-after:auto}
+  .w37-print-sheet-front{display:flex;justify-content:flex-start;align-items:flex-start}
+  .w37-print-sheet-back{display:flex;justify-content:flex-end;align-items:flex-start}
+
+  /* Vorderseite links oben; Rückseite rechts oben. Bei A4-Duplexdruck an der langen Kante liegen beide A6-Flächen physisch deckungsgleich. */
+  .w37-print-card{position:relative;width:105mm;height:148mm;margin:0!important;padding:9mm 9mm 8mm;overflow:hidden;background:#fff!important;border:0!important}
+  .w37-print-card-front{outline:.25mm solid #cfd8da;outline-offset:-.25mm}
+  .w37-print-card::before{content:"";position:absolute;inset:0 0 auto;height:3.2mm;background:linear-gradient(90deg,#0055a4 0 33.333%,#fff 33.333% 66.666%,#ef4135 66.666%);border-bottom:.25mm solid #d7dfdc}
+
   .w37-print-head{padding-top:3mm;border-bottom:.45mm solid #0b315f;padding-bottom:3.2mm;margin-bottom:3mm}.w37-print-kicker{margin:0 0 1.2mm;font-size:7.4pt;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#177c73}.w37-print-head h1{margin:0;font-size:18pt;line-height:1.05;color:#0b315f}.w37-print-instruction{margin:1.8mm 0 0;font-size:8.8pt;line-height:1.3;color:#455969}
   .w37-print-cues{display:grid;gap:1.2mm}.w37-print-cue{display:grid;grid-template-columns:24mm 1fr;gap:3mm;padding:2.1mm 0;border-bottom:.25mm solid #d7dfdc}.w37-print-cue:last-child{border-bottom:0}.w37-print-cue-title{font-size:8.3pt;font-weight:900;line-height:1.15;color:#0b315f}.w37-print-cue-time{display:block;margin-top:.7mm;font-size:6.8pt;color:#526477}.w37-print-keywords{font-size:9.1pt;font-weight:750;line-height:1.28;color:#10233f;overflow-wrap:anywhere}
-  .w37-print-back{display:flex;flex-direction:column;align-items:flex-end}.w37-print-back .w37-print-head,.w37-print-back .w37-print-text{width:100%;max-width:82mm;margin-left:auto}.w37-print-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:grid;gap:1.2mm}.w37-print-text p{margin:0;font-size:8.8pt;line-height:1.24;color:#10233f}.w37-print-back.is-dense .w37-print-text{gap:.9mm}.w37-print-back.is-dense .w37-print-text p{font-size:8pt;line-height:1.18}.w37-print-back.is-very-dense .w37-print-text{gap:.65mm}.w37-print-back.is-very-dense .w37-print-text p{font-size:7.3pt;line-height:1.12}
+  .w37-print-card-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:grid;gap:1.2mm}.w37-print-text p{margin:0;font-size:8.8pt;line-height:1.24;color:#10233f}.w37-print-card-back.is-dense .w37-print-text{gap:.9mm}.w37-print-card-back.is-dense .w37-print-text p{font-size:8pt;line-height:1.18}.w37-print-card-back.is-very-dense .w37-print-text{gap:.65mm}.w37-print-card-back.is-very-dense .w37-print-text p{font-size:7.3pt;line-height:1.12}
 }`;
     document.head.appendChild(style);
   }
@@ -269,7 +290,7 @@
     const root = document.createElement('section');
     root.id = 'franz-w37-print-root';
     root.setAttribute('aria-hidden', 'true');
-    root.innerHTML = `<section class="w37-print-side w37-print-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></section><section class="w37-print-side w37-print-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1></header><div class="w37-print-text">${back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>'}</div></section>`;
+    root.innerHTML = `<section class="w37-print-sheet w37-print-sheet-front"><div class="w37-print-card w37-print-card-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></div></section><section class="w37-print-sheet w37-print-sheet-back"><div class="w37-print-card w37-print-card-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1></header><div class="w37-print-text">${back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>'}</div></div></section>`;
     return root;
   }
 
