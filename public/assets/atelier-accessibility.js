@@ -64,5 +64,9 @@
     topicScript.src=ownScript?new URL('topic-training-module.js?v=20260913-topic1',ownScript).href:'../../assets/topic-training-module.js?v=20260913-topic1';
     topicScript.defer=true;
     document.head.appendChild(topicScript);
+    const teamsVideoScript=document.createElement('script');
+    teamsVideoScript.src=ownScript?new URL('teams-video-guide.js?v=20260916-teams1',ownScript).href:'../../assets/teams-video-guide.js?v=20260916-teams1';
+    teamsVideoScript.defer=true;
+    document.head.appendChild(teamsVideoScript);
   }
 })();
