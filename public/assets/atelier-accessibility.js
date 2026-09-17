@@ -57,7 +57,7 @@
   if(/\/module\/woche-(?:37|38)(?:\/|\/index\.html|$)/.test(location.pathname)){
     window.FRANZ_TOPICS ||= [{id:'se-presenter-2026',title:'Se présenter',subtitle:'Qui suis-je ?',weeks:[36,37,38],active:true}];
     const script=document.createElement('script');
-    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260917-card10',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260917-card10';
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260917-card11',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260917-card11';
     script.defer=true;
     document.head.appendChild(script);
     const topicScript=document.createElement('script');

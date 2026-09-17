@@ -321,39 +321,53 @@
   .w37-print-card::before{content:"";position:absolute;inset:0 0 auto;height:3.2mm;background:linear-gradient(90deg,#0055a4 0 33.333%,#fff 33.333% 66.666%,#ef4135 66.666%);border-bottom:.25mm solid #d7dfdc}
   .w37-print-head{padding-top:3mm;border-bottom:.45mm solid #0b315f;padding-bottom:3.2mm;margin-bottom:3mm}.w37-print-kicker{margin:0 0 1.2mm;font-size:7.4pt;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#177c73}.w37-print-head h1{margin:0;font-size:18pt;line-height:1.05;color:#0b315f}.w37-print-instruction{margin:1.8mm 0 0;font-size:8.8pt;line-height:1.3;color:#455969}
   .w37-print-cues{display:grid;gap:1.2mm}.w37-print-cue{display:grid;grid-template-columns:24mm 1fr;gap:3mm;padding:2.1mm 0;border-bottom:.25mm solid #d7dfdc}.w37-print-cue:last-child{border-bottom:0}.w37-print-cue-title{font-size:8.3pt;font-weight:900;line-height:1.15;color:#0b315f}.w37-print-cue-time{display:block;margin-top:.7mm;font-size:6.8pt;color:#526477}.w37-print-keywords{font-size:9.1pt;font-weight:750;line-height:1.28;color:#10233f;overflow-wrap:anywhere}
-  .w37-print-card-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:grid;gap:1.2mm}.w37-print-text p{margin:0;font-size:8.8pt;line-height:1.24;color:#10233f}.w37-print-card-back.is-dense .w37-print-text{gap:.9mm}.w37-print-card-back.is-dense .w37-print-text p{font-size:8pt;line-height:1.18}.w37-print-card-back.is-very-dense .w37-print-text{gap:.65mm}.w37-print-card-back.is-very-dense .w37-print-text p{font-size:7.3pt;line-height:1.12}
+  .w37-print-card-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:grid;gap:1.2mm}.w37-print-text p{margin:0;font-size:8.8pt;line-height:1.24;color:#10233f}.w37-print-final-text{white-space:normal;overflow-wrap:anywhere}.w37-print-card-back.is-dense .w37-print-text{gap:.9mm}.w37-print-card-back.is-dense .w37-print-text p{font-size:8pt;line-height:1.18}.w37-print-card-back.is-very-dense .w37-print-text{gap:.65mm}.w37-print-card-back.is-very-dense .w37-print-text p{font-size:7.3pt;line-height:1.12}
 }`;
     document.head.appendChild(style);
   }
 
-  function createPrintRoot(state) {
+  function createPrintRoot(state, options = {}) {
     const sections = buildKeywordSections(state);
-    const liveFinal = DISPLAY_WEEK === 38 ? trim(document.querySelector('[data-w38-final-text]')?.value) : '';
-    const editedFinal = liveFinal || (DISPLAY_WEEK === 38 ? answer(state, 'w38.finalText') : '');
-    const fullText = editedFinal
-      ? editedFinal.split(/\n+/).map(trim).filter(Boolean)
-      : buildFullText(state);
+    const answers = answersOf(state);
+    const hasExplicitFinal = DISPLAY_WEEK === 38 && Object.prototype.hasOwnProperty.call(options, 'finalText');
+    const liveTextarea = DISPLAY_WEEK === 38 ? document.querySelector('[data-w38-final-text]') : null;
+    const hasStoredFinal = DISPLAY_WEEK === 38 && Object.prototype.hasOwnProperty.call(answers, 'w38.finalText');
+    // Reihenfolge ist bewusst strikt: explizit vom Druckbutton übergebener Text →
+    // aktuell sichtbares Textfeld → gespeicherter Text. So kann beim Drucken keine
+    // ältere automatisch erzeugte Fassung dazwischenrutschen.
+    const editedFinal = hasExplicitFinal
+      ? String(options.finalText ?? '')
+      : liveTextarea
+        ? String(liveTextarea.value ?? '')
+        : hasStoredFinal
+          ? String(answers['w38.finalText'] ?? '')
+          : '';
+    const usesEditedFinal = DISPLAY_WEEK === 38 && (hasExplicitFinal || !!liveTextarea || hasStoredFinal);
+    const generatedText = usesEditedFinal ? [] : buildFullText(state);
     const cueInputs = [...document.querySelectorAll('input[data-learn-field^="cue."]')];
     const current = new Map(cueInputs.map(input => [Number((input.dataset.learnField || '').split('.')[1]), trim(input.value)]));
-    const chars = fullText.join(' ').length;
-    const density = chars > 1150 || fullText.length > 16 ? ' is-very-dense' : chars > 800 || fullText.length > 12 ? ' is-dense' : '';
+    const chars = usesEditedFinal ? editedFinal.length : generatedText.join(' ').length;
+    const lineCount = usesEditedFinal ? Math.max(1, editedFinal.split(/\n/).length) : generatedText.length;
+    const density = chars > 1150 || lineCount > 16 ? ' is-very-dense' : chars > 800 || lineCount > 12 ? ' is-dense' : '';
     const front = sections.map((section, i) => {
       const custom = current.get(i) || answer(state, `cue.${i}`);
       const words = mergeKeywordText(custom, section.parts);
       return `<div class="w37-print-cue"><div class="w37-print-cue-title">${esc(section.title)}<span class="w37-print-cue-time">${esc(section.time)}</span></div><div class="w37-print-keywords" lang="fr">${esc(words || 'Stichwörter ergänzen')}</div></div>`;
     }).join('');
-    const back = fullText.map(line => `<p lang="fr">${esc(line)}</p>`).join('');
+    const back = usesEditedFinal
+      ? `<p class="w37-print-final-text" lang="fr">${esc(editedFinal).replace(/\n/g,'<br>')}</p>`
+      : generatedText.map(line => `<p lang="fr">${esc(line)}</p>`).join('');
     const root = document.createElement('section');
     root.id = 'franz-w37-print-root';
     root.setAttribute('aria-hidden', 'true');
-    root.innerHTML = `<section class="w37-print-sheet w37-print-sheet-front"><div class="w37-print-card w37-print-card-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></div></section><section class="w37-print-sheet w37-print-sheet-back"><div class="w37-print-card w37-print-card-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1></header><div class="w37-print-text">${back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>'}</div></div></section>`;
+    root.innerHTML = `<section class="w37-print-sheet w37-print-sheet-front"><div class="w37-print-card w37-print-card-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></div></section><section class="w37-print-sheet w37-print-sheet-back"><div class="w37-print-card w37-print-card-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1></header><div class="w37-print-text">${usesEditedFinal ? back : (back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>')}</div></div></section>`;
     return root;
   }
 
-  function printNow() {
+  function printNow(options = {}) {
     installStyles();
     document.getElementById('franz-w37-print-root')?.remove();
-    const root = createPrintRoot(loadState());
+    const root = createPrintRoot(loadState(), options);
     document.body.appendChild(root);
     const cleanup = () => root.remove();
     global.addEventListener('afterprint', cleanup, {once:true});

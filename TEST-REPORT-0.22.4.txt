@@ -1,0 +1,204 @@
+Franz Lernatelier Update 0.22.4 – automatisierte Prüfungen
+
+TAP version 13
+# Subtest: alle geänderten JavaScript-Dateien sind syntaktisch gültig
+ok 1 - alle geänderten JavaScript-Dateien sind syntaktisch gültig
+  ---
+  duration_ms: 8.787776
+  type: 'test'
+  ...
+# Subtest: der Woche-38-Loader enthält gültiges Inline-JavaScript
+ok 2 - der Woche-38-Loader enthält gültiges Inline-JavaScript
+  ---
+  duration_ms: 0.963736
+  type: 'test'
+  ...
+# Subtest: Woche 38 enthält sieben Übungen und lässt Übung 4 aus
+ok 3 - Woche 38 enthält sieben Übungen und lässt Übung 4 aus
+  ---
+  duration_ms: 0.850783
+  type: 'test'
+  ...
+# Subtest: das Wochenmenü kennt Woche 38 und wechselt 36 → 37 → 38
+ok 4 - das Wochenmenü kennt Woche 38 und wechselt 36 → 37 → 38
+  ---
+  duration_ms: 0.909072
+  type: 'test'
+  ...
+# Subtest: Répéter en groupes ist in Woche 38 eine direkte Partner-Generalprobe
+ok 5 - Répéter en groupes ist in Woche 38 eine direkte Partner-Generalprobe
+  ---
+  duration_ms: 1.649329
+  type: 'test'
+  ...
+# Subtest: Woche 38 ersetzt die Stichwortansicht durch den vollständigen editierbaren Text
+ok 6 - Woche 38 ersetzt die Stichwortansicht durch den vollständigen editierbaren Text
+  ---
+  duration_ms: 0.502599
+  type: 'test'
+  ...
+# Subtest: Vorlesen bietet weibliche/männliche Stimme und langsameres Tempo
+ok 7 - Vorlesen bietet weibliche/männliche Stimme und langsameres Tempo
+  ---
+  duration_ms: 0.434949
+  type: 'test'
+  ...
+# Subtest: Stimmenauswahl bevorzugt passende französische Windows-Stimmen
+ok 8 - Stimmenauswahl bevorzugt passende französische Windows-Stimmen
+  ---
+  duration_ms: 2.098206
+  type: 'test'
+  ...
+# Subtest: der vollständige persönliche Text bleibt Grundlage für Vorlesen und Druck
+ok 9 - der vollständige persönliche Text bleibt Grundlage für Vorlesen und Druck
+  ---
+  duration_ms: 2.044171
+  type: 'test'
+  ...
+# Subtest: Übung 6 zeigt die Druckfunktion direkt unter dem Textfeld
+ok 10 - Übung 6 zeigt die Druckfunktion direkt unter dem Textfeld
+  ---
+  duration_ms: 0.94469
+  type: 'test'
+  ...
+# Subtest: Druck übernimmt exakt den aktuell editierten Text und speichert ihn vor dem Drucken
+ok 11 - Druck übernimmt exakt den aktuell editierten Text und speichert ihn vor dem Drucken
+  ---
+  duration_ms: 0.852404
+  type: 'test'
+  ...
+# Subtest: Druckgenerator bevorzugt den explizit übergebenen bearbeiteten Text
+ok 12 - Druckgenerator bevorzugt den explizit übergebenen bearbeiteten Text
+  ---
+  duration_ms: 2.049482
+  type: 'test'
+  ...
+# Subtest: Service Worker erzwingt einen neuen Cache und enthält die neuen Asset-Versionen
+ok 13 - Service Worker erzwingt einen neuen Cache und enthält die neuen Asset-Versionen
+  ---
+  duration_ms: 0.208798
+  type: 'test'
+  ...
+# Subtest: Stichwortkarte deckt alle fünf Bereiche und zentrale Woche-37-Inhalte ab
+ok 14 - Stichwortkarte deckt alle fünf Bereiche und zentrale Woche-37-Inhalte ab
+  ---
+  duration_ms: 9.620246
+  type: 'test'
+  ...
+# Subtest: Rückseite enthält den vollständigen erarbeiteten persönlichen Text
+ok 15 - Rückseite enthält den vollständigen erarbeiteten persönlichen Text
+  ---
+  duration_ms: 1.679777
+  type: 'test'
+  ...
+# Subtest: Benutzer-Stichwörter werden beim Druck nicht verworfen
+ok 16 - Benutzer-Stichwörter werden beim Druck nicht verworfen
+  ---
+  duration_ms: 0.412348
+  type: 'test'
+  ...
+# Subtest: Drucklayout isoliert die Lernkarte und setzt A4-Duplex mit A6-Karte
+ok 17 - Drucklayout isoliert die Lernkarte und setzt A4-Duplex mit A6-Karte
+  ---
+  duration_ms: 0.428112
+  type: 'test'
+  ...
+# Subtest: Sprechkarten-Upgrade erklärt die Funktion einmal klar statt Vorschläge zu duplizieren
+ok 18 - Sprechkarten-Upgrade erklärt die Funktion einmal klar statt Vorschläge zu duplizieren
+  ---
+  duration_ms: 0.616004
+  type: 'test'
+  ...
+# Subtest: Ganzer persönlicher Text kann mit Stimme und Tempo vorgelesen werden
+ok 19 - Ganzer persönlicher Text kann mit Stimme und Tempo vorgelesen werden
+  ---
+  duration_ms: 1.063347
+  type: 'test'
+  ...
+# Subtest: Stimmauswahl bevorzugt französische weibliche bzw. männliche Stimmen
+ok 20 - Stimmauswahl bevorzugt französische weibliche bzw. männliche Stimmen
+  ---
+  duration_ms: 0.680441
+  type: 'test'
+  ...
+# Subtest: Loader und Service Worker binden das Kartenupgrade ein
+ok 21 - Loader und Service Worker binden das Kartenupgrade ein
+  ---
+  duration_ms: 0.374456
+  type: 'test'
+  ...
+# Subtest: Woche 38 ist aktuell und übernimmt denselben Lernstand wie Woche 37
+ok 22 - Woche 38 ist aktuell und übernimmt denselben Lernstand wie Woche 37
+  ---
+  duration_ms: 1.708223
+  type: 'test'
+  ...
+# Subtest: Woche 38 enthält sieben bekannte Übungen und lässt Übung 4 aus
+ok 23 - Woche 38 enthält sieben bekannte Übungen und lässt Übung 4 aus
+  ---
+  duration_ms: 0.383245
+  type: 'test'
+  ...
+# Subtest: Woche 38 lädt die Übungen von Woche 37 als eigene Wochenansicht und filtert Übung 4
+ok 24 - Woche 38 lädt die Übungen von Woche 37 als eigene Wochenansicht und filtert Übung 4
+  ---
+  duration_ms: 1.676733
+  type: 'test'
+  ...
+# Subtest: Die Navigation bietet Woche 36, 37 und 38 an
+ok 25 - Die Navigation bietet Woche 36, 37 und 38 an
+  ---
+  duration_ms: 0.319225
+  type: 'test'
+  ...
+# Subtest: Woche-38-Adapter lässt Übung 4 nicht zu und führt 3 direkt zu 5
+ok 26 - Woche-38-Adapter lässt Übung 4 nicht zu und führt 3 direkt zu 5
+  ---
+  duration_ms: 0.540874
+  type: 'test'
+  ...
+# Subtest: Répéter en groupes ist in Woche 38 eine Generalprobe zu zweit
+ok 27 - Répéter en groupes ist in Woche 38 eine Generalprobe zu zweit
+  ---
+  duration_ms: 0.285998
+  type: 'test'
+  ...
+# Subtest: Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text und liest genau diesen vor
+ok 28 - Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text und liest genau diesen vor
+  ---
+  duration_ms: 0.979172
+  type: 'test'
+  ...
+# Subtest: Offline-Cache enthält die neue Woche-38-Version
+ok 29 - Offline-Cache enthält die neue Woche-38-Version
+  ---
+  duration_ms: 0.267675
+  type: 'test'
+  ...
+# Subtest: Die Rückseite der Druckkarte steht auf der Duplex-Rückseite und trägt den Titel Je me présente
+ok 30 - Die Rückseite der Druckkarte steht auf der Duplex-Rückseite und trägt den Titel Je me présente
+  ---
+  duration_ms: 0.55182
+  type: 'test'
+  ...
+# Subtest: Training ist themenbasiert und nicht mehr nur wochenbasiert
+ok 31 - Training ist themenbasiert und nicht mehr nur wochenbasiert
+  ---
+  duration_ms: 1.381466
+  type: 'test'
+  ...
+# Subtest: Woche 38 verwendet für das Training weiterhin den vollständigen Woche-37-Pool
+ok 32 - Woche 38 verwendet für das Training weiterhin den vollständigen Woche-37-Pool
+  ---
+  duration_ms: 0.268187
+  type: 'test'
+  ...
+1..32
+# tests 32
+# suites 0
+# pass 32
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 128.146384

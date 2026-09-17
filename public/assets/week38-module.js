@@ -103,6 +103,21 @@
     return saved || generatedFinalText();
   }
 
+  function persistFinalTextNow(textarea = document.querySelector('[data-w38-final-text]')) {
+    if (!textarea) return '';
+    const value = String(textarea.value ?? '');
+    // Zuerst den normalen Lernatelier-Handler auslösen, damit der interne Zustand
+    // und die bestehende Online-Synchronisation denselben Text erhalten.
+    textarea.dispatchEvent(new Event('input', {bubbles:true}));
+    // Zusätzlich direkt in denselben Lernstand schreiben. Damit ist die Druckausgabe
+    // auch dann sicher aktuell, wenn unmittelbar nach dem Tippen gedruckt wird.
+    const latest = state();
+    latest.answers ||= {};
+    latest.answers[FINAL_TEXT_KEY] = value;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(latest)); } catch (_) {}
+    return value;
+  }
+
   function voicePrefs() {
     try { return {...{voice:'female',rate:'1'}, ...(JSON.parse(localStorage.getItem(VOICE_PREF_KEY) || '{}') || {})}; }
     catch (_) { return {voice:'female',rate:'1'}; }
@@ -149,9 +164,9 @@
       <div class="activity-body">
         <div class="w38-final-editor">
           <p class="w38-final-note"><strong>Sie entscheiden über den Text:</strong> Sie können Wörter oder ganze Sätze ändern, ergänzen oder löschen. Der Text muss zu Ihnen passen und sich gut sprechen lassen.</p>
-          <section class="w38-print-box w38-print-box-prominent" aria-label="Sprechkarte drucken"><div><strong>🖨 Sprechkarte für die Generalprobe drucken</strong><p>Die Karte bleibt verfügbar: vorne kompakte Stichwörter, hinten Ihr aktuell bearbeiteter kompletter Text. Für die Videoaufnahme legen Sie die Karte weg.</p></div><button type="button" data-w38-print-card data-print>🖨 Sprechkarte drucken</button></section>
           <label for="w38-final-text"><strong>Mein Text für die Aufnahme</strong></label>
           <textarea id="w38-final-text" data-w38-final-text data-learn-field="${FINAL_TEXT_KEY}" data-no-writing-help lang="fr" spellcheck="true" aria-describedby="w38-final-save">${esc(text)}</textarea>
+          <section class="w38-print-box w38-print-box-prominent" aria-label="Sprechkarte drucken"><div><strong>🖨 Sprechkarte für die Generalprobe drucken</strong><p>Die Druckausgabe übernimmt exakt den Text, der jetzt im Feld oben steht – inklusive Ihrer Änderungen, Ergänzungen und Streichungen. Vorne stehen kompakte Stichwörter; hinten Ihr bearbeiteter kompletter Text. Für die Videoaufnahme legen Sie die Karte weg.</p></div><button type="button" data-w38-print-card data-print>🖨 Sprechkarte drucken</button></section>
           <div class="w38-final-tools"><button type="button" data-w38-reset-final>Text aus meinen bisherigen Angaben neu erstellen</button><span class="w38-final-save" id="w38-final-save" data-w38-save-status>Änderungen werden automatisch gespeichert.</span></div>
           <p class="w38-final-note">Tipp: Streichen Sie lieber einen Satz, den Sie nicht sicher sprechen können, als zu viel Text in 60 Sekunden zu packen.</p>
         </div>
@@ -359,9 +374,10 @@
     if (print) {
       event.preventDefault();
       event.stopImmediatePropagation();
+      const editedFinalText = persistFinalTextNow();
       const run = () => {
         const api = window.FranzWeek37CardUpgrade;
-        if (api?.printNow) { api.printNow(); return true; }
+        if (api?.printNow) { api.printNow({finalText: editedFinalText}); return true; }
         return false;
       };
       if (run()) return;
@@ -371,7 +387,7 @@
         return;
       }
       const script = document.createElement('script');
-      script.src = '../../assets/week37-card-print-upgrade.js?v=20260917-card10';
+      script.src = '../../assets/week37-card-print-upgrade.js?v=20260917-card11';
       script.dataset.w38PrintLoader = '1';
       script.onload = () => { if (!run()) window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.'); };
       script.onerror = () => window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
@@ -399,8 +415,12 @@
   document.addEventListener('input', event => {
     if (!event.target.matches('[data-w38-final-text]')) return;
     resizeFinalText(event.target);
+    const latest = state();
+    latest.answers ||= {};
+    latest.answers[FINAL_TEXT_KEY] = String(event.target.value ?? '');
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(latest)); } catch (_) {}
     const status = document.querySelector('[data-w38-save-status]');
-    if (status) status.textContent = 'Änderung gespeichert.';
+    if (status) status.textContent = 'Änderung gespeichert – die Druckausgabe verwendet diesen Text.';
   }, true);
 
   window.addEventListener('storage', event => { if (event.key === STORAGE_KEY) schedule(); });
