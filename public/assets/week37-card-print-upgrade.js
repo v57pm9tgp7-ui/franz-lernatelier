@@ -328,7 +328,11 @@
 
   function createPrintRoot(state) {
     const sections = buildKeywordSections(state);
-    const fullText = buildFullText(state);
+    const liveFinal = DISPLAY_WEEK === 38 ? trim(document.querySelector('[data-w38-final-text]')?.value) : '';
+    const editedFinal = liveFinal || (DISPLAY_WEEK === 38 ? answer(state, 'w38.finalText') : '');
+    const fullText = editedFinal
+      ? editedFinal.split(/\n+/).map(trim).filter(Boolean)
+      : buildFullText(state);
     const cueInputs = [...document.querySelectorAll('input[data-learn-field^="cue."]')];
     const current = new Map(cueInputs.map(input => [Number((input.dataset.learnField || '').split('.')[1]), trim(input.value)]));
     const chars = fullText.join(' ').length;

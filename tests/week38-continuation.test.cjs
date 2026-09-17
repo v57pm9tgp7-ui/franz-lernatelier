@@ -65,6 +65,8 @@ test('Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text 
   assert.match(access,/woche-\(\?:37\|38\)/);
   assert.match(module,/Mon texte final/);
   assert.match(module,/data-w38-final-text/);
+  assert.match(module,/Sprechkarte drucken/);
+  assert.match(module,/data-print/);
   assert.match(module,/ändern, ergänzen oder streichen/);
   assert.match(module,/Text aus meinen bisherigen Angaben neu erstellen/);
   assert.match(card,/answer\(state, 'w38.finalText'\)/);
@@ -76,7 +78,7 @@ test('Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text 
 
 test('Offline-Cache enthält die neue Woche-38-Version',()=>{
   const src=read('public/service-worker.js');
-  assert.match(src,/v0-22-1-w38-final-text/);
+  assert.match(src,/v0-22-2-w38-print-card/);
   assert.match(src,/module\/woche-38\/index\.html/);
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);
