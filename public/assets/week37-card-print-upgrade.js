@@ -305,71 +305,93 @@
     style.id = 'w37-card-upgrade-style';
     style.textContent = `
 .w37-cue-intro{margin:0 0 16px;padding:16px 18px;border:1px solid #bcd6d2;border-radius:16px;background:#f8fffd}.w37-cue-intro strong{font-size:1.05em}.w37-cue-intro p{margin:5px 0 12px;color:#526477}.w37-cue-intro button{min-height:40px;border:1px solid #177c73;border-radius:11px;background:#fff;color:#0f615b;padding:7px 11px;font-weight:850;cursor:pointer}.w37-voice-coach{margin:0 0 18px;padding:17px 18px;border:1px solid #afc8e2;border-radius:16px;background:linear-gradient(135deg,#f4f8ff,#fff)}.w37-voice-copy strong{font-size:1.08em;color:#0b315f}.w37-voice-copy p{margin:5px 0 14px;color:#526477}.w37-voice-controls{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.w37-voice-controls label{display:grid;gap:4px;color:#455969;font-size:.85em;font-weight:850}.w37-voice-controls select{min-height:42px;border:1px solid #b8c8c4;border-radius:10px;background:#fff;color:#10233f;padding:7px 34px 7px 10px}.w37-voice-controls button{min-height:42px;border-radius:11px;padding:8px 12px;font-weight:900;cursor:pointer}.w37-voice-play{border:1px solid #0b315f;background:#0b315f;color:#fff}.w37-voice-stop{border:1px solid #b8c8c4;background:#fff;color:#10233f}.w37-voice-status{margin:10px 0 0;color:#526477;font-size:.86em}.w37-print-hint{margin:10px 0 16px;padding:12px 14px;border:1px solid #d8bd7b;border-radius:12px;background:#fff9e9}.w37-print-hint strong{display:block;color:#604710}.w37-print-hint p{margin:4px 0 0;color:#526477;line-height:1.45}@media(max-width:680px){.w37-voice-controls{display:grid;grid-template-columns:1fr 1fr}.w37-voice-controls button{width:100%}}
-#franz-w37-print-root{display:none}
+#franz-w37-print-root{position:fixed;left:-100000px;top:0;width:210mm;visibility:hidden;pointer-events:none;background:#fff;color:#10233f}
 @media print{
   @page{size:A4 portrait;margin:0}
   html,body{width:210mm!important;height:auto!important;margin:0!important;padding:0!important;background:#fff!important}
   body > *:not(#franz-w37-print-root){display:none!important}
-  #franz-w37-print-root{display:block!important;position:static!important;width:210mm!important;margin:0!important;padding:0!important;background:#fff!important;color:#10233f!important;font-family:"Segoe UI",Aptos,Arial,sans-serif!important}
-  #franz-w37-print-root *{box-sizing:border-box!important}
-  .w37-print-sheet{position:relative;width:210mm;height:297mm;margin:0!important;padding:0!important;overflow:hidden;background:#fff!important;break-after:page;page-break-after:always}
+  #franz-w37-print-root{display:block!important;position:static!important;left:auto!important;top:auto!important;width:210mm!important;margin:0!important;padding:0!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;background:#fff!important;color:#10233f!important;font-family:"Segoe UI",Aptos,Arial,sans-serif!important}
+  #franz-w37-print-root,#franz-w37-print-root *{box-sizing:border-box!important;visibility:visible!important;opacity:1!important}
+  .w37-print-sheet{position:relative!important;display:flex!important;width:210mm!important;height:297mm!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#fff!important;break-after:page;page-break-after:always}
   .w37-print-sheet:last-child{break-after:auto;page-break-after:auto}
-  .w37-print-sheet-front{display:flex;justify-content:flex-start;align-items:flex-start}
-  .w37-print-sheet-back{display:flex;justify-content:flex-end;align-items:flex-start}
-  .w37-print-card{position:relative;width:105mm;height:148mm;margin:0!important;padding:9mm 9mm 8mm;overflow:hidden;background:#fff!important;border:0!important}
+  .w37-print-sheet-front{justify-content:flex-start!important;align-items:flex-start!important}
+  .w37-print-sheet-back{justify-content:flex-end!important;align-items:flex-start!important}
+  .w37-print-card{position:relative!important;display:block!important;width:105mm!important;height:148mm!important;margin:0!important;padding:9mm 9mm 8mm!important;overflow:hidden!important;background:#fff!important;border:0!important;color:#10233f!important}
   .w37-print-card-front{outline:.25mm solid #cfd8da;outline-offset:-.25mm}
   .w37-print-card::before{content:"";position:absolute;inset:0 0 auto;height:3.2mm;background:linear-gradient(90deg,#0055a4 0 33.333%,#fff 33.333% 66.666%,#ef4135 66.666%);border-bottom:.25mm solid #d7dfdc}
-  .w37-print-head{padding-top:3mm;border-bottom:.45mm solid #0b315f;padding-bottom:3.2mm;margin-bottom:3mm}.w37-print-kicker{margin:0 0 1.2mm;font-size:7.4pt;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#177c73}.w37-print-head h1{margin:0;font-size:18pt;line-height:1.05;color:#0b315f}.w37-print-instruction{margin:1.8mm 0 0;font-size:8.8pt;line-height:1.3;color:#455969}
-  .w37-print-cues{display:grid;gap:1.2mm}.w37-print-cue{display:grid;grid-template-columns:24mm 1fr;gap:3mm;padding:2.1mm 0;border-bottom:.25mm solid #d7dfdc}.w37-print-cue:last-child{border-bottom:0}.w37-print-cue-title{font-size:8.3pt;font-weight:900;line-height:1.15;color:#0b315f}.w37-print-cue-time{display:block;margin-top:.7mm;font-size:6.8pt;color:#526477}.w37-print-keywords{font-size:9.1pt;font-weight:750;line-height:1.28;color:#10233f;overflow-wrap:anywhere}
-  .w37-print-card-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:grid;gap:1.2mm}.w37-print-text p{margin:0;font-size:8.8pt;line-height:1.24;color:#10233f}.w37-print-final-text{white-space:normal;overflow-wrap:anywhere}.w37-print-card-back.is-dense .w37-print-text{gap:.9mm}.w37-print-card-back.is-dense .w37-print-text p{font-size:8pt;line-height:1.18}.w37-print-card-back.is-very-dense .w37-print-text{gap:.65mm}.w37-print-card-back.is-very-dense .w37-print-text p{font-size:7.3pt;line-height:1.12}
+  .w37-print-head{display:block!important;padding-top:3mm;border-bottom:.45mm solid #0b315f;padding-bottom:3.2mm;margin-bottom:3mm}.w37-print-kicker{display:block!important;margin:0 0 1.2mm;font-size:7.4pt;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#177c73!important}.w37-print-head h1{display:block!important;margin:0;font-size:18pt;line-height:1.05;color:#0b315f!important}.w37-print-instruction{display:block!important;margin:1.8mm 0 0;font-size:8.8pt;line-height:1.3;color:#455969!important}
+  .w37-print-cues{display:grid!important;gap:1.2mm}.w37-print-cue{display:grid!important;grid-template-columns:24mm 1fr;gap:3mm;padding:2.1mm 0;border-bottom:.25mm solid #d7dfdc}.w37-print-cue:last-child{border-bottom:0}.w37-print-cue-title{font-size:8.3pt;font-weight:900;line-height:1.15;color:#0b315f!important}.w37-print-cue-time{display:block!important;margin-top:.7mm;font-size:6.8pt;color:#526477!important}.w37-print-keywords{font-size:9.1pt;font-weight:750;line-height:1.28;color:#10233f!important;overflow-wrap:anywhere}
+  .w37-print-card-back .w37-print-head{margin-bottom:2.4mm}.w37-print-text{display:block!important;color:#10233f!important}.w37-print-final-copy{display:block!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;word-break:normal!important;margin:0!important;font-size:8.8pt!important;line-height:1.28!important;font-weight:500!important;color:#10233f!important}.w37-print-card-back.is-dense .w37-print-final-copy{font-size:8pt!important;line-height:1.22!important}.w37-print-card-back.is-very-dense .w37-print-final-copy{font-size:7.2pt!important;line-height:1.16!important}.w37-print-card-back.is-ultra-dense .w37-print-final-copy{font-size:6.4pt!important;line-height:1.11!important}
 }`;
     document.head.appendChild(style);
   }
 
+  function resolvePrintText(state, options = {}) {
+    const answers = answersOf(state);
+    const explicit = Object.prototype.hasOwnProperty.call(options, 'finalText') ? String(options.finalText ?? '') : '';
+    const liveTextarea = DISPLAY_WEEK === 38 ? document.querySelector('[data-w38-final-text]') : null;
+    const live = liveTextarea ? String(liveTextarea.value ?? '') : '';
+    const stored = DISPLAY_WEEK === 38 && Object.prototype.hasOwnProperty.call(answers, 'w38.finalText')
+      ? String(answers['w38.finalText'] ?? '')
+      : '';
+    const generated = buildFullText(state).join('\n');
+    // In Woche 38 hat der aktuelle Text im Editor immer Vorrang. Falls durch einen
+    // Browser-/Speicherfehler ein leerer Wert ankommt, fällt die Druckausgabe auf
+    // den vollständig erzeugten Sprechtext zurück statt eine leere Rückseite zu drucken.
+    return trim(explicit) ? explicit : trim(live) ? live : trim(stored) ? stored : generated;
+  }
+
   function createPrintRoot(state, options = {}) {
     const sections = buildKeywordSections(state);
-    const answers = answersOf(state);
-    const hasExplicitFinal = DISPLAY_WEEK === 38 && Object.prototype.hasOwnProperty.call(options, 'finalText');
-    const liveTextarea = DISPLAY_WEEK === 38 ? document.querySelector('[data-w38-final-text]') : null;
-    const hasStoredFinal = DISPLAY_WEEK === 38 && Object.prototype.hasOwnProperty.call(answers, 'w38.finalText');
-    // Reihenfolge ist bewusst strikt: explizit vom Druckbutton übergebener Text →
-    // aktuell sichtbares Textfeld → gespeicherter Text. So kann beim Drucken keine
-    // ältere automatisch erzeugte Fassung dazwischenrutschen.
-    const editedFinal = hasExplicitFinal
-      ? String(options.finalText ?? '')
-      : liveTextarea
-        ? String(liveTextarea.value ?? '')
-        : hasStoredFinal
-          ? String(answers['w38.finalText'] ?? '')
-          : '';
-    const usesEditedFinal = DISPLAY_WEEK === 38 && (hasExplicitFinal || !!liveTextarea || hasStoredFinal);
-    const generatedText = usesEditedFinal ? [] : buildFullText(state);
+    const finalText = resolvePrintText(state, options);
+    const chars = finalText.length;
+    const lineCount = Math.max(1, finalText.split(/\r?\n/).filter(line => trim(line)).length);
+    const density = chars > 1550 || lineCount > 22 ? ' is-ultra-dense'
+      : chars > 1150 || lineCount > 16 ? ' is-very-dense'
+      : chars > 800 || lineCount > 12 ? ' is-dense'
+      : '';
     const cueInputs = [...document.querySelectorAll('input[data-learn-field^="cue."]')];
     const current = new Map(cueInputs.map(input => [Number((input.dataset.learnField || '').split('.')[1]), trim(input.value)]));
-    const chars = usesEditedFinal ? editedFinal.length : generatedText.join(' ').length;
-    const lineCount = usesEditedFinal ? Math.max(1, editedFinal.split(/\n/).length) : generatedText.length;
-    const density = chars > 1150 || lineCount > 16 ? ' is-very-dense' : chars > 800 || lineCount > 12 ? ' is-dense' : '';
     const front = sections.map((section, i) => {
       const custom = current.get(i) || answer(state, `cue.${i}`);
       const words = mergeKeywordText(custom, section.parts);
       return `<div class="w37-print-cue"><div class="w37-print-cue-title">${esc(section.title)}<span class="w37-print-cue-time">${esc(section.time)}</span></div><div class="w37-print-keywords" lang="fr">${esc(words || 'Stichwörter ergänzen')}</div></div>`;
     }).join('');
-    const back = usesEditedFinal
-      ? `<p class="w37-print-final-text" lang="fr">${esc(editedFinal).replace(/\n/g,'<br>')}</p>`
-      : generatedText.map(line => `<p lang="fr">${esc(line)}</p>`).join('');
     const root = document.createElement('section');
     root.id = 'franz-w37-print-root';
-    root.setAttribute('aria-hidden', 'true');
-    root.innerHTML = `<section class="w37-print-sheet w37-print-sheet-front"><div class="w37-print-card w37-print-card-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></div></section><section class="w37-print-sheet w37-print-sheet-back"><div class="w37-print-card w37-print-card-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1></header><div class="w37-print-text">${usesEditedFinal ? back : (back || '<p>Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.</p>')}</div></div></section>`;
+    root.dataset.printTextLength = String(finalText.length);
+    root.innerHTML = `<section class="w37-print-sheet w37-print-sheet-front"><div class="w37-print-card w37-print-card-front"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Ma carte de parole</h1><p class="w37-print-instruction">Sprechen Sie frei. Die Stichwörter erinnern Sie an Ihren eigenen Text. Schauen Sie nur kurz auf die Karte.</p></header><div class="w37-print-cues">${front}</div></div></section><section class="w37-print-sheet w37-print-sheet-back"><div class="w37-print-card w37-print-card-back${density}"><header class="w37-print-head"><p class="w37-print-kicker">Franz Lernatelier · Woche ${DISPLAY_WEEK}</p><h1>Je me présente</h1><p class="w37-print-instruction">Mein vollständiger Sprechtext</p></header><div class="w37-print-text"><div class="w37-print-final-copy" data-w37-print-final-copy lang="fr">${esc(finalText || 'Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.')}</div></div></div></section>`;
     return root;
+  }
+
+  function syncPrintBack(root, state, options = {}) {
+    const back = root?.querySelector?.('[data-w37-print-final-copy]');
+    if (!back) return '';
+    const finalText = resolvePrintText(state, options);
+    back.textContent = finalText || 'Ergänzen Sie zuerst Ihre Angaben in den Übungen 1–5.';
+    root.dataset.printTextLength = String(finalText.length);
+    return finalText;
   }
 
   function printNow(options = {}) {
     installStyles();
     document.getElementById('franz-w37-print-root')?.remove();
-    const root = createPrintRoot(loadState(), options);
+    const currentState = loadState();
+    const root = createPrintRoot(currentState, options);
     document.body.appendChild(root);
-    const cleanup = () => root.remove();
+    // Unmittelbar nach dem Einfügen und nochmals direkt vor dem Druck synchronisieren.
+    // Damit kann die Rückseite nicht leer bleiben, selbst wenn der Browser den
+    // Druckdialog erst nach einem Reflow oder mit verzögertem Print-Medium aufbaut.
+    syncPrintBack(root, currentState, options);
+    const beforePrint = () => syncPrintBack(root, loadState(), options);
+    global.addEventListener('beforeprint', beforePrint);
+    // Layout bewusst initialisieren. Der Druckbereich liegt ausserhalb des Bildschirms,
+    // ist aber bereits vorhanden; im Print-Medium wird er sichtbar geschaltet.
+    try { root.getBoundingClientRect(); } catch (_) {}
+    const cleanup = () => {
+      global.removeEventListener('beforeprint', beforePrint);
+      root.remove();
+    };
     global.addEventListener('afterprint', cleanup, {once:true});
     global.print();
     global.setTimeout(() => { if (root.isConnected && !global.matchMedia?.('print').matches) cleanup(); }, 60000);
@@ -425,7 +447,7 @@
     requestAnimationFrame(() => { scheduled = false; enhanceMission6(); });
   }
 
-  const API = {buildKeywordSections, buildFullText, mergeKeywordText, keywordize, profileSentence, schoolSentence, jobSentence, chooseVoice, speechText, createPrintRoot, printNow};
+  const API = {buildKeywordSections, buildFullText, mergeKeywordText, keywordize, profileSentence, schoolSentence, jobSentence, chooseVoice, speechText, resolvePrintText, createPrintRoot, syncPrintBack, printNow};
   global.FranzWeek37CardUpgrade = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 

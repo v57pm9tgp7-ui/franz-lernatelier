@@ -78,7 +78,7 @@ test('Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text 
 
 test('Offline-Cache enthält die neue Woche-38-Version',()=>{
   const src=read('public/service-worker.js');
-  assert.match(src,/v0-22-4-w38-print-after-text/);
+  assert.match(src,/v0-22-5-w38-print-back-text/);
   assert.match(src,/module\/woche-38\/index\.html/);
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);
@@ -87,8 +87,10 @@ test('Offline-Cache enthält die neue Woche-38-Version',()=>{
 
 test('Die Rückseite der Druckkarte steht auf der Duplex-Rückseite und trägt den Titel Je me présente',()=>{
   const card=read('public/assets/week37-card-print-upgrade.js');
-  assert.match(card,/w37-print-sheet-back\{display:flex;justify-content:flex-end;align-items:flex-start\}/);
+  assert.match(card,/w37-print-sheet-back\{justify-content:flex-end!important;align-items:flex-start!important\}/);
   assert.match(card,/w37-print-card-back/);
+  assert.match(card,/w37-print-final-copy/);
+  assert.match(card,/Mein vollständiger Sprechtext/);
   assert.match(card,/>Je me présente<\/h1>/);
 });
 

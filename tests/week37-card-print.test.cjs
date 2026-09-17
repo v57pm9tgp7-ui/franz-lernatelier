@@ -46,7 +46,10 @@ test('Drucklayout isoliert die Lernkarte und setzt A4-Duplex mit A6-Karte', () =
   assert.match(source, /body > \*:not\(#franz-w37-print-root\)\{display:none!important\}/);
   assert.match(source, /w37-print-sheet-front/);
   assert.match(source, /w37-print-sheet-back/);
-  assert.match(source, /width:105mm;height:148mm/);
+  assert.match(source, /w37-print-final-copy/);
+  assert.match(source, /beforeprint/);
+  assert.match(source, /syncPrintBack/);
+  assert.match(source, /width:105mm!important;height:148mm!important/);
 });
 
 test('Sprechkarten-Upgrade erklärt die Funktion einmal klar statt Vorschläge zu duplizieren', () => {

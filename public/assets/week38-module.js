@@ -387,7 +387,7 @@
         return;
       }
       const script = document.createElement('script');
-      script.src = '../../assets/week37-card-print-upgrade.js?v=20260917-card11';
+      script.src = '../../assets/week37-card-print-upgrade.js?v=20260917-card12';
       script.dataset.w38PrintLoader = '1';
       script.onload = () => { if (!run()) window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.'); };
       script.onerror = () => window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
