@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-22-2-w38-print-card';
+const CACHE = 'franz-lernatelier-v0-22-3-w38-print-visible';
 const FILES = [
   './',
   './index.html',
@@ -7,12 +7,12 @@ const FILES = [
   './assets/atelier-navigation.js?v=20260909-ux14',
   './assets/atelier-navigation.js?v=20260917-w38nav1',
   './assets/atelier-accessibility.js?v=20260909-ux14',
-  './assets/atelier-accessibility.js?v=20260917-card8',
-  './assets/week37-card-print-upgrade.js?v=20260917-card8',
+  './assets/atelier-accessibility.js?v=20260917-card10',
+  './assets/week37-card-print-upgrade.js?v=20260917-card10',
   './assets/teams-video-guide.js?v=20260916-teams1',
   './assets/week38-home.js?v=20260913-w38-1',
   './assets/week38-home.js?v=20260917-w38-2',
-  './assets/week38-module.js?v=20260917-w38-4',
+  './assets/week38-module.js?v=20260917-w38-6',
   './assets/topic-training.js?v=20260913-topic2',
   './assets/topic-training-module.js?v=20260913-topic1',
   './assets/practice-vocab-config.js?v=20260913-teacher1',

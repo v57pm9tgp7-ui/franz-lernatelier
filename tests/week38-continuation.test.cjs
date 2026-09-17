@@ -78,7 +78,7 @@ test('Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text 
 
 test('Offline-Cache enthält die neue Woche-38-Version',()=>{
   const src=read('public/service-worker.js');
-  assert.match(src,/v0-22-2-w38-print-card/);
+  assert.match(src,/v0-22-3-w38-print-visible/);
   assert.match(src,/module\/woche-38\/index\.html/);
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);

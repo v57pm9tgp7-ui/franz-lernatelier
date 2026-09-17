@@ -350,11 +350,7 @@
     return root;
   }
 
-  function printCard(event) {
-    const printButton = event.target.closest('[data-print]');
-    if (!printButton) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
+  function printNow() {
     installStyles();
     document.getElementById('franz-w37-print-root')?.remove();
     const root = createPrintRoot(loadState());
@@ -363,6 +359,14 @@
     global.addEventListener('afterprint', cleanup, {once:true});
     global.print();
     global.setTimeout(() => { if (root.isConnected && !global.matchMedia?.('print').matches) cleanup(); }, 60000);
+  }
+
+  function printCard(event) {
+    const printButton = event.target.closest('[data-print]');
+    if (!printButton) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    printNow();
   }
 
   function setVoiceStatus(text) {
@@ -407,7 +411,7 @@
     requestAnimationFrame(() => { scheduled = false; enhanceMission6(); });
   }
 
-  const API = {buildKeywordSections, buildFullText, mergeKeywordText, keywordize, profileSentence, schoolSentence, jobSentence, chooseVoice, speechText};
+  const API = {buildKeywordSections, buildFullText, mergeKeywordText, keywordize, profileSentence, schoolSentence, jobSentence, chooseVoice, speechText, createPrintRoot, printNow};
   global.FranzWeek37CardUpgrade = API;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
 

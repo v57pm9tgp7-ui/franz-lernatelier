@@ -52,14 +52,14 @@ body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:"Sego
       .replaceAll('Franz-Lernatelier-Woche-37-', 'Franz-Lernatelier-Woche-38-')
       .replaceAll('Franz-Woche-37.', 'Franz-Woche-38.')
       .replaceAll('atelier-navigation.js?v=20260909-ux14', 'atelier-navigation.js?v=20260917-w38nav1')
-      .replaceAll('atelier-accessibility.js?v=20260909-ux14', 'atelier-accessibility.js?v=20260917-card6')
+      .replaceAll('atelier-accessibility.js?v=20260909-ux14', 'atelier-accessibility.js?v=20260917-card10')
       .replace(/(FranzNavigation\.create\(\{week:)37/g, '$138');
 
     html = html.replace(
       /(<script src="\.\.\/\.\.\/assets\/practice-studio\.js[^"]*"><\/script>)/,
       '$1<script src="../../assets/practice-vocab-config.js?v=20260913-teacher1"><\/script>'
     );
-    html = html.replace('</body>', '<script src="../../assets/week38-module.js?v=20260917-w38-4"><\/script></body>');
+    html = html.replace('</body>', '<script src="../../assets/week38-module.js?v=20260917-w38-6"><\/script></body>');
 
     document.open();
     document.write(html);

@@ -46,7 +46,7 @@
       .w38-partner-check{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
       .w38-partner-check>div{border:1px solid #d7dfdc;border-radius:13px;background:#fbfcfd;padding:12px}
       .w38-partner-check strong{display:block;color:#0b315f}.w38-partner-check span{display:block;margin-top:3px;color:#526477;font-size:.9em}
-      .w38-final-editor{display:grid;gap:10px}.w38-final-editor textarea{width:100%;min-height:410px;resize:vertical;border:2px solid #b8c8c4;border-radius:14px;background:#fff;color:#10233f;padding:16px 17px;font-size:1.02em;line-height:1.62}.w38-final-editor textarea:focus{border-color:#177c73;box-shadow:0 0 0 4px rgba(23,124,115,.16);outline:none}.w38-final-note{margin:0;color:#526477}.w38-final-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.w38-final-tools button{min-height:42px;border:1px solid #b8c8c4;border-radius:11px;background:#fff;color:#10233f;padding:8px 12px;font-weight:900;cursor:pointer}.w38-final-tools button:hover{border-color:#177c73;background:#f4fbf9}.w38-final-save{font-size:.86em;font-weight:850;color:#176c4b}.w38-print-box{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:4px;padding:15px 16px;border:1px solid #d8bd7b;border-radius:14px;background:#fffaf0}.w38-print-box div{min-width:0}.w38-print-box strong{display:block;color:#604710}.w38-print-box p{margin:4px 0 0;color:#526477;line-height:1.45}.w38-print-box button{flex:0 0 auto;min-height:44px;border:1px solid #0b315f;border-radius:11px;background:#0b315f;color:#fff;padding:8px 14px;font-weight:900;cursor:pointer}.w38-print-box button:hover{background:#08264a;border-color:#08264a}.w38-voice-coach{padding:17px 18px;border:1px solid #afc8e2;border-radius:16px;background:linear-gradient(135deg,#f4f8ff,#fff)}.w38-voice-copy strong{font-size:1.08em;color:#0b315f}.w38-voice-copy p{margin:5px 0 14px;color:#526477}.w38-voice-controls{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.w38-voice-controls label{display:grid;gap:4px;color:#455969;font-size:.85em;font-weight:850}.w38-voice-controls select{min-height:42px;border:1px solid #b8c8c4;border-radius:10px;background:#fff;color:#10233f;padding:7px 34px 7px 10px}.w38-voice-controls button{min-height:42px;border-radius:11px;padding:8px 12px;font-weight:900;cursor:pointer}.w38-voice-play{border:1px solid #0b315f;background:#0b315f;color:#fff}.w38-voice-stop{border:1px solid #b8c8c4;background:#fff;color:#10233f}.w38-voice-status{margin:10px 0 0;color:#526477;font-size:.86em}
+      .w38-final-editor{display:grid;gap:10px}.w38-final-editor textarea{width:100%;min-height:410px;resize:vertical;border:2px solid #b8c8c4;border-radius:14px;background:#fff;color:#10233f;padding:16px 17px;font-size:1.02em;line-height:1.62}.w38-final-editor textarea:focus{border-color:#177c73;box-shadow:0 0 0 4px rgba(23,124,115,.16);outline:none}.w38-final-note{margin:0;color:#526477}.w38-final-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.w38-final-tools button{min-height:42px;border:1px solid #b8c8c4;border-radius:11px;background:#fff;color:#10233f;padding:8px 12px;font-weight:900;cursor:pointer}.w38-final-tools button:hover{border-color:#177c73;background:#f4fbf9}.w38-final-save{font-size:.86em;font-weight:850;color:#176c4b}.w38-print-box{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:4px;padding:15px 16px;border:1px solid #d8bd7b;border-radius:14px;background:#fffaf0}.w38-print-box div{min-width:0}.w38-print-box strong{display:block;color:#604710}.w38-print-box p{margin:4px 0 0;color:#526477;line-height:1.45}.w38-print-box button{flex:0 0 auto;min-height:44px;border:1px solid #0b315f;border-radius:11px;background:#0b315f;color:#fff;padding:8px 14px;font-weight:900;cursor:pointer}.w38-print-box button:hover{background:#08264a;border-color:#08264a}.w38-print-box-prominent{margin:4px 0 8px;border-width:2px;box-shadow:0 10px 24px rgba(14,43,66,.08)}.w38-voice-coach{padding:17px 18px;border:1px solid #afc8e2;border-radius:16px;background:linear-gradient(135deg,#f4f8ff,#fff)}.w38-voice-copy strong{font-size:1.08em;color:#0b315f}.w38-voice-copy p{margin:5px 0 14px;color:#526477}.w38-voice-controls{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.w38-voice-controls label{display:grid;gap:4px;color:#455969;font-size:.85em;font-weight:850}.w38-voice-controls select{min-height:42px;border:1px solid #b8c8c4;border-radius:10px;background:#fff;color:#10233f;padding:7px 34px 7px 10px}.w38-voice-controls button{min-height:42px;border-radius:11px;padding:8px 12px;font-weight:900;cursor:pointer}.w38-voice-play{border:1px solid #0b315f;background:#0b315f;color:#fff}.w38-voice-stop{border:1px solid #b8c8c4;background:#fff;color:#10233f}.w38-voice-status{margin:10px 0 0;color:#526477;font-size:.86em}
       @media(max-width:760px){.w38-overview,.w38-partner-check{grid-template-columns:1fr}.w38-final-editor textarea{min-height:330px}.w38-print-box{align-items:stretch;flex-direction:column}.w38-print-box button{width:100%}.w38-voice-controls{display:grid;grid-template-columns:1fr 1fr}.w38-voice-controls button{width:100%}}
     `;
     document.head.appendChild(style);
@@ -149,10 +149,10 @@
       <div class="activity-body">
         <div class="w38-final-editor">
           <p class="w38-final-note"><strong>Sie entscheiden über den Text:</strong> Sie können Wörter oder ganze Sätze ändern, ergänzen oder löschen. Der Text muss zu Ihnen passen und sich gut sprechen lassen.</p>
+          <section class="w38-print-box w38-print-box-prominent" aria-label="Sprechkarte drucken"><div><strong>🖨 Sprechkarte für die Generalprobe drucken</strong><p>Die Karte bleibt verfügbar: vorne kompakte Stichwörter, hinten Ihr aktuell bearbeiteter kompletter Text. Für die Videoaufnahme legen Sie die Karte weg.</p></div><button type="button" data-w38-print-card data-print>🖨 Sprechkarte drucken</button></section>
           <label for="w38-final-text"><strong>Mein Text für die Aufnahme</strong></label>
           <textarea id="w38-final-text" data-w38-final-text data-learn-field="${FINAL_TEXT_KEY}" data-no-writing-help lang="fr" spellcheck="true" aria-describedby="w38-final-save">${esc(text)}</textarea>
           <div class="w38-final-tools"><button type="button" data-w38-reset-final>Text aus meinen bisherigen Angaben neu erstellen</button><span class="w38-final-save" id="w38-final-save" data-w38-save-status>Änderungen werden automatisch gespeichert.</span></div>
-          <section class="w38-print-box" aria-label="Sprechkarte drucken"><div><strong>Sprechkarte für die Generalprobe</strong><p>Optional können Sie wieder eine kleine Sprechkarte drucken. Vorne stehen kompakte Stichwörter; auf der Rückseite steht Ihr aktuell bearbeiteter Text. Für die Videoaufnahme legen Sie die Karte weg.</p></div><button type="button" data-print>Sprechkarte drucken</button></section>
           <p class="w38-final-note">Tipp: Streichen Sie lieber einen Satz, den Sie nicht sicher sprechen können, als zu viel Text in 60 Sekunden zu packen.</p>
         </div>
       </div>`;
@@ -353,6 +353,29 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       openLast();
+      return;
+    }
+    const print = event.target.closest('[data-w38-print-card]');
+    if (print) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const run = () => {
+        const api = window.FranzWeek37CardUpgrade;
+        if (api?.printNow) { api.printNow(); return true; }
+        return false;
+      };
+      if (run()) return;
+      const existing = document.querySelector('script[data-w38-print-loader]');
+      if (existing) {
+        existing.addEventListener('load', run, {once:true});
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = '../../assets/week37-card-print-upgrade.js?v=20260917-card10';
+      script.dataset.w38PrintLoader = '1';
+      script.onload = () => { if (!run()) window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.'); };
+      script.onerror = () => window.alert('Die Druckfunktion konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
+      document.head.appendChild(script);
       return;
     }
     const reset = event.target.closest('[data-w38-reset-final]');
