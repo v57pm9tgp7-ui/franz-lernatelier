@@ -53,11 +53,11 @@
   function start(){enhance();observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','hidden','aria-hidden']});window.addEventListener('pageshow',()=>window.FranzNavigation.restoreIncoming());}
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start):start();
 
-  /* Woche 37/38: die druckbare Sprechkarte ist bewusst als separates, kleines Upgrade gekapselt. */
+  /* Woche 37/38: die druckbare Sprechkarte samt Vorlesefunktion ist bewusst als separates Upgrade gekapselt. */
   if(/\/module\/woche-(?:37|38)(?:\/|\/index\.html|$)/.test(location.pathname)){
     window.FRANZ_TOPICS ||= [{id:'se-presenter-2026',title:'Se présenter',subtitle:'Qui suis-je ?',weeks:[36,37,38],active:true}];
     const script=document.createElement('script');
-    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260916-card5',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260916-card5';
+    script.src=ownScript?new URL('week37-card-print-upgrade.js?v=20260917-card6',ownScript).href:'../../assets/week37-card-print-upgrade.js?v=20260917-card6';
     script.defer=true;
     document.head.appendChild(script);
     const topicScript=document.createElement('script');

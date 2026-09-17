@@ -1,0 +1,12 @@
+1b5578ca7236853818266965d648edaeb09b882f71dc028308e09de054000756  ./README-Update-0.22.0.md
+58b70d48b707a1664e5c21004ebfededd9000752207e32e5d24ff9d0eef34013  ./TEST-REPORT-0.22.0.txt
+69349738838140193dae2dab4a4963baee9f06a52b3258b617170be2df2d6532  ./public/assets/atelier-accessibility.js
+c5c1bfdc4ea99dbd43766e0fa423223c50f064e55aa0588e96b17b3df40d97c6  ./public/assets/atelier-navigation.js
+124efa4a6a342c94a19906032a51e4e676895e33ed382edba6b986dfcd9559d9  ./public/assets/week37-card-print-upgrade.js
+2518e5c1436303f0d622d9baf941302cf659e4305e6180b9d7b5aefecd19561a  ./public/assets/week38-module.js
+1cf0211f719f964d666c596e544e032f1be2a8adc7098efcc6dcb77e6a88e313  ./public/data/modules.js
+506af009443ea9c20242614a7e44780dc66269681ebf0f1d4346cd7364dcf219  ./public/module/woche-38/index.html
+84ad7707de469e1e17cf63e5cb22a400070a7756f224ef4359e1bd515d42ca31  ./public/service-worker.js
+bc555e6d5f8c28e2856fc7c732ec4c30060b421bab56ceb2b97123ca68b37e13  ./tests/franz-update-0.22.0.test.cjs
+9319f8468801457c52f8df6cdb530a9e29abce17b616245331ad0cd22346ab58  ./tests/week37-card-print.test.cjs
+7b2942f7568dc2029bb6176be1c24f94ead915ee19bde4f603c42ea5832840f6  ./tests/week38-continuation.test.cjs

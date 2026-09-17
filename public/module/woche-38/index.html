@@ -13,7 +13,7 @@ body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:"Sego
 </style>
 </head>
 <body>
-<div class="loading" id="w38Loader"><b>Woche 38 wird vorbereitet …</b><p>Ihr Arbeitsstand aus Woche 37 wird übernommen. Es kommen keine neuen Aufgaben dazu.</p><i></i></div>
+<div class="loading" id="w38Loader"><b>Woche 38 wird vorbereitet …</b><p>Ihr Arbeitsstand aus Woche 37 wird übernommen. Sie arbeiten mit sieben bekannten Übungen weiter.</p><i></i></div>
 <script>
 (async () => {
   const loader = document.getElementById('w38Loader');
@@ -22,8 +22,26 @@ body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:"Sego
     if (!response.ok) throw new Error('HTTP ' + response.status);
     let html = await response.text();
 
-    // Nur die sichtbare Wochenidentität wird auf Woche 38 umgestellt.
-    // Lernstand, Übungen und Online-Synchronisation bleiben bewusst identisch mit Woche 37.
+    // Woche 38 verwendet denselben Lernstand und dieselben Übungsbausteine wie Woche 37,
+    // aber Übung 4 wird in dieser Woche bewusst ausgelassen. Übung 7 wird zur Partner-Generalprobe.
+    html = html.replace(/const MISSIONS=(\[[^\n]+?\]);/, (whole, json) => {
+      try {
+        const missions = JSON.parse(json)
+          .filter(mission => Number(mission.id) !== 4)
+          .map(mission => Number(mission.id) === 7 ? {
+            ...mission,
+            title:'Répéter à deux',
+            desc:'Generalprobe zu zweit: sprechen, zuhören, Feedback geben und direkt danach aufnehmen.',
+            time:'12–18 Min.',
+            form:'Partnerarbeit'
+          } : mission);
+        return `const MISSIONS=${JSON.stringify(missions)};`;
+      } catch (_) {
+        return whole;
+      }
+    });
+
+    // Sichtbare Wochenidentität auf Woche 38 umstellen. Online-Synchronisation bleibt bei Woche 37.
     html = html
       .replace('Franz Lernatelier Woche 37:', 'Franz Lernatelier Woche 38:')
       .replace('Franz Lernatelier – Woche 37 · Qui suis-je ?', 'Franz Lernatelier – Woche 38 · Qui suis-je ?')
@@ -33,13 +51,15 @@ body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:"Sego
       .replaceAll('Wortschatz · Woche 37', 'Wortschatz · Woche 38')
       .replaceAll('Franz-Lernatelier-Woche-37-', 'Franz-Lernatelier-Woche-38-')
       .replaceAll('Franz-Woche-37.', 'Franz-Woche-38.')
+      .replaceAll('atelier-navigation.js?v=20260909-ux14', 'atelier-navigation.js?v=20260917-w38nav1')
+      .replaceAll('atelier-accessibility.js?v=20260909-ux14', 'atelier-accessibility.js?v=20260917-card6')
       .replace(/(FranzNavigation\.create\(\{week:)37/g, '$138');
 
     html = html.replace(
       /(<script src="\.\.\/\.\.\/assets\/practice-studio\.js[^"]*"><\/script>)/,
       '$1<script src="../../assets/practice-vocab-config.js?v=20260913-teacher1"><\/script>'
     );
-    html = html.replace('</body>', '<script src="../../assets/week38-module.js?v=20260913-w38-1"><\/script></body>');
+    html = html.replace('</body>', '<script src="../../assets/week38-module.js?v=20260917-w38-2"><\/script></body>');
 
     document.open();
     document.write(html);

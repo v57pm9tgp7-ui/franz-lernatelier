@@ -38,6 +38,7 @@
     let last = saved.last || null, previous = saved.previous || null;
     let trainingReturn = saved.trainingReturn || null;
     const available = config.missions.map(m => Number(m.id));
+    const nextWeek = config.week === 36 ? 37 : config.week === 37 ? 38 : null;
     const valid = route => route === config.overview || route === 'start' || route === 'training' || /^mission-\d+$/.test(route || '') && available.includes(Number(route.split('-')[1]));
     const fragment = decodeURIComponent(location.hash.slice(1));
     const requested = fragment.split('/')[0];
@@ -71,11 +72,12 @@
       const before = isMission && index > 0 ? sequence[index-1] : null;
       const after = isMission && index < sequence.length-1 ? sequence[index+1] : null;
       const resume = isTraining ? trainingReturn || last : !isMission ? last : null;
+      const weekOptions = [36,37,38].map(week => `<option value="${week}" ${config.week===week?'selected':''}>Woche ${week}</option>`).join('');
       bar.innerHTML = `<div class="atelier-path"><a href="../../index.html#weeks">Wochen</a><span aria-hidden="true">/</span><button type="button" data-nav-route="${config.overview}">Woche ${config.week}</button><span aria-hidden="true">/</span><strong aria-current="page">${esc(isMission ? 'Übung '+id : title(current))}</strong></div>
-        <div class="atelier-controls"><label class="atelier-picker"><span class="sr-only">Woche wählen</span><select data-nav-week><option value="36" ${config.week===36?'selected':''}>Woche 36</option><option value="37" ${config.week===37?'selected':''}>Woche 37</option></select></label>
+        <div class="atelier-controls"><label class="atelier-picker"><span class="sr-only">Woche wählen</span><select data-nav-week>${weekOptions}</select></label>
         <label class="atelier-picker atelier-exercise"><span class="sr-only">Übung wählen</span><select data-nav-exercise><option value="${config.overview}" ${!isMission?'selected':''}>${isTraining?'Training · Übung wählen':'Alle Übungen'}</option>${config.missions.map(m=>`<option value="mission-${m.id}" ${m.id===id?'selected':''}>${m.id} · ${esc(m.title)}</option>`).join('')}</select></label>
         ${resume?`<button class="atelier-return" type="button" data-nav-return>${isTraining?'← Zurück':'↩ Letzte Übung'}<span>${esc(resume.route?.startsWith('mission-')?'Übung '+resume.route.split('-')[1]:resume.label||'Zur Ausgangsseite')}</span></button>`:''}
-        ${!isMission&&!isTraining?'<button type="button" class="secondary-btn" data-nav-route="training">Trainieren</button>':''}${isMission?`<div class="atelier-step-buttons"><button type="button" ${before?`data-nav-route="mission-${before}"`:`data-nav-route="${config.overview}"`} aria-label="${before?'Vorherige Übung: '+esc(title('mission-'+before)):'Zur Wochenübersicht'}">← <span>Zurück</span></button><button type="button" data-nav-route="training">Trainieren</button><button type="button" ${after?`data-nav-route="mission-${after}"`:`data-nav-next-week`} aria-label="${after?'Nächste Übung: '+esc(title('mission-'+after)):config.week===36?'Woche 37 öffnen':'Alle Wochen öffnen'}"><span>${after?'Weiter':config.week===36?'Woche 37':'Wochen'}</span> →</button></div>`:''}</div>`;
+        ${!isMission&&!isTraining?'<button type="button" class="secondary-btn" data-nav-route="training">Trainieren</button>':''}${isMission?`<div class="atelier-step-buttons"><button type="button" ${before?`data-nav-route="mission-${before}"`:`data-nav-route="${config.overview}"`} aria-label="${before?'Vorherige Übung: '+esc(title('mission-'+before)):'Zur Wochenübersicht'}">← <span>Zurück</span></button><button type="button" data-nav-route="training">Trainieren</button><button type="button" ${after?`data-nav-route="mission-${after}"`:`data-nav-next-week`} aria-label="${after?'Nächste Übung: '+esc(title('mission-'+after)):nextWeek?'Woche '+nextWeek+' öffnen':'Alle Wochen öffnen'}"><span>${after?'Weiter':nextWeek?'Woche '+nextWeek:'Wochen'}</span> →</button></div>`:''}</div>`;
       document.querySelectorAll('[data-go="training"]').forEach(el => {
         el.classList.toggle('is-current',isTraining);
         if (isTraining) el.setAttribute('aria-current','page'); else el.removeAttribute('aria-current');
@@ -135,7 +137,7 @@
       if(button.matches('[data-go],[data-mission],[data-open-mission],#continueBtn,#continueLearning,[data-nav-route],[data-nav-return],[data-training-return],a'))capture();
       if(button.hasAttribute('data-nav-return')||button.hasAttribute('data-training-return')){e.preventDefault();e.stopImmediatePropagation();back();}
       else if(button.dataset.navRoute){e.preventDefault();e.stopImmediatePropagation();go(button.dataset.navRoute);}
-      else if(button.hasAttribute('data-nav-next-week')){config.flush();location.href=config.week===36?'../woche-37/index.html#start':'../../index.html#weeks';}
+      else if(button.hasAttribute('data-nav-next-week')){config.flush();location.href=nextWeek?`../woche-${nextWeek}/index.html#start`:'../../index.html#weeks';}
     },true);
     bar.addEventListener('change',e=>{
       if(e.target.matches('[data-nav-exercise]'))go(e.target.value);

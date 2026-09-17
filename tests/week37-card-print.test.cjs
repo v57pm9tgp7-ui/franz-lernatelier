@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
+const fs = require('node:fs');
 const upgrade = require(path.join('..','public','assets','week37-card-print-upgrade.js'));
 
 const state = {answers:{
@@ -39,17 +40,52 @@ test('Benutzer-Stichwörter werden beim Druck nicht verworfen', () => {
   assert.match(merged, /qualité: fiable/);
 });
 
-test('Drucklayout isoliert die Lernkarte und setzt A6', () => {
-  const fs = require('node:fs');
+test('Drucklayout isoliert die Lernkarte und setzt A4-Duplex mit A6-Karte', () => {
   const source = fs.readFileSync(path.join(__dirname,'..','public','assets','week37-card-print-upgrade.js'),'utf8');
-  assert.match(source, /@page\{size:A6 portrait;margin:0\}/);
+  assert.match(source, /@page\{size:A4 portrait;margin:0\}/);
   assert.match(source, /body > \*:not\(#franz-w37-print-root\)\{display:none!important\}/);
-  assert.match(source, /w37-print-front/);
-  assert.match(source, /w37-print-back/);
+  assert.match(source, /w37-print-sheet-front/);
+  assert.match(source, /w37-print-sheet-back/);
+  assert.match(source, /width:105mm;height:148mm/);
+});
+
+test('Sprechkarten-Upgrade erklärt die Funktion einmal klar statt Vorschläge zu duplizieren', () => {
+  const source = fs.readFileSync(path.join(__dirname,'..','public','assets','week37-card-print-upgrade.js'),'utf8');
+  assert.match(source, /So funktioniert Ihre Stichwortkarte/);
+  assert.match(source, /Automatische Stichwörter neu erstellen/);
+  assert.doesNotMatch(source, /Vollständiger Vorschlag aus Ihren Angaben/);
+});
+
+test('Ganzer persönlicher Text kann mit Stimme und Tempo vorgelesen werden', () => {
+  const source = fs.readFileSync(path.join(__dirname,'..','public','assets','week37-card-print-upgrade.js'),'utf8');
+  assert.match(source, /Meinen ganzen Text anhören/);
+  assert.match(source, /value="female"/);
+  assert.match(source, /value="male"/);
+  assert.match(source, /value="0\.72"/);
+  assert.match(source, /SpeechSynthesisUtterance/);
+  const spoken = upgrade.speechText(state);
+  assert.match(spoken, /Je m’appelle Lina/);
+  assert.match(spoken, /assistante médicale/);
+  assert.doesNotMatch(spoken, /écouté\s*\/\s*écoutée/);
+});
+
+test('Stimmauswahl bevorzugt französische weibliche bzw. männliche Stimmen', () => {
+  const voices = [
+    {name:'Microsoft Denise Online (Natural) - French (France)',lang:'fr-FR'},
+    {name:'Microsoft Henri Online (Natural) - French (France)',lang:'fr-FR'},
+    {name:'English Voice',lang:'en-GB'}
+  ];
+  const previous = globalThis.speechSynthesis;
+  globalThis.speechSynthesis = {getVoices:()=>voices};
+  try {
+    assert.match(upgrade.chooseVoice('female').name,/Denise/);
+    assert.match(upgrade.chooseVoice('male').name,/Henri/);
+  } finally {
+    if (previous === undefined) delete globalThis.speechSynthesis; else globalThis.speechSynthesis = previous;
+  }
 });
 
 test('Loader und Service Worker binden das Kartenupgrade ein', () => {
-  const fs = require('node:fs');
   const loader = fs.readFileSync(path.join(__dirname,'..','public','assets','atelier-accessibility.js'),'utf8');
   const sw = fs.readFileSync(path.join(__dirname,'..','public','service-worker.js'),'utf8');
   assert.match(loader, /week37-card-print-upgrade\.js/);
