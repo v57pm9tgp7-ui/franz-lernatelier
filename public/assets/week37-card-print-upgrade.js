@@ -1,4 +1,4 @@
-/* Franz Lernatelier · Woche 37/38 · Stichwortkarte, Vorlesen und sauberer Duplexdruck */
+/* Franz Lernatelier · Woche 37/38 · Stichwortkarte, editierbarer Finaltext und Vorlesen */
 (function (global) {
   'use strict';
 
@@ -215,8 +215,9 @@
     return kind === 'male' ? voices[1] : voices[0];
   }
 
-  function speechText(state) {
-    return buildFullText(state).join(' ')
+  function speechText(state, useEdited = DISPLAY_WEEK === 38) {
+    const edited = useEdited ? answer(state, 'w38.finalText') : '';
+    return (edited || buildFullText(state).join(' '))
       .replace(/écouté\s*\/\s*écoutée/gi, 'écouté')
       .replace(/\s+/g, ' ')
       .trim();
@@ -370,7 +371,11 @@
       setVoiceStatus('Auf diesem Browser ist die Vorlesefunktion nicht verfügbar.');
       return;
     }
-    const text = speechText(loadState());
+    const live = String(document.querySelector('[data-w38-final-text]')?.value || '').trim();
+    const text = (live || speechText(loadState()))
+      .replace(/écouté\s*\/\s*écoutée/gi, 'écouté')
+      .replace(/\s+/g, ' ')
+      .trim();
     if (!text) {
       setVoiceStatus('Ergänzen Sie zuerst Ihre Angaben. Danach kann der Text vorgelesen werden.');
       return;
@@ -404,6 +409,7 @@
 
   if (typeof document === 'undefined') return;
   installStyles();
+  window.dispatchEvent(new CustomEvent('franz-card-upgrade-ready'));
   document.addEventListener('click', event => {
     if (event.target.closest('[data-print]')) return printCard(event);
     const one = event.target.closest('[data-w37-cue-use]');

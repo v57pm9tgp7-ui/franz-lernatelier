@@ -58,20 +58,25 @@ test('Répéter en groupes ist in Woche 38 eine Generalprobe zu zweit',()=>{
   assert.doesNotMatch(src,/Dreiergruppe/);
 });
 
-test('Die Sprechkarte funktioniert auch in Woche 38 und hat die Vorlesefunktion',()=>{
+test('Woche 38 zeigt statt der Sprechkarte den vollständigen editierbaren Text und liest genau diesen vor',()=>{
   const access=read('public/assets/atelier-accessibility.js');
   const card=read('public/assets/week37-card-print-upgrade.js');
+  const module=read('public/assets/week38-module.js');
   assert.match(access,/woche-\(\?:37\|38\)/);
-  assert.match(card,/DISPLAY_WEEK/);
-  assert.match(card,/Meinen ganzen Text anhören/);
-  assert.match(card,/weibliche Stimme/);
-  assert.match(card,/männliche Stimme/);
-  assert.match(card,/langsamer/);
+  assert.match(module,/Mon texte final/);
+  assert.match(module,/data-w38-final-text/);
+  assert.match(module,/ändern, ergänzen oder streichen/);
+  assert.match(module,/Text aus meinen bisherigen Angaben neu erstellen/);
+  assert.match(card,/answer\(state, 'w38.finalText'\)/);
+  assert.match(card,/data-w38-final-text/);
+  assert.match(module,/weibliche Stimme/);
+  assert.match(module,/männliche Stimme/);
+  assert.match(module,/langsamer/);
 });
 
 test('Offline-Cache enthält die neue Woche-38-Version',()=>{
   const src=read('public/service-worker.js');
-  assert.match(src,/v0-22-0-w38-voice-partner/);
+  assert.match(src,/v0-22-1-w38-final-text/);
   assert.match(src,/module\/woche-38\/index\.html/);
   assert.match(src,/week38-home\.js/);
   assert.match(src,/week38-module\.js/);

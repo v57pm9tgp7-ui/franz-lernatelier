@@ -1,0 +1,35 @@
+Franz Lernatelier – Update 0.22.1
+Testbericht · 17. September 2026
+
+Ergebnis
+========
+29 Tests ausgeführt
+29 bestanden
+0 fehlgeschlagen
+
+Schwerpunkte der Prüfung
+========================
+- JavaScript-Syntax aller geänderten Dateien
+- gültiger Woche-38-Loader
+- Woche 38 mit 7 Übungen und ohne Übung 4
+- Wochenmenü 36 / 37 / 38
+- Übung 6 als «Mon texte final»
+- kompletter Text statt Stichwortkarten-Ansicht
+- editierbares Textfeld für Ändern, Ergänzen und Streichen
+- Wiederherstellung des automatisch erzeugten Ausgangstextes
+- Vorlesen des bearbeiteten Finaltexts
+- weibliche und männliche französische Stimme
+- normales und verlangsamtes Tempo
+- Partner-Generalprobe in Übung 7
+- aktualisierter Service-Worker-Cache
+
+Ausgeführter Befehl
+===================
+node --test tests/*.test.cjs
+
+Letztes Ergebnis
+================
+1..29
+# tests 29
+# pass 29
+# fail 0

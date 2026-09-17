@@ -2,12 +2,14 @@
   'use strict';
 
   const STORAGE_KEY = 'franzoesischLernatelierW37_v1';
+  const FINAL_TEXT_KEY = 'w38.finalText';
+  const VOICE_PREF_KEY = 'franzLernatelierSpeech_v1';
   const MISSIONS = [
     [1,'Je reprends mon profil'],
     [2,'Mon école et mon projet'],
     [3,'Je donne des détails'],
     [5,'Mon expérience et mon projet'],
-    [6,'Ma carte de parole'],
+    [6,'Mon texte final'],
     [7,'Répéter à deux'],
     [8,'Ma vidéo · Défi final']
   ];
@@ -44,7 +46,8 @@
       .w38-partner-check{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
       .w38-partner-check>div{border:1px solid #d7dfdc;border-radius:13px;background:#fbfcfd;padding:12px}
       .w38-partner-check strong{display:block;color:#0b315f}.w38-partner-check span{display:block;margin-top:3px;color:#526477;font-size:.9em}
-      @media(max-width:760px){.w38-overview,.w38-partner-check{grid-template-columns:1fr}}
+      .w38-final-editor{display:grid;gap:10px}.w38-final-editor textarea{width:100%;min-height:410px;resize:vertical;border:2px solid #b8c8c4;border-radius:14px;background:#fff;color:#10233f;padding:16px 17px;font-size:1.02em;line-height:1.62}.w38-final-editor textarea:focus{border-color:#177c73;box-shadow:0 0 0 4px rgba(23,124,115,.16);outline:none}.w38-final-note{margin:0;color:#526477}.w38-final-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.w38-final-tools button{min-height:42px;border:1px solid #b8c8c4;border-radius:11px;background:#fff;color:#10233f;padding:8px 12px;font-weight:900;cursor:pointer}.w38-final-tools button:hover{border-color:#177c73;background:#f4fbf9}.w38-final-save{font-size:.86em;font-weight:850;color:#176c4b}.w38-voice-coach{padding:17px 18px;border:1px solid #afc8e2;border-radius:16px;background:linear-gradient(135deg,#f4f8ff,#fff)}.w38-voice-copy strong{font-size:1.08em;color:#0b315f}.w38-voice-copy p{margin:5px 0 14px;color:#526477}.w38-voice-controls{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.w38-voice-controls label{display:grid;gap:4px;color:#455969;font-size:.85em;font-weight:850}.w38-voice-controls select{min-height:42px;border:1px solid #b8c8c4;border-radius:10px;background:#fff;color:#10233f;padding:7px 34px 7px 10px}.w38-voice-controls button{min-height:42px;border-radius:11px;padding:8px 12px;font-weight:900;cursor:pointer}.w38-voice-play{border:1px solid #0b315f;background:#0b315f;color:#fff}.w38-voice-stop{border:1px solid #b8c8c4;background:#fff;color:#10233f}.w38-voice-status{margin:10px 0 0;color:#526477;font-size:.86em}
+      @media(max-width:760px){.w38-overview,.w38-partner-check{grid-template-columns:1fr}.w38-final-editor textarea{min-height:330px}.w38-voice-controls{display:grid;grid-template-columns:1fr 1fr}.w38-voice-controls button{width:100%}}
     `;
     document.head.appendChild(style);
   }
@@ -86,6 +89,86 @@
       next.setAttribute('data-nav-next-week','');
       if (next.textContent !== 'Alle Wochen →') next.textContent = 'Alle Wochen →';
     }
+  }
+
+  function generatedFinalText() {
+    const s = state();
+    const api = window.FranzWeek37CardUpgrade;
+    if (!api?.buildFullText) return '';
+    return api.buildFullText(s).join('\n').trim();
+  }
+
+  function currentFinalText() {
+    const saved = String(state()?.answers?.[FINAL_TEXT_KEY] || '').trim();
+    return saved || generatedFinalText();
+  }
+
+  function voicePrefs() {
+    try { return {...{voice:'female',rate:'1'}, ...(JSON.parse(localStorage.getItem(VOICE_PREF_KEY) || '{}') || {})}; }
+    catch (_) { return {voice:'female',rate:'1'}; }
+  }
+
+  function voicePanel() {
+    const prefs = voicePrefs();
+    return `<section class="w38-voice-coach" aria-labelledby="w38VoiceTitle">
+      <div class="w38-voice-copy"><strong id="w38VoiceTitle">Meinen Text anhören</strong><p>Hören Sie genau den Text an, der oben im Feld steht. Danach sprechen Sie ihn selbst – möglichst ohne mitzulesen.</p></div>
+      <div class="w38-voice-controls">
+        <label>Stimme<select data-w37-voice><option value="female" ${prefs.voice==='female'?'selected':''}>weibliche Stimme</option><option value="male" ${prefs.voice==='male'?'selected':''}>männliche Stimme</option></select></label>
+        <label>Tempo<select data-w37-rate><option value="1" ${String(prefs.rate)==='1'?'selected':''}>normal</option><option value="0.72" ${String(prefs.rate)==='0.72'?'selected':''}>langsamer</option></select></label>
+        <button type="button" class="w38-voice-play" data-w37-speak-full>▶ Text vorlesen</button>
+        <button type="button" class="w38-voice-stop" data-w37-stop-speech>■ Stoppen</button>
+      </div>
+      <p class="w38-voice-status w37-voice-status" data-w37-voice-status role="status" aria-live="polite">Wählen Sie Stimme und Tempo und starten Sie dann das Vorlesen.</p>
+    </section>`;
+  }
+
+  function resizeFinalText(textarea) {
+    if (!textarea) return;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${Math.max(410, Math.min(textarea.scrollHeight + 4, 760))}px`;
+  }
+
+  function patchFinalTextMission() {
+    const shell = document.querySelector('#missionMount .mission-shell');
+    if (!shell || Number(shell.querySelector('.mission-number')?.textContent || 0) !== 6) return;
+    if (shell.dataset.w38FinalText === '1') { patchMissionFooter(); return; }
+    const text = currentFinalText();
+    // Beim ersten Öffnen warten wir kurz auf den zentralen Textgenerator. So wird niemals ein leeres Feld erzeugt.
+    if (!text && !window.FranzWeek37CardUpgrade?.buildFullText) { setTimeout(schedule, 100); return; }
+    shell.dataset.w38FinalText = '1';
+
+    const hero = shell.querySelector('.mission-hero');
+    const title = hero?.querySelector('h1');
+    const description = hero?.querySelector('p');
+    if (title) title.textContent = 'Mon texte final';
+    if (description) description.textContent = 'Ihr vollständiger Text für die Aufnahme: prüfen, ändern, ergänzen oder streichen.';
+
+    const activities = shell.querySelectorAll('.activity-card');
+    if (activities[0]) activities[0].innerHTML = `
+      <header class="activity-head"><div><small>A</small><h2>Mein kompletter Text</h2><p>Aus Ihren bisherigen Übungen ist jetzt eine vollständige Vorstellung entstanden. Machen Sie daraus Ihren eigenen Text.</p></div></header>
+      <div class="activity-body">
+        <div class="w38-final-editor">
+          <p class="w38-final-note"><strong>Sie entscheiden über den Text:</strong> Sie können Wörter oder ganze Sätze ändern, ergänzen oder löschen. Der Text muss zu Ihnen passen und sich gut sprechen lassen.</p>
+          <label for="w38-final-text"><strong>Mein Text für die Aufnahme</strong></label>
+          <textarea id="w38-final-text" data-w38-final-text data-learn-field="${FINAL_TEXT_KEY}" data-no-writing-help lang="fr" spellcheck="true" aria-describedby="w38-final-save">${esc(text)}</textarea>
+          <div class="w38-final-tools"><button type="button" data-w38-reset-final>Text aus meinen bisherigen Angaben neu erstellen</button><span class="w38-final-save" id="w38-final-save" data-w38-save-status>Änderungen werden automatisch gespeichert.</span></div>
+          <p class="w38-final-note">Tipp: Streichen Sie lieber einen Satz, den Sie nicht sicher sprechen können, als zu viel Text in 60 Sekunden zu packen.</p>
+        </div>
+      </div>`;
+
+    if (activities[1]) activities[1].innerHTML = `
+      <header class="activity-head"><div><small>B</small><h2>Anhören und letzte Einzelprobe</h2><p>Hören Sie Ihren bearbeiteten Text an. Sprechen Sie ihn danach selbst und schauen Sie immer weniger auf den Bildschirm.</p></div></header>
+      <div class="activity-body">
+        ${voicePanel()}
+        <div class="learning-toolbar"><button type="button" class="primary-btn" data-timer="60" data-timer-target="cue60">60 Sekunden starten</button><strong id="cue60" class="timer-display">1:00</strong><button type="button" class="secondary-btn" data-stop-timer>Timer stoppen</button></div>
+        <ol class="learning-steps"><li>Text einmal anhören und schwierige Stellen markieren oder vereinfachen.</li><li>Text einmal selbst laut lesen.</li><li>Dann 60 Sekunden sprechen und nur noch kurz auf den Text schauen.</li></ol>
+      </div>`;
+
+    const labels = shell.querySelectorAll('.complete-card .completion-checks label span');
+    if (labels[0]) labels[0].textContent = 'Ich habe meinen kompletten Text geprüft und so angepasst, dass er zu mir passt.';
+    if (labels[1]) labels[1].textContent = 'Ich habe den Text angehört und danach selbst laut geübt.';
+    resizeFinalText(shell.querySelector('[data-w38-final-text]'));
+    patchMissionFooter();
   }
 
   function patchPartnerMission() {
@@ -147,7 +230,12 @@
   function patchNavigationFallback() {
     const week = document.querySelector('[data-nav-week]');
     if (week && week.querySelector('option[value="38"]')) week.value = '38';
-    document.querySelector('[data-nav-exercise] option[value="mission-4"]')?.remove();
+    const exercise = document.querySelector('[data-nav-exercise]');
+    exercise?.querySelector('option[value="mission-4"]')?.remove();
+    const six = exercise?.querySelector('option[value="mission-6"]');
+    const seven = exercise?.querySelector('option[value="mission-7"]');
+    if (six) six.textContent = '6 · Mon texte final';
+    if (seven) seven.textContent = '7 · Répéter à deux';
   }
 
   function decorateStart() {
@@ -201,6 +289,15 @@
       const isDone = !!s?.missionDone?.[id];
       const isLast = id === last;
       card.classList.toggle('is-w38-last', isLast);
+      if (id === 6) {
+        const h3 = card.querySelector('h3');
+        const p = card.querySelector('p');
+        const meta = card.querySelectorAll('.mission-meta span');
+        if (h3) h3.textContent = 'Mon texte final';
+        if (p) p.textContent = 'Kompletten Text prüfen, direkt bearbeiten, anhören und für die Aufnahme üben.';
+        if (meta?.[0]) meta[0].textContent = '15–20 Min.';
+        if (meta?.[1]) meta[1].textContent = 'Einzelarbeit';
+      }
       if (id === 7) {
         const h3 = card.querySelector('h3');
         const p = card.querySelector('p');
@@ -243,6 +340,7 @@
     requestAnimationFrame(() => {
       scheduled = false;
       decorateStart();
+      patchFinalTextMission();
       patchPartnerMission();
       patchMissionFooter();
       patchNavigationFallback();
@@ -256,10 +354,33 @@
       openLast();
       return;
     }
+    const reset = event.target.closest('[data-w38-reset-final]');
+    if (reset) {
+      event.preventDefault();
+      const textarea = document.querySelector('[data-w38-final-text]');
+      const generated = generatedFinalText();
+      if (textarea && generated) {
+        if (textarea.value.trim() !== generated.trim() && !window.confirm('Ihre bisherigen Änderungen am Text werden durch die Angaben aus den Übungen ersetzt. Fortfahren?')) return;
+        textarea.value = generated;
+        textarea.dispatchEvent(new Event('input', {bubbles:true}));
+        const status = document.querySelector('[data-w38-save-status]');
+        if (status) status.textContent = 'Text aus Ihren bisherigen Angaben neu erstellt und gespeichert.';
+        resizeFinalText(textarea);
+      }
+      return;
+    }
     if (event.target.closest('[data-go="start"]')) setTimeout(schedule, 0);
   }, true);
 
+  document.addEventListener('input', event => {
+    if (!event.target.matches('[data-w38-final-text]')) return;
+    resizeFinalText(event.target);
+    const status = document.querySelector('[data-w38-save-status]');
+    if (status) status.textContent = 'Änderung gespeichert.';
+  }, true);
+
   window.addEventListener('storage', event => { if (event.key === STORAGE_KEY) schedule(); });
+  window.addEventListener('franz-card-upgrade-ready', schedule);
   window.addEventListener('franz-cloud-state-applied', schedule);
 
   function start() {
