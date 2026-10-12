@@ -1,7 +1,13 @@
-const CACHE = 'franz-lernatelier-v0-22-5-w38-print-back-text';
+const CACHE = 'franz-lernatelier-v0-23-0-w42';
 const FILES = [
   './',
   './index.html',
+  './assets/week42-data.js?v=20261012-42',
+  './assets/week42.js?v=20261012-42',
+  './assets/week42.css?v=20261012-42',
+  './assets/retour.jpg',
+  './data/modules.js?v=20261012-42',
+  './module/woche-42/index.html',
   './assets/app.css',
   './assets/atelier.css?v=20260909-ux14',
   './assets/atelier-navigation.js?v=20260909-ux14',
@@ -46,7 +52,7 @@ const FILES = [
 
 self.addEventListener('install', event => event.waitUntil(
   caches.open(CACHE)
-    .then(cache => cache.addAll(FILES))
+    .then(cache => Promise.all(FILES.map(file => cache.add(file).catch(() => null))))
     .then(() => self.skipWaiting())
 ));
 
@@ -87,8 +93,9 @@ async function networkFirst(request){
 
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  if(event.request.method !== 'GET' || url.pathname.startsWith('/api/')) return;
+  if(event.request.method !== 'GET' || url.pathname.startsWith('/api/') || url.pathname.startsWith('/lehrperson/')) return;
   if(url.origin !== self.location.origin) return;
   const isInterface = event.request.mode === 'navigate' || /\.(?:html|css|js)$/.test(url.pathname);
   event.respondWith(isInterface ? networkFirst(event.request) : cacheFirst(event.request));
 });
+

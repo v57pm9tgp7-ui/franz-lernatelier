@@ -38,7 +38,7 @@
     let last = saved.last || null, previous = saved.previous || null;
     let trainingReturn = saved.trainingReturn || null;
     const available = config.missions.map(m => Number(m.id));
-    const nextWeek = config.week === 36 ? 37 : config.week === 37 ? 38 : null;
+    const nextWeek = config.week === 36 ? 37 : config.week === 37 ? 38 : config.week === 38 ? 42 : null;
     const valid = route => route === config.overview || route === 'start' || route === 'training' || /^mission-\d+$/.test(route || '') && available.includes(Number(route.split('-')[1]));
     const fragment = decodeURIComponent(location.hash.slice(1));
     const requested = fragment.split('/')[0];
@@ -72,7 +72,7 @@
       const before = isMission && index > 0 ? sequence[index-1] : null;
       const after = isMission && index < sequence.length-1 ? sequence[index+1] : null;
       const resume = isTraining ? trainingReturn || last : !isMission ? last : null;
-      const weekOptions = [36,37,38].map(week => `<option value="${week}" ${config.week===week?'selected':''}>Woche ${week}</option>`).join('');
+      const weekOptions = [36,37,38,42].map(week => `<option value="${week}" ${config.week===week?'selected':''}>Woche ${week}</option>`).join('');
       bar.innerHTML = `<div class="atelier-path"><a href="../../index.html#weeks">Wochen</a><span aria-hidden="true">/</span><button type="button" data-nav-route="${config.overview}">Woche ${config.week}</button><span aria-hidden="true">/</span><strong aria-current="page">${esc(isMission ? 'Übung '+id : title(current))}</strong></div>
         <div class="atelier-controls"><label class="atelier-picker"><span class="sr-only">Woche wählen</span><select data-nav-week>${weekOptions}</select></label>
         <label class="atelier-picker atelier-exercise"><span class="sr-only">Übung wählen</span><select data-nav-exercise><option value="${config.overview}" ${!isMission?'selected':''}>${isTraining?'Training · Übung wählen':'Alle Übungen'}</option>${config.missions.map(m=>`<option value="mission-${m.id}" ${m.id===id?'selected':''}>${m.id} · ${esc(m.title)}</option>`).join('')}</select></label>
@@ -153,3 +153,4 @@
   }
   window.FranzNavigation={create,snapshot,restore,rememberTraining(target,label){write('franzTrainingOrigin_v1',{target,place:{...snapshot(null),label}});},restoreIncoming(){const place=read('franzReturnPlace_v1',null);if(place&&new URL(place.url,location.href).pathname===location.pathname){try{sessionStorage.removeItem('franzReturnPlace_v1');}catch{}restore(place);return true;}return false;}};
 })();
+

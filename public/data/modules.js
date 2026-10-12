@@ -56,7 +56,7 @@ window.FRANZ_MODULES = [
     title:'Je continue',subtitle:'Qui suis-je ? · weiterarbeiten',
     description:'Sie führen sieben Übungen aus Woche 37 weiter. Übung 4 wird diese Woche ausgelassen.',
     homeLead:'Woche 38 führt Ihren Lernstand aus Woche 37 weiter. Sie sehen sieben bekannte Übungen; Übung 4 ist bewusst nicht mehr dabei.',
-    status:'current',continuationOf:'woche-37-2026',href:'module/woche-38/index.html',
+    status:'previous',continuationOf:'woche-37-2026',href:'module/woche-38/index.html',
     duration:'Weiterarbeit · individuell',missions:7,storageKey:'franzoesischLernatelierW37_v1',
     sharedProgressWith:'woche-37-2026',
     facts:['7 Übungen aus Woche 37','Übung 4 ausgelassen','Stand aus Woche 37 übernommen'],
@@ -64,6 +64,20 @@ window.FRANZ_MODULES = [
     visual:{number:'38',phraseA:'Je continue.',phraseB:'À mon rythme.'},
     heroLogo:'assets/logo-se-presenter-christoph.png',
     levels:FRANZ_LEVELS_37,missionList:FRANZ_MISSIONS_38,training:FRANZ_TRAINING_37
+  }
+  ,{
+    id:'woche-42-2026',week:42,schoolYear:'2026/27',topicId:'retour-2026',
+    title:'De retour',subtitle:'Une petite histoire qui compte',
+    description:'Lernkontrolle aus Woche 38, drei Hörgeschichten, ein Interview und eine kurze Sprachaufnahme.',
+    homeLead:'Sie erzählen von einem kleinen Erlebnis und fragen gezielt nach. Die Präsentation führt Sie durch die Doppellektion.',
+    status:'current',href:'module/woche-42/index.html',duration:'90 Minuten',missions:8,
+    storageKey:'franzoesischLernatelierW42_v1',
+    facts:['90 Minuten','8 klare Schritte','Lernkontrolle und Sprachaufnahme'],
+    tags:['Hören','Sprechen','Interagieren','Vergangenheit'],
+    visual:{number:'42',phraseA:'De retour.',phraseB:'Et toi ?'},heroLogo:'assets/retour.jpg',
+    levels:FRANZ_LEVELS_37,
+    missionList:[{"id": 1, "title": "Lernkontrolle", "description": "Den angekündigten Wortschatz aus Woche 38 auf Papier zeigen", "time": "12 Min.", "form": "Einzelarbeit", "label": "Bekannter Wortschatz", "symbol": "1"}, {"id": 2, "title": "Retour à deux", "description": "Wieder ins Gespräch kommen und die Rollen tauschen", "time": "4 Min.", "form": "Partnerarbeit", "label": "A fragt, B antwortet", "symbol": "2"}, {"id": 3, "title": "Trois messages", "description": "Drei kleine Erlebnisse verstehen und Belege finden", "time": "9 Min.", "form": "Einzelarbeit", "label": "Hören und verstehen", "symbol": "3"}, {"id": 4, "title": "Le labo des phrases", "description": "Über Vergangenes sprechen und typische Fehler verbessern", "time": "9 Min.", "form": "Einzelarbeit", "label": "Sprache entdecken", "symbol": "4"}, {"id": 5, "title": "Mon moment", "description": "Eine kurze Geschichte mit passenden Satzbausteinen schreiben", "time": "7 Min.", "form": "Einzelarbeit", "label": "Eigener Sprechtext", "symbol": "5"}, {"id": 6, "title": "L’interview", "description": "Fragen stellen, reagieren und wirklich nachfragen", "time": "11 Min.", "form": "Partnerarbeit", "label": "Zwei Rollen, zwei Runden", "symbol": "6"}, {"id": 7, "title": "La capsule", "description": "Feedback nutzen, 60 bis 75 Sekunden sprechen und die Aufnahme prüfen", "time": "22 Min.", "form": "EA und PA", "label": "Überarbeiten und sprechen", "symbol": "7"}, {"id": 8, "title": "Bilan", "description": "Neues selbst anwenden und den nächsten Lernschritt festlegen", "time": "8 Min.", "form": "Einzelarbeit", "label": "Transfer und Lernpass", "symbol": "8"}],
+    training:FRANZ_TRAINING_37
   }
 ];
 
@@ -85,6 +99,8 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
       heroVisual.appendChild(logo);
     }
   }
+  const existingLogo = document.querySelector('.week-hero-logo');
+  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===42?'De retour':'Se présenter'; }
   const visualNumber = document.querySelector('.visual-number');
   if (visualNumber) visualNumber.textContent = current.visual?.number || current.week;
   const cardA = document.querySelector('.speech-card.card-a');
@@ -219,3 +235,4 @@ if (document.readyState === 'loading') {
     ? document.addEventListener('DOMContentLoaded', startTeacherLink, {once:true})
     : startTeacherLink();
 })();
+
