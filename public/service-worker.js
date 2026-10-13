@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-25-1-w43test28';
+const CACHE = 'franz-lernatelier-v0-26-w43proben';
 const FILES = [
   './',
   './index.html',
@@ -14,6 +14,15 @@ const FILES = [
   './module/woche-42/Carnet de parole Woche 42.pdf',
   './module/woche-42/carnet.html',
   './module/woche-42/Prüfungsstoff Woche 43 28 Einträge.pdf',
+  './module/woche-42/proben/index.html',
+  './module/woche-42/proben/loesungen.html',
+  './module/woche-42/proben/proben.css',
+  './module/woche-42/proben/Probelernkontrolle 1 ausfüllbar.pdf',
+  './module/woche-42/proben/Lösungen Probelernkontrolle 1.pdf',
+  './module/woche-42/proben/Probelernkontrolle 2 ausfüllbar.pdf',
+  './module/woche-42/proben/Lösungen Probelernkontrolle 2.pdf',
+  './module/woche-42/proben/Probelernkontrolle 3 ausfüllbar.pdf',
+  './module/woche-42/proben/Lösungen Probelernkontrolle 3.pdf',
   './data/topic-vocabulary.js',
   './assets/app.css',
   './assets/atelier.css?v=20260909-ux14',
