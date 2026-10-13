@@ -4,31 +4,35 @@ window.FRANZ42_DATA={
  "week": 42,
  "agenda": [
   [
-   "0–5",
-   "Prüfungs-Kompass: Was verlangt Woche 43?"
+   "0–10",
+   "Mündlicher Einstieg: Drei kurze Gesprächsrunden mit Partnerwechsel"
   ],
   [
-   "5–12",
-   "Standortcheck (sechs Schreibaufgaben)"
+   "10–15",
+   "Pflicht 1: Prüfungsstoff für Woche 43 verstehen"
   ],
   [
-   "12–35",
-   "Zwei Lernziele trainieren (selbst gewählte Reihenfolge)"
+   "15–22",
+   "Pflicht 2: Standortcheck ohne Hilfsmittel"
   ],
   [
-   "35–83",
-   "Wahlaufträge und weitere Lernzieltrainings"
+   "22–40",
+   "Pflicht 3: Zwei Lernziele trainieren"
   ],
   [
-   "83–90",
-   "Schlusscheck und Lernplan für Woche 43"
+   "40–82",
+   "Wahlbereich: Eigene Aufgaben zusammenstellen"
+  ],
+  [
+   "82–90",
+   "Pflicht 4: Schlusscheck und Lernplan"
   ]
  ],
  "missions": [
   {
    "id": 1,
-   "title": "Prüfungs-Kompass",
-   "description": "Vorbereitung auf den Wortschatztest in Woche 43",
+   "title": "Prüfungsstoff kennenlernen",
+   "description": "28 verbindliche Einträge und alle sechs Lernziele verstehen",
    "time": "5 Min.",
    "form": "Einzelarbeit",
    "label": "Pflicht · Orientierung"
