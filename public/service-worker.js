@@ -1,14 +1,17 @@
-const CACHE = 'franz-lernatelier-v0-23-1-w42final';
+const CACHE = 'franz-lernatelier-v0-24-0-w42self';
 const FILES = [
   './',
   './index.html',
-  './assets/week42-data.js?v=20261013-final',
-  './assets/week42.js?v=20261013-final',
-  './assets/week42.css?v=20261013-final',
+  './assets/week42-data.js?v=20261013-self',
+  './assets/week42-goals.js?v=20261013-self',
+  './assets/week42-coach.js?v=20261013-self',
+  './assets/week42.js?v=20261013-self',
+  './assets/week42.css?v=20261013-self',
   './assets/retour.jpg',
-  './data/modules.js?v=20261013-final',
+  './data/modules.js?v=20261013-self',
   './module/woche-42/index.html',
   './module/woche-42/Carnet de parole Woche 42.pdf',
+  './module/woche-42/carnet.html',
   './data/topic-vocabulary.js',
   './assets/app.css',
   './assets/atelier.css?v=20260909-ux14',
