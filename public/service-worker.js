@@ -1,12 +1,13 @@
-const CACHE = 'franz-lernatelier-v0-24-0-w42self';
+const CACHE = 'franz-lernatelier-v0-24-1-w42friendly';
 const FILES = [
   './',
   './index.html',
   './assets/week42-data.js?v=20261013-self',
   './assets/week42-goals.js?v=20261013-self',
-  './assets/week42-coach.js?v=20261013-self',
-  './assets/week42.js?v=20261013-self',
+  './assets/week42-coach.js?v=20261013-friendly1',
+  './assets/week42.js?v=20261013-friendly1',
   './assets/week42.css?v=20261013-self',
+  './assets/week42-ux.css?v=20261013-friendly1',
   './assets/retour.jpg',
   './data/modules.js?v=20261013-self',
   './module/woche-42/index.html',
