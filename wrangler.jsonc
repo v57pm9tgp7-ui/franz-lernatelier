@@ -7,7 +7,12 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": true
+    "run_worker_first": [
+      "/api/*",
+      "/lehrperson/api/teacher/*",
+      "/module/woche-36",
+      "/module/woche-36/*"
+    ]
   },
   "d1_databases": [
     {
