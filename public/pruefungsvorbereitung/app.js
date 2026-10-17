@@ -115,7 +115,7 @@ function judge(candidate,correct,variants=[]){
 let raw=String(candidate||"").trim();if(!raw)return {ok:false,near:false};
 let checks=[correct,...variants];for(let a of checks){if(normalize(raw)===normalize(a))return {ok:true,near:spelling(raw)!==spelling(a) || raw.replace(/[’]/g,"'")!==a.replace(/[’]/g,"'")}} 
 let got=spelling(raw).split(" "),target=checks.map(v=>spelling(v).split(" "));
-for(let want of target){if(got.length!==want.length)continue;let corrections=0;let ok=want.every((w,i)=>{if(w===got[i])return true;if(w.length<5||got[i].length<4||w.slice(0,2)!==got[i].slice(0,2)||dist(w,got[i])!==1)return false;corrections++;return true});if(ok&&corrections<=2)return {ok:true,near:true}}
+for(let want of target){if(got.length!==want.length)continue;let corrections=0;let ok=want.every((w,i)=>{if(w===got[i])return true;if(w==="que"&&["qu","qe","qeu"].includes(got[i])){corrections++;return true}if(w.length<5||got[i].length<4||w.slice(0,2)!==got[i].slice(0,2)||dist(w,got[i])!==1)return false;corrections++;return true});if(ok&&corrections<=2)return {ok:true,near:true}}
 return {ok:false,near:false}
 }
 function wordRec(id){let w=VOC[id];return {id:"v-"+id,goal:w.goal,type:"write",prompt:w.de,meta:"Schreiben Sie die französische Wendung aus dem Gedächtnis.",correct:w.fr,variants:w.variants,explain:"So steht die Wendung auf der verbindlichen Liste.",hint:"Lesen Sie die deutsche Bedeutung langsam. Versuchen Sie die französische Form zuerst ohne Hilfe."}}
