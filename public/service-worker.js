@@ -1,7 +1,10 @@
-const CACHE = 'franz-lernatelier-v0-28-w42plan80';
+const CACHE = 'franz-lernatelier-v0-29-pruefungsvorbereitung';
 const FILES = [
   './',
   './index.html',
+  './pruefungsvorbereitung/index.html',
+  './pruefungsvorbereitung/app.css?v=1',
+  './pruefungsvorbereitung/app.js?v=1',
   './assets/week42-data.js?v=20261013-w43fix28',
   './assets/week42-goals.js?v=20261013-w43fix28',
   './assets/week42-coach.js?v=20261013-plan80',
