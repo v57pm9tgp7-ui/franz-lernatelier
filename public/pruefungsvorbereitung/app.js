@@ -83,7 +83,26 @@ const VOC=[
 ["mais","aber",6,[]],
 ["et","und",6,[]]
 ].map((x,id)=>({id,fr:x[0],de:x[1],goal:x[2],variants:x[3]}));
-const COPY=JSON.stringify(VOC);
+const MOCK_CONTEXT=[
+["Sie fragen «Quels sont tes loisirs ?» und hören «J’habite à Berne.» Was passt hier NICHT?",["Die Antwort handelt vom Wohnort statt von Freizeit.","Die Antwort nennt eine Freizeitbeschäftigung.","Die Frage ist nach dem Alter."],0,"«Loisirs» bedeutet Freizeit. «J’habite» nennt den Wohnort."],
+["Ein Profil lautet: «Je m’appelle Mila. Je suis à la BFF. Je parle allemand.» Was wissen wir NOCH NICHT?",["Die Schule","Die Sprache","Den Wohnort"],2,"Der Wohnort wird im kurzen Profil nicht genannt."],
+["Eine Bewerberin schreibt «Je m’intéresse au métier de …». Was ist damit sicher ausgesagt?",["Sie hat bereits eine Lehrstelle.","Sie interessiert sich für diesen Beruf.","Sie hat sicher schon eine Schnupperlehre gemacht."],1,"Interesse ist keine Zusage für eine Lehrstelle."],
+["«J’ai observé les enfants.» und «J’ai aidé à préparer le matériel.» Welcher Satz nennt das MITHELFEN?",["Der erste Satz","Der zweite Satz","Beide Sätze"],1,"«J’ai aidé à» sagt ausdrücklich, dass die Person mitgeholfen hat."],
+["Eine Person ist «fiable». Woran können andere das erkennen?",["Sie hält Abmachungen ein.","Sie wartet besonders lange.","Sie kontrolliert nur die Rechtschreibung."],0,"Zuverlässigkeit zeigt sich daran, dass Abmachungen eingehalten werden."],
+["«Je voudrais devenir … ___ je voudrais aider les gens.» Welches Wort gibt den GRUND an?",["mais","et","parce que"],2,"«parce que» bedeutet weil und leitet den Grund ein."]
+];
+const MOCK_OPEN=[
+{prompt:"Sie sprechen mit einer neuen Mitschülerin. Fragen Sie auf Französisch nach ihren Hobbys und den Sprachen, die sie spricht. Schreiben Sie zwei Fragen.",sample:"Quels sont tes loisirs ? Quelles langues parles-tu ?",criteria:["Es stehen zwei unterschiedliche Fragen da.","Eine Frage betrifft die Freizeit, die andere die Sprachen.","Die Fragen sind verständlich formuliert."]},
+{prompt:"Sie schreiben einen kurzen Steckbrief über sich. Schreiben Sie je einen französischen Satz zu Ihrem Namen, Ihrem Wohnort und Ihrer Sprache.",sample:"Je m’appelle Nina. J’habite à Berne. Je parle allemand.",criteria:["Drei persönliche Informationen sind genannt.","Name, Wohnort und Sprache kommen vor.","Die Sätze sind verständlich."]},
+{prompt:"Sie erklären einer Kollegin Ihren zukünftigen Wunschberuf. Schreiben Sie Ihren Berufswunsch und einen passenden Grund. Verwenden Sie «parce que».",sample:"Je voudrais devenir cuisinier parce que j’aime cuisiner.",criteria:["Ein Berufswunsch ist formuliert.","Ein nachvollziehbarer Grund ist genannt.","Die Verbindung mit «parce que» ist passend."]},
+{prompt:"Sie berichten von einer Schnupperlehre. Schreiben Sie zwei Sätze: einen über die Schnupperlehre selbst und einen darüber, was Sie beobachtet haben.",sample:"J’ai fait un stage. J’ai observé les enfants.",criteria:["Die Schnupperlehre wird erwähnt.","Eine eigene Beobachtung wird beschrieben.","Die beiden Sätze sind verständlich."]},
+{prompt:"Im Vorstellungsgespräch möchten Sie positiv über sich sprechen. Nennen Sie zwei persönliche Stärken und sagen Sie in einem weiteren Satz, dass Sie gut im Team arbeiten.",sample:"Je suis fiable et soigneuse. Je travaille bien en équipe.",criteria:["Zwei passende Stärken sind genannt.","Die Zusammenarbeit im Team wird beschrieben.","Die französischen Sätze sind verständlich."]},
+{prompt:"Sie sprechen über sich und möchten die andere Person einbeziehen. Schreiben Sie eine kurze Aussage mit «et», eine Begründung mit «parce que» und eine passende Rückfrage.",sample:"Je suis fiable et patiente. Je voudrais aider les gens parce que j’aime aider. Et toi ?",criteria:["«et» verbindet zwei passende Elemente.","«parce que» drückt einen Grund aus.","Eine Rückfrage passt zum Gespräch."]}
+];
+function mockScene(goal){const x=MOCK_CONTEXT[goal-1];return{id:"simc-"+goal,goal,type:"choice",prompt:x[0],meta:"Wählen Sie eine Antwort.",options:x[1],correct:x[2],explain:x[3],hint:"Überlegen Sie, welche Information tatsächlich genannt wird."}}
+function mockFree(goal){const x=MOCK_OPEN[goal-1];return{id:"simf-"+goal,goal,type:"open",prompt:x.prompt,meta:"Antworten Sie selbstständig auf Französisch.",correct:x.sample,criteria:x.criteria,hint:"Formulieren Sie kurze, verständliche Sätze.",explain:"Eine mögliche Lösung:"}}
+
+
 const DEFAULT={version:1,done:{},wrong:{},seen:{},recalls:{},sessions:{},simCount:0,simHistory:[],font:false};
 function read(){try{let d=JSON.parse(localStorage.getItem(KEY)||"null");return d&&d.version===1?{...DEFAULT,...d}:structuredClone(DEFAULT)}catch{return JSON.parse(JSON.stringify(DEFAULT))}}
 let state=read(),screen="start",queue=[],idx=0,attempts=0,feedback=null,selection=null,orderChoice=[],typed="",simAnswers={},simStarted=0,simResults=null,reviewSet=false;
@@ -111,8 +130,8 @@ function mixed(){const pool=THEMES.flatMap(m=>[scenario(m.id,3),scenario(m.id,4)
 function simulation(){
 const pools=[[1,2,3,4],[8,9,10,11],[14,15],[17,19],[21,22],[24,25]];const seed=state.simCount+1;
 let ids=pools.flatMap((pool,k)=>shuffle(pool,seed+k).slice(0,2));
-let ch=THEMES.map((m,k)=>scenario(m.id,(seed+k+1)%5));
-let op=THEMES.map(m=>openTask(m.id));
+let ch=THEMES.map(m=>mockScene(m.id));
+let op=THEMES.map(m=>mockFree(m.id));
 return {questions:[...ids.map(wordRec),...ch,...op],types:["write","choice","open"]};
 }
 function progress(){
@@ -140,7 +159,7 @@ let p=progress();return `<section class="hero"><span class="kicker">PRÜFUNGSVOR
 function introGoal(goal){
 const m=goalById(goal);return `<section class="surface mint"><span class="eyebrow">Bevor Sie starten</span><h2>Das müssen Sie können</h2><p>${esc(m.lead)}</p><div class="note"><b>Merken Sie sich:</b><p>${esc(m.tip)}</p></div><p class="small muted">Beispiel (nicht dieselbe Aufgabe wie in der Prüfung)</p><p class="fr-text">${esc(m.example)}</p></section>`}
 function getSession(key,make){let old=state.sessions[key];if(old?.items?.length)return old;let items=make().map(q=>q.id);state.sessions[key]={items,step:0};save();return state.sessions[key]}
-function questionsById(id){if(id.startsWith("v-"))return wordRec(+id.slice(2));if(id.startsWith("m-"))return wordMeaning(+id.slice(2));if(id.startsWith("s-")){let a=id.split("-");return scenario(+a[1],+a[2])}if(id.startsWith("o-"))return arrange(+id.slice(2));if(id.startsWith("f-"))return openTask(+id.slice(2));return null}
+function questionsById(id){if(id.startsWith("v-"))return wordRec(+id.slice(2));if(id.startsWith("m-"))return wordMeaning(+id.slice(2));if(id.startsWith("s-")){let a=id.split("-");return scenario(+a[1],+a[2])}if(id.startsWith("o-"))return arrange(+id.slice(2));if(id.startsWith("f-"))return openTask(+id.slice(2));if(id.startsWith("simc-"))return mockScene(+id.slice(5));if(id.startsWith("simf-"))return mockFree(+id.slice(5));return null}
 function renderGoal(goal){let m=goalById(goal);if(!m)return dashboard();let session=getSession("g"+goal,()=>training(goal));let list=session.items.map(questionsById).filter(Boolean);let n=training(goal).filter(q=>state.done[q.id]?.ok).length;return headline("LERNZIEL "+goal,m.title,m.subtitle)+introGoal(goal)+`<section class="surface"><div class="phasebar"><div><span class="eyebrow">12 kleine Übungsschritte</span><h2>Jetzt wirklich üben</h2></div><b>${n}/12 sicher</b></div><div class="progress"><span style="width:${Math.round(n/12*100)}%"></span></div><p class="muted small">Sie dürfen Hilfen öffnen und Antworten verbessern. Nach einer falschen Antwort erhalten Sie eine gezielte Erklärung.</p><div id="exercise"></div></section><section class="surface sm"><h3>Wenn Sie fertig sind</h3><p>Schliessen Sie diese Runde ab, wiederholen Sie Unsicheres am nächsten Tag und versuchen Sie die Generalprobe erst danach.</p><div class="actions">${routeButton("ziel-"+(goal%6+1),"Nächstes Lernziel")}${routeButton("wiederholen","Nochmals üben")}</div></section>`}
 function renderCheck(){return headline("STARTCHECK · CA. 8 MINUTEN","Was klappt schon?","Ohne Lernnote. Sie erkennen, welche Wendungen und Situationen Sie noch üben sollten.")+`<section class="surface"><p>Versuchen Sie jede Antwort zuerst ohne Hilfe. Sie erhalten direkt eine Rückmeldung. Das ist ein Training und keine benotete Prüfung.</p><div id="exercise"></div></section>`}
 function renderMix(){let p=progress();return headline("FEHLERTRAINER","Nochmals üben, bis es sitzt.","Fehler sind eine nützliche Information: Hier lernen Sie gezielt weiter, statt bekannte Aufgaben unnötig oft zu wiederholen.")+`<section class="surface"><h2>${p.uncertain?"Ihre noch offenen Aufgaben":"Ihr Wiederholungstraining"}</h2><p>${p.uncertain?`Sie haben ${p.uncertain} noch nicht sicher gelöste Aufgaben. Bearbeiten Sie diese nochmals.`:"Im Moment haben Sie keine offenen Fehler. Üben Sie gemischt, um die Wendungen aktiv abzurufen."}</p><div class="actions"><button class="btn primary" data-action="review-start">${p.uncertain?"Fehler gezielt trainieren":"Gemischte Runde starten"}</button>${routeButton("woerter","28 Wendungen wiederholen")}</div><div id="exercise"></div></section>`}
