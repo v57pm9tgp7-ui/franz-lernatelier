@@ -109,8 +109,8 @@ function training(goal){let m=goalById(goal);let ids=m.v;const q=[scenario(goal,
 function diagnostic(){return THEMES.flatMap((m,k)=>[scenario(m.id,(k+2)%5),wordRec(m.v[Math.min(k%m.v.length,m.v.length-1)])])}
 function mixed(){const pool=THEMES.flatMap(m=>[scenario(m.id,3),scenario(m.id,4),wordRec(m.v[0]),wordRec(m.v[m.v.length-1]),arrange(m.id)]);return shuffle(pool,Date.now()%99991).slice(0,12)}
 function simulation(){
-const used=[1,2,3,4,8,9,10,11,14,15,17,19,21,22,24,25];const seed=state.simCount+1;
-let ids=shuffle(used,seed).slice(0,12);
+const pools=[[1,2,3,4],[8,9,10,11],[14,15],[17,19],[21,22],[24,25]];const seed=state.simCount+1;
+let ids=pools.flatMap((pool,k)=>shuffle(pool,seed+k).slice(0,2));
 let ch=THEMES.map((m,k)=>scenario(m.id,(seed+k+1)%5));
 let op=THEMES.map(m=>openTask(m.id));
 return {questions:[...ids.map(wordRec),...ch,...op],types:["write","choice","open"]};
