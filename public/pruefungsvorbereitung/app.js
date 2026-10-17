@@ -174,7 +174,7 @@ mount.innerHTML=`<div style="margin-top:22px">${content}</div>`;if(q.type==="cho
 function begin(items){queue=items;idx=0;attempts=0;feedback=null;typed="";selection=null;orderChoice=[];renderExercise()}
 function resetCurrent(){attempts=0;feedback=null;typed="";selection=null;orderChoice=[]}
 function nextQ(){idx++;resetCurrent();renderExercise();$("#exercise")?.scrollIntoView({block:"start",behavior:"smooth"})}
-function mark(q,ok){state.seen[q.id]=(state.seen[q.id]||0)+1;if(ok){state.done[q.id]={ok:true,at:Date.now()};delete state.wrong[q.id]}else{state.wrong[q.id]=true}save()}
+function mark(q,ok,assisted=false){state.seen[q.id]=(state.seen[q.id]||0)+1;if(ok&&!assisted){state.done[q.id]={ok:true,at:Date.now()};delete state.wrong[q.id]}else if(ok&&assisted){state.done[q.id]={ok:false,assisted:true,at:Date.now()};state.wrong[q.id]=true}else{state.wrong[q.id]=true}save()}
 function checkAnswer(){
 let q=currentQ();if(!q||feedback?.final)return;
 if(q.type==="choice"&&selection===null){announce("Wählen Sie zuerst eine Antwort.");return}
@@ -186,7 +186,7 @@ feedback={good:true,final:false,showAnswer:true,title:"Vergleichen und selbst be
 let candidate=q.type==="choice"?selection:q.type==="order"?orderChoice.map(x=>x.v).join(" "):typed;
 let result=q.type==="choice"?{ok:candidate===q.correct,near:false}:judge(candidate,q.correct,q.variants);
 attempts++;
-if(result.ok){mark(q,true);feedback={good:true,final:true,showAnswer:true,title:result.near?"Inhaltlich richtig – Schreibweise ansehen":"Richtig!",text:result.near?"Kleine Unterschiede wie Akzente oder Tippfehler wurden grosszügig berücksichtigt. Merken Sie sich die Schreibweise aus der Lösung.":"Gut! Das passt. Lesen Sie die korrekte Form nochmals aufmerksam."}}
+if(result.ok){const helped=attempts>1;mark(q,true,helped);feedback={good:true,final:true,showAnswer:true,title:helped?"Jetzt richtig – später nochmals ohne Hilfe":result.near?"Inhaltlich richtig – Schreibweise ansehen":"Richtig!",text:helped?"Sie haben die Antwort im zweiten Versuch gefunden. Super! Sie bleibt zur Festigung im Wiederholungstrainer.":result.near?"Kleine Unterschiede wie Akzente oder Tippfehler wurden grosszügig berücksichtigt. Merken Sie sich die Schreibweise aus der Lösung.":"Gut! Das passt. Lesen Sie die korrekte Form nochmals aufmerksam."}}
 else{mark(q,false);feedback={good:false,final:attempts>=2,showAnswer:attempts>=2,title:attempts>=2?"Hier lohnt sich nochmals Üben":"Noch nicht ganz",text:attempts>=2?"Schauen Sie sich die Lösung an. Diese Aufgabe erscheint im Fehlertrainer.":"Sie dürfen es nochmals versuchen. Öffnen Sie die Hilfe und denken Sie an die Bedeutung."}}
 renderExercise()
 }
