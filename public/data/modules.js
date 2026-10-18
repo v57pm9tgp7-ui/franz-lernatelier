@@ -70,7 +70,7 @@ window.FRANZ_MODULES = [
     title:'De retour',subtitle:'Une petite histoire qui compte',
     description:'Pflicht und Wahl: sechs Lernziele und viele Trainings zur schriftlichen Lernkontrolle in Woche 43.',
     homeLead:'Lernkontrolle in Woche 43: Trainieren Sie gezielt und gestalten Sie Ihre Lektion mit Pflicht- und Wahlangeboten.',
-    status:'current',href:'module/woche-42/index.html',duration:'90 Minuten',missions:8,
+    status:'previous',href:'module/woche-42/index.html',duration:'90 Minuten',missions:8,
     storageKey:'franzoesischLernatelierW42_v1',
     facts:['90 Minuten','Pflicht + Wahl','Lernkontrolle Woche 43'],
     tags:['Testvorbereitung','Wortschatz','Selbstgesteuert','Wahl'],
@@ -78,9 +78,32 @@ window.FRANZ_MODULES = [
     levels:FRANZ_LEVELS_37,
     missionList:[{"id": 1, "title": "Prüfungs-Kompass", "description": "Lernkontrolle Woche 43 verstehen und gezielt vorbereiten", "time": "5 Min.", "form": "Einzelarbeit", "label": "Bekannter Wortschatz", "symbol": "1"}, {"id": 2, "title": "Retour à deux", "description": "Wieder ins Gespräch kommen und die Rollen tauschen", "time": "4 Min.", "form": "Partnerarbeit", "label": "A fragt, B antwortet", "symbol": "2"}, {"id": 3, "title": "Trois messages", "description": "Drei kleine Erlebnisse verstehen und Belege finden", "time": "9 Min.", "form": "Einzelarbeit", "label": "Hören und verstehen", "symbol": "3"}, {"id": 4, "title": "Le labo des phrases", "description": "Über Vergangenes sprechen und typische Fehler verbessern", "time": "9 Min.", "form": "Einzelarbeit", "label": "Sprache entdecken", "symbol": "4"}, {"id": 5, "title": "Mon moment", "description": "Eine kurze Geschichte mit passenden Satzbausteinen schreiben", "time": "7 Min.", "form": "Einzelarbeit", "label": "Eigener Sprechtext", "symbol": "5"}, {"id": 6, "title": "L’interview", "description": "Fragen stellen, reagieren und wirklich nachfragen", "time": "11 Min.", "form": "Partnerarbeit", "label": "Zwei Rollen, zwei Runden", "symbol": "6"}, {"id": 7, "title": "La capsule", "description": "Feedback nutzen, 60 bis 75 Sekunden sprechen und die Aufnahme prüfen", "time": "22 Min.", "form": "EA und PA", "label": "Überarbeiten und sprechen", "symbol": "7"}, {"id": 8, "title": "Bilan", "description": "Neues selbst anwenden und den nächsten Lernschritt festlegen", "time": "8 Min.", "form": "Einzelarbeit", "label": "Transfer und Lernpass", "symbol": "8"}],
     training:FRANZ_TRAINING_37
+  },{
+    id:'woche-43-2026',week:43,schoolYear:'2026/27',topicId:'verbes-opinion-2026',
+    title:'Les 10 verbes',subtitle:'Donner son opinion',
+    description:'Nach der Lernkontrolle selbständig weiterarbeiten: zehn wichtige Verben im Présent und Meinungen mit Begründung.',
+    homeLead:'Test fertig? Beginnen Sie in Ruhe und allein mit Woche 43. Verben kennenlernen, üben und die eigene Meinung begründen.',
+    status:'current',href:'module/woche-43/index.html',duration:'2 Lektionen mit Test und Sprechphasen',missions:4,
+    storageKey:'franzoesischLernatelierW43_v1',
+    facts:['Nach dem Test selbständig','Zehn Verben im Présent','Meinungen mit parce que'],
+    tags:['Neues Thema','Selbständig','Sprechen','Alltag & Beruf'],
+    visual:{number:'43',phraseA:'Je pense que…',phraseB:'Parce que…'},
+    heroLogo:'assets/week43-mark.svg',
+    levels:FRANZ_LEVELS_37,
+    missionList:[
+      {id:1,title:'Die 10 Verben kennenlernen',description:'Konjugation und Bedeutung mit Beispielen ansehen',time:'5–10 Min.',form:'Einzelarbeit',symbol:'1'},
+      {id:2,title:'Verben üben',description:'Zehn kurze Sätze mit unmittelbarem Feedback',time:'10 Min.',form:'Einzelarbeit',symbol:'2'},
+      {id:3,title:'Meinung sagen und begründen',description:'Satzanfänge entdecken und eine eigene Meinung zusammensetzen',time:'10–15 Min.',form:'Einzelarbeit',symbol:'3'},
+      {id:4,title:'Anwenden und prüfen',description:'Entscheidungen aus Schule und Schnupperlehre',time:'10 Min.',form:'Einzelarbeit',symbol:'4'}
+    ],
+    training:[
+      {id:'cards',title:'Zehn Verben',subtitle:'Présent',description:'Die Formen der zehn wichtigen Verben ansehen und anwenden.',icon:'cards',color:'sky',time:'5–10 Min.'},
+      {id:'reaction',title:'Meine Meinung',subtitle:'Je pense que…',description:'Meinung und Grund zu Alltag und Beruf zusammenstellen.',icon:'bolt',color:'mint',time:'5–10 Min.'},
+      {id:'expert',title:'Transfer',subtitle:'Anwenden',description:'Entscheidungen verstehen, Formen prüfen und eigene Gründe geben.',icon:'mic',color:'violet',time:'10 Min.'}
+    ]
   }
 ];
-
+ 
 // Kleine Anpassungen der bestehenden Startseite an die jeweils aktuelle Woche.
 window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
   const current = window.FRANZ_MODULES.find(module => module.status === 'current');
