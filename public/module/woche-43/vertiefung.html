@@ -47,7 +47,7 @@
 <script>
 (function(){
 'use strict';
-var key='franzW43Vertiefung2026_v1',state={answers:{},checks:{},texts:{},tab:'start'};
+var key='franzW43Vertiefung2026_v2',state={answers:{},checks:{},texts:{},tab:'start'};
 try{var stored=JSON.parse(localStorage.getItem(key)||'{}');state=Object.assign(state,stored);state.answers=state.answers||{};state.checks=state.checks||{};state.texts=state.texts||{};}catch(e){}
 var forms=[
 ['être','sein',['suis','es','est','sommes','êtes','sont']],
@@ -64,7 +64,7 @@ var forms=[
 var subjects=['je / j’','tu','il / elle','nous','vous','ils / elles'];
 function $(s){return document.querySelector(s);}
 function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}}
-function q(id,stem,opts,correct,explain){return{id:id,stem:stem,opts:opts,correct:correct,explain:explain};}
+function q(id,stem,opts,correct,explain){var m=id.match(/\d+$/),n=m?Number(m[0]):0,shift=(n*7+Math.floor(n/2)+id.length)%opts.length;return{id:id,stem:stem,opts:opts.slice(shift).concat(opts.slice(0,shift)),correct:(correct-shift+opts.length)%opts.length,explain:explain};}
 var groups={A3:[],A4:[],A5:[],A6:[],C2:[],B4:[],B5:[],B6:[],Final:[]};
 var a3=[['Je ___ à la BFF.',0,0],['Nous ___ une bonne idée.',1,3],['Elle ___ du sport.',2,2],['Vous ___ au centre-ville.',3,4],['Ils ___ de Genève.',4,5],['Tu ___ la musique ?',5,1],['Nous ___ au basket.',6,3],['Je ___ ma veste.',7,0],['Elle ___ une photo.',8,2],['Tu ___ apprendre ce métier.',9,1],['Elles ___ du piano.',6,5],['Nous ___ à neuf heures.',4,3],['Vous ___ en équipe.',0,4],['Il ___ son sac dans l’armoire.',7,2],['Je ___ le train pour Berne.',8,0]];
 function distract(vi,pi){var correct=forms[vi][2][pi],options=[correct];var f=forms[vi][2].filter(function(x){return x!==correct;});var second=f[(pi+2)%f.length];if(second&&options.indexOf(second)<0)options.push(second);var more=['est','sont','avons','faites','vas','venez','veux','mettons','prenons','aimez','jouons','faisons','vont'];for(var i=0;i<more.length&&options.length<3;i++){if(options.indexOf(more[i])<0)options.push(more[i]);}return options;}
