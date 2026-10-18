@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 650" role="img" aria-labelledby="title desc">
+<title id="title">Les dix verbes · Donner son opinion</title><desc id="desc">Franz Lernatelier Woche 43 mit Verben und Meinungsäusserungen</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0e3c63"/><stop offset="1" stop-color="#186783"/></linearGradient><linearGradient id="card" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#f2f8fb"/></linearGradient></defs>
+<rect x="0" y="0" width="820" height="650" rx="38" fill="url(#bg)"/>
+<circle cx="725" cy="87" r="108" fill="#ffffff" opacity=".055"/><circle cx="746" cy="585" r="160" fill="#88b9ce" opacity=".11"/>
+<rect x="46" y="46" width="142" height="45" rx="20" fill="#f4b44f"/><text x="117" y="76" text-anchor="middle" font-family="Bahnschrift,Arial,sans-serif" font-size="21" font-weight="800" fill="#163856">WOCHE 43</text>
+<text x="50" y="180" font-family="Bahnschrift,Arial,sans-serif" fill="#d6ebf4" font-size="31" font-weight="600">LES DIX</text><text x="50" y="252" font-family="Bahnschrift,Arial,sans-serif" fill="white" font-size="78" font-weight="800">VERBES</text>
+<rect x="46" y="294" width="730" height="118" rx="22" fill="url(#card)"/>
+<circle cx="98" cy="353" r="27" fill="#e5f3f5"/><text x="98" y="362" font-family="Arial,sans-serif" font-size="27" text-anchor="middle" fill="#146477">?</text>
+<text x="147" y="346" font-family="Bahnschrift,Arial,sans-serif" font-size="35" font-weight="750" fill="#143d5a">Je pense que…</text><text x="147" y="383" font-family="Bahnschrift,Arial,sans-serif" font-size="26" fill="#286782">parce que…</text>
+<text x="50" y="477" font-family="Bahnschrift,Arial,sans-serif" font-size="25" fill="#e0f0f5">être · avoir · faire · aller · venir</text>
+<text x="50" y="520" font-family="Bahnschrift,Arial,sans-serif" font-size="25" fill="#e0f0f5">aimer · jouer · mettre · prendre · vouloir</text>
+<rect x="46" y="567" width="728" height="2" fill="#b5d5dd" opacity=".4"/>
+<text x="50" y="613" font-family="Bahnschrift,Arial,sans-serif" font-size="21" font-weight="700" fill="#d2eaf3">FRANZ LERNATELIER · FRANZÖSISCH</text>
+</svg>
