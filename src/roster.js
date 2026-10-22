@@ -1,6 +1,6 @@
 // Kurslisten Französisch · Stand 15.09.2026
 // Gruppenbezeichnungen im Lernatelier: GS1CD und GS1AF.
-// Achtung: Die hochgeladene zweite Kursliste selbst ist mit GS1B + GS1F beschriftet.
+// Anzeige für die zweite Kursgruppe: GS1BF; der technische Gruppenwert GS1AF bleibt wegen bestehender Daten erhalten.
 export const COURSE_GROUPS = {
   "GS1CD": {
     "id": "GS1CD",
@@ -60,12 +60,6 @@ export const COURSE_GROUPS = {
         "lastName": "Liebenberg",
         "firstName": "Vivien",
         "email": "vivien.liebenberg@stud.bffbern.ch"
-      },
-      {
-        "classCode": "GS1C",
-        "lastName": "Lochmatter",
-        "firstName": "Yara",
-        "email": "yara.lochmatter@stud.bffbern.ch"
       },
       {
         "classCode": "GS1C",
