@@ -28,7 +28,7 @@ function renderTabs(){
   $('#vocabularyPanel').hidden=tab!=='vocabulary';
 }
 function renderGroupHeader(){
-  $$('[data-group]').forEach(btn=>btn.classList.toggle('is-active',btn.dataset.group===groupId));
+  $('[data-group]').forEach(btn=>{btn.classList.toggle('is-active',btn.dataset.group===groupId);const g=roster?.groups?.find(x=>x.id===btn.dataset.group);const count=btn.querySelector('span');if(count&&g)count.textContent=g.count+' Lernende';});
   const group=activeGroup();
   $('#sourceNote').textContent=group ? `${group.label}: ${group.sourceLabel} · ${group.count} Lernende` : '';
   const classes=[...new Set((group?.students||[]).map(s=>s.classCode))];
