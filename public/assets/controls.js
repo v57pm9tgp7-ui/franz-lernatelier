@@ -17,6 +17,7 @@ const state={groups:[],groupId:'GS1CD',view:'overview',events:[],inactive:new Se
   chosen:{attendance:null,homework:null,test:null},filters:{attendance:'all',homework:'all',test:'all'},
   searches:{attendance:'',homework:'',test:''},editing:null,requestCount:0};
 let toastTimer;
+const markQueues=new Map();
 function toast(message){const node=$('#controlsToast');node.textContent=message;node.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove('show'),3300);}
 function connection(text){$('#syncState').textContent=text;}
 function saving(start){state.requestCount+=start?1:-1;connection(state.requestCount?'Speichern …':'Online gespeichert');}
@@ -104,12 +105,15 @@ function renderMatrix(){
  if(!days.length){$('#attendanceMatrix').innerHTML='<div class="empty-state">Sobald Sie den ersten Kurstag erfassen, erscheint hier die Wochenübersicht.</div>';return;}
  let html='<table class="matrix"><thead><tr><th>Lernende</th>';
  days.forEach(e=>html+='<th title="'+h(niceDate(e.date))+'">'+niceDate(e.date,true)+'</th>');
- html+='</tr></thead><tbody>';
+ html+='<th title="Alle erfassten Kurstage">Da</th><th title="Alle erfassten Kurstage">Fehlt</th><th title="Alle erfassten Kurstage">Versp.</th><th title="Alle erfassten Kurstage">Entsch.</th></tr></thead><tbody>';
  list.forEach(s=>{
   html+='<tr><td><strong>'+h(s.firstName+' '+s.lastName)+'</strong><span class="person-sub">'+h(s.classCode)+'</span></td>';
   days.forEach(e=>{const st=statusOf(e,s);
    html+='<td><span class="matrix-chip is-'+h(st)+'" title="'+h(niceDate(e.date)+' · '+labelFor('attendance',st))+'">'+h(shortStatus[st]||'–')+'</span></td>';
-  });html+='</tr>';
+  });
+  const totals=eventsOf('attendance').reduce((acc,e)=>{const st=statusOf(e,s);acc[st]=(acc[st]||0)+1;return acc;},{});
+  for(const st of ['present','absent','late','excused'])html+='<td><strong>'+(totals[st]||0)+'</strong></td>';
+  html+='</tr>';
  });
  html+='</tbody></table>';
  $('#attendanceMatrix').innerHTML=html;
@@ -185,9 +189,13 @@ async function saveMark(kind,email,status,note){
  const original={...mark(e,{email})};
  e.marks[email]={status,note};
  renderKind(kind);renderOverview();saving(true);
- try{await api('/lehrperson/api/teacher/controls/mark',{method:'PUT',body:JSON.stringify({groupId:state.groupId,id:e.id,email,status,note})});}
- catch(err){e.marks[email]=original;renderKind(kind);renderOverview();connection('Speicherfehler');toast('Nicht gespeichert: '+err.message);}
- finally{saving(false);}
+ const key=e.id+':'+email;
+ const previous=markQueues.get(key)||Promise.resolve();
+ const operation=previous.catch(()=>{}).then(()=>api('/lehrperson/api/teacher/controls/mark',{method:'PUT',body:JSON.stringify({groupId:e.groupId,id:e.id,email,status,note})}));
+ markQueues.set(key,operation);
+ try{await operation;}
+ catch(err){if(mark(e,{email}).status===status&&mark(e,{email}).note===note){e.marks[email]=original;renderKind(kind);renderOverview();}connection('Speicherfehler');toast('Nicht gespeichert: '+err.message);}
+ finally{if(markQueues.get(key)===operation)markQueues.delete(key);saving(false);}
 }
 async function saveBulk(kind,status){
  const e=selectedEvent(kind);if(!e)return;
