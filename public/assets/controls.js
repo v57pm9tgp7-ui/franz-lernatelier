@@ -245,6 +245,159 @@ function exportData(asJson){
  const csv='\uFEFF'+rows.map(row=>row.map(sanitize).join(';')).join('\r\n');
  download(name+'.csv',csv,'text/csv;charset=utf-8');
 }
+
+function norm(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('de-CH').replace(/[^a-z0-9]/g,'');}
+function csvRecords(csv){
+ const rows=[];let row=[],cell='',quoted=false;
+ for(let i=0;i<csv.length;i++){
+  const ch=csv[i];
+  if(ch==='"'){if(quoted&&csv[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}
+  else if(ch===';'&&!quoted){row.push(cell);cell='';}
+  else if((ch==='\n'||ch==='\r')&&!quoted){if(ch==='\r'&&csv[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell='';}
+  else cell+=ch;
+ }
+ if(cell||row.length){row.push(cell);rows.push(row);}
+ return rows;
+}
+function importDate(date){
+ const value=String(date||'').trim();
+ if(/^\d{4}-\d{2}-\d{2}$/.test(value))return value;
+ const m=value.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+ return m?m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0'):null;
+}
+function importStatus(value){
+ const v=String(value||'').trim().toLocaleLowerCase('de-CH');
+ return ({'da':'present','anwesend':'present','present':'present','absent':'absent','fehlt':'absent','abwesend':'absent',
+  'verspätet':'late','late':'late','entschuldigt':'excused','excused':'excused',
+  'erledigt':'done','geschrieben':'done','done':'done','teilweise':'partial','partial':'partial',
+  'missing':'missing','nachholen':'makeup','makeup':'makeup','offen':'open','ungeklärt':'open','open':'open'})[v]||'open';
+}
+function fromCsv(text){
+ const rows=csvRecords(text.replace(/^\uFEFF/,''));
+ if(rows.length<2)throw new Error('Keine CSV-Daten gefunden.');
+ const headers=rows.shift().map(v=>norm(v)),get=(r,key)=>r[headers.indexOf(norm(key))]||'';
+ if(!headers.includes('nachname')||!headers.includes('datum'))throw new Error('Das CSV-Format wird nicht erkannt.');
+ const groups=new Map();
+ for(const row of rows){
+  const date=importDate(get(row,'Datum')),cls=get(row,'Klasse');
+  const groupId=['GS1B','GS1F'].includes(cls)?'GS1AF':(['GS1C','GS1D'].includes(cls)?'GS1CD':null);
+  if(!date||!groupId)continue;
+  const group=groups.get(groupId)||{groupId,events:[]};groups.set(groupId,group);
+  const kind=({hausaufgabe:'homework',lernkotrolle:'test',lernkontrolle:'test'})[get(row,'Art').toLocaleLowerCase('de-CH')]||'attendance';
+  const title=get(row,'Titel')||'Unterricht';
+  let event=group.events.find(e=>e.date===date&&e.kind===kind&&e.title===title);
+  if(!event){event={kind,date,title,details:'Aus CSV übernommen',marks:[]};group.events.push(event);}
+  event.marks.push({firstName:get(row,'Vorname'),lastName:get(row,'Nachname'),classCode:cls,
+   status:importStatus(get(row,'Status')),note:get(row,'Notiz')||get(row,'Bemerkung')});
+ }
+ return {groups:[...groups.values()]};
+}
+function fromOldJson(data){
+ if(!Array.isArray(data.people)||!data.days)throw new Error('Das alte Format wird nicht erkannt.');
+ const groups=[{groupId:'GS1AF',events:[]}];
+ Object.entries(data.days).forEach(([date,records])=>{
+  const event={kind:'attendance',title:'Unterricht',date,details:'Aus älterer Absenzenverwaltung übernommen',marks:[]};
+  Object.entries(records||{}).forEach(([id,item])=>{
+   const person=data.people.find(p=>String(p.id)===String(id));
+   if(person)event.marks.push({firstName:person.first,lastName:person.last,classCode:person.group,
+    status:importStatus(item.status),note:item.note||''});
+  });
+  groups[0].events.push(event);
+ });
+ return {groups};
+}
+function singleQuoteArray(raw){
+ // Es wird ausschliesslich ein begrenzter Datenabschnitt als JSON gelesen, kein HTML ausgeführt.
+ return JSON.parse(raw.replace(/'((?:\\'|[^'])*)'/g,(_,v)=>JSON.stringify(v.replace(/\\'/g,"'"))));
+}
+function fromOldHtml(text){
+ if(text.includes('const persons=')){
+  const matched=text.match(/const persons=(\[\[.*?\]\])\.map\(/s),date=text.match(/franz-anwesenheit-(\d{4}-\d{2}-\d{2})/);
+  if(!matched||!date)throw new Error('Diese alte HTML-Kontrolle lässt sich nicht lesen.');
+  const people=singleQuoteArray(matched[1]);
+  return {groups:[{groupId:'GS1CD',events:[{kind:'attendance',date:date[1],title:'Unterricht',
+   details:'Aus alter HTML-Datei: nur Vorbelegungen',marks:people.map(p=>({classCode:p[0],lastName:p[1],firstName:p[2],status:importStatus(p[3]),note:p[4]||''})).filter(m=>m.status!=='open')}]}]};
+ }
+ if(text.includes('const PEOPLE=')){
+  const match=text.match(/const PEOPLE=(\[\[.*?\]\])\.map\(/s);
+  const initial=text.match(/const INITIAL=(\{.*?\});/s);
+  if(!match||!initial)throw new Error('Diese alte HTML-Kontrolle lässt sich nicht lesen.');
+  const people=singleQuoteArray(match[1]).map((p,i)=>({id:String(i+1),first:p[0],last:p[1],group:p[2]}));
+  const initialJson=initial[1].replace(/'((?:\\'|[^'])*)'/g,(_,v)=>JSON.stringify(v.replace(/\\'/g,"'")))
+    .replace(/\b(status|note)\s*:/g,(_,k)=>'"'+k+'":');
+  return fromOldJson({people,days:JSON.parse(initialJson)});
+ }
+ throw new Error('HTML-Format nicht erkannt. Bitte eine alte Absenzenverwaltung auswählen.');
+}
+function normaliseImport(text,fileName){
+ if(/\.csv$/i.test(fileName))return fromCsv(text);
+ if(/\.html?$/i.test(fileName))return fromOldHtml(text);
+ const data=JSON.parse(text);
+ if(data.type==='franz-teacher-legacy-import'&&Array.isArray(data.groups))return data;
+ if(data.type==='franz-teacher-controls'){
+  return {groups:[{groupId:data.group.id,inactiveEmails:data.inactiveEmails||[],
+   events:(data.events||[]).map(e=>({kind:e.kind,date:e.date,title:e.title,details:e.details||'',
+    marks:Object.entries(e.marks||{}).map(([email,m])=>({email,status:m.status,note:m.note||''}))}))}]};
+ }
+ if(Array.isArray(data.people)&&data.days)return fromOldJson(data);
+ throw new Error('Unbekanntes Sicherungsformat.');
+}
+function studentForImport(group,row){
+ if(row.email){
+  const email=String(row.email).toLowerCase();
+  return group.students.find(s=>s.email===email);
+ }
+ return group.students.find(s=>norm(s.firstName)===norm(row.firstName)&&norm(s.lastName)===norm(row.lastName)
+  &&(!row.classCode||s.classCode===row.classCode));
+}
+async function importControls(file){
+ const text=await file.text();
+ const data=normaliseImport(text,file.name);
+ let eventCount=0,markCount=0;
+ for(const group of data.groups||[])for(const event of group.events||[]){
+  eventCount++;markCount+=(event.marks||[]).filter(m=>m.status!=='open').length;
+ }
+ if(!eventCount)throw new Error('Keine Einträge zum Importieren gefunden.');
+ if(eventCount>400||markCount>4000)throw new Error('Die Datei enthält zu viele Einträge für einen einzelnen Import.');
+ const warning=/\.html?$/i.test(file.name)?'\n\nBei HTML-Dateien sind nur die Vorbelegungen enthalten, nicht spätere im Browser gespeicherte Änderungen.':'';
+ if(!confirm(eventCount+' Kurstage/Aufträge und bis zu '+markCount+' Markierungen übernehmen? Bestehende, bereits erfasste Status werden nicht überschrieben.'+warning))return;
+ saving(true);let written=0,skipped=0,created=0;
+ try{
+  for(const importGroup of data.groups||[]){
+   const group=state.groups.find(g=>g.id===importGroup.groupId);
+   if(!group){skipped+=(importGroup.events||[]).length;continue;}
+   const existing=(await api('/lehrperson/api/teacher/controls?group='+encodeURIComponent(group.id))).events||[];
+   for(const incoming of importGroup.events||[]){
+    if(!['attendance','homework','test'].includes(incoming.kind)||!importDate(incoming.date)){skipped++;continue;}
+    const title=String(incoming.title||'Unterricht').slice(0,100),date=importDate(incoming.date);
+    const old=existing.find(e=>e.date===date&&e.kind===incoming.kind&&(incoming.kind==='attendance'||e.title===title));
+    let eventId=old?.id;
+    if(!eventId){
+     const added=await api('/lehrperson/api/teacher/controls',{method:'POST',body:JSON.stringify({groupId:group.id,kind:incoming.kind,date,title,details:String(incoming.details||'').slice(0,350)})});
+     eventId=added.id;created++;
+    }
+    for(const m of incoming.marks||[]){
+     const student=studentForImport(group,m),status=importStatus(m.status);
+     if(!student||status==='open'||!kinds[incoming.kind].some(pair=>pair[0]===status)){skipped++;continue;}
+     if(old&&old.marks?.[student.email]&&old.marks[student.email].status!=='open'){skipped++;continue;}
+     await api('/lehrperson/api/teacher/controls/mark',{method:'PUT',body:JSON.stringify({
+      groupId:group.id,id:eventId,email:student.email,status,note:String(m.note||'').slice(0,300)
+     })});
+     if(old)old.marks[student.email]={status,note:m.note||''};
+     written++;
+    }
+   }
+   for(const email of importGroup.inactiveEmails||[]){
+    if(group.students.some(s=>s.email===email)){
+     await api('/lehrperson/api/teacher/controls/member',{method:'PUT',body:JSON.stringify({groupId:group.id,email,active:false})});
+    }
+   }
+  }
+  await fetchControls();
+  toast(created+' neue Einträge, '+written+' Markierungen übernommen'+(skipped?' · '+skipped+' übersprungen':'')+'.');
+ }finally{saving(false);}
+}
+
 function bind(){
  document.addEventListener('click',ev=>{
   const t=ev.target.closest('button');if(!t)return;
@@ -293,6 +446,12 @@ function bind(){
  $('#exportCsvBtn').onclick=()=>exportData(false);
  $('#exportJsonBtn').onclick=()=>exportData(true);
  $('#printControlsBtn').onclick=()=>window.print();
+ $('#importControlsBtn').onclick=()=>$('#importControlsFile').click();
+ $('#importControlsFile').addEventListener('change',async ev=>{
+  const file=ev.target.files?.[0];if(!file)return;
+  try{await importControls(file);}catch(err){connection('Import fehlgeschlagen');toast('Import nicht abgeschlossen: '+err.message);}
+  finally{ev.target.value='';}
+ });
 }
 async function init(){
  $('#todayLabel').textContent=new Date().toLocaleDateString('de-CH',{weekday:'long',day:'numeric',month:'long'});
