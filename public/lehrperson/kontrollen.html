@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b315f">
+<title>Franz Atelier · Unterrichtskontrollen</title>
+<link rel="stylesheet" href="../assets/teacher.css?v=20261022">
+<link rel="stylesheet" href="../assets/controls.css?v=20261022">
+</head>
+<body>
+<div class="tricolore" aria-hidden="true"><i></i><i></i><i></i></div>
+<header class="teacher-topbar">
+  <a class="teacher-brand" href="index.html"><span class="teacher-mark">FR</span><span><strong>Franz Atelier</strong><small>Lehrpersonenbereich</small></span></a>
+  <div class="control-head-right"><span id="syncState" aria-live="polite">Verbindung wird geprüft …</span><a class="head-link" href="index.html">← Arbeitsstand und Wortschatz</a></div>
+</header>
+<main class="teacher-main control-app">
+  <section class="teacher-hero control-hero">
+    <div><span class="eyebrow">Unterricht organisieren</span><h1>Alles im Blick.</h1>
+      <p>Anwesenheit, Hausaufgaben und Lernkontrollen – schnell eintragen und über die Wochen nachverfolgen.</p></div>
+    <div class="hero-side"><span class="hero-side-label">Heute</span><strong id="todayLabel">–</strong><small>Änderungen werden in der Schuldatenbank gespeichert.</small></div>
+  </section>
+
+  <section class="control-course" aria-label="Französischkurs wählen">
+    <div class="control-course-title">Französischkurs</div>
+    <div id="courseButtons" class="control-course-buttons"></div>
+    <p id="courseInfo" class="control-subtle">Kursliste wird geladen …</p>
+  </section>
+
+  <nav id="controlTabs" class="control-tabs" aria-label="Unterrichtskontrollen">
+    <button type="button" data-view="overview" class="selected">Übersicht</button>
+    <button type="button" data-view="attendance">Anwesenheit</button>
+    <button type="button" data-view="homework">Hausaufgaben</button>
+    <button type="button" data-view="test">Lernkontrollen</button>
+    <button type="button" data-view="roster">Kursliste</button>
+  </nav>
+
+  <section id="overviewView" class="control-view">
+    <div class="control-heading"><div><span class="eyebrow">Kursüberblick</span><h2>Was ist noch offen?</h2><p>Alle Angaben beziehen sich auf den ausgewählten Französischkurs.</p></div><button type="button" class="control-btn" id="refreshBtn">Aktualisieren ↻</button></div>
+    <div id="summaryMetrics" class="control-metrics" aria-live="polite"></div>
+    <div class="control-duo">
+      <section class="control-card">
+        <div class="mini-head"><div><h3>Nacharbeiten</h3><p>Fehlende Hausaufgaben und nachzuholende Lernkontrollen</p></div></div>
+        <div id="followups" class="followup-list"></div>
+      </section>
+      <section class="control-card">
+        <div class="mini-head"><div><h3>Zuletzt erfasst</h3><p>Die jüngsten Kurstage und Aufträge</p></div></div>
+        <div id="recentEvents" class="recent-list"></div>
+      </section>
+    </div>
+    <section class="control-card">
+      <div class="mini-head"><div><h3>Anwesenheit der vergangenen Wochen</h3><p>Die letzten zwölf erfassten Kurstage. Ein Strich bedeutet: noch nicht eingetragen.</p></div><button type="button" class="control-btn" data-nav="attendance">Zu den Kurstagen →</button></div>
+      <div id="attendanceMatrix" class="control-scroll"></div>
+      <div class="legend"><span><i class="legend-dot is-present"></i> Da</span><span><i class="legend-dot is-late"></i> Verspätet</span><span><i class="legend-dot is-absent"></i> Fehlt</span><span><i class="legend-dot is-excused"></i> Entschuldigt</span><span><i class="legend-dot is-open"></i> Offen</span></div>
+    </section>
+  </section>
+
+  <section id="attendanceView" class="control-view" hidden>
+    <div class="control-heading"><div><span class="eyebrow">Erfassung</span><h2>Anwesenheitskontrolle</h2><p>Kurstag wählen, Fehlende markieren, den Rest mit einem Klick als anwesend erfassen.</p></div></div>
+    <div class="control-create-bar"><label>Unterrichtsdatum <input type="date" id="attendanceDate"></label><button type="button" id="openAttendanceBtn" class="primary-button">Kurstag öffnen / anlegen</button><span id="attendanceCreateHelp" class="control-subtle"></span></div>
+    <div id="attendanceEvents" class="event-picker"></div>
+    <div id="attendanceEditor"></div>
+  </section>
+
+  <section id="homeworkView" class="control-view" hidden>
+    <div class="control-heading"><div><span class="eyebrow">Abgaben</span><h2>Hausaufgabenkontrolle</h2><p>Für jeden Auftrag sehen Sie sofort, wer fertig ist, wessen Arbeit teilweise vorliegt und bei wem noch etwas fehlt.</p></div></div>
+    <form id="homeworkCreate" class="control-create-bar">
+      <label>Bezeichnung <input required maxlength="100" name="title" placeholder="z. B. Lernziele 1–6 üben"></label>
+      <label>Abgabetermin <input type="date" required name="date"></label>
+      <label class="long-field">Hinweis (optional) <input name="details" maxlength="350" placeholder="z. B. Aufgaben auf Franz Atelier"></label>
+      <button class="primary-button" type="submit">Hausaufgabe hinzufügen</button>
+    </form>
+    <div id="homeworkEvents" class="event-picker"></div>
+    <div id="homeworkEditor"></div>
+  </section>
+
+  <section id="testView" class="control-view" hidden>
+    <div class="control-heading"><div><span class="eyebrow">Prüfungsorganisation</span><h2>Lernkontrollen</h2><p>Wer hat den Test geschrieben? Wer muss ihn nachholen? Alle Termine auf einen Blick.</p></div></div>
+    <form id="testCreate" class="control-create-bar">
+      <label>Bezeichnung <input required maxlength="100" name="title" placeholder="z. B. Lernkontrolle Woche 44"></label>
+      <label>Prüfungsdatum <input type="date" required name="date"></label>
+      <label class="long-field">Hinweis (optional) <input name="details" maxlength="350" placeholder="z. B. Sprechen und Wortschatz"></label>
+      <button class="primary-button" type="submit">Lernkontrolle hinzufügen</button>
+    </form>
+    <div id="testEvents" class="event-picker"></div>
+    <div id="testEditor"></div>
+  </section>
+
+  <section id="rosterView" class="control-view" hidden>
+    <div class="control-heading"><div><span class="eyebrow">Kurs verwalten</span><h2>Wer gehört zum Französischkurs?</h2><p>Deaktivierte Personen erscheinen nicht bei neuen Kontrollen und werden nicht mitgezählt. Bereits erfasste Einträge bleiben erhalten.</p></div></div>
+    <div class="control-card">
+      <p class="privacy-hint">Die zugrunde liegende Schul-Kursliste wird dadurch nicht verändert. Sie können eine Person jederzeit wieder aktivieren.</p>
+      <div id="rosterEditor" class="roster-editor"></div>
+    </div>
+  </section>
+
+  <footer class="control-footer">
+    <p><strong>Datenschutz:</strong> Die Angaben liegen in der Cloudflare-Datenbank hinter dem Lehrpersonenzugang. Erfassen Sie nur kurze organisatorische Hinweise, keine Diagnosen oder vertraulichen Begründungen. Der Bereich ersetzt nicht das offizielle Schul-Absenzensystem.</p>
+    <div class="footer-actions"><button type="button" id="exportCsvBtn" class="control-btn">CSV für Excel</button><button type="button" id="exportJsonBtn" class="control-btn">Datensicherung (JSON)</button><button type="button" id="printControlsBtn" class="control-btn">Drucken</button></div>
+  </footer>
+</main>
+<div id="controlsToast" class="teacher-toast" role="status" aria-live="polite"></div>
+<script src="../assets/controls.js?v=20261022" defer></script>
+</body></html>
