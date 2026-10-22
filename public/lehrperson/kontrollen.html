@@ -95,8 +95,8 @@
   </section>
 
   <footer class="control-footer">
-    <p><strong>Datenschutz:</strong> Die Angaben liegen in der Cloudflare-Datenbank hinter dem Lehrpersonenzugang. Erfassen Sie nur kurze organisatorische Hinweise, keine Diagnosen oder vertraulichen Begründungen. Der Bereich ersetzt nicht das offizielle Schul-Absenzensystem.</p>
-    <div class="footer-actions"><button type="button" id="exportCsvBtn" class="control-btn">CSV für Excel</button><button type="button" id="exportJsonBtn" class="control-btn">Datensicherung (JSON)</button><button type="button" id="printControlsBtn" class="control-btn">Drucken</button></div>
+    <p><strong>Datenschutz:</strong> Die Angaben liegen in der Cloudflare-Datenbank hinter dem Lehrpersonenzugang. Erfassen Sie nur kurze organisatorische Hinweise, keine Diagnosen oder vertraulichen Begründungen. Der Bereich ersetzt nicht das offizielle Schul-Absenzensystem. Sie können die früheren HTML-Kontrollen sowie JSON- oder CSV-Sicherungen importieren; bei HTML werden nur die Vorbelegungen der Datei erkannt.</p>
+    <div class="footer-actions"><button type="button" id="exportCsvBtn" class="control-btn">CSV für Excel</button><button type="button" id="exportJsonBtn" class="control-btn">Datensicherung (JSON)</button><button type="button" id="importControlsBtn" class="control-btn">Frühere Daten importieren</button><input id="importControlsFile" type="file" accept=".html,.json,.csv,text/html,application/json,text/csv" hidden><button type="button" id="printControlsBtn" class="control-btn">Drucken</button></div>
   </footer>
 </main>
 <div id="controlsToast" class="teacher-toast" role="status" aria-live="polite"></div>
