@@ -518,7 +518,7 @@ const CONTROL_STATUSES = Object.freeze({
 });
 function controlDate(value){
   const v=String(value || '');
-  if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(v) || Number.isNaN(Date.parse(v)) ||
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(v) || Number.isNaN(Date.parse(v)) ||
     new Date(v+'T12:00:00Z').toISOString().slice(0,10)!==v) throw new Error('INVALID_DATE');
   return v;
 }
