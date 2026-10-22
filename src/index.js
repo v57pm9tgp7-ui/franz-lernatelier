@@ -173,6 +173,36 @@ async function ensureSchema(db) {
       updated_at INTEGER NOT NULL,
       updated_by TEXT NOT NULL,
       PRIMARY KEY (topic_id, group_id)
+    )`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS teacher_control_events (
+      id TEXT PRIMARY KEY,
+      group_id TEXT NOT NULL,
+      kind TEXT NOT NULL,
+      title TEXT NOT NULL,
+      event_date TEXT NOT NULL,
+      details TEXT NOT NULL DEFAULT '',
+      created_at INTEGER NOT NULL,
+      updated_at INTEGER NOT NULL,
+      updated_by TEXT NOT NULL
+    )`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_teacher_control_group_date
+      ON teacher_control_events(group_id, event_date DESC)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS teacher_control_marks (
+      event_id TEXT NOT NULL,
+      student_email TEXT NOT NULL,
+      status TEXT NOT NULL,
+      note TEXT NOT NULL DEFAULT '',
+      updated_at INTEGER NOT NULL,
+      updated_by TEXT NOT NULL,
+      PRIMARY KEY(event_id, student_email),
+      FOREIGN KEY(event_id) REFERENCES teacher_control_events(id) ON DELETE CASCADE
+    )`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS teacher_control_members (
+      group_id TEXT NOT NULL,
+      student_email TEXT NOT NULL,
+      active INTEGER NOT NULL DEFAULT 1,
+      updated_at INTEGER NOT NULL,
+      PRIMARY KEY(group_id, student_email)
     )`)
   ]);
 }
@@ -480,6 +510,157 @@ async function apiTeacherDashboard(request, env) {
   });
 }
 
+
+const CONTROL_STATUSES = Object.freeze({
+  attendance: ['open','present','absent','late','excused'],
+  homework: ['open','done','partial','missing','excused'],
+  test: ['open','done','makeup','excused']
+});
+function controlDate(value){
+  const v=String(value || '');
+  if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(v) || Number.isNaN(Date.parse(v)) ||
+    new Date(v+'T12:00:00Z').toISOString().slice(0,10)!==v) throw new Error('INVALID_DATE');
+  return v;
+}
+function controlText(value,max=300){
+  const s=String(value ?? '').trim();
+  if(s.length>max) throw new Error('TEXT_TOO_LONG');
+  return s;
+}
+function controlGroup(groupId){
+  const group=getGroup(String(groupId||''));
+  if(!group) throw new Error('INVALID_GROUP');
+  return group;
+}
+async function findControlEvent(db,id,groupId){
+  return db.prepare('SELECT * FROM teacher_control_events WHERE id = ? AND group_id = ?')
+    .bind(id,groupId).first();
+}
+async function apiTeacherControls(request,env,user){
+  const url=new URL(request.url);
+  if(request.method==='GET'){
+    const group=controlGroup(url.searchParams.get('group'));
+    const data=await env.DB.prepare(`SELECT id,group_id,kind,title,event_date,details,created_at,updated_at
+      FROM teacher_control_events WHERE group_id=?
+      ORDER BY event_date DESC, created_at DESC LIMIT 400`).bind(group.id).all();
+    const events=(data.results||[]).map(row=>({
+      id:row.id,groupId:row.group_id,kind:row.kind,title:row.title,date:row.event_date,
+      details:row.details,createdAt:row.created_at,updatedAt:row.updated_at,marks:{}
+    }));
+    const lookup=new Map(events.map(item=>[item.id,item]));
+    const marks=await env.DB.prepare(`SELECT m.event_id,m.student_email,m.status,m.note
+      FROM teacher_control_marks m JOIN teacher_control_events e ON e.id=m.event_id
+      WHERE e.group_id=? AND e.id IN
+      (SELECT id FROM teacher_control_events WHERE group_id=?
+        ORDER BY event_date DESC,created_at DESC LIMIT 400)`).bind(group.id,group.id).all();
+    for(const m of (marks.results||[])){
+      const event=lookup.get(m.event_id);
+      if(event)event.marks[m.student_email]={status:m.status,note:m.note};
+    }
+    const members=await env.DB.prepare('SELECT student_email FROM teacher_control_members WHERE group_id=? AND active=0')
+      .bind(group.id).all();
+    return json({ok:true,events,inactiveEmails:(members.results||[]).map(row=>row.student_email)});
+  }
+  const body=await readJsonBody(request);
+  const group=controlGroup(body.groupId);
+  if(request.method==='POST'){
+    const kind=controlText(body.kind,24);
+    if(!CONTROL_STATUSES[kind])return json({ok:false,error:'INVALID_KIND'},400);
+    const date=controlDate(body.date),title=controlText(body.title||'Unterricht',100);
+    const details=controlText(body.details,350);
+    if(!title)return json({ok:false,error:'TITLE_REQUIRED'},400);
+    if(kind==='attendance'){
+      const existing=await env.DB.prepare(`SELECT id FROM teacher_control_events
+        WHERE group_id=? AND kind='attendance' AND event_date=? LIMIT 1`).bind(group.id,date).first();
+      if(existing)return json({ok:true,existing:true,id:existing.id});
+    }
+    const id=crypto.randomUUID(),now=Date.now();
+    await env.DB.prepare(`INSERT INTO teacher_control_events
+      (id,group_id,kind,title,event_date,details,created_at,updated_at,updated_by)
+      VALUES(?,?,?,?,?,?,?,?,?)`).bind(id,group.id,kind,title,date,details,now,now,user.email).run();
+    return json({ok:true,id});
+  }
+  const id=String(body.id||'');
+  const event=await findControlEvent(env.DB,id,group.id);
+  if(!event)return json({ok:false,error:'NOT_FOUND'},404);
+  if(request.method==='PUT'){
+    const title=controlText(body.title,100),date=controlDate(body.date),
+      details=controlText(body.details,350);
+    if(!title)return json({ok:false,error:'TITLE_REQUIRED'},400);
+    if(event.kind==='attendance'&&date!==event.event_date){
+      const existing=await env.DB.prepare(`SELECT id FROM teacher_control_events
+        WHERE group_id=? AND kind='attendance' AND event_date=? AND id<>? LIMIT 1`)
+        .bind(group.id,date,id).first();
+      if(existing)return json({ok:false,error:'DATE_ALREADY_EXISTS'},409);
+    }
+    await env.DB.prepare(`UPDATE teacher_control_events SET title=?,event_date=?,details=?,
+      updated_at=?,updated_by=? WHERE id=? AND group_id=?`)
+      .bind(title,date,details,Date.now(),user.email,id,group.id).run();
+    return json({ok:true,id});
+  }
+  if(request.method==='DELETE'){
+    await env.DB.batch([
+      env.DB.prepare('DELETE FROM teacher_control_marks WHERE event_id=?').bind(id),
+      env.DB.prepare('DELETE FROM teacher_control_events WHERE id=? AND group_id=?').bind(id,group.id)
+    ]);
+    return json({ok:true,id});
+  }
+  return json({ok:false,error:'METHOD_NOT_ALLOWED'},405);
+}
+async function apiTeacherControlMark(request,env,user){
+  if(request.method!=='PUT')return json({ok:false,error:'METHOD_NOT_ALLOWED'},405);
+  const body=await readJsonBody(request),group=controlGroup(body.groupId);
+  const event=await findControlEvent(env.DB,String(body.id||''),group.id);
+  if(!event)return json({ok:false,error:'NOT_FOUND'},404);
+  const email=normaliseEmail(body.email);
+  if(!group.students.some(s=>s.email===email))return json({ok:false,error:'INVALID_STUDENT'},400);
+  const status=controlText(body.status,30),note=controlText(body.note,300);
+  if(!CONTROL_STATUSES[event.kind].includes(status))return json({ok:false,error:'INVALID_STATUS'},400);
+  const now=Date.now();
+  await env.DB.prepare(`INSERT INTO teacher_control_marks
+    (event_id,student_email,status,note,updated_at,updated_by)
+    VALUES(?,?,?,?,?,?)
+    ON CONFLICT(event_id,student_email) DO UPDATE SET
+      status=excluded.status,note=excluded.note,
+      updated_at=excluded.updated_at,updated_by=excluded.updated_by`)
+    .bind(event.id,email,status,note,now,user.email).run();
+  return json({ok:true,email,status,note});
+}
+async function apiTeacherControlBulk(request,env,user){
+  if(request.method!=='POST')return json({ok:false,error:'METHOD_NOT_ALLOWED'},405);
+  const body=await readJsonBody(request),group=controlGroup(body.groupId);
+  const event=await findControlEvent(env.DB,String(body.id||''),group.id);
+  if(!event)return json({ok:false,error:'NOT_FOUND'},404);
+  const status=controlText(body.status,30);
+  if(status==='open'||!CONTROL_STATUSES[event.kind].includes(status))
+    return json({ok:false,error:'INVALID_STATUS'},400);
+  if(!Array.isArray(body.emails)||body.emails.length>60)return json({ok:false,error:'INVALID_STUDENTS'},400);
+  const all=new Set(group.students.map(s=>s.email));
+  const emails=[...new Set(body.emails.map(normaliseEmail))];
+  if(emails.some(email=>!all.has(email)))return json({ok:false,error:'INVALID_STUDENT'},400);
+  if(!emails.length)return json({ok:true,count:0});
+  const now=Date.now();
+  const queries=emails.map(email=>env.DB.prepare(`INSERT INTO teacher_control_marks
+    (event_id,student_email,status,note,updated_at,updated_by) VALUES(?,?,?,'',?,?)
+    ON CONFLICT(event_id,student_email) DO UPDATE SET
+      status=excluded.status,updated_at=excluded.updated_at,updated_by=excluded.updated_by
+    WHERE teacher_control_marks.status='open'`).bind(event.id,email,status,now,user.email));
+  await env.DB.batch(queries);
+  return json({ok:true,count:emails.length});
+}
+async function apiTeacherControlMember(request,env){
+  if(request.method!=='PUT')return json({ok:false,error:'METHOD_NOT_ALLOWED'},405);
+  const body=await readJsonBody(request),group=controlGroup(body.groupId);
+  const email=normaliseEmail(body.email);
+  if(!group.students.some(s=>s.email===email)||typeof body.active!=='boolean')
+    return json({ok:false,error:'INVALID_MEMBER'},400);
+  await env.DB.prepare(`INSERT INTO teacher_control_members(group_id,student_email,active,updated_at)
+    VALUES(?,?,?,?) ON CONFLICT(group_id,student_email) DO UPDATE SET
+    active=excluded.active,updated_at=excluded.updated_at`)
+    .bind(group.id,email,body.active?1:0,Date.now()).run();
+  return json({ok:true,email,active:body.active});
+}
+
 async function handleTeacherApi(request, env) {
   // Cloudflare Access schützt den gesamten Pfad /lehrperson/* bereits vor dem Worker.
   // Deshalb gibt es hier bewusst keine zweite, variablenabhängige JWT-Prüfung mehr.
@@ -492,6 +673,10 @@ async function handleTeacherApi(request, env) {
   if (path === '/api/teacher/roster' && request.method === 'GET') return apiTeacherRoster(request, env);
   if (path === '/api/teacher/vocabulary') return apiTeacherVocabulary(request, env, user);
   if (path === '/api/teacher/dashboard' && request.method === 'GET') return apiTeacherDashboard(request, env);
+  if (path === '/api/teacher/controls') return apiTeacherControls(request,env,user);
+  if (path === '/api/teacher/controls/mark') return apiTeacherControlMark(request,env,user);
+  if (path === '/api/teacher/controls/bulk') return apiTeacherControlBulk(request,env,user);
+  if (path === '/api/teacher/controls/member') return apiTeacherControlMember(request,env);
   return json({ok:false, error:'NOT_FOUND'}, 404);
 }
 
