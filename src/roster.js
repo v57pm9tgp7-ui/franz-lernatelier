@@ -125,8 +125,8 @@ export const COURSE_GROUPS = {
   },
   "GS1AF": {
     "id": "GS1AF",
-    "label": "GS1AF",
-    "sourceLabel": "Kursliste GS1B + GS1F",
+    "label": "GS1BF",
+    "sourceLabel": "GS1B + GS1F",
     "students": [
       {
         "classCode": "GS1B",
