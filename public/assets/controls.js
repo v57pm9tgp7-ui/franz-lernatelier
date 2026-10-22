@@ -273,8 +273,9 @@ function importDate(date){
  const m=value.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
  return m?m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0'):null;
 }
-function importStatus(value){
+function importStatus(value,kind='attendance'){
  const v=String(value||'').trim().toLocaleLowerCase('de-CH');
+ if(v==='fehlt'&&kind==='homework')return 'missing';
  return ({'da':'present','anwesend':'present','present':'present','absent':'absent','fehlt':'absent','abwesend':'absent',
   'verspätet':'late','late':'late','entschuldigt':'excused','excused':'excused',
   'erledigt':'done','geschrieben':'done','done':'done','teilweise':'partial','partial':'partial',
@@ -296,7 +297,7 @@ function fromCsv(text){
   let event=group.events.find(e=>e.date===date&&e.kind===kind&&e.title===title);
   if(!event){event={kind,date,title,details:'Aus CSV übernommen',marks:[]};group.events.push(event);}
   event.marks.push({firstName:get(row,'Vorname'),lastName:get(row,'Nachname'),classCode:cls,
-   status:importStatus(get(row,'Status')),note:get(row,'Notiz')||get(row,'Bemerkung')});
+   status:importStatus(get(row,'Status'),kind),note:get(row,'Notiz')||get(row,'Bemerkung')});
  }
  return {groups:[...groups.values()]};
 }
