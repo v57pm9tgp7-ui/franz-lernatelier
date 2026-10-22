@@ -72,9 +72,9 @@ test('UI: Kurstag erstellen, Abwesenheit erfassen, nur Offene gesammelt als Da m
   }
   throw new Error('Unexpected request '+path);
  };
- window.eval(read('public/assets/controls.js'));
- doc.dispatchEvent(new window.Event('DOMContentLoaded'));
  const settle=()=>new Promise(resolve=>setTimeout(resolve,15));
+ await settle();
+ window.eval(read('public/assets/controls.js'));
  await settle();
  assert.match(doc.querySelector('#courseInfo').textContent,/2 von 2 Lernenden/);
  doc.querySelector('[data-view=attendance]').click();
