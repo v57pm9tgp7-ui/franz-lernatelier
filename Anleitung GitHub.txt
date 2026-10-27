@@ -1,0 +1,28 @@
+FRANZATELIER · WOCHE 44 · GITHUB UPDATE
+
+Dieses Paket enthält die 31 neuen oder geänderten Dateien für das bestehende Repository v57pm9tgp7-ui/franz-lernatelier. Es ist ein Updatepaket, keine vollständige Kopie der ganzen Website.
+
+SO SPIELEN SIE DIE DATEIEN EIN
+
+1. ZIP zuerst auf Ihrem Computer entpacken.
+2. Das bestehende GitHub-Repository öffnen und den gewünschten Zielbranch wählen.
+3. Die Ordner public und tests sowie die Datei Woche 44 Hinweise.md aus dem entpackten Paket ins Hauptverzeichnis des Repositorys übernehmen. Die Ordnerstruktur beibehalten.
+4. Dateien mit gleichem Pfad ersetzen. Alle anderen vorhandenen Dateien und früheren Wochen behalten. Den vorhandenen Ordner public nicht vollständig löschen.
+5. Änderungen speichern. Die ZIP selbst nicht als Website-Datei hochladen.
+
+Die Datei Anleitung GitHub.txt dient nur zur Orientierung und muss nicht hochgeladen werden. Es ist kein zusätzlicher übergeordneter Projektordner im Archiv enthalten. Technische Dateinamen und Pfade nicht umbenennen.
+
+STAND
+
+27. Oktober 2026
+Branch: woche-44-unterricht
+Commit: 3d903f9beb4b853cde076f4e6abe56898ce64f6b
+Änderungsentwurf: https://github.com/v57pm9tgp7-ui/franz-lernatelier/pull/9
+
+Dieser Stand ist dort bereits vorbereitet. Das Bereitstellen dieser ZIP veröffentlicht die Änderungen nicht auf franzatelier.com. Beim Einspielen in den produktiven Branch gelten die bestehenden Deployment-Einstellungen des Projekts.
+
+ENTHALTEN
+
+Woche 44, Zahlen 0–100 mit Frankreichformen und Schweizer Varianten, Uhrzeitenübungen, Partnerauftrag und Planprüfung, Sprachhilfen, Differenzierung, Reserve, Hausarbeit, drei Übungsproben und der dauerhafte Verbentrainer. Dazu Lernmaterialien, Rollenkarten und Lösungen als PDF. Die 18 gezielten Funktionstests liegen im Ordner tests.
+
+Unterrichtsablauf und Hinweise zum Ergänzen neuer Verben: Woche 44 Hinweise.md.

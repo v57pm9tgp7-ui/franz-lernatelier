@@ -249,6 +249,7 @@
     event?.preventDefault();
     const module=modules.find(m=>m.id===options.moduleId)||current;
     if(!module)return;
+    if(module.week===44){location.href=options.training ? 'verbentrainer/index.html' : module.href+(options.mission ? '#mission' : '#start');return;}
     if(module.id===current.id)prepareModule(options);
     let fragment='';
     if(options.training){
@@ -365,3 +366,4 @@
 
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
 })();
+
