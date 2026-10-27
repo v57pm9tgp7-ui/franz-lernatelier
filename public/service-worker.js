@@ -1,5 +1,25 @@
-const CACHE = 'franz-lernatelier-v0-29-pruefungsvorbereitung';
+const CACHE = 'franz-lernatelier-v0-30-woche44';
 const FILES = [
+  './module/woche-44/accueil.js',
+  './module/woche-44/assets/Un après midi.jpg',
+  './assets/app.js?v=20261027-44',
+  "./module/woche-44/index.html",
+  "./module/woche-44/style.css",
+  "./module/woche-44/partenaire.html",
+  "./module/woche-44/plan.html",
+  "./module/woche-44/parler.html",
+  "./module/woche-44/nombres.html",
+  "./module/woche-44/heure.html",
+  "./module/woche-44/mini.html",
+  "./module/woche-44/mini.js",
+  "./module/woche-44/mission.js",
+  "./module/woche-44/exercices.js",
+  "./module/woche-44/cartes.html",
+  "./verbentrainer/index.html",
+  "./verbentrainer/data.js",
+  "./verbentrainer/trainer.js",
+  "./data/modules.js?v=20261027-44",
+
   './',
   './index.html',
   './pruefungsvorbereitung/index.html',
@@ -119,4 +139,5 @@ self.addEventListener('fetch', event => {
   const isInterface = event.request.mode === 'navigate' || /\.(?:html|css|js)$/.test(url.pathname);
   event.respondWith(isInterface ? networkFirst(event.request) : cacheFirst(event.request));
 });
+
 
