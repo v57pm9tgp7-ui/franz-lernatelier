@@ -1,4 +1,4 @@
-// Kurslisten Französisch · Stand 15.09.2026
+// Kurslisten Französisch · Stand 27.10.2026
 // Gruppenbezeichnungen im Lernatelier: GS1CD und GS1AF.
 // Anzeige für die zweite Kursgruppe: GS1BF; der technische Gruppenwert GS1AF bleibt wegen bestehender Daten erhalten.
 export const COURSE_GROUPS = {
@@ -56,6 +56,12 @@ export const COURSE_GROUPS = {
         "email": "navly.lehmann@stud.bffbern.ch"
       },
       {
+        "classCode": "GS1C",
+        "lastName": "Lochmatter",
+        "firstName": "Yara",
+        "email": "yara.lochmatter@stud.bffbern.ch"
+      },
+      {
         "classCode": "GS1D",
         "lastName": "Liebenberg",
         "firstName": "Vivien",
@@ -103,18 +109,6 @@ export const COURSE_GROUPS = {
         "firstName": "Elia",
         "email": "elia.scigliano@stud.bffbern.ch"
       },
-      {
-        "classCode": "GS1C",
-        "lastName": "Umeri",
-        "firstName": "Melissa",
-        "email": "melissa.umeri@stud.bffbern.ch"
-      },
-      {
-        "classCode": "GS1D",
-        "lastName": "Wüthrich",
-        "firstName": "Jael",
-        "email": "jael.wuethrich@stud.bffbern.ch"
-      }
     ]
   },
   "GS1AF": {
@@ -133,12 +127,6 @@ export const COURSE_GROUPS = {
         "lastName": "Bigler",
         "firstName": "Nahla Ashley",
         "email": "nahlaashley.bigler@stud.bffbern.ch"
-      },
-      {
-        "classCode": "GS1B",
-        "lastName": "Borchardt",
-        "firstName": "Bennet",
-        "email": "bennet.borchardt@stud.bffbern.ch"
       },
       {
         "classCode": "GS1B",
