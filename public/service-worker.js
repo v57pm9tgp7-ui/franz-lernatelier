@@ -1,5 +1,13 @@
-const CACHE = 'franz-lernatelier-v0-30-woche44';
+const CACHE = 'franz-lernatelier-v0-31-woche44-revision';
 const FILES = [
+  './module/woche-44/material/Französisch Woche 44 Lösungen.pdf',
+  './module/woche-44/material/Französisch Woche 44 Lernmaterialien.pdf',
+  './module/woche-44/material/Französisch Woche 44 Rollenkarten.pdf',
+  './verbentrainer/engine.js',
+  './module/woche-44/assets/BFF.png',
+  './module/woche-44/reserve.html',
+  './module/woche-44/maison.html',
+  './module/woche-44/ui.js',
   './module/woche-44/accueil.js',
   './module/woche-44/assets/Un après midi.jpg',
   './assets/app.js?v=20261027-44',
