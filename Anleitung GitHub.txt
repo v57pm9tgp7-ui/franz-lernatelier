@@ -1,28 +1,15 @@
-FRANZATELIER · WOCHE 44 · GITHUB UPDATE
+FRANZATELIER · GITHUB-UPDATE · 28. OKTOBER 2026
 
-Dieses Paket enthält die 31 neuen oder geänderten Dateien für das bestehende Repository v57pm9tgp7-ui/franz-lernatelier. Es ist ein Updatepaket, keine vollständige Kopie der ganzen Website.
+Dieses Paket ersetzt das vorherige GitHub-Update. Es enthält die Plakat-Überarbeitung und das erweiterte Lerntraining.
 
-SO SPIELEN SIE DIE DATEIEN EIN
+1. ZIP entpacken.
+2. Den Inhalt des Ordners public in den vorhandenen Ordner public des Repositorys übernehmen; gleichnamige Dateien ersetzen. Die übrigen bestehenden Dateien und Wochen beibehalten. Nicht das gesamte Repository durch dieses Teilpaket ersetzen.
+3. scripts, tests und Woche 44 Hinweise.md ebenfalls an die gleichnamigen Stellen übernehmen. „Anleitung GitHub.txt“ muss nicht veröffentlicht werden.
+4. Änderungen im bestehenden GitHub-Repository speichern und über den bisherigen Veröffentlichungsweg freischalten.
+5. Nach der Veröffentlichung prüfen: /verbentrainer/index.html und /module/woche-44/atelier.html. Die Links auf der Woche-44-Seite führen in die neue Übungsauswahl. PDFs unter „PDF und Drucken“ öffnen.
 
-1. ZIP zuerst auf Ihrem Computer entpacken.
-2. Das bestehende GitHub-Repository öffnen und den gewünschten Zielbranch wählen.
-3. Die Ordner public und tests sowie die Datei Woche 44 Hinweise.md aus dem entpackten Paket ins Hauptverzeichnis des Repositorys übernehmen. Die Ordnerstruktur beibehalten.
-4. Dateien mit gleichem Pfad ersetzen. Alle anderen vorhandenen Dateien und früheren Wochen behalten. Den vorhandenen Ordner public nicht vollständig löschen.
-5. Änderungen speichern. Die ZIP selbst nicht als Website-Datei hochladen.
+Neu: persönliche Fehleranalyse; fünf weitere Verbformate; 30-Aufgaben-Testsimulation mit transparenter Note 1–6; acht PDFs; 17 zusätzliche Formate für Zahlen, Uhrzeiten und Meinungen. Lernstand bleibt lokal im jeweiligen Browser. Französische Hörübungen brauchen eine französische Gerätestimme.
 
-Die Datei Anleitung GitHub.txt dient nur zur Orientierung und muss nicht hochgeladen werden. Es ist kein zusätzlicher übergeordneter Projektordner im Archiv enthalten. Technische Dateinamen und Pfade nicht umbenennen.
+Die Testauswahl bleibt bei 15 Verben aus Woche 43/44. Wochen können im Katalog ergänzt werden. Exporthinweise stehen in Woche 44 Hinweise.md.
 
-STAND
-
-27. Oktober 2026
-Branch: woche-44-unterricht
-Commit: 3d903f9beb4b853cde076f4e6abe56898ce64f6b
-Änderungsentwurf: https://github.com/v57pm9tgp7-ui/franz-lernatelier/pull/9
-
-Dieser Stand ist dort bereits vorbereitet. Das Bereitstellen dieser ZIP veröffentlicht die Änderungen nicht auf franzatelier.com. Beim Einspielen in den produktiven Branch gelten die bestehenden Deployment-Einstellungen des Projekts.
-
-ENTHALTEN
-
-Woche 44, Zahlen 0–100 mit Frankreichformen und Schweizer Varianten, Uhrzeitenübungen, Partnerauftrag und Planprüfung, Sprachhilfen, Differenzierung, Reserve, Hausarbeit, drei Übungsproben und der dauerhafte Verbentrainer. Dazu Lernmaterialien, Rollenkarten und Lösungen als PDF. Die 18 gezielten Funktionstests liegen im Ordner tests.
-
-Unterrichtsablauf und Hinweise zum Ergänzen neuer Verben: Woche 44 Hinweise.md.
+Geprüft: 26 automatisierte Tests, Browserabläufe und mobile Ansichten sowie 30 PDF-Seiten. Dieses Paket ist vorbereitet, aber noch nicht live veröffentlicht.

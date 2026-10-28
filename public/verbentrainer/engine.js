@@ -12,9 +12,20 @@ function pool(c,scope='all',mode='mixed',person='all'){
 }
 function expected(q){return q.type==='de-fr'?[q.v.fr]:q.type==='fr-de'?q.v.meanings:[q.v.forms[q.p]];}
 function grade(q,raw){let got=norm(raw);if(q.type==='present'){const rx=[/^(je |j')/,/^tu /,/^(il |elle |on )/,/^nous /,/^vous /,/^(ils |elles )/];if(q.p===0&&/^je [aeioué]/.test(got))return{ok:false,accent:false,answer:expected(q)[0]};got=got.replace(rx[q.p],'');}const vals=expected(q).map(norm),answers=q.type==='fr-de'?got.split(/\s*[/,;]\s*/).filter(Boolean):[got];const ok=answers.length>0&&answers.every(a=>vals.includes(a));return{ok,accent:!ok&&q.type!=='fr-de'&&vals.some(a=>plain(a)===plain(got)),answer:expected(q)[0]};}
-function record(state,id,{ok,help=false,guess=false,repair=false,now=Date.now()}={}){
+function record(state,id,{ok,help=false,guess=false,repair=false,raw=null,source="practice",now=Date.now()}={}){
+ // Transcription is tracked separately: it cannot promote free-recall mastery.
+ if(source==='listen'){
+  state.listening??={};const old=state.listening[id]||{attempts:0,correct:0,wrong:0};
+  const item={...old,attempts:old.attempts+1,correct:old.correct+Number(!!ok),wrong:old.wrong+Number(!ok),last:now};
+  if(!ok&&raw!==null)item.lastWrong=String(raw).slice(0,100);state.listening[id]=item;return item;
+ }
  const old=state.items[id]||{attempts:0,stage:0,due:0,days:[],lapses:0};const item={...old,days:[...(old.days||[])],attempts:old.attempts+1,last:now};
  if(repair){item.repairs=(old.repairs||0)+1;state.items[id]=item;return item;}
+ const m={attempts:0,wrong:0,assisted:0,guessed:0,correct:0,...old.metrics};
+ m.attempts++;if(!ok)m.wrong++;if(help)m.assisted++;if(guess)m.guessed++;if(ok&&!help&&!guess)m.correct++;
+ item.metrics=m;
+ if(!ok&&raw!==null)item.lastWrong={answer:String(raw).slice(0,100),at:now};
+ item.recent=[...(old.recent||[]),{ok:!!ok,help:!!help,guess:!!guess,at:now,source}].slice(-12);
  if(!ok||help||guess){item.stage=0;item.due=now;item.needsWork=true;item.lapses=(old.lapses||0)+1;item.lastProblemDay=day(now);}
  else if(!item.days.includes(day(now))&&item.lastProblemDay!==day(now)&&(!old.due||now>=old.due)){
   item.days.push(day(now));item.days=item.days.slice(-30);item.stage=Math.min(5,(old.stage||0)+1);item.due=now+INTERVALS[item.stage-1]*DAY;item.needsWork=false;

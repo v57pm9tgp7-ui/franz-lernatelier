@@ -1,5 +1,25 @@
-const CACHE = 'franz-lernatelier-v0-31-woche44-revision';
+const CACHE = 'franz-lernatelier-v0-33-lerntraining';
 const FILES = [
+  './module/woche-44/material/Französisch Lerntraining Kurzanleitung.pdf',
+  './verbentrainer/training.css',
+  './verbentrainer/insights.js',
+  './verbentrainer/training.js',
+  './module/woche-44/atelier.html',
+  './module/woche-44/practice-bank.js',
+  './module/woche-44/practice.js',
+  './verbentrainer/pdf/Französisch Verben Woche 44.pdf',
+  './verbentrainer/pdf/Französisch Verben Übungsheft.pdf',
+  './verbentrainer/pdf/Französisch Verben Wochen 43 und 44.pdf',
+  './verbentrainer/pdf/Französisch Verben Woche 43.pdf',
+  './verbentrainer/pdf/Französisch Verben Lösungen.pdf',
+  './module/woche-44/material/Französisch Zahlen Uhrzeiten Meinungen Lösungen.pdf',
+  './module/woche-44/material/Französisch Zahlen Uhrzeiten Meinungen Übungsheft.pdf',
+
+  './module/woche-44/material/Französisch Woche 44 Zahlenkarten.pdf',
+  './module/woche-44/material/Französisch Woche 44 Plakatvorlage A3.pdf',
+  './module/woche-44/material/Französisch Woche 44 Reserve.pdf',
+  './module/woche-44/material/Französisch Woche 44 Lernplan zu Hause.pdf',
+
   './module/woche-44/material/Französisch Woche 44 Lösungen.pdf',
   './module/woche-44/material/Französisch Woche 44 Lernmaterialien.pdf',
   './module/woche-44/material/Französisch Woche 44 Rollenkarten.pdf',
