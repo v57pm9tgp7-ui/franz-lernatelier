@@ -3,7 +3,7 @@ window.VERB_CATALOG = {
   "sets": [
     {
       "id": "test44",
-      "title": "Verbentest Woche 44 · 15 Verben",
+      "title": "Prüfungsstoff Woche 45 · bisherige 15 Verben",
       "verbIds": [
         "être",
         "avoir",
@@ -48,6 +48,17 @@ window.VERB_CATALOG = {
         "dire",
         "voir"
       ]
+    },
+    {
+      "id": "2026W45",
+      "title": "Woche 45 · fünf neue Verben",
+      "verbIds": [
+        "donner",
+        "parler",
+        "finir",
+        "sortir",
+        "écrire"
+      ]
     }
   ],
   "verbs": [
@@ -67,7 +78,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "sein"
       ],
-      "tail": "à Berne."
+      "tail": "à Berne.",
+      "tip": "Lernen Sie die sechs Formen einzeln. Achten Sie besonders auf nous sommes und vous êtes."
     },
     {
       "fr": "avoir",
@@ -85,7 +97,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "haben"
       ],
-      "tail": "trente francs."
+      "tail": "trente francs.",
+      "tip": "Vor ai fällt das e von je weg: j’ai. Vergleichen Sie nous avons und vous avez."
     },
     {
       "fr": "faire",
@@ -104,7 +117,8 @@ window.VERB_CATALOG = {
         "machen",
         "tun"
       ],
-      "tail": "une pause."
+      "tail": "une pause.",
+      "tip": "Achtung bei vous: vous faites. Die Mehrzahl lautet faisons, faites, font."
     },
     {
       "fr": "aller",
@@ -123,7 +137,8 @@ window.VERB_CATALOG = {
         "gehen",
         "fahren"
       ],
-      "tail": "au cinéma."
+      "tail": "au cinéma.",
+      "tip": "Die Stämme wechseln: je vais, nous allons, ils vont."
     },
     {
       "fr": "venir",
@@ -141,7 +156,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "kommen"
       ],
-      "tail": "à treize heures."
+      "tail": "à treize heures.",
+      "tip": "Einzahl mit vien-; nous venons und vous venez; ils viennent mit zwei n."
     },
     {
       "fr": "aimer",
@@ -162,7 +178,8 @@ window.VERB_CATALOG = {
         "gern haben",
         "gernhaben"
       ],
-      "tail": "la musique."
+      "tail": "la musique.",
+      "tip": "Regelmässig auf -er. Vor einem Vokal wird je zu j’: j’aime."
     },
     {
       "fr": "jouer",
@@ -180,7 +197,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "spielen"
       ],
-      "tail": "au mini-golf."
+      "tail": "au mini-golf.",
+      "tip": "Regelmässig auf -er: jou- + e, es, e, ons, ez, ent. Das u bleibt stehen."
     },
     {
       "fr": "mettre",
@@ -201,7 +219,8 @@ window.VERB_CATALOG = {
         "setzen",
         "anziehen"
       ],
-      "tail": "une veste."
+      "tail": "une veste.",
+      "tip": "Einzahl: mets, mets, met. In der Mehrzahl steht mett-: mettons, mettez, mettent."
     },
     {
       "fr": "prendre",
@@ -219,7 +238,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "nehmen"
       ],
-      "tail": "le bus."
+      "tail": "le bus.",
+      "tip": "Nous prenons und vous prenez haben ein n; ils prennent hat zwei n."
     },
     {
       "fr": "vouloir",
@@ -238,7 +258,8 @@ window.VERB_CATALOG = {
         "wollen",
         "möchten"
       ],
-      "tail": "voir une exposition."
+      "tail": "voir une exposition.",
+      "tip": "Je veux, tu veux, il veut. Vergleichen Sie nous voulons und ils veulent."
     },
     {
       "fr": "pouvoir",
@@ -257,7 +278,8 @@ window.VERB_CATALOG = {
         "können",
         "dürfen"
       ],
-      "tail": "venir."
+      "tail": "venir.",
+      "tip": "Möglichkeit oder Erlaubnis: je peux venir. Formen: peux, peux, peut; pouvons, pouvez, peuvent."
     },
     {
       "fr": "devoir",
@@ -276,7 +298,8 @@ window.VERB_CATALOG = {
         "müssen",
         "sollen"
       ],
-      "tail": "changer le plan."
+      "tail": "changer le plan.",
+      "tip": "Einzahl mit doi-: dois, dois, doit. Mehrzahl: devons, devez, doivent."
     },
     {
       "fr": "savoir",
@@ -296,7 +319,8 @@ window.VERB_CATALOG = {
         "können",
         "beherrschen"
       ],
-      "tail": "nager."
+      "tail": "nager.",
+      "tip": "Wissen oder eine erlernte Fähigkeit: je sais nager. Formen: sais, sais, sait; savons, savez, savent."
     },
     {
       "fr": "dire",
@@ -314,7 +338,8 @@ window.VERB_CATALOG = {
       "meanings": [
         "sagen"
       ],
-      "tail": "bonjour."
+      "tail": "bonjour.",
+      "tip": "Achtung bei vous: vous dites, nicht «disez». Sonst: dis, dis, dit; disons, disent."
     },
     {
       "fr": "voir",
@@ -332,7 +357,106 @@ window.VERB_CATALOG = {
       "meanings": [
         "sehen"
       ],
-      "tail": "une exposition."
+      "tail": "une exposition.",
+      "tip": "Nous voyons und vous voyez haben ein y; ils voient hat ein i."
+    },
+    {
+      "id": "donner",
+      "fr": "donner",
+      "de": "geben",
+      "forms": [
+        "donne",
+        "donnes",
+        "donne",
+        "donnons",
+        "donnez",
+        "donnent"
+      ],
+      "tail": "cinquante francs.",
+      "week": 45,
+      "meanings": [
+        "geben"
+      ],
+      "tip": "Regelmässig auf -er: donn- + e, es, e, ons, ez, ent."
+    },
+    {
+      "id": "parler",
+      "fr": "parler",
+      "de": "sprechen",
+      "forms": [
+        "parle",
+        "parles",
+        "parle",
+        "parlons",
+        "parlez",
+        "parlent"
+      ],
+      "tail": "français.",
+      "week": 45,
+      "meanings": [
+        "sprechen"
+      ],
+      "tip": "Regelmässig auf -er: parl- + e, es, e, ons, ez, ent."
+    },
+    {
+      "id": "finir",
+      "fr": "finir",
+      "de": "beenden / fertig machen",
+      "forms": [
+        "finis",
+        "finis",
+        "finit",
+        "finissons",
+        "finissez",
+        "finissent"
+      ],
+      "tail": "le travail.",
+      "week": 45,
+      "meanings": [
+        "beenden",
+        "fertig machen",
+        "fertigmachen"
+      ],
+      "tip": "Bei nous, vous und ils/elles steht finiss-: nous finissons, vous finissez, ils finissent."
+    },
+    {
+      "id": "sortir",
+      "fr": "sortir",
+      "de": "hinausgehen / ausgehen",
+      "forms": [
+        "sors",
+        "sors",
+        "sort",
+        "sortons",
+        "sortez",
+        "sortent"
+      ],
+      "tail": "à dix-sept heures.",
+      "week": 45,
+      "meanings": [
+        "hinausgehen",
+        "ausgehen"
+      ],
+      "tip": "Sortir hat kein -iss-: je sors, nous sortons. Vergleichen Sie: nous finissons."
+    },
+    {
+      "id": "écrire",
+      "fr": "écrire",
+      "de": "schreiben",
+      "forms": [
+        "écris",
+        "écris",
+        "écrit",
+        "écrivons",
+        "écrivez",
+        "écrivent"
+      ],
+      "tail": "un message.",
+      "week": 45,
+      "meanings": [
+        "schreiben"
+      ],
+      "tip": "Einzahl: écris, écris, écrit. Mehrzahl mit écriv-: écrivons, écrivez, écrivent."
     }
   ]
 };

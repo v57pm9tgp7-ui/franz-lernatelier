@@ -6,10 +6,13 @@ const path=require('node:path');
 const root=path.resolve(__dirname,'..');
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 
-test('Woche 38 ist aktuell und übernimmt denselben Lernstand wie Woche 37',()=>{
+test('Woche 38 bleibt verfügbar und übernimmt denselben Lernstand wie Woche 37',()=>{
   const src=read('public/data/modules.js');
   assert.match(src,/id:'woche-38-2026',week:38/);
-  assert.match(src,/status:'current'/);
+  const ctx={window:{addEventListener(){}},document:{readyState:'complete',querySelector(){return {};}}};
+  require('node:vm').runInNewContext(src.split('// Kleine Anpassungen')[0],ctx);
+  assert.equal(ctx.window.FRANZ_MODULES.filter(m=>m.status==='current').length,1);
+  assert.equal(ctx.window.FRANZ_MODULES.find(m=>m.week===38).status,'previous');
   assert.match(src,/sharedProgressWith:'woche-37-2026'/);
   const occurrences=(src.match(/storageKey:'franzoesischLernatelierW37_v1'/g)||[]).length;
   assert.equal(occurrences,2);

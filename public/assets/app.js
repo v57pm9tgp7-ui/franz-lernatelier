@@ -249,6 +249,15 @@
     event?.preventDefault();
     const module=modules.find(m=>m.id===options.moduleId)||current;
     if(!module)return;
+    if(module.week===45){
+      if(module.id===current.id)prepareModule(options);
+      if(options.training){
+        location.href=options.training==='verbs' ? 'verbentrainer/index.html?set=all' : 'module/woche-45/training.html#'+options.training;
+      }else{
+        location.href=module.href+(options.mission?'#mission-'+options.mission:'#start');
+      }
+      return;
+    }
     if(module.week===44){location.href=options.training ? 'verbentrainer/index.html' : module.href+(options.mission ? '#mission' : '#start');return;}
     if(module.id===current.id)prepareModule(options);
     let fragment='';

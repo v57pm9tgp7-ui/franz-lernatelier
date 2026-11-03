@@ -24,12 +24,160 @@ const FRANZ_TRAINING_37 = [{"id":"cards","title":"Cartes","subtitle":"Wortschatz
 window.FRANZ_TOPICS = [{"id":"se-presenter-2026","title":"Se présenter","subtitle":"Qui suis-je ?","weeks":[36,37,38],"active":true,"progressStorageKey":"franzoesischLernatelierW37_v1","description":"Begrüssen, persönliche Angaben machen, Schule und Beruf beschreiben und zunehmend frei sprechen.","assessmentSections":[{"id":"vocabulaire","label":"Vocabulaire","type":"vocabulary","enabled":true,"description":"Wörter, Fragen und Redemittel des ganzen Themas sicher verstehen und auf Französisch abrufen.","vocabulary":[{"id":"cards.0","fr":"Comment tu t’appelles ?","de":"Wie heisst du?","category":"Fragen"},{"id":"cards.1","fr":"Tu habites où ?","de":"Wo wohnst du?","category":"Fragen"},{"id":"cards.2","fr":"Quels sont tes loisirs ?","de":"Was sind deine Hobbys?","category":"Fragen"},{"id":"cards.3","fr":"Quel métier veux-tu apprendre ?","de":"Welchen Beruf möchtest du lernen?","category":"Fragen"},{"id":"cards.4","fr":"Pourquoi ?","de":"Warum?","category":"Fragen"},{"id":"cards.5","fr":"Quelles langues parles-tu ?","de":"Welche Sprachen sprichst du?","category":"Fragen"},{"id":"cards.6","fr":"Et toi ?","de":"Rückfrage: Und du?","category":"Gespräch"},{"id":"cards.7","fr":"Je préfère ne pas répondre.","de":"Ich möchte lieber nicht antworten.","category":"Gespräch"},{"id":"cards.8","fr":"Je m’appelle …","de":"Ich heisse …","category":"Persönliche Angaben"},{"id":"cards.9","fr":"J’ai seize ans.","de":"Ich bin sechzehn Jahre alt.","category":"Persönliche Angaben"},{"id":"cards.10","fr":"J’habite à Berne.","de":"Ich wohne in Bern.","category":"Persönliche Angaben"},{"id":"cards.11","fr":"Dans mon temps libre, …","de":"In meiner Freizeit …","category":"Persönliche Angaben"},{"id":"cards.12","fr":"Je parle allemand.","de":"Ich spreche Deutsch.","category":"Persönliche Angaben"},{"id":"cards.13","fr":"Je suis à la BFF.","de":"Ich bin an der BFF.","category":"Schule"},{"id":"cards.14","fr":"Je voudrais devenir …","de":"Ich möchte … werden.","category":"Beruf"},{"id":"cards.15","fr":"Je m’intéresse au métier de …","de":"Ich interessiere mich für den Beruf …","category":"Beruf"},{"id":"cards.16","fr":"un apprentissage","de":"eine Berufslehre","category":"Beruf"},{"id":"cards.17","fr":"une place d’apprentissage","de":"eine Lehrstelle","category":"Beruf"},{"id":"cards.18","fr":"un stage","de":"eine Schnupperlehre","category":"Schnupperlehre"},{"id":"cards.19","fr":"J’ai fait un stage.","de":"Ich habe eine Schnupperlehre gemacht.","category":"Schnupperlehre"},{"id":"cards.20","fr":"Je n’ai pas encore fait de stage.","de":"Ich habe noch keine Schnupperlehre gemacht.","category":"Schnupperlehre"},{"id":"cards.21","fr":"J’ai aidé à …","de":"Ich habe mitgeholfen, …","category":"Schnupperlehre"},{"id":"cards.22","fr":"J’ai observé …","de":"Ich habe … beobachtet.","category":"Schnupperlehre"},{"id":"cards.23","fr":"Ce qui m’a plu, c’est …","de":"Was mir gefallen hat, ist …","category":"Schnupperlehre"},{"id":"cards.24","fr":"parce que","de":"weil","category":"Verbindungswörter"},{"id":"cards.25","fr":"aussi","de":"auch","category":"Verbindungswörter"},{"id":"cards.26","fr":"mais","de":"aber","category":"Verbindungswörter"},{"id":"cards.27","fr":"surtout","de":"vor allem","category":"Verbindungswörter"},{"id":"cards.28","fr":"souvent","de":"oft","category":"Verbindungswörter"},{"id":"cards.29","fr":"par exemple","de":"zum Beispiel","category":"Verbindungswörter"},{"id":"cards.30","fr":"fiable","de":"zuverlässig","category":"Stärken"},{"id":"cards.31","fr":"patient / patiente","de":"geduldig","category":"Stärken"},{"id":"cards.32","fr":"soigneux / soigneuse","de":"sorgfältig","category":"Stärken"},{"id":"cards.33","fr":"Je travaille bien en équipe.","de":"Ich arbeite gut im Team.","category":"Stärken"},{"id":"cards.34","fr":"aider les gens","de":"Menschen helfen","category":"Beruf"},{"id":"cards.35","fr":"travailler avec mes mains","de":"mit den Händen arbeiten","category":"Beruf"},{"id":"cards.36","fr":"résoudre un problème","de":"ein Problem lösen","category":"Beruf"},{"id":"cards.37","fr":"préparer le matériel","de":"das Material vorbereiten","category":"Schnupperlehre"},{"id":"cards.38","fr":"accueillir les clients","de":"Kundinnen und Kunden begrüssen","category":"Schnupperlehre"},{"id":"cards.39","fr":"vérifier mon travail","de":"meine Arbeit kontrollieren","category":"Stärken"},{"id":"cards.40","fr":"Je veux améliorer mon français.","de":"Ich möchte mein Französisch verbessern.","category":"Lernziel"},{"id":"cards.41","fr":"Merci de m’avoir écouté.","de":"Danke fürs Zuhören.","category":"Schluss"},{"id":"cards.42","fr":"et","de":"und","category":"Verbindungswörter"},{"id":"cards.43","fr":"avec","de":"mit","category":"Verbindungswörter"}]},{"id":"grammaire","label":"Grammaire","type":"grammar","enabled":false},{"id":"communication","label":"Communication","type":"speaking","enabled":false}]}];
 
 window.FRANZ_MODULES = [
+  {
+  "id": "woche-45-2026",
+  "week": 45,
+  "schoolYear": "2026/27",
+  "topicId": "verbes-opinion-2026",
+  "title": "On fait une bonne affaire !",
+  "subtitle": "Marché d’occasion · parler, négocier, progresser",
+  "description": "Preise aushandeln, Uhrzeiten vergleichen und neue Verben lernen. Vier klare Arbeitsbereiche begleiten die gemeinsame Lektion.",
+  "homeLead": "Nach der Lernkontrolle: Zahlen und Uhrzeiten in Ruhe wiederholen. Den Markt beginnen wir gemeinsam, sobald alle abgegeben haben.",
+  "status": "current",
+  "href": "module/woche-45/index.html",
+  "duration": "90 Minuten",
+  "missions": 4,
+  "storageKey": "franzoesischLernatelierW45_v1",
+  "facts": [
+    "Nach dem Test still weiterarbeiten",
+    "Sprechen in wechselnden Rollen",
+    "5 neue + 15 bekannte Verben"
+  ],
+  "tags": [
+    "Sprechen",
+    "Zahlen",
+    "Uhrzeiten",
+    "Verben"
+  ],
+  "visual": {
+    "number": "45",
+    "phraseA": "Ça coûte combien ?",
+    "phraseB": "On se retrouve à quelle heure ?"
+  },
+  "heroLogo": "assets/week45-mark.svg",
+  "levels": [
+    {
+      "id": "support",
+      "label": "Soutien",
+      "range": "A2 mit Hilfe",
+      "symbol": "+",
+      "color": "#237e73",
+      "soft": "#e8f4ef",
+      "note": "Satzanfänge und Beispiele nutzen.",
+      "supportTitle": "Mit Hilfe beginnen",
+      "supportText": "Nutzen Sie die Sprachhilfe und probieren Sie denselben Satz danach ohne Vorlage.",
+      "layers": [
+        "Satzstarter",
+        "Beispiel",
+        "Eigener Versuch"
+      ],
+      "placeholder": "Ça coûte combien ?"
+    },
+    {
+      "id": "standard",
+      "label": "Standard",
+      "range": "A2",
+      "symbol": "●",
+      "color": "#1c698a",
+      "soft": "#f1f6fa",
+      "note": "Selbständig versuchen und gezielt prüfen.",
+      "supportTitle": "Selbständig versuchen",
+      "supportText": "Formulieren Sie zuerst selbst und öffnen Sie Hilfe gezielt.",
+      "layers": [
+        "Eigener Versuch",
+        "Gezielte Hilfe",
+        "Selbstkontrolle"
+      ],
+      "placeholder": "Je vous propose … francs."
+    },
+    {
+      "id": "challenge",
+      "label": "Défi",
+      "range": "A2 vertiefen",
+      "symbol": "↗",
+      "color": "#163955",
+      "soft": "#e8f0f5",
+      "note": "Begründen, nachfragen und frei sprechen.",
+      "supportTitle": "Gespräche vertiefen",
+      "supportText": "Begründen Sie Ihr Angebot und reagieren Sie auf Ihr Gegenüber.",
+      "layers": [
+        "Rückfragen",
+        "Alternativen",
+        "Begründungen"
+      ],
+      "placeholder": "C’est un peu cher parce que …"
+    }
+  ],
+  "missionList": [
+    {
+      "id": 1,
+      "title": "Nach der Lernkontrolle",
+      "description": "In Ruhe bekannte Zahlen und Uhrzeiten wiederholen",
+      "time": "Bis alle fertig sind",
+      "form": "Einzelarbeit",
+      "symbol": "1"
+    },
+    {
+      "id": 2,
+      "title": "Marché d’occasion",
+      "description": "In wechselnden Rollen Preis, Zeit und Ort vereinbaren",
+      "time": "20 Min.",
+      "form": "Dreiergruppen",
+      "symbol": "2"
+    },
+    {
+      "id": 3,
+      "title": "Nos agendas sont différents",
+      "description": "Drei verschiedene Uhrzeiten durch Fragen finden",
+      "time": "12 Min.",
+      "form": "Partnerarbeit",
+      "symbol": "3"
+    },
+    {
+      "id": 4,
+      "title": "Mein Lernatelier",
+      "description": "Verben lernen, Schwerpunkt üben und Lernstand prüfen",
+      "time": "23 Min.",
+      "form": "Einzelarbeit",
+      "symbol": "4"
+    }
+  ],
+  "training": [
+    {
+      "id": "verbs",
+      "title": "Verben",
+      "subtitle": "5 neue + 15 bekannte",
+      "description": "Neue Verben kennenlernen und bisherige Formen wiederholen.",
+      "icon": "cards",
+      "color": "mint",
+      "time": "10 Min."
+    },
+    {
+      "id": "numbers",
+      "title": "Zahlen",
+      "subtitle": "Preise sicher sagen",
+      "description": "Bekannte Zahlen festigen oder bis 1000 weiterlernen.",
+      "icon": "bolt",
+      "color": "coral",
+      "time": "5–8 Min."
+    },
+    {
+      "id": "times",
+      "title": "Uhrzeiten",
+      "subtitle": "Rendez-vous",
+      "description": "Uhrzeiten lesen, schreiben und für Verabredungen nutzen.",
+      "icon": "cards",
+      "color": "sky",
+      "time": "5–8 Min."
+    }
+  ]
+},
   {id:'woche-44-2026',week:44,schoolYear:'2026/27',topicId:'verbes-opinion-2026',
    title:'Un après-midi avec 30 francs',subtitle:'Choisir, parler, décider',
    description:'Zu zweit einen Nachmittagsplan als Plakat gestalten, Entscheidungen begründen und einem anderen Team vorstellen.',
-   homeLead:'Zwei Aktivitäten, ein Snack und 30 Franken pro Person. Sie handeln einen gemeinsamen Plan aus und bereiten den Verbentest in Woche 44 vor.',
-   status:'current',href:'module/woche-44/index.html',duration:'90 Minuten',missions:5,
-   storageKey:'franzW44Poster_v2',facts:['Viel sprechen zu zweit','15 Verben im présent','Verbentest in Woche 44'],
+   homeLead:'Zwei Aktivitäten, ein Snack und 30 Franken pro Person. Sie handeln einen gemeinsamen Plan aus und bereiten den Verbentest in Woche 45 vor.',
+   status:'previous',href:'module/woche-44/index.html',duration:'90 Minuten',missions:5,
+   storageKey:'franzW44Poster_v2',facts:['Viel sprechen zu zweit','15 Verben im présent','Verbentest in Woche 45'],
    tags:['Sprechen','Zahlen','Uhrzeiten','Verben'],visual:{number:'44',phraseA:'On peut…',phraseB:'Et toi ?'},
    heroLogo:'module/woche-44/assets/Un après midi.jpg',levels:[{id:'support',label:'Soutien',range:'A2 mit Hilfe',symbol:'+',color:'#237e73',soft:'#e8f4ef',note:'Tabellen und Satzstarter verwenden.',supportTitle:'Mit Hilfe beginnen',supportText:'Nutzen Sie die Zahlentafel, Verbformen und Satzanfänge.',layers:['Wortbank','Satzstarter','Beispiel'],placeholder:'Je préfère … parce que …'},{id:'standard',label:'Standard',range:'A2',symbol:'●',color:'#1c698a',soft:'#f1f6fa',note:'Selbständig versuchen und gezielt prüfen.',supportTitle:'Selbständig versuchen',supportText:'Formulieren Sie zuerst selbst und holen Sie gezielt Hilfe.',layers:['Eigener Versuch','Gezielte Hilfe','Selbstkontrolle'],placeholder:'Je préfère … parce que …'},{id:'challenge',label:'Avancé',range:'A2 vertiefen',symbol:'↗',color:'#163955',soft:'#e8f0f5',note:'Alternativen begründen und nachfragen.',supportTitle:'Gespräche vertiefen',supportText:'Begründen Sie Alternativen und greifen Sie Wünsche Ihres Gegenübers auf.',layers:['Rückfragen','Alternativen','Begründungen'],placeholder:'Tu préfères … mais moi, je préfère …'}],
    missionList:[{"id": 1, "title": "Eigene Wahl", "description": "Nach dem gemeinsamen Beispiel eigene Favoriten wählen", "time": "3 Min.", "form": "Einzelarbeit", "symbol": "1"}, {"id": 2, "title": "Entscheiden", "description": "Wünsche begründen und gemeinsam wählen", "time": "6 Min.", "form": "Partnerarbeit", "symbol": "2"}, {"id": 3, "title": "Gestalten", "description": "Ein gemeinsames A3-Plakat gestalten", "time": "7 Min.", "form": "Partnerarbeit", "symbol": "3"}, {"id": 4, "title": "Üben", "description": "Beide erklären den ganzen Plan und fragen nach", "time": "5 Min.", "form": "Partnerarbeit", "symbol": "4"}, {"id": 5, "title": "Prüfen", "description": "Vollständigkeit prüfen und einen Satz nochmals sagen", "time": "2 Min.", "form": "Partnerarbeit", "symbol": "5"}],
@@ -135,7 +283,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
     }
   }
   const existingLogo = document.querySelector('.week-hero-logo');
-  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
+  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===45?'On fait une bonne affaire !':current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
   const visualNumber = document.querySelector('.visual-number');
   if (visualNumber) visualNumber.textContent = current.visual?.number || current.week;
   const cardA = document.querySelector('.speech-card.card-a');

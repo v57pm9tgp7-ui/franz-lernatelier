@@ -1,5 +1,19 @@
-const CACHE = 'franz-lernatelier-v0-33-lerntraining';
+const CACHE = 'franz-lernatelier-v0-34-woche45';
 const FILES = [
+  "./verbentrainer/launch.js",
+  "./module/woche-45/index.html",
+  "./module/woche-45/woche45.js",
+  "./module/woche-45/woche45.css",
+  "./module/woche-45/content.js",
+  "./module/woche-45/training.html",
+  "./module/woche-45/training.js",
+  "./module/woche-45/training.css",
+  "./module/woche-45/material/Unterrichtsmaterial_W45.pdf",
+  "./module/woche-45/material/Lernhilfe_W45.pdf",
+  "./assets/week45-mark.svg",
+  "./assets/app.js?v=20261103-45",
+  "./data/modules.js?v=20261103-45",
+
   './module/woche-44/material/Französisch Lerntraining Kurzanleitung.pdf',
   './verbentrainer/training.css',
   './verbentrainer/insights.js',

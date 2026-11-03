@@ -41,6 +41,17 @@ function queue(questions,state,kind='recommended',size=10,now=Date.now(),rng=Mat
  if(kind==='mixed'){const picked=[];for(const[t,n]of [['de-fr',2],['fr-de',2],['present',Math.max(0,size-4)]])picked.push(...q.filter(x=>x.type===t).slice(0,n));const have=new Set(picked.map(x=>x.id));picked.push(...q.filter(x=>!have.has(x.id)).slice(0,size-picked.length));const shuffled=picked.slice(0,size);for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}return shuffled;}
  return q.slice(0,size);
 }
+function weeklyQueue(questions,state,size=10,now=Date.now(),rng=Math.random){
+ const latest=Math.max(...questions.map(q=>q.v.week||0));
+ const due=queue(questions,state,'due',Math.min(4,size),now,rng), used=new Set(due.map(q=>q.id));
+ const fresh=questions.filter(q=>!used.has(q.id)&&q.v.week===latest);
+ const old=questions.filter(q=>!used.has(q.id)&&q.v.week<latest);
+ const result=[...due];
+ for(const q of queue(fresh,state,'recommended',Math.min(4,size-result.length),now,rng)){result.push(q);used.add(q.id);}
+ for(const q of queue(old,state,'recommended',size-result.length,now,rng)){result.push(q);used.add(q.id);}
+ result.push(...queue(questions.filter(q=>!used.has(q.id)),state,'recommended',size-result.length,now,rng));
+ return result.slice(0,size);
+}
 function addRepair(list,index,q,cap=16){if(list.length>=cap||list.length-index-1<2||list.some((x,i)=>i>index&&x.id===q.id)||q.repair)return false;const position=Math.min(list.length,index+4);list.splice(position,0,{...q,repair:true});return true;}
 function migrate(old){const s=empty();for(const[id,n]of Object.entries(old?.errors||{}))if(n>0)s.items[id]={attempts:1,stage:0,due:0,days:[],lapses:n,needsWork:true};return s;}
 function prompt(q,context=false){if(q.type==='de-fr')return q.v.de;if(q.type==='fr-de')return q.v.fr;return PERSONS[q.p]+' … ('+q.v.fr+')'+(context?' '+q.v.tail:'');}
@@ -50,5 +61,5 @@ const probes={
  C:['aller|de-fr|-1','voir|de-fr|-1','devoir|fr-de|-1','venir|fr-de|-1','dire|present|0','prendre|present|1','faire|present|2','pouvoir|present|3','savoir|present|4','avoir|present|5','aimer|present|4','voir|present|5']
 };
 function probe(c,name){const all=pool(c,'test44');return(probes[name]||[]).map(id=>all.find(q=>q.id===id)).filter(Boolean);}
-return{DAY,INTERVALS,PERSONS,norm,plain,day,empty,validateCatalog,pool,expected,grade,record,stats,queue,addRepair,migrate,prompt,probe,probes};
+return{DAY,INTERVALS,PERSONS,norm,plain,day,empty,validateCatalog,pool,expected,grade,record,stats,queue,weeklyQueue,addRepair,migrate,prompt,probe,probes};
 });
