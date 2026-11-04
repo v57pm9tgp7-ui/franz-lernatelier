@@ -1,5 +1,8 @@
-const CACHE = 'franz-lernatelier-v0-34-woche45';
+const CACHE = 'franz-lernatelier-v0-35-dialogue46';
 const FILES = [
+  "./module/woche-46/dialogue.html",
+  "./module/woche-46/dialogue.js",
+  "./module/woche-46/material/VerkaufsdialogWoche46.pdf",
   "./verbentrainer/launch.js",
   "./module/woche-45/index.html",
   "./module/woche-45/woche45.js",
