@@ -60,7 +60,7 @@
   function complete(id, next, label) {
     return `<div class="progressline"><label><input type="checkbox" data-complete="${id}" ${state.missionDone?.[id]?'checked':''}> Ich habe diese Phase bearbeitet.</label><a class="btn secondary" href="${next}">${label} →</a></div>`;
   }
-  const dialogue46Notice = `<aside class="classlink"><div><span class="eyebrow">NÄCHSTE WOCHE · BEURTEILTES VORSPIEL</span><h3>Verkaufsdialog in Woche 46</h3><p>Ihr Auftrag, die Vorbereitung und alle Beurteilungskriterien.</p></div><a class="btn secondary" href="../woche-46/dialogue.html">Auftrag öffnen →</a></aside>`;
+  const dialogue46Notice = `<aside class="classlink"><div><span class="eyebrow">NÄCHSTE WOCHE · BEURTEILTES ROLLENSPIEL</span><h3>Verkaufsdialog in Woche 46</h3><p>Ihr Auftrag, die Vorbereitung und alle Beurteilungskriterien.</p></div><a class="btn secondary" href="../woche-46/dialogue.html">Auftrag öffnen →</a></aside>`;
   function dashboard() {
     const cards=[
       ['1','Nach dem Test','Allein · leise','Zahlen und Uhrzeiten wiederholen, bis alle fertig sind.','Sobald Sie abgegeben haben'],

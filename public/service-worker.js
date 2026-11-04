@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-v0-35-dialogue46';
+const CACHE = 'franz-lernatelier-v0-36-dialogue46-example';
 const FILES = [
   "./module/woche-46/dialogue.html",
   "./module/woche-46/dialogue.js",
