@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-w46-zahlen-zeiten-20261110';
+const CACHE = 'franz-lernatelier-w46-lernheft-20261110b';
 const FILES = [
   "./module/woche-46/index.html",
   "./module/woche-46/",
