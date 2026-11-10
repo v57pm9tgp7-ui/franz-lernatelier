@@ -1,5 +1,6 @@
-const CACHE = 'franz-lernatelier-v0-36-dialogue46-example';
+const CACHE = 'franz-lernatelier-w46-rollenspiel-verben';
 const FILES = [
+  "./module/woche-46/material/FranzW46Lernheft.pdf",
   "./module/woche-46/dialogue.html",
   "./module/woche-46/dialogue.js",
   "./module/woche-46/material/VerkaufsdialogWoche46.pdf",

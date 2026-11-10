@@ -59,6 +59,17 @@ window.VERB_CATALOG = {
         "sortir",
         "écrire"
       ]
+    },
+    {
+      "id": "2026W46",
+      "title": "Woche 46 · fünf neue Verben",
+      "verbIds": [
+        "lire",
+        "acheter",
+        "ouvrir",
+        "manger",
+        "comprendre"
+      ]
     }
   ],
   "verbs": [
@@ -457,6 +468,101 @@ window.VERB_CATALOG = {
         "schreiben"
       ],
       "tip": "Einzahl: écris, écris, écrit. Mehrzahl mit écriv-: écrivons, écrivez, écrivent."
+    },
+    {
+      "id": "lire",
+      "fr": "lire",
+      "de": "lesen",
+      "forms": [
+        "lis",
+        "lis",
+        "lit",
+        "lisons",
+        "lisez",
+        "lisent"
+      ],
+      "tail": "une annonce.",
+      "week": 46,
+      "meanings": [
+        "lesen"
+      ],
+      "tip": "Vergleichen Sie je lis, il lit und nous lisons."
+    },
+    {
+      "id": "acheter",
+      "fr": "acheter",
+      "de": "kaufen",
+      "forms": [
+        "achète",
+        "achètes",
+        "achète",
+        "achetons",
+        "achetez",
+        "achètent"
+      ],
+      "tail": "une veste.",
+      "week": 46,
+      "meanings": [
+        "kaufen"
+      ],
+      "tip": "Bei nous achetons und vous achetez bleibt das e ohne Akzent."
+    },
+    {
+      "id": "ouvrir",
+      "fr": "ouvrir",
+      "de": "öffnen",
+      "forms": [
+        "ouvre",
+        "ouvres",
+        "ouvre",
+        "ouvrons",
+        "ouvrez",
+        "ouvrent"
+      ],
+      "tail": "le magasin.",
+      "week": 46,
+      "meanings": [
+        "öffnen"
+      ],
+      "tip": "Die Endungen im Présent gleichen denen von parler."
+    },
+    {
+      "id": "manger",
+      "fr": "manger",
+      "de": "essen",
+      "forms": [
+        "mange",
+        "manges",
+        "mange",
+        "mangeons",
+        "mangez",
+        "mangent"
+      ],
+      "tail": "une pomme.",
+      "week": 46,
+      "meanings": [
+        "essen"
+      ],
+      "tip": "Das e in nous mangeons hält das g weich."
+    },
+    {
+      "id": "comprendre",
+      "fr": "comprendre",
+      "de": "verstehen",
+      "forms": [
+        "comprends",
+        "comprends",
+        "comprend",
+        "comprenons",
+        "comprenez",
+        "comprennent"
+      ],
+      "tail": "la question.",
+      "week": 46,
+      "meanings": [
+        "verstehen"
+      ],
+      "tip": "Nutzen Sie prendre als Hilfe. Aus ils prennent wird ils comprennent."
     }
   ]
 };
