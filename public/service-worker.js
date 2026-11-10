@@ -1,5 +1,11 @@
-const CACHE = 'franz-lernatelier-w46-rollenspiel-verben';
+const CACHE = 'franz-lernatelier-w46-zahlen-zeiten-20261110';
 const FILES = [
+  "./module/woche-46/index.html",
+  "./module/woche-46/",
+  "./module/woche-46/atelier.js",
+  "./assets/week46-mark.svg",
+  "./module/woche-46/material/VerbentestW47Probe.pdf",
+  "./module/woche-46/material/VerbentestW47Loesungen.pdf",
   "./module/woche-46/material/FranzW46Lernheft.pdf",
   "./module/woche-46/dialogue.html",
   "./module/woche-46/dialogue.js",
@@ -15,8 +21,8 @@ const FILES = [
   "./module/woche-45/material/Unterrichtsmaterial_W45.pdf",
   "./module/woche-45/material/Lernhilfe_W45.pdf",
   "./assets/week45-mark.svg",
-  "./assets/app.js?v=20261103-45",
-  "./data/modules.js?v=20261103-45",
+  "./assets/app.js?v=20261110-46",
+  "./data/modules.js?v=20261110-46",
 
   './module/woche-44/material/Französisch Lerntraining Kurzanleitung.pdf',
   './verbentrainer/training.css',

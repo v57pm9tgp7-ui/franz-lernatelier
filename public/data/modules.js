@@ -25,6 +25,179 @@ window.FRANZ_TOPICS = [{"id":"se-presenter-2026","title":"Se présenter","subtit
 
 window.FRANZ_MODULES = [
   {
+  "id": "woche-46-2026",
+  "week": 46,
+  "schoolYear": "2026/27",
+  "topicId": "verbes-opinion-2026",
+  "title": "Du nombre au dialogue",
+  "subtitle": "Zahlen, Uhrzeiten und ein Verkaufsgespräch",
+  "description": "Zahlen bis eine Million und gesprochene Uhrzeiten üben, 25 Verben wiederholen und zu zweit ein Verkaufsgespräch aufnehmen.",
+  "homeLead": "Beginnen Sie mit den Zahlen. In Woche 47 folgt der Verbentest, in Woche 48 der Test zu Zahlen und Uhrzeiten.",
+  "status": "current",
+  "href": "module/woche-46/index.html",
+  "duration": "90 Minuten",
+  "missions": 6,
+  "storageKey": "franzoesischLernatelierW46_v1",
+  "facts": [
+    "38 Minuten Zahlen und Uhrzeiten",
+    "25 Verben für Woche 47",
+    "Rollenspiel mit Videoaufnahme"
+  ],
+  "tags": [
+    "Sprechen",
+    "Zahlen",
+    "Uhrzeiten",
+    "Verben"
+  ],
+  "visual": {
+    "number": "46",
+    "phraseA": "Trois cent mille ?",
+    "phraseB": "À huit heures du soir !"
+  },
+  "heroLogo": "assets/week46-mark.svg",
+  "levels": [
+    {
+      "id": "support",
+      "label": "Soutien",
+      "range": "A2 mit Hilfe",
+      "symbol": "+",
+      "color": "#237e73",
+      "soft": "#e8f4ef",
+      "note": "Satzanfänge und Beispiele nutzen.",
+      "supportTitle": "Mit Hilfe beginnen",
+      "supportText": "Nutzen Sie die Sprachhilfe und probieren Sie denselben Satz danach ohne Vorlage.",
+      "layers": [
+        "Satzstarter",
+        "Beispiel",
+        "Eigener Versuch"
+      ],
+      "placeholder": "Ça coûte combien ?"
+    },
+    {
+      "id": "standard",
+      "label": "Standard",
+      "range": "A2",
+      "symbol": "●",
+      "color": "#1c698a",
+      "soft": "#f1f6fa",
+      "note": "Selbständig versuchen und gezielt prüfen.",
+      "supportTitle": "Selbständig versuchen",
+      "supportText": "Formulieren Sie zuerst selbst und öffnen Sie Hilfe gezielt.",
+      "layers": [
+        "Eigener Versuch",
+        "Gezielte Hilfe",
+        "Selbstkontrolle"
+      ],
+      "placeholder": "Je vous propose … francs."
+    },
+    {
+      "id": "challenge",
+      "label": "Défi",
+      "range": "A2 vertiefen",
+      "symbol": "↗",
+      "color": "#163955",
+      "soft": "#e8f0f5",
+      "note": "Begründen, nachfragen und frei sprechen.",
+      "supportTitle": "Gespräche vertiefen",
+      "supportText": "Begründen Sie Ihr Angebot und reagieren Sie auf Ihr Gegenüber.",
+      "layers": [
+        "Rückfragen",
+        "Alternativen",
+        "Begründungen"
+      ],
+      "placeholder": "C’est un peu cher parce que …"
+    }
+  ],
+  "missionList": [
+    {
+      "id": 1,
+      "title": "Grosse Zahlen",
+      "anchor": "zahlen",
+      "description": "Hunderter und Tausender lesen und in Ziffern schreiben",
+      "time": "16 Min.",
+      "form": "Einzelarbeit",
+      "symbol": "1"
+    },
+    {
+      "id": 2,
+      "title": "Uhrzeiten",
+      "anchor": "zeiten",
+      "description": "Gesprochene Uhrzeiten mit Tageszeit bilden",
+      "time": "11 Min.",
+      "form": "Einzelarbeit",
+      "symbol": "2"
+    },
+    {
+      "id": 3,
+      "title": "Partnerdiktat",
+      "anchor": "partner",
+      "description": "Drei Zahlen und eine Uhrzeit hören, vergleichen und wechseln",
+      "time": "11 Min.",
+      "form": "Partnerarbeit",
+      "symbol": "3"
+    },
+    {
+      "id": 4,
+      "title": "Alle 25 Verben",
+      "anchor": "verben",
+      "description": "Für Woche 47 übersetzen und im présent konjugieren",
+      "time": "19 Min.",
+      "form": "Einzelarbeit",
+      "symbol": "4"
+    },
+    {
+      "id": 5,
+      "title": "Digitale Partnerprobe",
+      "anchor": "rollen",
+      "description": "Zwei Fälle verhandeln und die schwierigste Stelle wiederholen",
+      "time": "15 Min.",
+      "form": "Partnerarbeit",
+      "symbol": "5"
+    },
+    {
+      "id": 6,
+      "title": "Rollenspiel aufnehmen",
+      "anchor": "aufnahme",
+      "description": "5 Minuten Papierkarten, dann frei spielen und Video abgeben",
+      "time": "18 Min.",
+      "form": "Partnerarbeit",
+      "symbol": "6"
+    }
+  ],
+  "training": [
+    {
+      "id": "verbs",
+      "title": "Verben",
+      "subtitle": "25 Verben für Woche 47",
+      "description": "In beide Richtungen übersetzen und das présent bilden.",
+      "icon": "cards",
+      "color": "mint",
+      "time": "10 Min.",
+      "anchor": "verben"
+    },
+    {
+      "id": "numbers",
+      "title": "Zahlen",
+      "subtitle": "Bis eine Million",
+      "description": "Hunderter und Tausender lesen, sprechen und schreiben.",
+      "icon": "bolt",
+      "color": "coral",
+      "time": "5–8 Min.",
+      "anchor": "zahlen"
+    },
+    {
+      "id": "times",
+      "title": "Uhrzeiten",
+      "subtitle": "Mit Tageszeit",
+      "description": "Et quart, et demie und moins anwenden und Tageszeiten unterscheiden.",
+      "icon": "cards",
+      "color": "sky",
+      "time": "5–8 Min.",
+      "anchor": "zeiten"
+    }
+  ]
+},
+  {
   "id": "woche-45-2026",
   "week": 45,
   "schoolYear": "2026/27",
@@ -33,7 +206,7 @@ window.FRANZ_MODULES = [
   "subtitle": "Marché d’occasion · parler, négocier, progresser",
   "description": "Preise aushandeln, Uhrzeiten vergleichen und neue Verben lernen. Vier klare Arbeitsbereiche begleiten die gemeinsame Lektion.",
   "homeLead": "Nach der Lernkontrolle: Zahlen und Uhrzeiten in Ruhe wiederholen. Den Markt beginnen wir gemeinsam, sobald alle abgegeben haben.",
-  "status": "current",
+  "status": "previous",
   "href": "module/woche-45/index.html",
   "duration": "90 Minuten",
   "missions": 4,
@@ -283,7 +456,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
     }
   }
   const existingLogo = document.querySelector('.week-hero-logo');
-  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===45?'On fait une bonne affaire !':current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
+  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===46?current.title:current.week===45?'On fait une bonne affaire !':current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
   const visualNumber = document.querySelector('.visual-number');
   if (visualNumber) visualNumber.textContent = current.visual?.number || current.week;
   const cardA = document.querySelector('.speech-card.card-a');

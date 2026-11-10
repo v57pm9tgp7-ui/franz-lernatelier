@@ -93,7 +93,7 @@
     qs('#moduleSchoolYear').textContent=`Schuljahr ${current.schoolYear}`;
     qs('#moduleTitle').textContent=current.title;
     qs('[data-open-current]').href=current.href;
-    const nextLink=qs('.next-card [data-open-next]');if(nextLink)nextLink.href=current.href+'#mission-'+next.id;
+    const nextLink=qs('.next-card [data-open-next]');if(nextLink)nextLink.href=current.href+'#'+(next.anchor||'mission-'+next.id);
     qs('#moduleSubtitle').textContent=current.subtitle;
     qs('#currentDescription').textContent=current.description;
     qs('#homeLead').textContent=current.homeLead || current.description;
@@ -249,6 +249,13 @@
     event?.preventDefault();
     const module=modules.find(m=>m.id===options.moduleId)||current;
     if(!module)return;
+    if(module.week===46){
+      if(module.id===current.id)prepareModule(options);
+      const mission=module.missionList.find(item=>item.id===Number(options.mission));
+      const training=module.training.find(item=>item.id===options.training);
+      location.href=module.href+'#'+(training?.anchor||mission?.anchor||(options.training?'verben':'start'));
+      return;
+    }
     if(module.week===45){
       if(module.id===current.id)prepareModule(options);
       if(options.training){
