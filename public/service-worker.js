@@ -1,8 +1,8 @@
-const CACHE = 'franz-lernatelier-w46-lernheft-20261110b';
+const CACHE = 'franz-lernatelier-w46-coach-20261110c';
 const FILES = [
   "./module/woche-46/index.html",
   "./module/woche-46/",
-  "./module/woche-46/atelier.js",
+  "./module/woche-46/atelier.js", "./module/woche-46/coach.js",
   "./assets/week46-mark.svg",
   "./module/woche-46/material/VerbentestW47Probe.pdf",
   "./module/woche-46/material/VerbentestW47Loesungen.pdf",

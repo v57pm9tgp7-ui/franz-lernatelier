@@ -1,20 +1,20 @@
 'use strict';
 const units = 'zéro un deux trois quatre cinq six sept huit neuf dix onze douze treize quatorze quinze seize dix-sept dix-huit dix-neuf'.split(' ');
-const decades = ['', '', 'vingt','trente','quarante','cinquante','soixante','septante','huitante','nonante'];
-function numberWords(n, style='ch') {
+const decades = ['', '', 'vingt','trente','quarante','cinquante','soixante'];
+function numberWords(n) {
   if(n===1000000) return 'un million';
   if(n>=1000) {
     const k=Math.floor(n/1000), rest=n%1000;
-    const prefix=k===1?'':numberWords(k,style).replace(/cents$|vingts$/,v=>v.slice(0,-1))+' ';
-    return prefix+'mille'+(rest?' '+numberWords(rest,style):'');
+    const prefix=k===1?'':numberWords(k).replace(/cents$|vingts$/,v=>v.slice(0,-1))+' ';
+    return prefix+'mille'+(rest?' '+numberWords(rest):'');
   }
   if(n>=100) {
     const h=Math.floor(n/100),rest=n%100;
-    return (h===1?'':units[h]+' ')+'cent'+(!rest&&h>1?'s':'')+(rest?' '+numberWords(rest,style):'');
+    return (h===1?'':units[h]+' ')+'cent'+(!rest&&h>1?'s':'')+(rest?' '+numberWords(rest):'');
   }
   if(n<20) return units[n];
-  if(style==='fr' && n>=70 && n<80) return 'soixante'+(n===71?' et ':'-')+units[n-60];
-  if(style!=='ch' && n>=80 && (n<90||style==='fr')) return n===80?'quatre-vingts':'quatre-vingt-'+units[n-80];
+  if(n>=70 && n<80) return 'soixante'+(n===71?' et ':'-')+units[n-60];
+  if(n>=80) return n===80?'quatre-vingts':'quatre-vingt-'+units[n-80];
   const d=Math.floor(n/10),rest=n%10;
   return decades[d]+(rest===1?' et un':rest?'-'+units[rest]:'');
 }
@@ -31,18 +31,22 @@ const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.r
 const choose=a=>a[Math.floor(Math.random()*a.length)];
 const rand=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
 const format=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'’');
+// These exercises remain distinct from the printed workbook.
+const paperNumbers = new Set([300,307,580,999,1204,20016,305040,800001,6060,42300,200009,980000,73,697,51084,92,481,63050]);
+const paperClockFaces = new Set([[17,25],[17,35],[7,15],[15,30],[20,45],[8,50],[15,40],[20,15],[14,15],[19,35]].map(([h,m])=>h%12*60+m));
+function freshNumber(low,high){
+  let n;
+  do { n=rand(low,high); } while(paperNumbers.has(n));
+  return n;
+}
 function numberRound(level){
-  const limits=[[1,100],[101,999],[1000,9999],[10000,999999]], [lo,hi]=limits[level];
-  const seeds=[[71,80,91],[200,201,480,509],[1000,1040,2001,8200],[10020,350004,999999,1000000]][level];
-  const values=new Set(shuffle(seeds).slice(0,3));while(values.size<8)values.add(rand(lo,hi));
+  const limits=[[0,100],[101,999],[1000,9999],[10000,999999]], [lo,hi]=limits[level];
+  const seeds=[[0,71,80,91],[200,201,480,509],[1000,1040,2001,8200],[10020,350004,999999,1000000]][level];
+  const values=new Set(shuffle(seeds).slice(0,3));
+  while(values.size<8)values.add(freshNumber(lo,hi));
   return shuffle(values).map((n,i)=> {
-    const dialects=['ch','be','fr'];
-    const words=[...new Set(dialects.flatMap(style=>{
-      if(n<1000||n===1000000||n%1000===0)return [numberWords(n,style)];
-      const thousands=numberWords(n-n%1000,style);
-      return dialects.map(endStyle=>thousands+' '+numberWords(n%1000,endStyle));
-    }))];
-    return i%2?{prompt:choose(words),cue:'Schreiben Sie die Zahl in Ziffern.',answers:[String(n)],digit:true}
+    const words=[numberWords(n)];
+    return i%2?{prompt:words[0],cue:'Schreiben Sie die Zahl in Ziffern.',answers:[String(n)],digit:true}
     :{prompt:format(n),cue:'Schreiben Sie die Zahl auf Französisch.',answers:words,hint:n===1000000?'Eine Million ist im Französischen ein Substantiv und braucht einen Artikel.':n>=1000?'Lesen Sie zuerst '+Math.floor(n/1000)+', dann «mille»'+(n%1000?', dann '+n%1000: '')+'.':n>=100?'Bauen Sie die Zahl aus '+Math.floor(n/100)+' Hundertern'+(n%100?' und '+n%100:'')+'.':'Vergleichen Sie Zehner und Einer.'};
   });
 }
@@ -50,7 +54,7 @@ function timeRound(mode){
   const qs=[],used=new Set();while(qs.length<8){
     const i=qs.length,h=choose(mode==='day'?[7,8,9,14,15,19,20,21]:[1,3,5,7,8,10,12,14,16,17,20,22]);
     const m=mode==='day'&&i<2?0:choose(mode==='minus'?[35,40,45,50,55]:mode==='plus'?[0,5,10,15,20,25,30]:[0,5,10,15,20,25,30,35,40,45,50,55]);
-    if(used.has(h+':'+m))continue;used.add(h+':'+m);
+    if(paperClockFaces.has(h%12*60+m)||used.has(h+':'+m))continue;used.add(h+':'+m);
     const day=mode==='day',phrase=clockWords(h,m,day);
     if(day&&i%2)qs.push({prompt:'Il est '+phrase+'.',cue:'Schreiben Sie die digitale Uhrzeit, z. B. 20:15.',answers:[clock(h,m),h+':'+String(m).padStart(2,'0'),String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')]});
     else qs.push({prompt:clock(h,m),cue:'Sagen Sie die Uhrzeit auf Französisch und tippen Sie sie ein.'+(day?' Ergänzen Sie die Tageszeit.':' Nutzen Sie die gesprochene Form aus der Übersicht.'),answers:['Il est '+phrase,phrase]});
@@ -58,12 +62,16 @@ function timeRound(mode){
 }
 function verbRound(mode){
   const catalog=window.VERB_CATALOG.verbs,people=['je / j’','tu','il / elle','nous','vous','ils / elles'];
-  const persons=shuffle([0,1,2,3,4,5]); let conjugations=0;
-  return shuffle(catalog).slice(0,mode==='all'?25:8).map((v,i)=>{
-    const kind=mode==='all'?['de-fr','fr-de','present'][i%3]:mode;
+  const printedTranslations={'de-fr':new Set(['lire','acheter','ouvrir','manger','comprendre']),'fr-de':new Set(['devoir','mettre','savoir','prendre','sortir'])};
+  const printedPersons={lire:0,acheter:1,ouvrir:2,manger:3,comprendre:4,prendre:5};
+  const uses=[0,0,0,0,0,0];
+  const pool=catalog.filter(v=>!printedTranslations[mode]?.has(v.fr));
+  return shuffle(pool).slice(0,mode==='all'?25:8).map((v,i)=>{
+    let kind=mode==='all'?['de-fr','fr-de','present'][i%3]:mode;
+    if(printedTranslations[kind]?.has(v.fr))kind=kind==='fr-de'?'de-fr':'fr-de';
     if(kind==='de-fr')return {verbTask:{v,type:kind},prompt:v.de,cue:'Geben Sie den französischen Infinitiv ein.',answers:[v.fr]};
     if(kind==='fr-de') return {verbTask:{v,type:kind},prompt:v.fr,cue:'Nennen Sie eine passende deutsche Bedeutung.',answers:v.meanings};
-    const p=persons[conjugations++%6];return {verbTask:{v,type:'present',p},prompt:v.fr+'   ·   '+people[p],cue:'Schreiben Sie die Verbform im présent.',answers:[v.forms[p],(p===0?(/^[aeéioûu]/.test(v.forms[p])?'j’':'je '):['','tu ','il ','nous ','vous ','ils '][p])+v.forms[p],...(p===2?['elle '+v.forms[p],'on '+v.forms[p]]:p===5?['elles '+v.forms[p]]:[])]};
+    const p=shuffle([0,1,2,3,4,5]).filter(person=>person!==printedPersons[v.fr]).sort((a,b)=>uses[a]-uses[b])[0]; uses[p]++;return {verbTask:{v,type:'present',p},prompt:v.fr+'   ·   '+people[p],cue:'Schreiben Sie die Verbform im présent.',answers:[v.forms[p],(p===0?(/^[aeéioûu]/.test(v.forms[p])?'j’':'je '):['','tu ','il ','nous ','vous ','ils '][p])+v.forms[p],...(p===2?['elle '+v.forms[p],'on '+v.forms[p]]:p===5?['elles '+v.forms[p]]:[])]};
   });
 }
 function installQuiz(id,make){
@@ -119,12 +127,12 @@ function roleStudio(){
 }
 function partner(){
  const values=document.querySelector('#partnerValues'),out=document.querySelector('#partnerSolution');let data=[];
- function generate(){const easy=rand(40,99),medium=rand(101,999),big=rand(1,90)*1000+rand(1,900),h=choose([7,8,14,15,19,20]),m=choose([5,15,30,35,40,45,50,55]);
+ function generate(){const easy=freshNumber(40,99),medium=freshNumber(101,999),big=freshNumber(10001,90999),h=choose([7,8,14,15,19,20]),m=choose([5,15,30,35,40,45,50,55].filter(min=>!paperClockFaces.has(h%12*60+min)));
  data=[[format(easy),numberWords(easy)],[format(medium),numberWords(medium)],[format(big),numberWords(big)],[clock(h,m),'Il est '+clockWords(h,m,true)+'.']];values.innerHTML=data.map(v=>'<b>'+v[0]+'</b>').join(' · ');out.textContent='';}
  document.querySelector('#partnerNew').onclick=generate;document.querySelector('#partnerCheck').onclick=()=>{out.innerHTML=data.map(([k,v])=>k+' → '+v).join('<br>');};generate();
 }
 const destinations=['start','zahlen','zeiten','partner','verben','rollen','aufnahme'];
-function route(){const id=location.hash.slice(1)||'start',view=destinations.includes(id)?id:'start';for(const s of document.querySelectorAll('main > section'))s.hidden=s.id!==view;for(const a of document.querySelectorAll('nav a')){if(a.hash==='#'+view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}window.scrollTo(0,0);}
+function route(){const id=location.hash.slice(1)||'start',view=id==='coach'||destinations.includes(id)?id:'start';for(const s of document.querySelectorAll('main > section'))s.hidden=s.id!==view;for(const a of document.querySelectorAll('nav a')){if(a.hash==='#'+view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}window.scrollTo(0,0);}
 function mountProgress(){
   const key='franzoesischLernatelierW46_v1';
   const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{return {};}};

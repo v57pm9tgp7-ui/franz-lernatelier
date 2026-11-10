@@ -32,7 +32,7 @@ window.FRANZ_MODULES = [
   "title": "Du nombre au dialogue",
   "subtitle": "Zahlen, Uhrzeiten und ein Verkaufsgespräch",
   "description": "Zahlen bis eine Million und gesprochene Uhrzeiten üben, 25 Verben wiederholen und zu zweit ein Verkaufsgespräch aufnehmen.",
-  "homeLead": "Beginnen Sie mit den Zahlen. In Woche 47 folgt der Verbentest, in Woche 48 der Test zu Zahlen und Uhrzeiten.",
+  "homeLead": "Öffnen Sie Woche 46 und starten Sie den Unterrichtscoach. Er führt Sie von den Zahlen bis zur Videoabgabe.",
   "status": "current",
   "href": "module/woche-46/index.html",
   "duration": "90 Minuten",
