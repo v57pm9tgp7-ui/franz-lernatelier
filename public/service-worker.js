@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-w46-verbentrainer-20261110d';
+const CACHE = 'franz-lernatelier-wochen-20261112';
 const FILES = [
   "./module/woche-46/index.html",
   "./module/woche-46/",
@@ -21,7 +21,7 @@ const FILES = [
   "./module/woche-45/material/Unterrichtsmaterial_W45.pdf",
   "./module/woche-45/material/Lernhilfe_W45.pdf",
   "./assets/week45-mark.svg",
-  "./assets/app.js?v=20261110-46",
+  "./assets/app.js?v=20261112-wochen",
   "./data/modules.js?v=20261110-46",
 
   './module/woche-44/material/Französisch Lerntraining Kurzanleitung.pdf',

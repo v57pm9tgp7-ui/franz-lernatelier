@@ -183,8 +183,6 @@
       const progress=progressData(module,state);
       return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(module.href)}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="cards" data-training-module="${esc(module.id)}">Trainieren</button></div></article>`;
     }).join('');
-    qs('#summaryModules').textContent=String(modules.length);
-    qs('#summaryEscales').textContent=String(modules.reduce((sum,module)=>sum+(module.missions||0),0));
   }
 
   function renderTraining(){
