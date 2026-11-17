@@ -472,8 +472,9 @@
 .app-main{
   margin-left:0!important;
   margin-right:0!important;
-  padding-left:clamp(14px,1.45vw,28px)!important;
-  padding-right:clamp(14px,1.45vw,28px)!important;
+  --atelier-page-gutter:clamp(14px,1.45vw,28px);
+  padding-left:var(--atelier-page-gutter)!important;
+  padding-right:var(--atelier-page-gutter)!important;
 }
 
 .topbar{
@@ -621,7 +622,11 @@ body.view-large :is(.level-card,.level-select-card,.mission-card,.reserve-card,.
 }
 
 /* Auf sehr breiten Displays praktisch bis an den Rand, mit ruhigem Randabstand. */
+@media screen and (min-width:761px){
+  .app-main>.atelier-nav{margin-inline:calc(-1 * var(--atelier-page-gutter));padding-inline:var(--atelier-page-gutter)}
+}
 @media (min-width:1900px){
+  .app-main{--atelier-page-gutter:30px}
   .site-main,.app-main{padding-left:30px!important;padding-right:30px!important}
   .header-inner,.topbar{padding-left:30px!important;padding-right:30px!important}
 }

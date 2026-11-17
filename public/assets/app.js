@@ -71,7 +71,7 @@
     const finished=done===total&&total>0;
     const pct=total?Math.round(done/total*100):0;
     const activeMission=Number(state?.currentMission||0);
-    const nextId=activeMission&&ids.includes(activeMission)
+    const nextId=activeMission&&ids.includes(activeMission)&&!state?.missionDone?.[activeMission]
       ?activeMission
       :(ids.find(id=>!state?.missionDone?.[id])||ids[ids.length-1]||1);
     return{ids,done,total,started,finished,pct,nextId};
@@ -92,7 +92,7 @@
     qs('#currentWeekNumber').textContent=current.week;
     qs('#moduleSchoolYear').textContent=`Schuljahr ${current.schoolYear}`;
     qs('#moduleTitle').textContent=current.title;
-    qs('[data-open-current]').href=current.href;
+    qs('[data-open-current]').href=entryHref(current,progress);
     const nextLink=qs('.next-card [data-open-next]');if(nextLink)nextLink.href=current.href+'#'+(next.anchor||'mission-'+next.id);
     qs('#moduleSubtitle').textContent=current.subtitle;
     qs('#currentDescription').textContent=current.description;
@@ -181,7 +181,7 @@
     holder.innerHTML=modules.slice().sort((a,b)=>b.week-a.week).map(module=>{
       const state=readModuleState(module);
       const progress=progressData(module,state);
-      return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(module.href)}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="cards" data-training-module="${esc(module.id)}">Trainieren</button></div></article>`;
+      return `<article class="week-list-card"><div class="week-list-number">${module.week}</div><div class="week-list-copy"><span class="small-label">${module.status==='current'?'Aktuelle Woche':'Frühere Woche'} · ${esc(module.schoolYear)}</span><h2>${esc(module.title)}</h2><h3>${esc(module.subtitle)}</h3><p>${esc(module.description)}</p></div><div class="week-list-progress"><div><span>${progress.started?`${progress.done} von ${progress.total} Aufgaben`:'Noch nicht begonnen'}</span><strong>${progress.pct}%</strong></div><div class="progress-track"><span style="width:${progress.pct}%"></span></div></div><div class="week-list-actions"><a href="${esc(entryHref(module,progress))}" data-open-module="${esc(module.id)}">${progress.started?'Weiterarbeiten':'Öffnen'}</a><button type="button" data-start-training="overview" data-training-module="${esc(module.id)}">Trainieren</button></div></article>`;
     }).join('');
   }
 
@@ -239,50 +239,40 @@
   function prepareModule({mission=null,training=null}={}){
     const patch={globalLevel:selectedLevel};
     if(mission){patch.currentScreen=`mission-${mission}`;patch.currentMission=Number(mission);}
-    if(training){patch.trainingMode=training;patch.training={...(moduleState.training||{}),mode:training};}
+    if(current.training.some(item=>item.id===training)){patch.trainingMode=training;patch.training={...(moduleState.training||{}),mode:training};}
     writeModuleState(patch);
   }
 
-  function openModule(event,options={}){
+  function entryHref(module, progress) {
+    const next = module.missionList.find(item => item.id === progress.nextId);
+    if (progress.started && !progress.finished && next) {
+      return next.href ? new URL(next.href,new URL(module.href,location.href)).href : module.href+'#'+(next.anchor || 'mission-'+next.id);
+    }
+    return module.href;
+  }
+
+  function openModule(event, options={}) {
+    if (event?.target.closest('a') && (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)) return;
+    const module = modules.find(m => m.id === options.moduleId) || current;
+    if (!module) return;
+    const routes = window.FranzWeekRoutes;
+    if (!routes) return;
     event?.preventDefault();
-    const module=modules.find(m=>m.id===options.moduleId)||current;
-    if(!module)return;
-    if(module.ownTraining){
-      if(module.id===current.id)prepareModule(options);
-      const mission=module.missionList.find(item=>item.id===Number(options.mission));
-      const training=module.training.find(item=>item.id===options.training);
-      location.href=module.href+'#'+(training?.anchor||mission?.anchor||(options.training?'training':'start'));
-      return;
-    }
-    if(module.week===46){
-      if(module.id===current.id)prepareModule(options);
-      const mission=module.missionList.find(item=>item.id===Number(options.mission));
-      const training=module.training.find(item=>item.id===options.training);
-      location.href=module.href+'#'+(training?.anchor||mission?.anchor||(options.training?'verben':'start'));
-      return;
-    }
-    if(module.week===45){
-      if(module.id===current.id)prepareModule(options);
-      if(options.training){
-        location.href=options.training==='verbs' ? 'verbentrainer/index.html?set=all' : 'module/woche-45/training.html#'+options.training;
-      }else{
-        location.href=module.href+(options.mission?'#mission-'+options.mission:'#start');
+    const state = readModuleState(module);
+    const progress = progressData(module, state);
+    const mission = module.missionList.find(item => item.id === Number(options.mission));
+    let target = mission ? routes.mission(module, mission) : new URL(entryHref(module, progress), location.href);
+    if (options.training) {
+      target = routes.training(module, options.training);
+      const label = {home:'Startseite', weeks:'Alle Wochen', training:'Trainingsübersicht'}[shellState.view] || 'Startseite';
+      if (module.week <= 38) window.FranzNavigation.rememberTraining(target.pathname, label);
+      else {
+        const position = window.FranzNavigation.snapshot(null);
+        try {sessionStorage.setItem('franzAtelierTrainingReturn_v1', JSON.stringify({week:module.week, label, url:position.url, target:target.pathname+target.search+target.hash, position}));} catch {}
       }
-      return;
     }
-    if(module.week===44){location.href=options.training ? 'verbentrainer/index.html' : module.href+(options.mission ? '#mission' : '#start');return;}
-    if(module.id===current.id)prepareModule(options);
-    let fragment='';
-    if(options.training){
-      window.FranzNavigation.rememberTraining(new URL(module.href,location.href).pathname,shellState.view==='weeks'?'Wochenübersicht':shellState.view==='training'?'Trainingsübersicht':'Startseite');
-      fragment='#training/'+options.training;
-    }else if(options.mission)fragment='#mission-'+options.mission;
-    else{
-      const stored=readModuleState(module);
-      const mission=Number(stored.currentMission)||Number(String(stored.currentScreen).split('-')[1]);
-      fragment=mission && (module.missionList.some(m=>m.id===mission)||module.week===36&&[1,2,3,4].includes(mission)) ? '#mission-'+mission : module.week===36?'#dashboard':'#start';
-    }
-    location.href=module.href+fragment;
+    if (module.id === current.id) prepareModule(options);
+    location.assign(target.href);
   }
 
   function openDrawer(id){
@@ -361,7 +351,7 @@
     qs('#overlay').addEventListener('click',closeDrawers);
     document.addEventListener('keydown',event=>{if(event.key==='Escape')closeDrawers();});
     window.addEventListener('hashchange',()=>setView(location.hash.slice(1),false));
-    window.addEventListener('pageshow',()=>{moduleState=readModuleState(current);selectedLevel=resolveLevel();renderAll();window.FranzNavigation.restoreIncoming();});
+    window.addEventListener('pageshow',()=>{settings=readJson(settingsKey,settings);moduleState=readModuleState(current);selectedLevel=resolveLevel();renderAll();window.FranzNavigation.restoreIncoming();});
     window.addEventListener('storage',event=>{
       if(event.key===current?.storageKey){
         moduleState=readModuleState(current);

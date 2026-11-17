@@ -132,7 +132,7 @@ function partner(){
  document.querySelector('#partnerNew').onclick=generate;document.querySelector('#partnerCheck').onclick=()=>{out.innerHTML=data.map(([k,v])=>k+' → '+v).join('<br>');};generate();
 }
 const destinations=['start','zahlen','zeiten','partner','verben','rollen','aufnahme'];
-function route(){const id=location.hash.slice(1)||'start',view=id==='coach'||destinations.includes(id)?id:'start';for(const s of document.querySelectorAll('main > section'))s.hidden=s.id!==view;for(const a of document.querySelectorAll('nav a')){if(a.hash==='#'+view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}window.scrollTo(0,0);}
+function route(){const id=location.hash.slice(1)||'start',view=id==='coach'||destinations.includes(id)?id:'start';for(const s of document.querySelectorAll('main > section'))s.hidden=s.id!==view;for(const a of document.querySelectorAll('.mainnav a')){if(a.hash==='#'+view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');}window.scrollTo(0,0);}
 function mountProgress(){
   const key='franzoesischLernatelierW46_v1';
   const read=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')||{};}catch{return {};}};

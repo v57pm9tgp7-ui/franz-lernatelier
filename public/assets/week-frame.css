@@ -1,0 +1,194 @@
+/* Palette and type from the original September atelier. The same rules also
+   cover nested activities, print companions and the shared training tools. */
+html[data-atelier-page] {
+  --af-navy:#153958; --af-ink:#132b45; --af-secondary:#40576e; --af-blue:#15569b;
+  --af-red:#a7303b; --af-line:#ced8e3; --af-soft:#eaf2fb; --af-canvas:#f2f5f8;
+  --af-font:"Bahnschrift","Segoe UI",Aptos,Arial,sans-serif;
+  --af-gutter:clamp(1rem,2.3vw,2.15rem); --af-width:98rem;
+  --navy:var(--af-navy); --ink:var(--af-ink); --muted:var(--af-secondary);
+  --teal:var(--af-blue); --teal-dark:var(--af-navy); --deep:var(--af-navy); --ink2:var(--af-secondary);
+  --border:var(--af-line); --line:var(--af-line); --bg:var(--af-canvas); --pale:var(--af-soft);
+  --sea:var(--af-soft); --sans:var(--af-font); --serif:var(--af-font);
+  color-scheme:light; font:112.5%/1.56 var(--af-font); color:var(--af-ink); background:var(--af-canvas);
+}
+html[data-atelier-page] body { margin:0; font-family:var(--af-font); color:var(--af-ink); background:var(--af-canvas); }
+html[data-atelier-large="true"] { font-size:145%; }
+html[data-atelier-page] :is(h1,h2,h3,h4,p,label,button,input,select,textarea,summary) { font-family:var(--af-font); }
+html[data-atelier-page] :is(h1,h2,h3,h4) { overflow-wrap:break-word; text-wrap:pretty; }
+html[data-atelier-page] h1 { font-size:clamp(1.85rem,3.6vw,2.65rem); line-height:1.14; letter-spacing:-.035em; }
+html[data-atelier-page] h2 { font-size:clamp(1.35rem,2.4vw,1.8rem); line-height:1.24; letter-spacing:-.025em; }
+html[data-atelier-page] h3 { font-size:1.18rem; line-height:1.35; letter-spacing:-.012em; }
+html[data-atelier-page] :where(main,.outer,.shell,.wrap,.paper) :is(p,li,label,summary) { font-size:1rem; line-height:1.56; }
+html[data-atelier-page] :where(main,.outer,.shell,.wrap) :is(small,.small,.quiet,.muted,.tagline,.meta,.tag,.eyebrow,.kicker,.minitag,.save-status,.lead small) { font-size:.89rem; line-height:1.45; }
+html[data-atelier-page] :is(button,input,textarea,select) { font-family:var(--af-font); }
+html[data-atelier-page] :where(button,select,summary,a.btn,a.button) { min-height:44px; }
+html[data-atelier-page] :is(a,button,input,select,textarea,summary):focus-visible { outline:3px solid #176ac1; outline-offset:3px; box-shadow:0 0 0 5px white; }
+html.af-ready [data-atelier-replace] { display:none!important; }
+html[data-atelier-page] :where(main,section,article,.grid,.panel,.shell,.wrap) { min-width:0; }
+html[data-atelier-page] :is(img,textarea,input,select) { max-width:100%; }
+html[data-atelier-page] ::selection { background:#d9eaff; color:#102c48; }
+
+.af-frame { position:relative; z-index:9; line-height:1.4; color:var(--af-ink); font:1rem/1.4 var(--af-font); }
+.af-frame *, .af-roadmap * { box-sizing:border-box; }
+.af-top { position:relative; background:white; border-block-end:1px solid var(--af-line); }
+.af-top::before { content:""; display:block; height:4px; background:linear-gradient(to right,#0055a4 0 33.33%,#fff 33.33% 66.67%,#ef4135 66.67%); }
+.af-inner { width:min(100%,var(--af-width)); margin-inline:auto; padding-inline:var(--af-gutter); }
+.af-mast { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.6rem 1rem; padding-block:.72rem; }
+.af-brand { display:inline-flex; align-items:center; color:var(--af-ink); gap:.62rem; min-width:0; text-decoration:none; }
+.af-brand strong, .af-brand small { display:block; line-height:1.35; }
+.af-brand strong { font-size:1.1rem; letter-spacing:-.025em; }
+.af-brand small { color:var(--af-secondary); font-size:.84rem; }
+.af-mark { flex:none; position:relative; box-sizing:border-box; display:grid; place-items:center; overflow:hidden; width:2.45rem; height:2.45rem; border-radius:.55rem; background:var(--af-navy); color:white; font-weight:760; letter-spacing:-.06em; }
+.af-mark::after { content:""; position:absolute; bottom:0; left:0; right:0; height:4px; background:linear-gradient(90deg,#0055a4 33.3%,#fff 33.3% 66.6%,#ef4135 66.6%); }
+.af-actions,.af-directions { display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; }
+.af-frame .af-control, .af-frame select { min-height:44px; text-decoration:none; font:650 .95rem/1.3 var(--af-font); border:1px solid #a4b4c4; border-radius:.45rem; color:var(--af-navy); background:#fff; }
+.af-frame .af-control { display:inline-flex; justify-content:center; align-items:center; cursor:pointer; padding:.45rem .78rem; }
+.af-frame .af-control:hover,.af-frame .af-help[open] summary,.af-frame [aria-pressed="true"] { background:var(--af-soft); border-color:#7291af; }
+.af-frame .af-help { position:relative; padding:0; margin:0; border:0; background:transparent; }
+.af-help summary { list-style:none; }
+.af-help summary::-webkit-details-marker { display:none; }
+.af-help-copy { position:absolute; z-index:4; inset-inline-end:0; top:calc(100% + .4rem); width:min(19rem,calc(100vw - 2rem)); padding:1rem; background:white; border:1px solid var(--af-line); border-radius:.65rem; box-shadow:0 10px 28px #132b4524; }
+.af-help-copy p { margin:.6rem 0; font-size:1rem; }
+.af-nav { background:white; border-bottom:1px solid var(--af-line); }
+.af-nav .af-inner { padding-block:.68rem .82rem; }
+.af-path { display:flex; flex-wrap:wrap; align-items:baseline; gap:.27rem .48rem; margin-bottom:.55rem; font-size:.88rem; color:var(--af-secondary); }
+.af-path a,.af-help-copy a { color:var(--af-navy); text-decoration:underline; text-underline-offset:.18em; }
+.af-path span { color:#71859a; }
+.af-path strong { font-size:inherit; }
+.af-row { display:flex; align-items:center; gap:.6rem; }
+.af-frame select { margin:0; padding:.42rem .62rem; min-width:0; width:auto; }
+.af-frame [data-af-week] { flex:0 0 auto; }
+.af-frame [data-af-exercise] { flex:1 1 12rem; }
+.af-directions:empty { display:none; }
+
+/* Match the width, spacing and white work surfaces of weeks 36 and 37. */
+html[data-atelier-page] :is(body>.outer,body>.wrap,body>.shell,body>main,body>footer.wrap,body>.atelier-shell) {
+  box-sizing:border-box; width:min(100%,var(--af-width)); max-width:var(--af-width); margin-inline:auto;
+  padding-inline:var(--af-gutter);
+}
+html[data-atelier-page] .af-frame~:is(main,.outer,.wrap,.shell,.atelier-shell) { margin-block-start:1.35rem; }
+html[data-atelier-week="46"] .shell>main { max-width:none; }
+html[data-atelier-page] :where(main,.outer,.shell,.wrap) :is(.panel,.section:not(.section>.section),.card,.sheet,.lesson,.flowcard,.paper,.choice,.entry-card,.home-progress) {
+  border-radius:.68rem; border-color:var(--af-line); }
+html[data-atelier-page] :is(.panel,.card,.flowcard,.lesson,.entry-card) { box-shadow:0 2px 8px #17365107; }
+html[data-atelier-page] :where(.lesson,.flowcard):hover { border-color:#7091b2; }
+html[data-atelier-page] :where(.btn,.button):not(.secondary,.ghost,.lite,.link,.light,.danger) { border-radius:.45rem; }
+html[data-atelier-page] :is(.hero,.weekHero,.pagehead,.head,.page-intro):has(h1) { border:1px solid var(--af-line); border-radius:.8rem; background:white; color:var(--af-ink); box-shadow:0 2px 8px #17365107; }
+html[data-atelier-page] :is(.hero,.weekHero,.pagehead,.head,.page-intro):has(h1) :is(h1,h2) { color:var(--af-navy); }
+html[data-atelier-page] :is(.hero,.weekHero,.pagehead,.head,.page-intro):has(h1) :is(.eyebrow,.kicker) { color:var(--af-red); letter-spacing:.045em; }
+html[data-atelier-page] :is(.hero,.weekHero,.pagehead,.head,.page-intro):has(h1) :is(p,.lead) { color:var(--af-secondary); max-width:76ch; }
+html[data-atelier-page] :is(.hero,.weekHero) :is(.btn.light,.btn.primary) { background:var(--af-navy); color:white; border:1px solid var(--af-navy); }
+html[data-atelier-page] :is(.hero,.weekHero) .btn.ghost { background:white; color:var(--af-navy); border:1px solid #9aaebf; }
+html[data-atelier-page] :is(.hero,.weekHero) .btn:hover { filter:brightness(.94); }
+html[data-atelier-page] :where(.pagehead,.head):has(h1) { padding:clamp(1.1rem,2.5vw,2rem); margin:0 0 1rem; max-width:none; }
+html[data-atelier-page] :where(.rule,.box,.notice,.hint,.panel.soft) { border-color:#b6cbe0; }
+html[data-atelier-page] :is(.hero .facts span,.hero-keynote) { background:var(--af-soft); border-color:#c0d5e8; color:var(--af-navy); }
+html[data-atelier-page] :is(.levelbar,.weekline,.pagehead .breadcrumb-back) { scroll-margin-block-start:1rem; }
+html[data-atelier-week="42"] .hero-copy { background:white; color:var(--af-ink); }
+html[data-atelier-week="42"] :is(.program-web-banner,.journey-cue,.stage) { max-width:100%; }
+html[data-atelier-week="42"] .program-web-banner { background:#eaf2fb; border:1px solid #c0d2e4; border-radius:.7rem; }
+html[data-atelier-week="43"] .hero { overflow:auto; }
+html[data-atelier-week="44"] tr:target { background:#eaf2fb; outline:2px solid #83a4c3; outline-offset:-2px; }
+html[data-atelier-week="45"] .hero-art { border-radius:.6rem; background:#edf3f9; }
+html[data-atelier-week="46"] #start .weekHero { margin-top:0; }
+html[data-atelier-week="46"] .lesson { border-top:3px solid #829bb5; }
+html[data-atelier-week="47"] main { padding-block-start:0; }
+html[data-atelier-week="47"] .hero { margin-top:0; min-height:0; grid-template-columns:minmax(0,1.4fr) minmax(16rem,.65fr); }
+html[data-atelier-week="47"] .hero-copy { gap:.65rem; padding:clamp(1.2rem,3.1vw,2.8rem); }
+html[data-atelier-week="47"] .hero h1 { max-width:24ch; }
+html[data-atelier-week="47"] .hero-photo { min-height:12rem; }
+html[data-atelier-week="47"] .ticket { display:none; }
+html[data-atelier-week="47"] .pagehead .breadcrumb-back { display:none; }
+html[data-atelier-week="47"] .stepbtn.active { color:var(--af-navy); background:var(--af-soft); border-color:#91aecc; }
+html[data-atelier-week="47"] .stepbtn.active .stepnum { background:var(--af-navy); color:#fff; }
+html[data-atelier-week="47"] .steps { display:grid; overflow:visible; }
+html[data-atelier-week="47"] .steps .stepbtn { min-width:0; }
+html[data-atelier-week="47"] .goal { background:white; border:1px solid var(--af-line); border-radius:.55rem; }
+html[data-atelier-page] .af-roadmap { margin-block:1.45rem; }
+.af-roadmap-head { display:flex; align-items:baseline; flex-wrap:wrap; justify-content:space-between; gap:.4rem 1rem; margin-bottom:.6rem; }
+.af-roadmap-head h2 { margin:0; color:var(--af-navy); }
+.af-roadmap-head span { font-size:.9rem; color:var(--af-secondary); }
+.af-step-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.5rem; list-style:none; padding:0; margin:0; }
+.af-step-list li { min-width:0; margin:0; }
+.af-step-list a { display:grid; grid-template-columns:2rem minmax(0,1fr) auto; align-items:center; gap:.64rem; padding:.77rem .85rem; height:100%; border:1px solid var(--af-line); border-radius:.55rem; background:white; color:var(--af-navy); text-decoration:none; font-weight:680; }
+.af-step-list a:hover { background:var(--af-soft); border-color:#829bb5; }
+.af-step-list .af-step-number { width:2rem; height:2rem; display:grid; place-items:center; background:#eaf0f6; border-radius:.32rem; font-size:.9rem; }
+.af-step-list small { display:block; color:var(--af-secondary); font-weight:500; }
+.af-step-list .af-next .af-step-number { background:var(--af-navy); color:white; }
+.af-step-list .af-complete .af-step-number { background:#e2f2e9; color:#166748; }
+html.af-contrast { --af-line:#8193a7; --af-secondary:#243b52; }
+@media (max-width:900px) {
+  .af-step-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  html[data-atelier-week="47"] .steps { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:700px) {
+  .af-row { display:grid; grid-template-columns:minmax(6rem,.66fr) minmax(0,1.6fr); gap:.45rem; }
+  .af-frame select { width:100%; }
+  .af-directions { grid-column:1/-1; justify-content:flex-end; }
+  .af-mast { gap:.5rem; }
+  .af-mast .af-home-link { display:none; }
+  .af-frame .af-control { padding:.42rem .58rem; }
+  .af-step-list { grid-template-columns:1fr; }
+  html[data-atelier-week="47"] .hero { grid-template-columns:minmax(0,1fr); }
+  html[data-atelier-week="47"] .hero-photo { min-height:6.5rem; max-height:8rem; }
+  html[data-atelier-page] :where(.shell,.wrap,.outer,.grid,.panel,main) { overflow-wrap:break-word; }
+  html[data-atelier-page] :is(.grid,.grid2,.intro,.columns,.coach,.flowgrid,.lessons,.training-grid) { grid-template-columns:minmax(0,1fr); }
+  html[data-atelier-page] .scroll { max-width:100%; overflow-x:auto; }
+  html[data-atelier-page] td, html[data-atelier-page] th { overflow-wrap:anywhere; }
+}
+@media (max-width:440px) {
+  .af-mast { align-items:center; }
+  .af-brand small { font-size:.78rem; }
+  .af-brand { flex:1 1 100%; }
+  .af-actions { width:100%; }
+  html[data-atelier-week="47"] .steps { grid-template-columns:minmax(0,1fr); }
+}
+@media (prefers-reduced-motion:reduce) {
+  html[data-atelier-page],html[data-atelier-page] * { scroll-behavior:auto!important; }
+}
+html.af-reduced-motion,html.af-reduced-motion * { scroll-behavior:auto!important; transition:none!important; }
+@media print {
+  .af-frame,.af-roadmap { display:none!important; }
+  html[data-atelier-page],html[data-atelier-page] body { background:white; }
+  html[data-atelier-page] .af-frame~:is(main,.outer,.wrap,.shell,.atelier-shell) { margin-top:0; }
+}
+.af-frame .af-school { width:2.3rem; height:2.3rem; object-fit:contain; }
+.af-frame .save-chip { color:var(--af-secondary); font-size:.88rem; }
+atelier-lernweg { display:block; }
+.af-start { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:.56rem .95rem; margin-top:.65rem; border-radius:.45rem; font-weight:680; background:var(--af-navy); color:white; text-decoration:none; }
+.af-start:hover { background:#214e76; color:white; }
+html.af-ready[data-atelier-overview="false"] .af-overview-only { display:none; }
+html.af-ready[data-atelier-week="43"][data-atelier-overview="false"] .outer>.hero { display:none; }
+@media (max-width:600px) { .af-frame .af-school { display:none; } }
+html[data-atelier-page] h1 { font-weight:750; }
+html[data-atelier-page] h2,html[data-atelier-page] h3 { font-weight:700; }
+@media (max-width:780px) {
+  html.af-ready[data-atelier-week="47"] .coach>.steps { display:none; }
+}
+/* Only the route controls stay in view while reading a long exercise. */
+@media screen and (min-height:540px) {
+  .af-frame { display:contents; }
+  .af-top { z-index:18; }
+  .af-nav { position:sticky; inset-block-start:0; z-index:12; }
+  html[data-atelier-page] { scroll-padding-top:6.6rem; }
+}
+@media screen and (max-width:700px) and (min-height:540px) {
+  html[data-atelier-page] { scroll-padding-top:9rem; }
+}
+html[data-atelier-page] :is(.af-intro,.af-work) { padding:clamp(1.15rem,3vw,2.2rem); margin-bottom:1rem; border:1px solid var(--af-line); border-radius:.8rem; background:white; }
+.af-intro .eyebrow { color:var(--af-red); font-weight:700; }
+.af-skip { position:fixed; left:1rem; top:-10rem; z-index:30; padding:.6rem 1rem; color:white; background:var(--af-navy); }
+.af-skip:focus { top:.5rem; }
+html[data-atelier-page] body { min-width:0; }
+@media (max-width:540px) {
+  html[data-atelier-week="38"] .progress-head { flex-wrap:wrap; align-items:start; }
+  html[data-atelier-week="45"] .stats { grid-template-columns:repeat(auto-fit,minmax(min(100%,4rem),1fr)); }
+  html[data-atelier-tool] :is(.maincol,.panel,.panel>div,.section-head>div,.work-card>div) { min-width:0; overflow-wrap:anywhere; }
+}
+@media (max-width:540px) {
+  html[data-atelier-tool] .flex-between { flex-wrap:wrap; }
+  html[data-atelier-tool] .flex-between>div { min-width:0; max-width:100%; overflow-wrap:anywhere; }
+}
+.af-step-detail { display:block; margin:.18rem 0; color:var(--af-ink); font-size:1rem; font-weight:400; line-height:1.45; }
+html[data-atelier-week="45"] .phasehead { padding:clamp(1.1rem,2.5vw,2rem); background:white; border:1px solid var(--af-line); border-radius:.8rem; }
+html[data-atelier-week="45"] .phasehead .eyebrow { color:var(--af-red); }

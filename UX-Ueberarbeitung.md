@@ -1,5 +1,13 @@
 # Überarbeitung des Franz Lernateliers
 
+## Gemeinsame Wochenansicht ab November 2026
+
+Die Wochen 36 und 37 sind die Gestaltungsvorlage. Die folgenden Wochen verwenden dieselbe Schriftfamilie, die Tricolore, weisse Arbeitskarten sowie die Wochen- und Übungswahl über dem Inhalt. Die Wochenwahl liest alle veröffentlichten Wochen aus `public/data/modules.js`.
+
+Für eine neue Woche dient `public/vorlage-neue-woche/index.html` als Ausgangspunkt. Die zugehörige `modul-konfiguration.js` zeigt den Katalogeintrag. Die Missionsliste liefert die Einträge für die Übungswahl und für `<atelier-lernweg>`. Abweichende Ziele lassen sich in einer Mission mit `anchor` oder `href` und in `navigation.more` für Zusatzbereiche eintragen. Begleitseiten derselben Woche binden dieselben gemeinsamen Dateien ein. Die vorhandenen Übungsprogramme verwalten ihre Antworten und Speicherkennungen weiterhin selbst.
+
+## Ursprüngliches Bedienkonzept
+
 Stand: 9. September 2026 · Version 0.19.0
 
 ## Bedienung und Lesbarkeit

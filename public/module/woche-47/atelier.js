@@ -71,7 +71,7 @@
     ['lerncheck','✓','blue','Gemischter Lerncheck','Prüfen Sie alle vier Lernziele mit zwölf Aufgaben und erhalten Sie danach eine persönliche Auswertung.','Lerncheck öffnen']
   ].map(([t,i,c,h,p,a])=>'<article class="card"><span class="typeicon '+c+'" aria-hidden="true">'+i+'</span><h3>'+h+'</h3><p>'+p+'</p>'+(t==='zahlen'||t==='zeiten'?'<span class="small">'+(t==='zahlen'?numbers.length:times.length)+' Aufgaben in drei Stufen</span>':'')+'<a class="tile-link" href="#'+(t==='lerncheck'?t:'training/'+t)+'">'+a+' →</a></article>').join('')+'</div>';}
   function home(){
-    return '<section class="hero"><div class="hero-copy"><span class="eyebrow">Français A2 · Semaine 47</span><h1>Zahlen und Uhrzeiten</h1><p>Wann öffnet das Festival? Wie viele Tickets gibt es? Üben Sie, französische Angaben sicher zu verstehen und selbst Auskunft zu geben.</p><div class="actions">'+link('lernweg/'+nextStage(),Object.keys(state.missionDone).length?'Lernweg fortsetzen →':'Lernweg beginnen →')+link('training','Frei üben','ghost')+'</div></div><div class="hero-photo" role="img" aria-label="Bühne beim Festival des Rives"><div class="ticket" aria-hidden="true"><small>Festival des Rives</small><span>Au guichet</span></div></div></section>'+paused()+
+    return '<section class="hero"><div class="hero-copy"><span class="eyebrow">Französisch A2 · Woche 47</span><h1 lang="fr">Les nombres et l’heure</h1><p>Wann öffnet das Festival? Wie viele Tickets gibt es? Üben Sie, französische Angaben sicher zu verstehen und selbst Auskunft zu geben.</p><div class="actions">'+link('lernweg/'+nextStage(),Object.keys(state.missionDone).length?'Lernweg fortsetzen →':'Lernweg beginnen →')+link('training','Frei üben','ghost')+'</div></div><div class="hero-photo" role="img" aria-label="Bühne beim Festival des Rives"><div class="ticket" aria-hidden="true"><small>Festival des Rives</small><span>Au guichet</span></div></div></section>'+paused()+'<atelier-lernweg></atelier-lernweg>'+
     '<section class="section"><div class="linkrow"><h2>Für die Lernkontrolle üben</h2><a href="#lernstand">Mein Lernstand →</a></div>'+learningCards()+'</section>'+
     '<section class="section" aria-labelledby="learning"><h2 id="learning">Lernziele für Woche 48</h2>'+goalList()+'</section>'+
     '<section class="section panel sandpanel"><div class="linkrow"><div><h3>Material für die Doppellektion</h3><p class="small">Lernheft, Verbkarten und beide Rollenblätter als Druckvorlagen.</p></div><div class="actions"><a class="btn ghost" href="./material/Lernheft.pdf">Lernheft (PDF)</a><a class="btn ghost" href="./material/Partnerkarten.pdf">Partnerkarten (PDF)</a></div></div></section>';
@@ -122,7 +122,7 @@
     });const q=remaining.shift();chosen.push(q);count.set(q.kind,(count.get(q.kind)||0)+1);}
     return chosen;
   }
-  function initRun(pool,label,mode='practice',stage=0) {if(!pool.length)return;run={ids:pool.map(q=>q.id),label,mode,stage,index:0,outcomes:[],entry:null,done:false};newEntry();storeRun();navigate('runde');}
+  function initRun(pool,label,mode='practice',stage=0) {if(!pool.length)return;document.dispatchEvent(new CustomEvent('atelier:trainingstart',{detail:{href:'#runde'}}));run={ids:pool.map(q=>q.id),label,mode,stage,index:0,outcomes:[],entry:null,done:false};newEntry();storeRun();navigate('runde');}
   function newEntry(){const q=current();run.entry={typed:'',chosen:'',order:[],usedHint:false,failed:false,locked:false,feedback:false,transcript:false,list:shuffle(q.options||q.tokens||[])};}
   function startExam(){
     const chosen=examGoals.flatMap(g=>{

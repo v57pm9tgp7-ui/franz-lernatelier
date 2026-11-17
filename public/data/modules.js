@@ -478,6 +478,8 @@ window.FRANZ_MODULES = [
 ];
  
 // Kleine Anpassungen der bestehenden Startseite an die jeweils aktuelle Woche.
+// Die Wochenmodule laden nur den Katalog.
+if (!document.currentScript?.hasAttribute('data-catalog-only')) {
 window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
   const current = window.FRANZ_MODULES.find(module => module.status === 'current');
   if (!current) return;
@@ -631,5 +633,4 @@ if (document.readyState === 'loading' && !window.FRANZ_MODULES.find(m => m.statu
     ? document.addEventListener('DOMContentLoaded', startTeacherLink, {once:true})
     : startTeacherLink();
 })();
-
-
+}

@@ -70,7 +70,13 @@ function save(){S.missionDone={1:!!S.done.forms,2:!!S.done.verbtrain,3:!!S.done.
 function ensure(){if(!Array.isArray(S.verbRound)||!S.verbRound.length)S.verbRound=everyVerbRound();
 if(!Array.isArray(S.opRound)||!S.opRound.length)S.opRound=shuffle(OQ.map((_,i)=>i)).slice(0,8);
 if(!Array.isArray(S.caseRound)||!S.caseRound.length)S.caseRound=shuffle(CASES.map((_,i)=>i)).slice(0,4);save();}
-function nav(tab){S.tab=tab;save();document.querySelectorAll('.view').forEach(e=>{e.hidden=e.id!==tab;});document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false');});render(tab);window.scrollTo({top:0,behavior:'instant'});}
+const tabRoutes = {start:'start',verbes:'mission-1',opinion:'mission-3',transfer:'mission-4'};
+function nav(tab, updateUrl=false, jump=''){
+if(updateUrl){
+ const route=tab==='verbes' && jump==='verbPractice'?'mission-2':tabRoutes[tab];
+ if(route && location.hash!=='#'+route)history.pushState(null,'','#'+route);
+}
+S.tab=tab;save();document.querySelectorAll('.view').forEach(e=>{e.hidden=e.id!==tab;});document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===tab);b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false');});render(tab);document.dispatchEvent(new Event('atelier:route'));window.scrollTo({top:0,behavior:'instant'});}
 function levelbar(){return '<div class="switchline"><span class="muted">Wie viel Unterstützung benötigen Sie?</span><div class="levels">'+[['support','Viel Hilfe'],['standard','Standard'],['challenge','Zusatz']].map(x=>'<button type="button" data-level="'+x[0]+'" class="'+(S.level===x[0]?'active':'')+'">'+x[1]+'</button>').join('')+'</div></div>';}
 function checked(key,label){return '<label class="check"><input type="checkbox" data-done="'+key+'" '+(S.done[key]?'checked':'')+'><span>'+label+'</span></label>';}
 function start(){
@@ -103,8 +109,8 @@ return '<div class="panel"><div class="kicker">Anwenden und überprüfen</div><h
 function render(tab){const host=$('#'+tab);host.innerHTML=tab==='start'?start():tab==='verbes'?verb():tab==='opinion'?opinion():transfer();host.querySelectorAll('[data-done]').forEach(c=>{c.checked=!!S.done[c.dataset.done]});}
 document.addEventListener('click',e=>{
 const b=e.target.closest('button');if(!b)return;
-if(b.dataset.tab){nav(b.dataset.tab);return;}
-if(b.dataset.goto){nav(b.dataset.goto);if(b.dataset.jump)setTimeout(()=>document.getElementById(b.dataset.jump)?.scrollIntoView({block:'start'}),50);return;}
+if(b.dataset.tab){nav(b.dataset.tab,true);return;}
+if(b.dataset.goto){nav(b.dataset.goto,true,b.dataset.jump);if(b.dataset.jump)setTimeout(()=>document.getElementById(b.dataset.jump)?.scrollIntoView({block:'start'}),50);return;}
 if(b.dataset.level){S.level=b.dataset.level;save();render(S.tab);return;}
 if(b.dataset.verb!==undefined){S.verb=Number(b.dataset.verb);save();render('verbes');return;}
 if(b.hasAttribute('data-nextverb')||b.hasAttribute('data-prevverb')){S.verb=(S.verb+(b.hasAttribute('data-nextverb')?1:9))%V.length;save();render('verbes');return;}
@@ -118,6 +124,8 @@ if(b.id==='fontPlus'){S.large=!S.large;document.body.classList.toggle('large',S.
 document.addEventListener('change',e=>{const el=e.target;if(el.dataset.done){S.done[el.dataset.done]=el.checked;save();return;}if(el.dataset.builder){S[el.dataset.builder]=Number(el.value);if(el.dataset.builder==='topic'){S.stance=0;S.reason=0;}if(el.dataset.builder==='stance')S.reason=0;save();render('opinion');}});
 ensure();document.body.classList.toggle('large',!!S.large);$('#fontPlus').setAttribute('aria-pressed',S.large?'true':'false');
 function fromHash(){const hash=location.hash;if(/^#mission-[12]$/.test(hash)||hash==='#training/cards')return 'verbes';if(hash==='#mission-3'||hash==='#training/reaction')return 'opinion';if(hash==='#mission-4'||hash==='#training/expert')return 'transfer';if(hash==='#start')return 'start';return null;}
-const initial=fromHash();nav(initial||(['start','verbes','opinion','transfer'].includes(S.tab)?S.tab:'start'));if(location.hash==='#mission-2')setTimeout(()=>$('#verbPractice')?.scrollIntoView({block:'start'}),60);
+const initial=fromHash() || (Object.hasOwn(tabRoutes,S.tab)?S.tab:'start');
+if(!location.hash && initial!=='start')history.replaceState(null,'','#'+tabRoutes[initial]);
+nav(initial);if(location.hash==='#mission-2')setTimeout(()=>$('#verbPractice')?.scrollIntoView({block:'start'}),60);
 window.addEventListener('hashchange',()=>{const mapped=fromHash();if(mapped){nav(mapped);if(location.hash==='#mission-2')setTimeout(()=>$('#verbPractice')?.scrollIntoView({block:'start'}),60);}});
 })();

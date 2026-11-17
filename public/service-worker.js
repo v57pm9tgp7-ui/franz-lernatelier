@@ -1,5 +1,9 @@
-const CACHE = 'franz-lernatelier-woche47-20261117';
+const CACHE = 'franz-lernatelier-wochenansicht-20261117-1';
 const FILES = [
+  './assets/week-frame.css', './assets/week-frame.js', './assets/week-routes.js',
+  './assets/atelier-navigation.js?v=20261117-navigation', './data/modules.js?v=20261117-navigation',
+  './module/woche-43/index.html', './module/woche-43/', './module/woche-43/vertiefung.html', './module/woche-43/unterricht.html',
+  './module/woche-43/woche43.js?v=20261018-1', './module/woche-43/sync.js?v=20261018-1',
   "./module/woche-47/",
   "./module/woche-47/index.html",
   "./module/woche-47/style.css",
@@ -135,7 +139,7 @@ const FILES = [
   './assets/module-bridge.js?v=20260909-ux14',
   './assets/ui-workspace.css',
   './assets/ui-workspace.js?v=20260909-ux14',
-  './assets/ui-typography-v3.css?v=20260910-type31',
+  './assets/ui-typography-v3.css?v=20260910-type31-layout20261117',
   './assets/logo-se-presenter-christoph.png',
   './data/modules.js',
   './module/woche-36/index.html',
