@@ -1,4 +1,4 @@
-const CACHE = 'franz-lernatelier-wochen-20261112';
+const CACHE = 'franz-lernatelier-wochen-20261117';
 const FILES = [
   "./module/woche-46/index.html",
   "./module/woche-46/",
@@ -6,6 +6,7 @@ const FILES = [
   "./assets/week46-mark.svg",
   "./module/woche-46/material/VerbentestW47Probe.pdf",
   "./module/woche-46/material/VerbentestW47Loesungen.pdf",
+  "./module/woche-46/material/VerbenlisteW46.pdf",
   "./module/woche-46/material/FranzW46Lernheft.pdf",
   "./module/woche-46/dialogue.html",
   "./module/woche-46/dialogue.js",
