@@ -49,7 +49,7 @@
 
   function writeModuleState(patch={}){
     if(!current?.storageKey)return;
-    moduleState={...moduleState,...patch};
+    moduleState={...readModuleState(current),...patch};
     try{localStorage.setItem(current.storageKey,JSON.stringify(moduleState));}catch(error){}
   }
 
@@ -247,6 +247,13 @@
     event?.preventDefault();
     const module=modules.find(m=>m.id===options.moduleId)||current;
     if(!module)return;
+    if(module.ownTraining){
+      if(module.id===current.id)prepareModule(options);
+      const mission=module.missionList.find(item=>item.id===Number(options.mission));
+      const training=module.training.find(item=>item.id===options.training);
+      location.href=module.href+'#'+(training?.anchor||mission?.anchor||(options.training?'training':'start'));
+      return;
+    }
     if(module.week===46){
       if(module.id===current.id)prepareModule(options);
       const mission=module.missionList.find(item=>item.id===Number(options.mission));

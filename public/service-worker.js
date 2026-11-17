@@ -1,5 +1,15 @@
-const CACHE = 'franz-lernatelier-wochen-20261117';
+const CACHE = 'franz-lernatelier-woche47-20261117';
 const FILES = [
+  "./module/woche-47/",
+  "./module/woche-47/index.html",
+  "./module/woche-47/style.css",
+  "./module/woche-47/atelier.js",
+  "./module/woche-47/nombres.js",
+  "./module/woche-47/heures.js",
+  "./module/woche-47/verbes.js",
+  "./module/woche-47/festival.webp",
+  "./module/woche-47/material/Lernheft.pdf",
+  "./module/woche-47/material/Partnerkarten.pdf",
   "./module/woche-46/index.html",
   "./module/woche-46/",
   "./module/woche-46/atelier.js", "./module/woche-46/coach.js",
@@ -22,8 +32,8 @@ const FILES = [
   "./module/woche-45/material/Unterrichtsmaterial_W45.pdf",
   "./module/woche-45/material/Lernhilfe_W45.pdf",
   "./assets/week45-mark.svg",
-  "./assets/app.js?v=20261112-wochen",
-  "./data/modules.js?v=20261110-46",
+  "./assets/app.js?v=20261117-47",
+  "./data/modules.js?v=20261117-47",
 
   './module/woche-44/material/Französisch Lerntraining Kurzanleitung.pdf',
   './verbentrainer/training.css',

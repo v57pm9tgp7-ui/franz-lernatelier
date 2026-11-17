@@ -25,6 +25,46 @@ window.FRANZ_TOPICS = [{"id":"se-presenter-2026","title":"Se présenter","subtit
 
 window.FRANZ_MODULES = [
   {
+    id: 'woche-47-2026', week: 47, schoolYear: '2026/27', topicId: 'heures-nombres-2026',
+    title: 'Les nombres et l’heure', subtitle: 'Verbenrepetition und Vorbereitung auf die Lernkontrolle in Woche 48',
+    description: 'Sie wiederholen 25 Verben und schreiben den Verbentest im Unterricht. Danach hören, lesen und schreiben Sie französische Zahlen und Uhrzeiten.',
+    homeLead: 'Im Unterricht führt Sie der Lernweg durch die Doppellektion. Zu Hause wählen Sie ein Training oder prüfen sich mit zwölf gemischten Aufgaben.',
+    status: 'current', href: 'module/woche-47/', duration: '90 Minuten', missions: 6,
+    get storageKey() {
+      let email = '';
+      try {
+        if (localStorage.getItem('franzLernatelierLocalOnly_v1') !== '1') {
+          const account = JSON.parse(localStorage.getItem('franzLernatelierLearner_v1') || '{}');
+          email = String(account?.email || '').trim().toLowerCase();
+        }
+      } catch (_) {}
+      return 'franzoesischLernatelierW47_v1:' + (email || 'gast');
+    },
+    ownTraining: true,
+    facts: ['15 Min. Verbenrepetition', '35 Min. Verbentest', 'Zahlen und Uhrzeiten für Woche 48'],
+    tags: ['Hörverstehen', 'Zahlen bis 1’000’000', 'Uhrzeiten', 'Présent'],
+    visual: {number: '47', phraseA: 'À quelle heure ?', phraseB: 'Combien de billets ?'},
+    heroLogo: 'module/woche-47/festival.webp',
+    levels: [
+      {id:'support',label:'Soutien',range:'Basis',symbol:'+',color:'#157665',soft:'#e8f4ef',note:'Starten Sie mit vertrauten Zahlen und Zeiten.',supportTitle:'In Schritten lesen',supportText:'Lesen Sie zuerst die Stunde. Eine Viertelstunde heisst «et quart».',layers:['Stunden','Minuten','Tageszeit'],placeholder:'quatre heures …'},
+      {id:'standard',label:'Standard',range:'Aufbau',symbol:'●',color:'#195d86',soft:'#e9f4f9',note:'Wechseln Sie zwischen Ziffern und Wörtern.',supportTitle:'Die Tageszeit präzisieren',supportText:'16 Uhr ist vier Uhr nachmittags. Ergänzen Sie Minuten und Tageszeit.',layers:['Uhrzeit lesen','Alltagssprache','Kontrollieren'],placeholder:'quatre heures … de l’après-midi'},
+      {id:'challenge',label:'Défi',range:'Vertiefung',symbol:'↗',color:'#394b70',soft:'#eff1f6',note:'Lösen Sie komplexe Aufgaben mit grossen Zahlen und Zeitwechseln.',supportTitle:'Zwei Varianten formulieren',supportText:'Formulieren Sie 16 h 15 zuerst im Gespräch, dann wie in einer Fahrplanansage.',layers:['Gespräch','Durchsage','Vergleichen'],placeholder:'Il est …'}
+    ],
+    missionList: [
+      {id:1,anchor:'lernweg/1',title:'Verben wiederholen',description:'Bedeutung, Form und Personenwechsel bei den 25 geübten Verben abrufen.',time:'15 Min.',form:'Einzel- und Partnerarbeit'},
+      {id:2,anchor:'lernweg/2',title:'Verbentest im Unterricht',description:'Die Lernkontrolle auf Papier bearbeiten. Nach der Abgabe zwei Minuten wechseln.',time:'35 + 2 Min.',form:'Einzelarbeit'},
+      {id:3,anchor:'lernweg/3',title:'Uhrzeiten verstehen',description:'Alltagsform, Fahrplansprache und Tageszeit verbinden.',time:'11 Min.',form:'Einzel- und Partnerarbeit'},
+      {id:4,anchor:'lernweg/4',title:'Zahlen bis eine Million',description:'Zahlen hören, in Tausenderblöcke gliedern und ausschreiben.',time:'12 Min.',form:'Einzel- und Partnerarbeit'},
+      {id:5,anchor:'lernweg/5',title:'Am Festivalschalter',description:'Fragen stellen, Zeiten und Zahlen notieren und im Paar bestätigen.',time:'10 Min.',form:'Partnerarbeit'},
+      {id:6,anchor:'lernweg/6',title:'Persönlicher Lerncheck',description:'Den Lernstand einschätzen und das nächste Übungsziel festlegen.',time:'5 Min.',form:'Einzelarbeit'}
+    ],
+    training: [
+      {id:'numbers',anchor:'training/zahlen',title:'Zahlen',subtitle:'0 bis 1’000’000',description:'Grosse Zahlen hören, Stellenwerte erkennen und die französische Schreibweise üben.',icon:'cards',color:'mint',time:'Kurze Runde'},
+      {id:'times',anchor:'training/zeiten',title:'Uhrzeiten',subtitle:'Uhr, Fahrplan und Gespräch',description:'Analoge Uhren lesen, Durchsagen verstehen und Tageszeiten ausdrücken.',icon:'headphones',color:'sky',time:'Kurze Runde'},
+      {id:'check',anchor:'lerncheck',title:'Probe-Lernkontrolle',subtitle:'Für Woche 48',description:'Zwölf gemischte Aufgaben lösen und die Ergebnisse pro Lernziel auswerten.',icon:'bolt',color:'coral',time:'12 Aufgaben'}
+    ]
+  },
+  {
   "id": "woche-46-2026",
   "week": 46,
   "schoolYear": "2026/27",
@@ -33,7 +73,7 @@ window.FRANZ_MODULES = [
   "subtitle": "Zahlen, Uhrzeiten und ein Verkaufsgespräch",
   "description": "Zahlen bis eine Million und gesprochene Uhrzeiten üben, 25 Verben wiederholen und zu zweit ein Verkaufsgespräch aufnehmen.",
   "homeLead": "Öffnen Sie Woche 46 und starten Sie den Unterrichtscoach. Er führt Sie von den Zahlen bis zur Videoabgabe.",
-  "status": "current",
+  "status": "previous",
   "href": "module/woche-46/index.html",
   "duration": "90 Minuten",
   "missions": 6,
@@ -456,7 +496,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
     }
   }
   const existingLogo = document.querySelector('.week-hero-logo');
-  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week===46?current.title:current.week===45?'On fait une bonne affaire !':current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
+  if (existingLogo) { existingLogo.src=current.heroLogo || 'assets/logo-se-presenter-christoph.png'; existingLogo.alt=current.week>=46?current.title:current.week===45?'On fait une bonne affaire !':current.week===44?'Un après-midi avec 30 francs':current.week===42?'De retour':'Se présenter'; }
   const visualNumber = document.querySelector('.visual-number');
   if (visualNumber) visualNumber.textContent = current.visual?.number || current.week;
   const cardA = document.querySelector('.speech-card.card-a');
@@ -464,7 +504,7 @@ window.addEventListener('DOMContentLoaded', () => setTimeout(() => {
   if (cardA) cardA.textContent = current.visual?.phraseA || 'Bonjour !';
   if (cardB) cardB.textContent = current.visual?.phraseB || 'Ça va ?';
   const demo = document.querySelector('.exercise-example small');
-  if (demo) demo.textContent = 'Beispiel aus «Qui suis-je ?»';
+  if (demo) demo.textContent = current.week === 47 ? 'Beispiel aus dem Uhrzeitentraining' : 'Beispiel aus «Qui suis-je ?»';
 
   const coming = document.querySelector('.coming-card');
   if (coming) {
@@ -507,7 +547,7 @@ if (document.readyState === 'loading' && window.FRANZ_MODULES.some(m => m.week =
   document.write('<script src="assets/week38-home.js?v=20260917-w38-2"><\/script>');
 }
 
-if (document.readyState === 'loading') {
+if (document.readyState === 'loading' && !window.FRANZ_MODULES.find(m => m.status === 'current')?.ownTraining) {
   document.write('<script src="assets/topic-training.js?v=20260913-topic2"><\/script>');
 }
 
