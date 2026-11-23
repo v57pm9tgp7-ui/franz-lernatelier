@@ -27,12 +27,12 @@ window.FRANZ_MODULES = [
   {
     id:'woche-48-2026',week:48,schoolYear:'2026/27',topicId:'calendrier-projet-2026',
     title:'Ça, c’est nous !',subtitle:'Lernkontrolle, Zeitbegriffe und unser eigenes Projekt',
-    description:'Zahlen und Uhrzeiten zeigen, bekannte Verben verwandeln, Zeitbegriffe verwenden und zu zweit einen Film, ein Hörspiel oder einen Comic beginnen.',
+    description:'Zahlen und Uhrzeiten zeigen, bekannte Verben verwandeln, Zeitbegriffe verwenden und zu zweit aus neun Projektformaten wählen.',
     homeLead:'Starten Sie mit zehn Minuten persönlicher Vorbereitung. Nach der Lernkontrolle entdecken Sie Zeitbegriffe und wählen aus zwölf Projektideen.',
     status:'current',href:'module/woche-48/',duration:'90 Minuten',missions:6,
     get storageKey(){let email='';try{if(localStorage.getItem('franzLernatelierLocalOnly_v1')!=='1'){const a=JSON.parse(localStorage.getItem('franzLernatelierLearner_v1')||'{}');if(!a.localOnly)email=String(a.email||'').trim().toLowerCase();}}catch(_){}return 'franzoesischLernatelierW48_v1:'+(email||'gast');},
     ownTraining:true,
-    facts:['10 Min. freie Vorbereitung','30 Min. Lernkontrolle','12 Ideen für Ihr Projekt'],
+    facts:['10 Min. freie Vorbereitung','30 Min. Lernkontrolle','9 Formate · 12 Themen'],
     tags:['Zahlen und Uhrzeiten','Zeitbegriffe','Présent','Kreatives Projekt'],
     visual:{number:'48',phraseA:'Quand est-ce qu’on se voit ?',phraseB:'Ça, c’est nous !'},
     heroLogo:'module/woche-44/assets/BFF.png',
@@ -41,9 +41,9 @@ window.FRANZ_MODULES = [
       {id:1,anchor:'vorbereitung',title:'Persönlich vorbereiten',description:'Vier Aufgaben zur Orientierung und drei Wege zum Wiederholen.',time:'10 Min.',form:'Alleine oder zu zweit'},
       {id:2,anchor:'test',title:'Lernkontrolle schreiben',description:'Zahlen und Uhrzeiten selbständig auf Papier lösen.',time:'30 Min.',form:'Einzelarbeit'},
       {id:3,anchor:'verben',title:'Verben verwandeln',description:'Bekannte Verbformen in neuen Sätzen anwenden.',time:'4–5 Min.',form:'Alleine und leise'},
-      {id:4,anchor:'pause',title:'Eine ruhige Pause wählen',description:'Bilderrätsel, Comic oder Musik mit Kopfhörern.',time:'Bis zum gemeinsamen Start',form:'Einzelarbeit'},
+      {id:4,anchor:'pause',title:'Eine ruhige Pause wählen',description:'Kuratierte Angebote zum Gestalten, Spielen und Entdecken.',time:'Bis zum gemeinsamen Start',form:'Einzelarbeit'},
       {id:5,anchor:'kalender',title:'Zeitbegriffe verwenden',description:'Tageszeiten, Wochentage, Monate und Jahreszeiten kennenlernen.',time:'15 Min.',form:'Gemeinsam und zu zweit'},
-      {id:6,anchor:'projekt',title:'Unser Projekt beginnen',description:'Film, Hörspiel oder Comic: eine Idee wählen und die erste Probe sprechen.',time:'22 + 3 Min.',form:'Zweierteam'}
+      {id:6,anchor:'projekt',title:'Unser Projekt beginnen',description:'Modelle ansehen, Format und Thema wählen, eine erste Probe sprechen.',time:'22 + 3 Min.',form:'Zweierteam'}
     ],
     training:[{id:'verbs',anchor:'verben',title:'Verben verwandeln',subtitle:'Neue Sätze',description:'Ergänzen, Person wechseln, Fehler korrigieren und Unsicheres nochmals abrufen.',icon:'cards',color:'mint',time:'4–5 Min.'},{id:'calendar',anchor:'kalender',title:'Zeitbegriffe',subtitle:'Tage, Monate und Jahreszeiten',description:'Zeitbegriffe erkennen und bei einer Verabredung verwenden.',icon:'headphones',color:'sky',time:'Kurze Runde'},{id:'revision',anchor:'vorbereitung',title:'Zahlen und Uhrzeiten',subtitle:'Wiederholung',description:'Die geübten Kenntnisse aus Woche 47 gezielt abrufen.',icon:'bolt',color:'coral',time:'10 Min.'}]
   },

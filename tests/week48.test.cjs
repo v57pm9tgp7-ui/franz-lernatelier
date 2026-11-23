@@ -18,7 +18,7 @@ test('W48 integrates into shared navigation and every activity loads without scr
  const p=await page();try{
   assert.equal(p.d.querySelectorAll('atelier-lernweg a').length,6);
   assert.equal(p.w.FRANZ_MODULES.filter(m=>m.status==='current')[0].week,48);
-  for(const route of ['vorbereitung','test','verben','pause','pause/raetsel','pause/comic','pause/musik','kalender','kalender/partner','projekt','projekt/plan','projekt/kriterien','abschluss','material','training','lernstand','lernziele']){await p.go('#'+route);assert.ok(p.d.querySelector('main h1'),route);}
+  for(const route of ['vorbereitung','test','verben','pause','pause/raetsel','pause/comic','pause/musik','kalender','kalender/partner','projekt','projekt/formate','projekt/beispiele','projekt/beispiel/film','projekt/beispiel/chatstory','projekt/plan','projekt/kriterien','abschluss','material','training','lernstand','lernziele']){await p.go('#'+route);assert.ok(p.d.querySelector('main h1'),route);}
   assert.deepEqual(p.errors,[]);
  }finally{p.close();}
 });
@@ -61,9 +61,40 @@ test('All twelve ideas offer language support and a safely persisted project pla
 });
 test('Material links resolve to learning documents; graded test and keys remain unpublished',async()=>{
  const p=await page('#material');try{
-  const links=Array.from(p.d.querySelectorAll('main a[href*="material/"]'));assert.equal(links.length,4);
+  const links=Array.from(p.d.querySelectorAll('main a[href*="material/"]'));assert.equal(links.length,6);
   for(const a of links){const file=path.join(root,new URL(a.href).pathname);assert.ok(fs.statSync(file).size>1000);}
-  const files=fs.readdirSync(path.join(root,'module/woche-48/material'));assert.ok(files.every(f=>/^(Lernheft|Projektideen)Woche48\.(pdf|docx)$/.test(f)));
+  const files=fs.readdirSync(path.join(root,'module/woche-48/material'));assert.ok(files.every(f=>/^(Lernheft|Projektideen|Projektkompass)Woche48\.(pdf|docx)$/.test(f)));
   const c=p.w.W48Testing.correct;assert.equal(c({goal:'G1',answers:['420018']},'420’018'),true);assert.equal(c({goal:'G1',answers:['420018']},'42.018'),false);assert.equal(c({goal:'V',answers:['écrit']},'ecrit'),false);
+ }finally{p.close();}
+});
+test('The quiet break filters real activities without making them an assessed task',async()=>{
+ const p=await page('#pause');try{
+  assert.equal(p.d.querySelectorAll('.w48-discovery').length,5);
+  await p.click('[data-action="pause-filter"][data-filter="silent"]');assert.equal(p.d.querySelectorAll('.w48-discovery').length,3);
+  for(const a of p.d.querySelectorAll('.w48-discovery a')){assert.equal(new URL(a.href).protocol,'https:');assert.equal(a.target,'_blank');assert.match(a.rel,/noopener/);}
+  assert.match(p.d.querySelector('main').textContent,/keine Bewertung/);assert.doesNotMatch(p.d.querySelector('main').textContent,/Vier kleine Bilderrätsel/);
+ }finally{p.close();}
+});
+test('Nine formats have complete models and selecting one preserves a previous project draft',async()=>{
+ const p=await page('#projekt/formate',{plan:{title:'Unser eigener Titel',dialogue:'A: Notre idée.',format:'Mini-Film'}});try{
+  assert.equal(p.d.querySelectorAll('.w48-format').length,9);
+  await p.click('[data-action="format-filter"][data-filter="voice"]');assert.equal(p.d.querySelectorAll('.w48-format').length,2);
+  await p.click('[data-action="choose-format"][data-format="podcast"]');assert.equal(p.state().plan.format,'Mini-Podcast / Interview');assert.equal(p.state().plan.title,'Unser eigener Titel');
+  await p.go('#projekt/plan');assert.equal(p.d.querySelector('#plan-format').value,'Mini-Podcast / Interview');assert.equal(p.d.querySelector('#plan-dialogue').value,'A: Notre idée.');
+  assert.equal(p.w.W48Models.length,9);
+  for(const m of p.w.W48Models){await p.go('#projekt/beispiel/'+m.id);assert.equal(p.d.querySelector('.wm-gallery').dataset.modelId,m.id);assert.equal(m.scenes.length,6);const turns=m.scenes.flatMap(s=>s.turns);assert.equal(turns.length,12);assert.equal(turns.filter(t=>t.speaker==='A').length,6);assert.ok(m.verbs.length>=5);assert.ok(p.d.querySelector('main h1'));}
+  assert.deepEqual(p.errors,[]);
+ }finally{p.close();}
+});
+test('Model playback is opt-in, changes scenes, exposes translations, and stops when leaving',async()=>{
+ const p=await page('#projekt/beispiel/film');try{
+  let spoken=0,cancelled=0;p.w.SpeechSynthesisUtterance=function(text){this.text=text;};p.w.speechSynthesis={getVoices:()=>[{lang:'fr-FR'}],speak:()=>spoken++,cancel:()=>cancelled++};
+  assert.equal(spoken,0);assert.equal(p.d.querySelector('.wm-playing'),null);
+  await p.click('[data-model-action="scene"][data-scene="3"]');assert.match(p.d.querySelector('[data-model-stage]').textContent,/Szene 4 von 6/);
+  const box=p.d.querySelector('[data-model-translation]');box.checked=true;box.dispatchEvent(new p.w.Event('change',{bubbles:true}));assert.ok(p.d.querySelector('.wm-show-de'));
+  await p.click('[data-model-action="voice"]');assert.equal(spoken,1);
+  await p.go('#projekt');assert.ok(cancelled>0);assert.equal(p.d.querySelector('.wm-gallery'),null);
+  await p.go('#projekt/beispiel/chatstory');delete p.w.speechSynthesis;await p.click('[data-model-action="voice"]');assert.match(p.d.querySelector('[data-model-status]').textContent,/keine Vorlesestimme/);assert.equal(p.d.querySelectorAll('.wm-chat-body>section').length,6);
+  assert.deepEqual(p.errors,[]);
  }finally{p.close();}
 });

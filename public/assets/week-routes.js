@@ -6,7 +6,7 @@
   const root = new URL('../', document.currentScript?.src || new URL('assets/week-routes.js', location.href));
   const weeks = modules.filter(m => m.status !== 'draft').sort((a, b) => a.week - b.week);
   const definitions = {
-    48: {training:'#training',more:[['Lernziele','#lernziele'],['Freies Training','#training'],['Mein Lernstand','#lernstand'],['Terminkarten','#kalender/partner'],['Unser Projektplan','#projekt/plan'],['Projektbeurteilung','#projekt/kriterien'],['Material','#material'],['Abschluss','#abschluss']]},
+    48: {training:'#training',more:[['Lernziele','#lernziele'],['Freies Training','#training'],['Mein Lernstand','#lernstand'],['Terminkarten','#kalender/partner'],['Neun Projektformate','#projekt/formate'],['Projektmodelle','#projekt/beispiele'],['Unser Projektplan','#projekt/plan'],['Projektbeurteilung','#projekt/kriterien'],['Material','#material'],['Abschluss','#abschluss']]},
     36: { overview: '#dashboard' },
     38: { more: [['Herbstferien', 'herbstferien.html']] },
     42: {
