@@ -18,7 +18,7 @@ test('W48 integrates into shared navigation and every activity loads without scr
  const p=await page();try{
   assert.equal(p.d.querySelectorAll('atelier-lernweg a').length,6);
   assert.equal(p.w.FRANZ_MODULES.filter(m=>m.status==='current')[0].week,48);
-  for(const route of ['vorbereitung','test','verben','pause','pause/raetsel','pause/comic','pause/musik','kalender','kalender/partner','projekt','projekt/formate','projekt/beispiele','projekt/beispiel/film','projekt/beispiel/chatstory','projekt/plan','projekt/kriterien','abschluss','material','training','lernstand','lernziele']){await p.go('#'+route);assert.ok(p.d.querySelector('main h1'),route);}
+  for(const route of ['vorbereitung','test','verben','verben/formen','verben/erkennen','verben/tabelle','verben/bedeutung','verben/uebersicht','pause','pause/raetsel','pause/comic','pause/musik','kalender','kalender/partner','projekt','projekt/formate','projekt/beispiele','projekt/beispiel/film','projekt/beispiel/chatstory','projekt/plan','projekt/kriterien','abschluss','material','training','lernstand','lernziele']){await p.go('#'+route);assert.ok(p.d.querySelector('main h1'),route);}
   assert.deepEqual(p.errors,[]);
  }finally{p.close();}
 });
@@ -95,6 +95,51 @@ test('Model playback is opt-in, changes scenes, exposes translations, and stops 
   await p.click('[data-model-action="voice"]');assert.equal(spoken,1);
   await p.go('#projekt');assert.ok(cancelled>0);assert.equal(p.d.querySelector('.wm-gallery'),null);
   await p.go('#projekt/beispiel/chatstory');delete p.w.speechSynthesis;await p.click('[data-model-action="voice"]');assert.match(p.d.querySelector('[data-model-status]').textContent,/keine Vorlesestimme/);assert.equal(p.d.querySelectorAll('.wm-chat-body>section').length,6);
+  assert.deepEqual(p.errors,[]);
+ }finally{p.close();}
+});
+
+async function select(p,selector,value){const el=p.d.querySelector(selector);assert.ok(el,selector);el.value=value;el.dispatchEvent(new p.w.Event('change',{bubbles:true}));await tick();}
+async function checkTable(p){p.d.querySelector('#verb-table-form').dispatchEvent(new p.w.Event('submit',{bubbles:true,cancelable:true}));await tick();}
+test('Additional verb paths cover exactly the known catalog, all six persons, and unambiguous choices',async()=>{
+ const p=await page('#verben/uebersicht');try{
+  const {catalog,questions}=p.w.W48Verbs;
+  assert.equal(catalog.length,25);assert.deepEqual(new Set(Array.from(catalog,v=>v.fr)),new Set(Array.from(p.w.W48Data.verbs,q=>q.verb)));
+  assert.equal(questions.length,325);assert.equal(new Set(questions.map(q=>q.id)).size,325);
+  assert.equal(p.d.querySelectorAll('main details').length,25);
+  for(const v of catalog){assert.equal(questions.filter(q=>q.verb===v.fr&&q.mode==='forms').length,6);for(let i=0;i<6;i++){const q=questions.find(q=>q.id===`w48-form-${v.id}-${i}`);assert.equal(q.answers[0],v.forms[i]);}}
+  for(const q of questions.filter(q=>q.kind==='choice')){assert.ok(q.options.includes(q.answers[0]));assert.equal(new Set(q.options).size,q.options.length);assert.ok(q.options.length>=3);}
+  await p.click('[data-vaction="open-table"][data-verb="écrire"]');assert.equal(p.d.querySelector('#verb-table-select').value,'écrire');assert.equal(p.d.querySelectorAll('input[data-vinput]').length,6);
+ }finally{p.close();}
+});
+test('Targeted rounds respect week, person, verb and length; short pools remain usable',async()=>{
+ const p=await page('#verben/formen');try{
+  await select(p,'#verb-scope','46');await select(p,'#verb-person','4');await select(p,'#verb-count','12');assert.match(p.d.querySelector('#verb-pool-count').textContent,/^5 /);
+  await p.click('[data-vaction="start"]');let qs=p.run().ids.map(id=>p.w.W48Testing.bank.find(q=>q.id===id));assert.equal(qs.length,5);assert.ok(qs.every(q=>q.person===4&&['lire','acheter','ouvrir','manger','comprendre'].includes(q.verb)));
+  await p.go('#verben/formen');await select(p,'#verb-focus','être');assert.equal(p.d.querySelector('#verb-scope').value,'all');await p.click('[data-vaction="start"]');assert.deepEqual(p.run().ids,['w48-form-être-4']);
+  await p.answer('êtes');await p.click('[data-action="next"]');assert.equal(p.run().done,true);assert.equal(p.state().missionDone[3],true);
+  await p.go('#verben/bedeutung');await select(p,'#verb-scope','45');assert.equal(p.d.querySelector('#verb-focus').value,'all');await p.click('[data-vaction="start"]');qs=p.run().ids.map(id=>p.w.W48Testing.bank.find(q=>q.id===id));assert.equal(qs.length,5);assert.ok(qs.every(q=>q.mode==='meaning'));
+  assert.deepEqual(p.errors,[]);
+ }finally{p.close();}
+});
+test('Conjugation rows preserve drafts and separate first attempts, corrections, and per-row solutions',async()=>{
+ const p=await page('#verben/tabelle',{plan:{title:'Unser Projekt bleibt'}});let saved;try{
+  await select(p,'#verb-table-select','acheter');p.input('#verb-form-0','achete');p.input('#verb-form-1','achètes');await checkTable(p);
+  assert.match(p.d.querySelector('#verb-msg-0').textContent,/Noch nicht richtig/);assert.equal(p.state().items['w48-form-acheter-0'],undefined);assert.equal(p.state().items['w48-form-acheter-1'].review,false);
+  assert.equal(p.d.querySelector('#verb-form-2').disabled,false);assert.equal(p.state().items['w48-form-acheter-2'],undefined);
+  await p.click('[data-vaction="reveal-row"][data-row="2"]');assert.equal(p.state().items['w48-form-acheter-2'].review,true);
+  p.input('#verb-form-0','achète');p.input('#verb-form-3','achetons');p.input('#verb-form-4','achetez');p.input('#verb-form-5','achètent');await checkTable(p);
+  assert.equal(p.state().items['w48-form-acheter-0'].review,true);assert.equal(p.state().items['w48-form-acheter-3'].review,false);assert.match(p.d.querySelector('#verb-table-status').textContent,/6 von 6 Formen bearbeitet · 4 ohne Hilfe/);
+  await p.go('#verben');await p.click('[data-action="verbs-retry"]');assert.equal(p.run().ids.length,2);assert.ok(p.run().ids.every(id=>['w48-form-acheter-0','w48-form-acheter-2'].includes(id)));
+  await p.go('#verben/tabelle');assert.equal(p.d.querySelector('#verb-form-0').value,'achète');assert.equal(p.d.querySelector('#verb-form-0').disabled,true);assert.equal(p.state().plan.title,'Unser Projekt bleibt');saved=p.state();assert.deepEqual(p.errors,[]);
+ }finally{p.close();}
+ const restored=await page('#verben/tabelle',saved);try{assert.equal(restored.d.querySelector('#verb-table-select').value,'acheter');assert.equal(restored.d.querySelector('#verb-form-2').disabled,true);await restored.click('[data-vaction="reset"]');assert.equal(restored.d.querySelector('#verb-form-0').value,'');const v=restored.w.W48Verbs.catalog.find(v=>v.id==='acheter');v.forms.forEach((f,i)=>restored.input('#verb-form-'+i,f));await checkTable(restored);assert.ok(v.forms.every((_,i)=>restored.state().items['w48-form-acheter-'+i].review===false));}finally{restored.close();}
+});
+test('A table hint affects only open rows; recognition never completes the free-writing record',async()=>{
+ const p=await page('#verben/tabelle');try{
+  p.input('#verb-form-0','suis');await checkTable(p);await p.click('[data-vaction="tip"]');['es','est','sommes','êtes','sont'].forEach((f,i)=>p.input('#verb-form-'+(i+1),f));await checkTable(p);
+  assert.equal(p.state().items['w48-form-être-0'].review,false);for(let i=1;i<6;i++)assert.equal(p.state().items['w48-form-être-'+i].review,true);
+  await p.go('#verben/erkennen');await select(p,'#verb-focus','lire');await select(p,'#verb-person','4');await p.click('[data-vaction="start"]');assert.equal(p.d.querySelector('#answer').tagName,'SELECT');await p.answer('lisez');assert.equal(p.state().items['w48-choice-lire-4'].review,false);assert.equal(p.state().items['w48-form-lire-4'],undefined);
   assert.deepEqual(p.errors,[]);
  }finally{p.close();}
 });
